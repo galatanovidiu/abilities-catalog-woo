@@ -108,6 +108,14 @@ final class Integration {
 		'wc-system/get-system-status',
 		'wc-system/list-system-tools',
 		'wc-system/get-system-tool',
+		'wc-data/list-data-index',
+		'wc-data/list-countries',
+		'wc-data/get-country',
+		'wc-data/list-currencies',
+		'wc-data/get-current-currency',
+		'wc-data/get-currency',
+		'wc-data/list-continents',
+		'wc-data/get-continent',
 	);
 
 	/**
