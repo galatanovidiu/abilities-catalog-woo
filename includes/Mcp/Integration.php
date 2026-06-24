@@ -39,7 +39,13 @@ final class Integration {
 	 *
 	 * @var list<string>
 	 */
-	private const STORE_CATALOG_ABILITIES = array();
+	private const STORE_CATALOG_ABILITIES = array(
+		'wc-products/list-products',
+		'wc-products/get-product',
+		'wc-products/list-product-variations',
+		'wc-products/get-product-variation',
+		'wc-products/list-product-custom-field-names',
+	);
 
 	/**
 	 * The `store-orders` tool's ability names (wc-orders + wc-customers + wc-coupons), in tool order.
