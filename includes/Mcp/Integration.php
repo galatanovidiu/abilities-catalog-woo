@@ -66,7 +66,15 @@ final class Integration {
 	 *
 	 * @var list<string>
 	 */
-	private const STORE_ORDERS_ABILITIES = array();
+	private const STORE_ORDERS_ABILITIES = array(
+		'wc-orders/list-orders',
+		'wc-orders/get-order',
+		'wc-orders/list-order-statuses',
+		'wc-orders/list-order-notes',
+		'wc-orders/get-order-note',
+		'wc-orders/list-order-refunds',
+		'wc-orders/get-order-refund',
+	);
 
 	/**
 	 * The `store-config` tool's ability names (wc-settings + wc-shipping + wc-taxes
