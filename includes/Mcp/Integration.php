@@ -165,6 +165,11 @@ final class Integration {
 		'wc-taxes/create-tax-rate',
 		'wc-taxes/update-tax-rate',
 		'wc-taxes/create-tax-class',
+		'wc-shipping/delete-shipping-zone',
+		'wc-shipping/delete-shipping-zone-method',
+		'wc-taxes/delete-tax-rate',
+		'wc-taxes/delete-tax-class',
+		'wc-webhooks/delete-webhook',
 	);
 
 	/**
