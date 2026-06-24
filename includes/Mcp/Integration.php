@@ -53,6 +53,12 @@ final class Integration {
 		'wc-products/get-product-category',
 		'wc-products/list-product-tags',
 		'wc-products/get-product-tag',
+		'wc-products/list-product-brands',
+		'wc-products/get-product-brand',
+		'wc-products/list-shipping-classes',
+		'wc-products/get-shipping-class',
+		'wc-products/list-product-reviews',
+		'wc-products/get-product-review',
 	);
 
 	/**

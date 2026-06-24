@@ -28,11 +28,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * This is NOT under `includes/Abilities/`, so the Registry never treats it as an
  * ability.
  *
- * Two feature detectors are added later by the driver as pre-edits when the
- * batches that need them land (so they ship covered by tests), NOT now:
+ * Feature detectors are added by the driver as pre-edits when the batches that
+ * need them land (so they ship covered by tests):
  *
  * - `hasBrandsSupport(): bool` — whether the product Brands feature is present
- *   (detected via the `/products/brands` REST route or the Brands feature class).
+ *   (detected via the `/wc/v3/products/brands` REST route the feature registers).
  *   Added with batch 03.
  * - `hasAnalytics(): bool` — whether WooCommerce Analytics is present (detected via
  *   the `wc-analytics` namespace / the Analytics feature). Added with batches 11–13.
@@ -52,6 +52,32 @@ final class WooPlugin {
 	 */
 	public static function isActive(): bool {
 		return class_exists( 'WooCommerce' );
+	}
+
+	/**
+	 * Whether the WooCommerce product Brands feature is present.
+	 *
+	 * The Brands feature registers the `/wc/v3/products/brands` REST route on
+	 * `rest_api_init` (it is not part of the core `wc/v3` server). The two brand
+	 * abilities wrap exactly that route, so detecting the route — rather than a
+	 * feature class name or a WooCommerce version — is the truthful guard: it is
+	 * true precisely when the surface those abilities call exists. Calling
+	 * {@see rest_get_server()} boots the server and fires `rest_api_init` if it has
+	 * not run yet, so the route is registered by the time abilities resolve.
+	 *
+	 * When this returns false the brand abilities do not register, so they degrade
+	 * cleanly (absent) rather than denying.
+	 *
+	 * @return bool True when the `/wc/v3/products/brands` route is registered.
+	 */
+	public static function hasBrandsSupport(): bool {
+		if ( ! self::isActive() ) {
+			return false;
+		}
+
+		$routes = rest_get_server()->get_routes();
+
+		return isset( $routes['/wc/v3/products/brands'] );
 	}
 
 	/**
