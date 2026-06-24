@@ -120,6 +120,8 @@ final class Integration {
 		'wc-orders/delete-order-refund',
 		'wc-coupons/delete-coupon',
 		'wc-customers/delete-customer',
+		'wc-orders/update-order-status',
+		'wc-orders/send-order-email',
 	);
 
 	/**
