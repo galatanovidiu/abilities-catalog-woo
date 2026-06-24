@@ -102,6 +102,10 @@ final class Integration {
 		'wc-customers/list-customer-downloads',
 		'wc-coupons/list-coupons',
 		'wc-coupons/get-coupon',
+		'wc-customers/create-customer',
+		'wc-customers/update-customer',
+		'wc-coupons/create-coupon',
+		'wc-coupons/update-coupon',
 	);
 
 	/**

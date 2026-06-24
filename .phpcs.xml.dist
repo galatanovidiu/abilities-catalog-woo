@@ -243,6 +243,7 @@
 				<element value="read_shop_order" />
 				<element value="read_private_shop_coupons" />
 				<element value="publish_shop_coupons" />
+				<element value="edit_shop_coupons" />
 				<element value="edit_shop_coupon" />
 				<element value="delete_shop_coupon" />
 				<element value="list_users" />
