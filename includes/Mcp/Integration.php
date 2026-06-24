@@ -87,7 +87,15 @@ final class Integration {
 	 *
 	 * @var list<string>
 	 */
-	private const STORE_CONFIG_ABILITIES = array();
+	private const STORE_CONFIG_ABILITIES = array(
+		'wc-shipping/list-shipping-zones',
+		'wc-shipping/get-shipping-zone',
+		'wc-shipping/get-shipping-zone-locations',
+		'wc-shipping/list-shipping-zone-methods',
+		'wc-shipping/get-shipping-zone-method',
+		'wc-shipping/list-shipping-methods',
+		'wc-shipping/get-shipping-method',
+	);
 
 	/**
 	 * The `store-reports` tool's ability names (wc-reports, legacy + analytics), in tool order.
