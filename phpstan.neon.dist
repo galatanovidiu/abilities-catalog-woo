@@ -1,0 +1,51 @@
+# https://phpstan.org/config-reference
+
+parameters:
+	# Rules
+	treatPhpDocTypesAsCertain: false
+	inferPrivatePropertyTypeFromConstructor: true
+	checkExplicitMixedMissingReturn: true
+	checkFunctionNameCase: true
+	checkInternalClassCaseSensitivity: true
+	checkTooWideReturnTypesInProtectedAndPublicMethods: true
+	polluteScopeWithAlwaysIterableForeach: false
+	polluteScopeWithLoopInitialAssignments: false
+	reportAlwaysTrueInLastCondition: true
+	reportStaticMethodSignatures: true
+	reportWrongPhpDocTypeInVarTag: true
+
+	# Configuration
+	level: 8
+	phpVersion:
+		min: 80100
+		max: 80500
+	bootstrapFiles:
+		- abilities-catalog-woo.php
+	paths:
+		- abilities-catalog-woo.php
+		- includes/
+	excludePaths:
+		analyse:
+			- vendor/ (?)
+		analyseAndScan:
+			- node_modules (?)
+
+	# Do not fail when an ignore pattern matches nothing (keeps the shared
+	# ignore list portable as the codebase changes).
+	reportUnmatchedIgnoredErrors: false
+
+	ignoreErrors:
+		- # TODO: These are too noisy, we'll restore them in the future.
+			identifier: missingType.iterableValue
+
+		# WooCommerce is the runtime dependency, absent from the analysis path and
+		# from the WordPress stubs. All WooCommerce symbol access (WC, wc_*, WC_*) is
+		# confined to this one facade, so its unknown-symbol errors are ignored here
+		# and nowhere else. Abilities reach WooCommerce only through rest_do_request,
+		# so they need no WooCommerce stubs.
+		-
+			identifier: class.notFound
+			path: includes/Support/WooPlugin.php
+		-
+			identifier: function.notFound
+			path: includes/Support/WooPlugin.php
