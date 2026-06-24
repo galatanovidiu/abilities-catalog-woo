@@ -45,6 +45,14 @@ final class Integration {
 		'wc-products/list-product-variations',
 		'wc-products/get-product-variation',
 		'wc-products/list-product-custom-field-names',
+		'wc-products/list-product-attributes',
+		'wc-products/get-product-attribute',
+		'wc-products/list-attribute-terms',
+		'wc-products/get-attribute-term',
+		'wc-products/list-product-categories',
+		'wc-products/get-product-category',
+		'wc-products/list-product-tags',
+		'wc-products/get-product-tag',
 	);
 
 	/**

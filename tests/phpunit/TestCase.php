@@ -49,11 +49,115 @@ abstract class TestCase extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Resets the current user after each test.
+	 * Creates a global product attribute and registers its `pa_*` taxonomy.
+	 *
+	 * Global attributes live in the custom `{$wpdb->prefix}woocommerce_attribute_taxonomies`
+	 * table, which the WP_UnitTestCase transaction does NOT roll back, and
+	 * `wc_create_attribute()` does not register the new `pa_*` taxonomy for the
+	 * current request. This helper mirrors WooCommerce core's own test helper
+	 * (`WC_Helper_Product::create_attribute()`): it clears the attribute caches,
+	 * creates the attribute, fails loudly on a WP_Error (the per-test cleanup in
+	 * tear_down() removes leaked rows so slug collisions cannot happen), then
+	 * registers the `pa_*` taxonomy so `wp_insert_term()` and the wrapped REST
+	 * query can see it.
+	 *
+	 * @param string $name The attribute name, e.g. "Color".
+	 * @param string $type The attribute type. Defaults to "select".
+	 * @return array{id:int,taxonomy:string} The attribute id and its `pa_*` taxonomy name.
+	 */
+	protected function createGlobalAttribute(string $name, string $type = 'select'): array {
+		// Mirror core's helper: start from clean attribute caches.
+		delete_transient('wc_attribute_taxonomies');
+		if (method_exists('WC_Cache_Helper', 'invalidate_cache_group')) {
+			\WC_Cache_Helper::invalidate_cache_group('woocommerce-attributes');
+		}
+
+		$slug     = wc_sanitize_taxonomy_name($name);
+		$taxonomy = wc_attribute_taxonomy_name($slug);
+
+		// Deregister any taxonomy a prior test may have left registered in-request.
+		unregister_taxonomy($taxonomy);
+
+		$attribute_id = wc_create_attribute(
+			array(
+				'name'         => $name,
+				'slug'         => $slug,
+				'type'         => $type,
+				'order_by'     => 'menu_order',
+				'has_archives' => 0,
+			)
+		);
+
+		// Fail loudly: cleanup in tear_down() should make slug collisions impossible.
+		$this->assertNotWPError($attribute_id, 'Failed to create global attribute "' . $name . '".');
+
+		// Register the pa_* taxonomy in-request, as core's helper does.
+		register_taxonomy(
+			$taxonomy,
+			apply_filters('woocommerce_taxonomy_objects_' . $taxonomy, array('product')),
+			apply_filters(
+				'woocommerce_taxonomy_args_' . $taxonomy,
+				array(
+					'labels'       => array('name' => $name),
+					'hierarchical' => false,
+					'show_ui'      => false,
+					'query_var'    => true,
+					'rewrite'      => false,
+				)
+			)
+		);
+
+		delete_transient('wc_attribute_taxonomies');
+		if (method_exists('WC_Cache_Helper', 'invalidate_cache_group')) {
+			\WC_Cache_Helper::invalidate_cache_group('woocommerce-attributes');
+		}
+
+		return array(
+			'id'       => (int) $attribute_id,
+			'taxonomy' => $taxonomy,
+		);
+	}
+
+	/**
+	 * Deletes every global product attribute.
+	 *
+	 * Global attributes are stored outside the test transaction, so rows leak
+	 * across tests and runs. Calling this before each test guarantees a zero-
+	 * attribute baseline, which stops "slug already exists" collisions and stale
+	 * cached attribute lists. Mirrors the cleanup WooCommerce core does in its
+	 * own test helper.
+	 *
+	 * @return void
+	 */
+	private function deleteAllGlobalAttributes(): void {
+		foreach (wc_get_attribute_taxonomies() as $taxonomy) {
+			wc_delete_attribute((int) $taxonomy->attribute_id);
+			unregister_taxonomy(wc_attribute_taxonomy_name($taxonomy->attribute_name));
+		}
+
+		delete_transient('wc_attribute_taxonomies');
+		if (method_exists('WC_Cache_Helper', 'invalidate_cache_group')) {
+			\WC_Cache_Helper::invalidate_cache_group('woocommerce-attributes');
+		}
+	}
+
+	/**
+	 * Clears leaked global attributes before each test.
+	 *
+	 * @return void
+	 */
+	public function set_up(): void {
+		parent::set_up();
+		$this->deleteAllGlobalAttributes();
+	}
+
+	/**
+	 * Resets the current user and clears global attributes after each test.
 	 *
 	 * @return void
 	 */
 	public function tear_down(): void {
+		$this->deleteAllGlobalAttributes();
 		wp_set_current_user(0);
 		parent::tear_down();
 	}
