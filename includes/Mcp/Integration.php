@@ -145,6 +145,12 @@ final class Integration {
 		'wc-reports/get-taxes-stats',
 		'wc-reports/list-customers-analytics',
 		'wc-reports/get-customers-stats',
+		'wc-reports/list-stock-analytics',
+		'wc-reports/get-stock-stats',
+		'wc-reports/list-variations-analytics',
+		'wc-reports/get-variations-stats',
+		'wc-reports/list-downloads-analytics',
+		'wc-reports/get-downloads-stats',
 	);
 
 	/**
