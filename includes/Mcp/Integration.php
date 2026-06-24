@@ -65,6 +65,14 @@ final class Integration {
 		'wc-products/create-product-variation',
 		'wc-products/update-product-variation',
 		'wc-products/generate-product-variations',
+		'wc-products/create-product-attribute',
+		'wc-products/update-product-attribute',
+		'wc-products/create-attribute-term',
+		'wc-products/update-attribute-term',
+		'wc-products/create-product-category',
+		'wc-products/update-product-category',
+		'wc-products/create-product-tag',
+		'wc-products/update-product-tag',
 	);
 
 	/**
