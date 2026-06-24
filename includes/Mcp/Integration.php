@@ -123,7 +123,15 @@ final class Integration {
 	 *
 	 * @var list<string>
 	 */
-	private const STORE_REPORTS_ABILITIES = array();
+	private const STORE_REPORTS_ABILITIES = array(
+		'wc-reports/get-sales-report',
+		'wc-reports/get-top-sellers-report',
+		'wc-reports/get-orders-totals',
+		'wc-reports/get-products-totals',
+		'wc-reports/get-customers-totals',
+		'wc-reports/get-coupons-totals',
+		'wc-reports/get-reviews-totals',
+	);
 
 	/**
 	 * Registers the MCP filter hooks.
