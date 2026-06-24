@@ -74,6 +74,11 @@ final class Integration {
 		'wc-orders/get-order-note',
 		'wc-orders/list-order-refunds',
 		'wc-orders/get-order-refund',
+		'wc-customers/list-customers',
+		'wc-customers/get-customer',
+		'wc-customers/list-customer-downloads',
+		'wc-coupons/list-coupons',
+		'wc-coupons/get-coupon',
 	);
 
 	/**

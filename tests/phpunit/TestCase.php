@@ -49,6 +49,38 @@ abstract class TestCase extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Enables WooCommerce coupons and registers the `shop_coupon` post type.
+	 *
+	 * WooCommerce registers the `shop_coupon` post type ONLY when the option
+	 * `woocommerce_enable_coupons` is `'yes'` (see WC `class-wc-post-types.php`
+	 * `register_post_types()`). The test bootstrap leaves that option unset, so
+	 * `shop_coupon` is never registered and the wrapped `/wc/v3/coupons` route's
+	 * permission check fails for everyone (its `wc_rest_check_post_permissions()`
+	 * returns false when `get_post_type_object('shop_coupon')` is null). A real
+	 * store with coupons enabled always has the post type, so any coupon test must
+	 * call this first. The registration mirrors WooCommerce's own args so
+	 * `cap->read_private_posts` resolves to `read_private_shop_coupons`.
+	 *
+	 * @return void
+	 */
+	protected function enableCoupons(): void {
+		update_option('woocommerce_enable_coupons', 'yes');
+
+		if (!post_type_exists('shop_coupon')) {
+			register_post_type(
+				'shop_coupon',
+				array(
+					'public'          => false,
+					'show_ui'         => true,
+					'capability_type' => 'shop_coupon',
+					'map_meta_cap'    => true,
+					'supports'        => array('title'),
+				)
+			);
+		}
+	}
+
+	/**
 	 * Creates a global product attribute and registers its `pa_*` taxonomy.
 	 *
 	 * Global attributes live in the custom `{$wpdb->prefix}woocommerce_attribute_taxonomies`
