@@ -81,6 +81,79 @@ abstract class TestCase extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Registers a deterministic WooCommerce settings group + options for tests.
+	 *
+	 * The WC REST settings routes read the group list from the
+	 * `woocommerce_settings_groups` filter and a group's options from
+	 * `woocommerce_settings-<group>`, both populated by WooCommerce's settings
+	 * pages on `rest_api_init`. The minimal test bootstrap does not reliably
+	 * materialize the core pages (general/products/tax), so a settings read test
+	 * must seed its own group — exactly as WooCommerce core's own
+	 * `WC_Helper_Settings` does (that helper ships only in the WC test framework,
+	 * absent from the distributed zip, so this mirrors it locally).
+	 *
+	 * Registers a `test` group with a plain text option and a `password`-type
+	 * option (the latter exercises the secret-redaction path) and stores their
+	 * values via `update_option()` so the option route returns a real value (the
+	 * controller sources values from `WC_Admin_Settings::get_option()`). Uses
+	 * named static callbacks so repeated `set_up()` calls cannot stack duplicate
+	 * filters.
+	 *
+	 * @return void
+	 */
+	protected function seedTestSettingsGroup(): void {
+		add_filter('woocommerce_settings_groups', array(self::class, 'filterTestSettingsGroups'));
+		add_filter('woocommerce_settings-test', array(self::class, 'filterTestSettingsOptions'));
+		update_option('test_text_option', 'visible-value');
+		update_option('test_password_option', 'super-secret-key');
+	}
+
+	/**
+	 * Appends the deterministic `test` settings group. Filter callback.
+	 *
+	 * @param array<int, array<string, mixed>> $groups Registered settings groups.
+	 * @return array<int, array<string, mixed>> Groups including the `test` group.
+	 */
+	public static function filterTestSettingsGroups(array $groups): array {
+		$groups[] = array(
+			'id'          => 'test',
+			'label'       => 'Test extension',
+			'description' => 'Deterministic settings group for tests.',
+			'parent_id'   => '',
+			'option_key'  => '',
+		);
+
+		return $groups;
+	}
+
+	/**
+	 * Registers the `test` group's options (one plain, one password). Filter callback.
+	 *
+	 * @param array<int, array<string, mixed>> $settings The group's registered settings.
+	 * @return array<int, array<string, mixed>> Settings including a text and a password option.
+	 */
+	public static function filterTestSettingsOptions(array $settings): array {
+		$settings[] = array(
+			'id'          => 'test_text_option',
+			'label'       => 'Text option',
+			'description' => 'A non-secret option.',
+			'type'        => 'text',
+			'default'     => '',
+			'option_key'  => 'test_text_option',
+		);
+		$settings[] = array(
+			'id'          => 'test_password_option',
+			'label'       => 'Secret key',
+			'description' => 'A credential option, redacted on read.',
+			'type'        => 'password',
+			'default'     => '',
+			'option_key'  => 'test_password_option',
+		);
+
+		return $settings;
+	}
+
+	/**
 	 * Creates a global product attribute and registers its `pa_*` taxonomy.
 	 *
 	 * Global attributes live in the custom `{$wpdb->prefix}woocommerce_attribute_taxonomies`

@@ -95,6 +95,14 @@ final class Integration {
 		'wc-shipping/get-shipping-zone-method',
 		'wc-shipping/list-shipping-methods',
 		'wc-shipping/get-shipping-method',
+		'wc-taxes/list-tax-rates',
+		'wc-taxes/get-tax-rate',
+		'wc-taxes/list-tax-classes',
+		'wc-payment-gateways/list-payment-gateways',
+		'wc-payment-gateways/get-payment-gateway',
+		'wc-settings/list-setting-groups',
+		'wc-settings/list-group-settings',
+		'wc-settings/get-setting-option',
 	);
 
 	/**
