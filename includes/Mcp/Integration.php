@@ -79,6 +79,15 @@ final class Integration {
 		'wc-products/update-shipping-class',
 		'wc-products/create-product-review',
 		'wc-products/update-product-review',
+		'wc-products/delete-product',
+		'wc-products/delete-product-variation',
+		'wc-products/delete-product-attribute',
+		'wc-products/delete-attribute-term',
+		'wc-products/delete-product-category',
+		'wc-products/delete-product-tag',
+		'wc-products/delete-product-brand',
+		'wc-products/delete-shipping-class',
+		'wc-products/delete-product-review',
 	);
 
 	/**

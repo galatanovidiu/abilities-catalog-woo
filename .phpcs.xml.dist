@@ -231,6 +231,7 @@
 				<element value="publish_products" />
 				<element value="edit_products" />
 				<element value="delete_product" />
+				<element value="delete_products" />
 				<element value="manage_product_terms" />
 				<element value="edit_product_terms" />
 				<element value="delete_product_terms" />
