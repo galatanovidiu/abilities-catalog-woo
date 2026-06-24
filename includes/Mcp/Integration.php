@@ -131,6 +131,13 @@ final class Integration {
 		'wc-reports/get-customers-totals',
 		'wc-reports/get-coupons-totals',
 		'wc-reports/get-reviews-totals',
+		'wc-reports/get-revenue-stats',
+		'wc-reports/list-orders-analytics',
+		'wc-reports/get-orders-stats',
+		'wc-reports/list-products-analytics',
+		'wc-reports/get-products-stats',
+		'wc-reports/get-performance-indicators',
+		'wc-reports/get-leaderboards',
 	);
 
 	/**

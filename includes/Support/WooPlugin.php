@@ -81,6 +81,42 @@ final class WooPlugin {
 	}
 
 	/**
+	 * Whether the WooCommerce Analytics feature is enabled.
+	 *
+	 * Unlike the Brands feature (which registers its REST route eagerly on
+	 * `rest_api_init`, so {@see hasBrandsSupport()} detects it by route presence), the
+	 * `wc-analytics` namespace is **lazy-loaded**: its controllers register on
+	 * `rest_pre_dispatch` only when a `wc-analytics` route is actually dispatched
+	 * (`Init::rest_api_init()` → `RestApiUtil::lazy_load_namespace()`). So at
+	 * ability-registration / `isAvailable()` / `hasPermission()` time — a normal admin,
+	 * cron, or page context with no in-flight analytics request — `get_routes()` does
+	 * NOT contain the analytics routes even when the feature is on. A route-presence
+	 * check would wrongly report "absent".
+	 *
+	 * The truthful detector is the exact gate that controls registration:
+	 * `Features::is_enabled( 'analytics' )` (`Init::rest_api_init()` registers the
+	 * analytics controllers only inside `if ( Features::is_enabled( 'analytics' ) )`).
+	 * The `class_exists()` guard keeps a WooCommerce build without WC-Admin (or a
+	 * stripped build) returning false cleanly rather than fataling.
+	 *
+	 * When this returns false the analytics abilities do not register, so they degrade
+	 * cleanly (absent) rather than denying. Dispatching an analytics route via
+	 * {@see rest_do_request()} triggers the lazy registration, so the route is present
+	 * by the time an analytics ability's `execute()` runs.
+	 *
+	 * @return bool True when WooCommerce Analytics is active.
+	 */
+	public static function hasAnalytics(): bool {
+		if ( ! self::isActive() ) {
+			return false;
+		}
+
+		$features = '\\Automattic\\WooCommerce\\Admin\\Features\\Features';
+
+		return class_exists( $features ) && $features::is_enabled( 'analytics' );
+	}
+
+	/**
 	 * The signing-secret presence and delivery-failure count for a webhook.
 	 *
 	 * Neither value is in the `wc/v3` webhook REST response a read dispatches: the

@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace GalatanOvidiu\AbilitiesCatalogWoo\Tests;
 
+use WP_REST_Request;
 use WP_UnitTestCase;
 
 /**
@@ -151,6 +152,48 @@ abstract class TestCase extends WP_UnitTestCase {
 		);
 
 		return $settings;
+	}
+
+	/**
+	 * Forces the lazy `wc-analytics` REST namespace to register on the live server.
+	 *
+	 * The analytics abilities dispatch `/wc-analytics/...` routes via
+	 * `rest_do_request()`. Those controllers are registered lazily: WooCommerce's
+	 * `Init::rest_api_init()` calls `RestApiUtil::lazy_load_namespace('wc-analytics', …)`,
+	 * which adds a ONE-SHOT `rest_pre_dispatch` filter (priority 0). On the first
+	 * matching dispatch the filter registers the controllers and then
+	 * `remove_filter()`s itself
+	 * (woocommerce/src/Utilities/RestApiUtil.php:79-119, esp. line 92).
+	 *
+	 * `WP_UnitTestCase` does not recreate `$wp_rest_server` between tests, but
+	 * `_restore_hooks()` resets `$wp_filter` to the snapshot taken before
+	 * `rest_api_init` ever fired (so the one-shot is wiped) and resets the
+	 * `rest_api_init` did-count to 0. Because the server instance still exists,
+	 * `rest_get_server()` does NOT re-fire `rest_api_init`, so the one-shot is never
+	 * re-armed — and a bare priming dispatch finds no filter to register the route.
+	 * From the second dispatching analytics test onward every `/wc-analytics/...`
+	 * dispatch then returns `rest_no_route` 404.
+	 *
+	 * This helper re-fires `rest_api_init` on the current server (re-arming the
+	 * one-shot via `Init::rest_api_init()`), then issues a throwaway priming
+	 * dispatch so the one-shot registers the analytics controllers before the test's
+	 * real `execute()` runs. Probed against the live env: a bare dispatch alone is
+	 * NOT reliable (the one-shot is gone); the `rest_api_init` re-fire is what makes
+	 * registration deterministic. Scoped to analytics tests so the hundreds of
+	 * non-analytics tests pay no extra dispatch.
+	 *
+	 * @return void
+	 */
+	protected function ensureAnalyticsRoutesRegistered(): void {
+		$server = rest_get_server();
+
+		// Re-arm the lazy-load one-shot by re-running WooCommerce's rest_api_init
+		// handlers against the current server.
+		do_action( 'rest_api_init', $server );
+
+		// Throwaway dispatch: trips the re-armed one-shot, which registers the
+		// wc-analytics controllers on this server. The response is irrelevant.
+		rest_do_request( new WP_REST_Request( 'GET', '/wc-analytics/reports/orders' ) );
 	}
 
 	/**
