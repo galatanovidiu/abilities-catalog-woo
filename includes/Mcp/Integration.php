@@ -143,6 +143,14 @@ final class Integration {
 		'wc-data/get-currency',
 		'wc-data/list-continents',
 		'wc-data/get-continent',
+		'wc-shipping/create-shipping-zone',
+		'wc-shipping/update-shipping-zone',
+		'wc-shipping/update-shipping-zone-locations',
+		'wc-shipping/create-shipping-zone-method',
+		'wc-shipping/update-shipping-zone-method',
+		'wc-taxes/create-tax-rate',
+		'wc-taxes/update-tax-rate',
+		'wc-taxes/create-tax-class',
 	);
 
 	/**
