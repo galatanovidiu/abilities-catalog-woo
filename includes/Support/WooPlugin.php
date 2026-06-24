@@ -81,6 +81,44 @@ final class WooPlugin {
 	}
 
 	/**
+	 * The signing-secret presence and delivery-failure count for a webhook.
+	 *
+	 * Neither value is in the `wc/v3` webhook REST response a read dispatches: the
+	 * `secret` is `edit`-context only (a read runs in `view` context and never
+	 * requests it), and `failure_count` lives on the {@see \WC_Webhook} object but no
+	 * controller adds it to the response. So they come off this facade, read from the
+	 * WooCommerce data layer. The secret is read ONLY to test it for emptiness — its
+	 * value is never returned — so a webhook read reports "deliveries are signed"
+	 * without ever exposing the signing key.
+	 *
+	 * Returns the safe default `{ has_secret: false, failure_count: 0 }` when
+	 * WooCommerce is inactive or the id matches no webhook.
+	 *
+	 * @param int $id The webhook id.
+	 * @return array{has_secret: bool, failure_count: int} The derived delivery status.
+	 */
+	public static function webhookDeliveryStatus( int $id ): array {
+		$default = array(
+			'has_secret'    => false,
+			'failure_count' => 0,
+		);
+
+		if ( ! self::isActive() ) {
+			return $default;
+		}
+
+		$webhook = wc_get_webhook( $id );
+		if ( ! $webhook ) {
+			return $default;
+		}
+
+		return array(
+			'has_secret'    => '' !== (string) $webhook->get_secret(),
+			'failure_count' => (int) $webhook->get_failure_count(),
+		);
+	}
+
+	/**
 	 * The typed error an ability returns if asked to run while WooCommerce is inactive.
 	 *
 	 * The WooCommerce abilities do not register when WooCommerce is off, so the

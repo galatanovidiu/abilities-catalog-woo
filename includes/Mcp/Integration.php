@@ -103,6 +103,11 @@ final class Integration {
 		'wc-settings/list-setting-groups',
 		'wc-settings/list-group-settings',
 		'wc-settings/get-setting-option',
+		'wc-webhooks/list-webhooks',
+		'wc-webhooks/get-webhook',
+		'wc-system/get-system-status',
+		'wc-system/list-system-tools',
+		'wc-system/get-system-tool',
 	);
 
 	/**
