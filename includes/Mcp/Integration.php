@@ -59,6 +59,12 @@ final class Integration {
 		'wc-products/get-shipping-class',
 		'wc-products/list-product-reviews',
 		'wc-products/get-product-review',
+		'wc-products/create-product',
+		'wc-products/update-product',
+		'wc-products/duplicate-product',
+		'wc-products/create-product-variation',
+		'wc-products/update-product-variation',
+		'wc-products/generate-product-variations',
 	);
 
 	/**
