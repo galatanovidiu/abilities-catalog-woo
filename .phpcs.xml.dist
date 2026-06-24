@@ -247,6 +247,7 @@
 				<element value="edit_shop_coupons" />
 				<element value="edit_shop_coupon" />
 				<element value="delete_shop_coupon" />
+				<element value="delete_shop_coupons" />
 				<element value="list_users" />
 				<element value="create_customers" />
 				<element value="edit_users" />

@@ -115,6 +115,11 @@ final class Integration {
 		'wc-customers/update-customer',
 		'wc-coupons/create-coupon',
 		'wc-coupons/update-coupon',
+		'wc-orders/delete-order',
+		'wc-orders/delete-order-note',
+		'wc-orders/delete-order-refund',
+		'wc-coupons/delete-coupon',
+		'wc-customers/delete-customer',
 	);
 
 	/**
