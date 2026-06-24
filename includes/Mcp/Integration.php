@@ -73,6 +73,12 @@ final class Integration {
 		'wc-products/update-product-category',
 		'wc-products/create-product-tag',
 		'wc-products/update-product-tag',
+		'wc-products/create-product-brand',
+		'wc-products/update-product-brand',
+		'wc-products/create-shipping-class',
+		'wc-products/update-shipping-class',
+		'wc-products/create-product-review',
+		'wc-products/update-product-review',
 	);
 
 	/**
