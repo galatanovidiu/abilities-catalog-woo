@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-products/delete-product-variation ability.
+ * Integration tests for the og-wc-products/delete-product-variation ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -16,7 +16,7 @@ use WC_Product_Variable;
 use WC_Product_Variation;
 
 /**
- * Exercises wc-products/delete-product-variation: the permanent force=true delete
+ * Exercises og-wc-products/delete-product-variation: the permanent force=true delete
  * (variation gone, parent product intact), the recoverable force=false trash (or
  * the 501 when Trash is disabled), the route's specific 404 for a missing /
  * parent-mismatched variation surfaced via RestError (not a permission collapse),
@@ -74,10 +74,10 @@ final class DeleteProductVariationTest extends TestCase {
 	}
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-products/delete-product-variation' );
+		$ability = wp_get_ability( 'og-wc-products/delete-product-variation' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-products/delete-product-variation', $ability->get_name() );
+		$this->assertSame( 'og-wc-products/delete-product-variation', $ability->get_name() );
 	}
 
 	public function test_force_true_permanently_deletes_variation(): void {
@@ -85,7 +85,7 @@ final class DeleteProductVariationTest extends TestCase {
 
 		$ids = $this->seedVariation();
 
-		$result = wp_get_ability( 'wc-products/delete-product-variation' )->execute(
+		$result = wp_get_ability( 'og-wc-products/delete-product-variation' )->execute(
 			array(
 				'product_id' => $ids['product_id'],
 				'id'         => $ids['variation_id'],
@@ -116,7 +116,7 @@ final class DeleteProductVariationTest extends TestCase {
 
 		$ids = $this->seedVariation();
 
-		$result = wp_get_ability( 'wc-products/delete-product-variation' )->execute(
+		$result = wp_get_ability( 'og-wc-products/delete-product-variation' )->execute(
 			array(
 				'product_id' => $ids['product_id'],
 				'id'         => $ids['variation_id'],
@@ -145,7 +145,7 @@ final class DeleteProductVariationTest extends TestCase {
 
 		$ids = $this->seedVariation();
 
-		$result = wp_get_ability( 'wc-products/delete-product-variation' )->execute(
+		$result = wp_get_ability( 'og-wc-products/delete-product-variation' )->execute(
 			array(
 				'product_id' => $ids['product_id'],
 				'id'         => 99999999,
@@ -167,7 +167,7 @@ final class DeleteProductVariationTest extends TestCase {
 
 		// A real variation, but referenced under the wrong parent: the route's
 		// check_variation_parent() rejects it with the same 404 as a missing id.
-		$result = wp_get_ability( 'wc-products/delete-product-variation' )->execute(
+		$result = wp_get_ability( 'og-wc-products/delete-product-variation' )->execute(
 			array(
 				'product_id' => $other['product_id'],
 				'id'         => $ids['variation_id'],
@@ -189,7 +189,7 @@ final class DeleteProductVariationTest extends TestCase {
 		// product_id is a required route segment; the Abilities API validates the
 		// input against the schema before execute() runs, so its absence surfaces as
 		// the generic schema-validation error, not a permission collapse.
-		$result = wp_get_ability( 'wc-products/delete-product-variation' )->execute(
+		$result = wp_get_ability( 'og-wc-products/delete-product-variation' )->execute(
 			array(
 				'id'    => 123,
 				'force' => true,
@@ -205,7 +205,7 @@ final class DeleteProductVariationTest extends TestCase {
 
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-products/delete-product-variation' );
+		$ability = wp_get_ability( 'og-wc-products/delete-product-variation' );
 
 		$this->assertFalse(
 			$ability->check_permissions(
@@ -236,7 +236,7 @@ final class DeleteProductVariationTest extends TestCase {
 
 		$ids = $this->seedVariation();
 
-		$result = wp_get_ability( 'wc-products/delete-product-variation' )->execute(
+		$result = wp_get_ability( 'og-wc-products/delete-product-variation' )->execute(
 			array(
 				'product_id' => $ids['product_id'],
 				'id'         => $ids['variation_id'],

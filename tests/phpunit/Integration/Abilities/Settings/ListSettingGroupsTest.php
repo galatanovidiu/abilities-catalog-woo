@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-settings/list-setting-groups` ability.
+ * Integration tests for the `og-wc-settings/list-setting-groups` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -17,7 +17,7 @@ use WP_Error;
  */
 final class ListSettingGroupsTest extends TestCase {
 
-	private const ABILITY = 'wc-settings/list-setting-groups';
+	private const ABILITY = 'og-wc-settings/list-setting-groups';
 
 	/**
 	 * The keys a shaped group row exposes — and nothing more.

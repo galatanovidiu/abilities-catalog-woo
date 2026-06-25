@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-products/duplicate-product` ability.
+ * Integration tests for the `og-wc-products/duplicate-product` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -18,7 +18,7 @@ use WP_Error;
  */
 final class DuplicateProductTest extends TestCase {
 
-	private const ABILITY = 'wc-products/duplicate-product';
+	private const ABILITY = 'og-wc-products/duplicate-product';
 
 	/**
 	 * The exact keys the shaped duplicate result exposes.

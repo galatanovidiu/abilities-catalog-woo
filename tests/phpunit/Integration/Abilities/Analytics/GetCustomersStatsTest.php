@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-reports/get-customers-stats` ability.
+ * Integration tests for the `og-wc-reports/get-customers-stats` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -21,7 +21,7 @@ use WP_Error;
  */
 final class GetCustomersStatsTest extends TestCase {
 
-	private const ABILITY = 'wc-reports/get-customers-stats';
+	private const ABILITY = 'og-wc-reports/get-customers-stats';
 
 	/**
 	 * The exact closed key set of the shaped `totals` object.

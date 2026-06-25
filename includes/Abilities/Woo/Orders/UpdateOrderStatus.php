@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Elevated write ability: `wc-orders/update-order-status`.
+ * Elevated write ability: `og-wc-orders/update-order-status`.
  *
  * Wraps `PUT wc/v3/orders/<id>` via `rest_do_request()`, sending ONLY the
  * `status` field, and returns the shaped order ({@see OrderListShaper::summary()})
@@ -29,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * `payment_complete` path, and sends the paid-order customer emails. These side
  * effects are real and irreversible — they are NOT undone by changing the status
  * back (the emails are already sent, the stock already changed). This is a
- * separate, elevated ability from `wc-orders/update-order` (which deliberately
+ * separate, elevated ability from `og-wc-orders/update-order` (which deliberately
  * cannot change status) precisely because of these side effects.
  *
  * The coarse type-level `edit_shop_orders` cap is the hard guard; the wrapped
@@ -69,7 +69,7 @@ final class UpdateOrderStatus implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-orders/update-order-status';
+		return 'og-wc-orders/update-order-status';
 	}
 
 	/**
@@ -85,8 +85,8 @@ final class UpdateOrderStatus implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Update Order Status', 'abilities-catalog-woo' ),
-			'description'         => __( 'Changes an existing WooCommerce order\'s status and returns the shaped order (id, number, status, total, customer_id, the billing-name subset, edit_link) plus previous_status so you can see the transition. This is the ONLY way to change an order\'s status: wc-orders/update-order cannot change status and routes here. WARNING — this triggers real, irreversible side effects: moving an order to a PAID status (processing or completed) runs WooCommerce\'s status-transition handlers, which REDUCE STOCK, run the order\'s payment_complete path, and SEND THE PAID-ORDER CUSTOMER EMAILS. Those side effects are already done and are NOT reversed by changing the status back (the emails are already sent, the stock already changed). It is a separate, elevated ability from wc-orders/update-order precisely because of these side effects. Setting the order to the status it already has is a no-op. Discover IDs with wc-orders/list-orders.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-orders',
+			'description'         => __( 'Changes an existing WooCommerce order\'s status and returns the shaped order (id, number, status, total, customer_id, the billing-name subset, edit_link) plus previous_status so you can see the transition. This is the ONLY way to change an order\'s status: og-wc-orders/update-order cannot change status and routes here. WARNING — this triggers real, irreversible side effects: moving an order to a PAID status (processing or completed) runs WooCommerce\'s status-transition handlers, which REDUCE STOCK, run the order\'s payment_complete path, and SEND THE PAID-ORDER CUSTOMER EMAILS. Those side effects are already done and are NOT reversed by changing the status back (the emails are already sent, the stock already changed). It is a separate, elevated ability from og-wc-orders/update-order precisely because of these side effects. Setting the order to the status it already has is a no-op. Discover IDs with og-wc-orders/list-orders.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-orders',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id', 'status' ),
@@ -94,7 +94,7 @@ final class UpdateOrderStatus implements ConditionalAbility {
 					'id'     => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The ID of the order whose status to change. Discover IDs with wc-orders/list-orders.', 'abilities-catalog-woo' ),
+						'description' => __( 'The ID of the order whose status to change. Discover IDs with og-wc-orders/list-orders.', 'abilities-catalog-woo' ),
 					),
 					'status' => array(
 						'type'        => 'string',
@@ -122,7 +122,7 @@ final class UpdateOrderStatus implements ConditionalAbility {
 	/**
 	 * Permission check: WooCommerce's edit capability for orders.
 	 *
-	 * Encodes the catalog capability for `wc-orders/update-order-status`: the
+	 * Encodes the catalog capability for `og-wc-orders/update-order-status`: the
 	 * coarse, type-level `edit_shop_orders` primitive (WP core derives it from the
 	 * `shop_order` post type's `capability_type` with `map_meta_cap`). The wrapped
 	 * `wc/v3` PUT route runs `wc_rest_check_post_permissions( 'shop_order',

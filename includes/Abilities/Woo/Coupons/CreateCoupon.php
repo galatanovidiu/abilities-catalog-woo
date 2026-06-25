@@ -15,10 +15,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Write ability: `wc-coupons/create-coupon`.
+ * Write ability: `og-wc-coupons/create-coupon`.
  *
  * Wraps `POST wc/v3/coupons` via `rest_do_request()`, creating a new WooCommerce
- * coupon and returning the same flat, closed record `wc-coupons/get-coupon`
+ * coupon and returning the same flat, closed record `og-wc-coupons/get-coupon`
  * returns (code, amount, discount_type, expiry, usage count/limit, individual_use,
  * description, product include/exclude ID lists, the order-amount thresholds) plus
  * the wp-admin `edit_link`. The created object is shaped through
@@ -44,7 +44,7 @@ final class CreateCoupon implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-coupons/create-coupon';
+		return 'og-wc-coupons/create-coupon';
 	}
 
 	/**
@@ -60,8 +60,8 @@ final class CreateCoupon implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Create Coupon', 'abilities-catalog-woo' ),
-			'description'         => __( 'Creates a WooCommerce coupon and returns the shaped coupon (code, discount amount and type, expiry date, usage count and limit, individual_use, product include/exclude ID lists, the minimum/maximum order-amount thresholds, the description) plus the wp-admin edit_link. The required code is the coupon code shoppers type at checkout. Use this to add a new coupon; to change an existing one use wc-coupons/update-coupon instead. After creating, surface edit_link so a human can review the coupon.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-coupons',
+			'description'         => __( 'Creates a WooCommerce coupon and returns the shaped coupon (code, discount amount and type, expiry date, usage count and limit, individual_use, product include/exclude ID lists, the minimum/maximum order-amount thresholds, the description) plus the wp-admin edit_link. The required code is the coupon code shoppers type at checkout. Use this to add a new coupon; to change an existing one use og-wc-coupons/update-coupon instead. After creating, surface edit_link so a human can review the coupon.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-coupons',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'code' ),
@@ -218,12 +218,12 @@ final class CreateCoupon implements ConditionalAbility {
 			'product_ids'          => array(
 				'type'        => 'array',
 				'items'       => array( 'type' => 'integer' ),
-				'description' => __( 'Product IDs the coupon applies to. Empty/omitted means the coupon applies to all products. Discover product IDs with wc-products/list-products.', 'abilities-catalog-woo' ),
+				'description' => __( 'Product IDs the coupon applies to. Empty/omitted means the coupon applies to all products. Discover product IDs with og-wc-products/list-products.', 'abilities-catalog-woo' ),
 			),
 			'excluded_product_ids' => array(
 				'type'        => 'array',
 				'items'       => array( 'type' => 'integer' ),
-				'description' => __( 'Product IDs the coupon cannot be used on. Discover product IDs with wc-products/list-products.', 'abilities-catalog-woo' ),
+				'description' => __( 'Product IDs the coupon cannot be used on. Discover product IDs with og-wc-products/list-products.', 'abilities-catalog-woo' ),
 			),
 			'usage_limit'          => array(
 				'type'        => 'integer',

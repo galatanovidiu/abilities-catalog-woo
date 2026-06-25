@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-products/create-product-tag ability.
+ * Integration tests for the og-wc-products/create-product-tag ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -13,7 +13,7 @@ use GalatanOvidiu\AbilitiesCatalogWoo\Tests\TestCase;
 use WP_Error;
 
 /**
- * Exercises wc-products/create-product-tag: the happy-path create returning a
+ * Exercises og-wc-products/create-product-tag: the happy-path create returning a
  * shaped tag with a real id, the duplicate-slug term_exists 400 surfaced via
  * RestError (not a permission collapse), the wrong-capability denial, and the
  * exact closed output shape (flat, parent always 0, no raw term fields).
@@ -35,16 +35,16 @@ final class CreateProductTagTest extends TestCase {
 	);
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-products/create-product-tag' );
+		$ability = wp_get_ability( 'og-wc-products/create-product-tag' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-products/create-product-tag', $ability->get_name() );
+		$this->assertSame( 'og-wc-products/create-product-tag', $ability->get_name() );
 	}
 
 	public function test_admin_creates_tag(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-products/create-product-tag' )->execute( array( 'name' => 'Sale' ) );
+		$result = wp_get_ability( 'og-wc-products/create-product-tag' )->execute( array( 'name' => 'Sale' ) );
 
 		$this->assertIsArray( $result );
 		$this->assertGreaterThan( 0, $result['id'] );
@@ -61,7 +61,7 @@ final class CreateProductTagTest extends TestCase {
 	public function test_description_is_forwarded(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-products/create-product-tag' )->execute(
+		$result = wp_get_ability( 'og-wc-products/create-product-tag' )->execute(
 			array(
 				'name'        => 'Clearance',
 				'description' => 'Items on clearance.',
@@ -75,7 +75,7 @@ final class CreateProductTagTest extends TestCase {
 	public function test_output_shape_is_exact_and_closed(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-products/create-product-tag' )->execute( array( 'name' => 'Featured' ) );
+		$result = wp_get_ability( 'og-wc-products/create-product-tag' )->execute( array( 'name' => 'Featured' ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( self::EXPECTED_KEYS, array_keys( $result ) );
@@ -105,7 +105,7 @@ final class CreateProductTagTest extends TestCase {
 		// alone rejects) and the wrapped wc/v3 route forwards it with status 400.
 		// A duplicate *slug* with a different name would instead succeed with an
 		// auto-suffixed slug, so it is not a rejection path.
-		$result = wp_get_ability( 'wc-products/create-product-tag' )->execute(
+		$result = wp_get_ability( 'og-wc-products/create-product-tag' )->execute(
 			array(
 				'name' => 'On Sale',
 			)
@@ -120,7 +120,7 @@ final class CreateProductTagTest extends TestCase {
 	public function test_subscriber_is_denied(): void {
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-products/create-product-tag' );
+		$ability = wp_get_ability( 'og-wc-products/create-product-tag' );
 
 		$this->assertFalse( $ability->check_permissions( array( 'name' => 'Nope' ) ) );
 

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-customers/get-customer`.
+ * Read ability: `og-wc-customers/get-customer`.
  *
  * Wraps `GET wc/v3/customers/<id>` via `rest_do_request()` and returns one
  * customer as a flat, closed record: the {@see CustomerListShaper::summary()}
@@ -40,7 +40,7 @@ final class GetCustomer implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-customers/get-customer';
+		return 'og-wc-customers/get-customer';
 	}
 
 	/**
@@ -63,8 +63,8 @@ final class GetCustomer implements ConditionalAbility {
 
 		return array(
 			'label'               => __( 'Get Customer', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns one WooCommerce customer by ID: id, email, first and last name, username, role, registration date, orders_count, total_spent, the billing block (name, company, address, email, and phone), the shipping block (name, company, address, and phone; the shipping address has no email), and an edit_link. Use wc-customers/list-customers to scan customers and discover IDs; use this for one customer\'s full detail. Returns personal data (the customer\'s name, email, and billing/shipping addresses): visible only with the list_users capability.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-customers',
+			'description'         => __( 'Returns one WooCommerce customer by ID: id, email, first and last name, username, role, registration date, orders_count, total_spent, the billing block (name, company, address, email, and phone), the shipping block (name, company, address, and phone; the shipping address has no email), and an edit_link. Use og-wc-customers/list-customers to scan customers and discover IDs; use this for one customer\'s full detail. Returns personal data (the customer\'s name, email, and billing/shipping addresses): visible only with the list_users capability.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-customers',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
@@ -72,7 +72,7 @@ final class GetCustomer implements ConditionalAbility {
 					'id' => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The customer ID. Discover IDs with wc-customers/list-customers.', 'abilities-catalog-woo' ),
+						'description' => __( 'The customer ID. Discover IDs with og-wc-customers/list-customers.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,

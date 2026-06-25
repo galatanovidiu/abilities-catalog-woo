@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-reports/get-coupons-stats`.
+ * Read ability: `og-wc-reports/get-coupons-stats`.
  *
  * Wraps `GET /wc-analytics/reports/coupons/stats` via `rest_do_request()` and
  * returns the aggregated coupon KPI `totals` over a date range — `amount` (net
@@ -57,7 +57,7 @@ final class GetCouponsStats implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-reports/get-coupons-stats';
+		return 'og-wc-reports/get-coupons-stats';
 	}
 
 	/**
@@ -73,8 +73,8 @@ final class GetCouponsStats implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Get Coupons Stats', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns aggregated WooCommerce Analytics coupon KPIs over a date range: amount (the net discount given by coupons), coupons_count (distinct coupons used), and orders_count (discounted orders). Use this for store-wide coupon totals; use wc-reports/list-coupons-analytics for per-coupon rows ranked by usage. The date range is set with after/before (ISO8601 date-time); interval buckets the breakdown that drives intervals_count. The full per-interval breakdown is intentionally omitted — only intervals_count (the number of buckets) is reported. Only available when the store\'s WooCommerce Analytics feature is enabled.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-reports',
+			'description'         => __( 'Returns aggregated WooCommerce Analytics coupon KPIs over a date range: amount (the net discount given by coupons), coupons_count (distinct coupons used), and orders_count (discounted orders). Use this for store-wide coupon totals; use og-wc-reports/list-coupons-analytics for per-coupon rows ranked by usage. The date range is set with after/before (ISO8601 date-time); interval buckets the breakdown that drives intervals_count. The full per-interval breakdown is intentionally omitted — only intervals_count (the number of buckets) is reported. Only available when the store\'s WooCommerce Analytics feature is enabled.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-reports',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array(

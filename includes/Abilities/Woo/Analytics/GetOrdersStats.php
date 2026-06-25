@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-reports/get-orders-stats`.
+ * Read ability: `og-wc-reports/get-orders-stats`.
  *
  * Wraps `GET /wc-analytics/reports/orders/stats` via `rest_do_request()` and
  * returns the aggregated order KPIs for a date range: net revenue, order count,
@@ -42,7 +42,7 @@ final class GetOrdersStats implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-reports/get-orders-stats';
+		return 'og-wc-reports/get-orders-stats';
 	}
 
 	/**
@@ -58,8 +58,8 @@ final class GetOrdersStats implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Get Orders Stats', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns aggregated WooCommerce order KPIs over a date range: net_revenue, orders_count, avg_order_value, avg_items_per_order, num_items_sold, coupons, coupons_count, and total_customers, plus intervals_count (the number of per-period buckets) and the period the report covered. Use this for order totals over a range; use wc-reports/list-orders-analytics for per-order rows, or wc-reports/get-revenue-stats for the broader revenue KPIs (gross/total sales, shipping, taxes, refunds). The date range is after/before (ISO8601 date-time) and interval buckets the breakdown that drives intervals_count; the full per-interval breakdown is intentionally omitted. Only available when the store\'s WooCommerce Analytics feature is enabled.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-reports',
+			'description'         => __( 'Returns aggregated WooCommerce order KPIs over a date range: net_revenue, orders_count, avg_order_value, avg_items_per_order, num_items_sold, coupons, coupons_count, and total_customers, plus intervals_count (the number of per-period buckets) and the period the report covered. Use this for order totals over a range; use og-wc-reports/list-orders-analytics for per-order rows, or og-wc-reports/get-revenue-stats for the broader revenue KPIs (gross/total sales, shipping, taxes, refunds). The date range is after/before (ISO8601 date-time) and interval buckets the breakdown that drives intervals_count; the full per-interval breakdown is intentionally omitted. Only available when the store\'s WooCommerce Analytics feature is enabled.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-reports',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array(

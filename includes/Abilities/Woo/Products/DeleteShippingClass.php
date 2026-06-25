@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Destructive write ability: `wc-products/delete-shipping-class`.
+ * Destructive write ability: `og-wc-products/delete-shipping-class`.
  *
  * Wraps `DELETE wc/v3/products/shipping_classes/<id>` via `rest_do_request()`.
  * Product shipping classes are a flat `product_shipping_class` taxonomy with no
@@ -39,7 +39,7 @@ final class DeleteShippingClass implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/delete-shipping-class';
+		return 'og-wc-products/delete-shipping-class';
 	}
 
 	/**
@@ -55,8 +55,8 @@ final class DeleteShippingClass implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Delete Shipping Class', 'abilities-catalog-woo' ),
-			'description'         => __( 'Permanently deletes a WooCommerce product shipping class by ID. This cannot be undone: shipping classes have no Trash, so the term is force-deleted and there is no restore. Any products assigned to the class are left with no shipping class. Returns a confirmation with the deleted class\'s name. Discover IDs with wc-products/list-shipping-classes.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Permanently deletes a WooCommerce product shipping class by ID. This cannot be undone: shipping classes have no Trash, so the term is force-deleted and there is no restore. Any products assigned to the class are left with no shipping class. Returns a confirmation with the deleted class\'s name. Discover IDs with og-wc-products/list-shipping-classes.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
@@ -64,7 +64,7 @@ final class DeleteShippingClass implements ConditionalAbility {
 					'id' => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The shipping class term ID to permanently delete. Discover IDs with wc-products/list-shipping-classes.', 'abilities-catalog-woo' ),
+						'description' => __( 'The shipping class term ID to permanently delete. Discover IDs with og-wc-products/list-shipping-classes.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,

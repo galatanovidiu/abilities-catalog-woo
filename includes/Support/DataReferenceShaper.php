@@ -171,7 +171,7 @@ final class DataReferenceShaper {
 	 * `num_decimals`, `thousand_sep`, `weight_unit`) plus a `states` list. This
 	 * shaper DROPS all of that locale detail and summarizes each country to
 	 * `{code,name}` only — the per-country detail is reachable via
-	 * `wc-data/get-country`.
+	 * `og-wc-data/get-country`.
 	 *
 	 * @param array<string,mixed> $row A single continent row from a
 	 *                                 `GET wc/v3/data/continents` (or `/{code}`) response.

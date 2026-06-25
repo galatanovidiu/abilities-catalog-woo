@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-products/create-product-variation ability.
+ * Integration tests for the og-wc-products/create-product-variation ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -14,7 +14,7 @@ use GalatanOvidiu\AbilitiesCatalogWoo\Tests\TestCase;
 use WP_Error;
 
 /**
- * Exercises wc-products/create-product-variation: the happy-path create returning a
+ * Exercises og-wc-products/create-product-variation: the happy-path create returning a
  * shaped variation row, a forwarded field honored in the result, the missing /
  * non-variable parent 404 that must not collapse to a permission error, the
  * wrong-cap denial, and the closed output shape (no raw variation fields leak).
@@ -42,17 +42,17 @@ final class CreateProductVariationTest extends TestCase {
 	);
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-products/create-product-variation' );
+		$ability = wp_get_ability( 'og-wc-products/create-product-variation' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-products/create-product-variation', $ability->get_name() );
+		$this->assertSame( 'og-wc-products/create-product-variation', $ability->get_name() );
 	}
 
 	public function test_admin_creates_a_variation(): void {
 		$this->actingAs( 'administrator' );
 		$product_id = $this->seedVariableProduct();
 
-		$result = wp_get_ability( 'wc-products/create-product-variation' )->execute(
+		$result = wp_get_ability( 'og-wc-products/create-product-variation' )->execute(
 			array(
 				'product_id'    => $product_id,
 				'regular_price' => '12.50',
@@ -80,7 +80,7 @@ final class CreateProductVariationTest extends TestCase {
 		$this->actingAs( 'administrator' );
 		$product_id = $this->seedVariableProduct();
 
-		$result = wp_get_ability( 'wc-products/create-product-variation' )->execute(
+		$result = wp_get_ability( 'og-wc-products/create-product-variation' )->execute(
 			array(
 				'product_id'    => $product_id,
 				'regular_price' => '33.00',
@@ -101,7 +101,7 @@ final class CreateProductVariationTest extends TestCase {
 		$this->actingAs( 'administrator' );
 		$product_id = $this->seedVariableProduct();
 
-		$result = wp_get_ability( 'wc-products/create-product-variation' )->execute(
+		$result = wp_get_ability( 'og-wc-products/create-product-variation' )->execute(
 			array(
 				'product_id'    => $product_id,
 				'regular_price' => '9.00',
@@ -124,7 +124,7 @@ final class CreateProductVariationTest extends TestCase {
 		// When attributes are supplied the route resolves the parent and rejects a
 		// missing one with a specific 404, rather than masking it as a permission
 		// failure. (Without attributes the create route does not resolve the parent.)
-		$result = wp_get_ability( 'wc-products/create-product-variation' )->execute(
+		$result = wp_get_ability( 'og-wc-products/create-product-variation' )->execute(
 			array(
 				'product_id' => 99999999,
 				'attributes' => array(
@@ -148,7 +148,7 @@ final class CreateProductVariationTest extends TestCase {
 		// product_id is the required route segment; the Abilities API validates the
 		// input against the schema before execute() runs, so its absence surfaces as
 		// the generic schema-validation error, not a permission collapse.
-		$result = wp_get_ability( 'wc-products/create-product-variation' )->execute(
+		$result = wp_get_ability( 'og-wc-products/create-product-variation' )->execute(
 			array( 'regular_price' => '9.00' )
 		);
 
@@ -162,7 +162,7 @@ final class CreateProductVariationTest extends TestCase {
 
 		$this->assertFalse( ( new CreateProductVariation() )->hasPermission( array() ) );
 
-		$result = wp_get_ability( 'wc-products/create-product-variation' )->execute(
+		$result = wp_get_ability( 'og-wc-products/create-product-variation' )->execute(
 			array(
 				'product_id'    => $product_id,
 				'regular_price' => '9.00',

@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-products/create-shipping-class ability.
+ * Integration tests for the og-wc-products/create-shipping-class ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -13,7 +13,7 @@ use GalatanOvidiu\AbilitiesCatalogWoo\Tests\TestCase;
 use WP_Error;
 
 /**
- * Exercises wc-products/create-shipping-class: the happy-path create returning a
+ * Exercises og-wc-products/create-shipping-class: the happy-path create returning a
  * shaped class with a real id, the wrong-capability denial, and the exact closed
  * output shape (flat, no parent, no raw term fields).
  */
@@ -33,16 +33,16 @@ final class CreateShippingClassTest extends TestCase {
 	);
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-products/create-shipping-class' );
+		$ability = wp_get_ability( 'og-wc-products/create-shipping-class' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-products/create-shipping-class', $ability->get_name() );
+		$this->assertSame( 'og-wc-products/create-shipping-class', $ability->get_name() );
 	}
 
 	public function test_admin_creates_shipping_class(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-products/create-shipping-class' )->execute( array( 'name' => 'Heavy' ) );
+		$result = wp_get_ability( 'og-wc-products/create-shipping-class' )->execute( array( 'name' => 'Heavy' ) );
 
 		$this->assertIsArray( $result );
 		$this->assertGreaterThan( 0, $result['id'] );
@@ -58,7 +58,7 @@ final class CreateShippingClassTest extends TestCase {
 	public function test_description_is_forwarded(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-products/create-shipping-class' )->execute(
+		$result = wp_get_ability( 'og-wc-products/create-shipping-class' )->execute(
 			array(
 				'name'        => 'Fragile',
 				'description' => 'Handle with care.',
@@ -72,7 +72,7 @@ final class CreateShippingClassTest extends TestCase {
 	public function test_output_shape_is_exact_and_closed(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-products/create-shipping-class' )->execute( array( 'name' => 'Oversized' ) );
+		$result = wp_get_ability( 'og-wc-products/create-shipping-class' )->execute( array( 'name' => 'Oversized' ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( self::EXPECTED_KEYS, array_keys( $result ) );
@@ -94,7 +94,7 @@ final class CreateShippingClassTest extends TestCase {
 	public function test_subscriber_is_denied(): void {
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-products/create-shipping-class' );
+		$ability = wp_get_ability( 'og-wc-products/create-shipping-class' );
 
 		$this->assertFalse( $ability->check_permissions( array( 'name' => 'Nope' ) ) );
 

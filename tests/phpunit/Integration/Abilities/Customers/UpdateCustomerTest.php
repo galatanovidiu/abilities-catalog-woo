@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-customers/update-customer ability.
+ * Integration tests for the og-wc-customers/update-customer ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -13,7 +13,7 @@ use GalatanOvidiu\AbilitiesCatalogWoo\Tests\TestCase;
 use WP_Error;
 
 /**
- * Exercises wc-customers/update-customer: the happy-path field change, the
+ * Exercises og-wc-customers/update-customer: the happy-path field change, the
  * load-bearing password redaction (a password sent on input never appears in the
  * result), the missing-customer 400 that must not collapse to a permission error,
  * the wrong-capability denial, and the exact closed output shape with no raw
@@ -80,10 +80,10 @@ final class UpdateCustomerTest extends TestCase {
 	);
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-customers/update-customer' );
+		$ability = wp_get_ability( 'og-wc-customers/update-customer' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-customers/update-customer', $ability->get_name() );
+		$this->assertSame( 'og-wc-customers/update-customer', $ability->get_name() );
 	}
 
 	public function test_admin_updates_customer_field(): void {
@@ -91,7 +91,7 @@ final class UpdateCustomerTest extends TestCase {
 
 		$customer_id = $this->seedCustomer();
 
-		$result = wp_get_ability( 'wc-customers/update-customer' )->execute(
+		$result = wp_get_ability( 'og-wc-customers/update-customer' )->execute(
 			array(
 				'id'         => $customer_id,
 				'first_name' => 'Updated',
@@ -104,7 +104,7 @@ final class UpdateCustomerTest extends TestCase {
 		$this->assertStringContainsString( 'user-edit.php?user_id=' . $customer_id, $result['edit_link'] );
 
 		// The change is persisted, not just echoed.
-		$reread = wp_get_ability( 'wc-customers/get-customer' )->execute( array( 'id' => $customer_id ) );
+		$reread = wp_get_ability( 'og-wc-customers/get-customer' )->execute( array( 'id' => $customer_id ) );
 		$this->assertIsArray( $reread );
 		$this->assertSame( 'Updated', $reread['first_name'] );
 	}
@@ -114,7 +114,7 @@ final class UpdateCustomerTest extends TestCase {
 
 		$customer_id = $this->seedCustomer();
 
-		$result = wp_get_ability( 'wc-customers/update-customer' )->execute(
+		$result = wp_get_ability( 'og-wc-customers/update-customer' )->execute(
 			array(
 				'id'         => $customer_id,
 				'first_name' => 'Secret',
@@ -137,7 +137,7 @@ final class UpdateCustomerTest extends TestCase {
 
 		$customer_id = $this->seedCustomer();
 
-		$result = wp_get_ability( 'wc-customers/update-customer' )->execute(
+		$result = wp_get_ability( 'og-wc-customers/update-customer' )->execute(
 			array(
 				'id'         => $customer_id,
 				'first_name' => 'Shape',
@@ -165,7 +165,7 @@ final class UpdateCustomerTest extends TestCase {
 	public function test_missing_customer_returns_404_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-customers/update-customer' )->execute(
+		$result = wp_get_ability( 'og-wc-customers/update-customer' )->execute(
 			array(
 				'id'         => 99999999,
 				'first_name' => 'Nobody',
@@ -182,7 +182,7 @@ final class UpdateCustomerTest extends TestCase {
 		$customer_id = $this->seedCustomer();
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-customers/update-customer' );
+		$ability = wp_get_ability( 'og-wc-customers/update-customer' );
 
 		$this->assertFalse( $ability->check_permissions( array( 'id' => $customer_id ) ) );
 

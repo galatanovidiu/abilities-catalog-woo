@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Write ability: `wc-products/update-attribute-term`.
+ * Write ability: `og-wc-products/update-attribute-term`.
  *
  * Wraps `PUT wc/v3/products/attributes/<attribute_id>/terms/<id>` via
  * `rest_do_request()`, editing one term of a global product attribute (e.g.
@@ -49,7 +49,7 @@ final class UpdateAttributeTerm implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/update-attribute-term';
+		return 'og-wc-products/update-attribute-term';
 	}
 
 	/**
@@ -68,8 +68,8 @@ final class UpdateAttributeTerm implements ConditionalAbility {
 
 		return array(
 			'label'               => __( 'Update Attribute Term', 'abilities-catalog-woo' ),
-			'description'         => __( 'Updates one term of a global product attribute by ID (for example renaming "Red" under the "Color" attribute) and returns the updated term as a flat row: id, name, slug, parent (always 0 for attribute terms), product count, and description. Send only the fields you want to change; an omitted field keeps its current value. Provide attribute_id (the parent attribute) and id (the term) — both identify the term and are not body fields. Discover attribute_id with wc-products/list-product-attributes and id with wc-products/list-attribute-terms. Setting slug to a value already used by another term on this attribute returns a term_exists 400 error. A missing term returns woocommerce_rest_term_invalid 404; an unknown attribute_id returns woocommerce_rest_taxonomy_invalid 404. This edits the catalog taxonomy only (not orders or prices) and is reversible by another update.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Updates one term of a global product attribute by ID (for example renaming "Red" under the "Color" attribute) and returns the updated term as a flat row: id, name, slug, parent (always 0 for attribute terms), product count, and description. Send only the fields you want to change; an omitted field keeps its current value. Provide attribute_id (the parent attribute) and id (the term) — both identify the term and are not body fields. Discover attribute_id with og-wc-products/list-product-attributes and id with og-wc-products/list-attribute-terms. Setting slug to a value already used by another term on this attribute returns a term_exists 400 error. A missing term returns woocommerce_rest_term_invalid 404; an unknown attribute_id returns woocommerce_rest_taxonomy_invalid 404. This edits the catalog taxonomy only (not orders or prices) and is reversible by another update.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'attribute_id', 'id' ),
@@ -77,12 +77,12 @@ final class UpdateAttributeTerm implements ConditionalAbility {
 					'attribute_id' => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The parent attribute ID (the global attribute the term belongs to). Discover IDs with wc-products/list-product-attributes.', 'abilities-catalog-woo' ),
+						'description' => __( 'The parent attribute ID (the global attribute the term belongs to). Discover IDs with og-wc-products/list-product-attributes.', 'abilities-catalog-woo' ),
 					),
 					'id'           => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The attribute term ID to update. Discover IDs with wc-products/list-attribute-terms.', 'abilities-catalog-woo' ),
+						'description' => __( 'The attribute term ID to update. Discover IDs with og-wc-products/list-attribute-terms.', 'abilities-catalog-woo' ),
 					),
 					'name'         => array(
 						'type'        => 'string',

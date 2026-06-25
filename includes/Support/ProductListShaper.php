@@ -88,7 +88,7 @@ final class ProductListShaper {
 			'properties'           => array(
 				'id'                 => array(
 					'type'        => 'integer',
-					'description' => __( 'The product ID. Read the full product with wc-products/get-product.', 'abilities-catalog-woo' ),
+					'description' => __( 'The product ID. Read the full product with og-wc-products/get-product.', 'abilities-catalog-woo' ),
 				),
 				'name'               => array(
 					'type'        => 'string',
@@ -211,7 +211,7 @@ final class ProductListShaper {
 			'properties'           => array(
 				'id'             => array(
 					'type'        => 'integer',
-					'description' => __( 'The variation ID. Read the full variation with wc-products/get-product-variation.', 'abilities-catalog-woo' ),
+					'description' => __( 'The variation ID. Read the full variation with og-wc-products/get-product-variation.', 'abilities-catalog-woo' ),
 				),
 				'sku'            => array(
 					'type'        => 'string',

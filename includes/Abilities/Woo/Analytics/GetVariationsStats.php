@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-reports/get-variations-stats`.
+ * Read ability: `og-wc-reports/get-variations-stats`.
  *
  * Wraps `GET /wc-analytics/reports/variations/stats` via `rest_do_request()` and
  * returns the aggregated product-variation sales KPIs over a date range:
@@ -29,8 +29,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * fields (cast to numbers) and reports `intervals_count` instead.
  *
  * Use this for variation sales totals over a range; use
- * `wc-reports/list-variations-analytics` for per-variation rows, or
- * `wc-reports/get-products-stats` for the same KPIs aggregated at the parent-product
+ * `og-wc-reports/list-variations-analytics` for per-variation rows, or
+ * `og-wc-reports/get-products-stats` for the same KPIs aggregated at the parent-product
  * level rather than per variation.
  *
  * Only available when the store's WooCommerce **Analytics** feature is enabled (it
@@ -60,7 +60,7 @@ final class GetVariationsStats implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-reports/get-variations-stats';
+		return 'og-wc-reports/get-variations-stats';
 	}
 
 	/**
@@ -76,8 +76,8 @@ final class GetVariationsStats implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Get Variations Stats', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns aggregated WooCommerce Analytics product-variation sales totals over a date range: items_sold, net_revenue, and orders_count, plus intervals_count (the number of period buckets) and the period the report covered. The full per-interval breakdown is intentionally omitted — only intervals_count is reported. Use this for an aggregated variation-sales total; use wc-reports/list-variations-analytics for per-variation rows, or wc-reports/get-products-stats for the same KPIs aggregated at the parent-product level. The date range is set with after/before (ISO8601 date-time) and interval buckets the breakdown that drives intervals_count. Only available when the store\'s WooCommerce Analytics feature is enabled.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-reports',
+			'description'         => __( 'Returns aggregated WooCommerce Analytics product-variation sales totals over a date range: items_sold, net_revenue, and orders_count, plus intervals_count (the number of period buckets) and the period the report covered. The full per-interval breakdown is intentionally omitted — only intervals_count is reported. Use this for an aggregated variation-sales total; use og-wc-reports/list-variations-analytics for per-variation rows, or og-wc-reports/get-products-stats for the same KPIs aggregated at the parent-product level. The date range is set with after/before (ISO8601 date-time) and interval buckets the breakdown that drives intervals_count. Only available when the store\'s WooCommerce Analytics feature is enabled.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-reports',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array(
@@ -103,7 +103,7 @@ final class GetVariationsStats implements ConditionalAbility {
 							'type'    => 'integer',
 							'minimum' => 1,
 						),
-						'description' => __( 'Limit the totals to variations of the given parent product IDs. Omit to aggregate across all products. Discover product IDs with wc-products/list-products.', 'abilities-catalog-woo' ),
+						'description' => __( 'Limit the totals to variations of the given parent product IDs. Omit to aggregate across all products. Discover product IDs with og-wc-products/list-products.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,

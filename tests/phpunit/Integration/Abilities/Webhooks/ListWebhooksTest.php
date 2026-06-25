@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-webhooks/list-webhooks` ability.
+ * Integration tests for the `og-wc-webhooks/list-webhooks` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -18,7 +18,7 @@ use WP_Error;
  */
 final class ListWebhooksTest extends TestCase {
 
-	private const ABILITY = 'wc-webhooks/list-webhooks';
+	private const ABILITY = 'og-wc-webhooks/list-webhooks';
 
 	/**
 	 * The exact keys a shaped webhook summary row exposes.

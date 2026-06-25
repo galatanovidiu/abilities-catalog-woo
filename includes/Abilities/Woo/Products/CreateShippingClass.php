@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Write ability: `wc-products/create-shipping-class`.
+ * Write ability: `og-wc-products/create-shipping-class`.
  *
  * Wraps `POST wc/v3/products/shipping_classes` via `rest_do_request()`, creating
  * one product shipping class and returning it as a flat, closed term row through
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * the raw `wc/v3` term body.
  *
  * Reversible: a class created here is editable with
- * `wc-products/update-shipping-class`. The change touches only the
+ * `og-wc-products/update-shipping-class`. The change touches only the
  * `product_shipping_class` catalog taxonomy — it does not affect orders, money,
  * or products already published; products are assigned a shipping class
  * separately when they are saved.
@@ -40,7 +40,7 @@ final class CreateShippingClass implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/create-shipping-class';
+		return 'og-wc-products/create-shipping-class';
 	}
 
 	/**
@@ -56,8 +56,8 @@ final class CreateShippingClass implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Create Shipping Class', 'abilities-catalog-woo' ),
-			'description'         => __( 'Creates one WooCommerce product shipping class and returns its id, name, slug, product count, and description. Only name is required; an omitted slug is derived from the name. Shipping classes are a flat (non-hierarchical) taxonomy, so there is no parent. Reusing an existing slug returns a "term_exists" 400 error carrying the existing class id in resource_id, so branch on that to reuse instead of recreate. Reversible: edit it later with wc-products/update-shipping-class. This edits only the product_shipping_class catalog taxonomy and does not affect orders or products; a product is assigned its shipping class separately when it is saved.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Creates one WooCommerce product shipping class and returns its id, name, slug, product count, and description. Only name is required; an omitted slug is derived from the name. Shipping classes are a flat (non-hierarchical) taxonomy, so there is no parent. Reusing an existing slug returns a "term_exists" 400 error carrying the existing class id in resource_id, so branch on that to reuse instead of recreate. Reversible: edit it later with og-wc-products/update-shipping-class. This edits only the product_shipping_class catalog taxonomy and does not affect orders or products; a product is assigned its shipping class separately when it is saved.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'name' ),
@@ -95,7 +95,7 @@ final class CreateShippingClass implements ConditionalAbility {
 	/**
 	 * Permission check: WooCommerce's edit capability for product terms.
 	 *
-	 * Encodes the catalog capability for `wc-products/create-shipping-class`: the
+	 * Encodes the catalog capability for `og-wc-products/create-shipping-class`: the
 	 * `edit_product_terms` capability, which is what
 	 * `wc_rest_check_product_term_permissions( 'product_shipping_class', 'create' )`
 	 * resolves to on the wrapped `POST wc/v3/products/shipping_classes` route (the

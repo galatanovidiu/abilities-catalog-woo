@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-products/get-product-tag ability.
+ * Integration tests for the og-wc-products/get-product-tag ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -13,7 +13,7 @@ use GalatanOvidiu\AbilitiesCatalogWoo\Tests\TestCase;
 use WP_Error;
 
 /**
- * Exercises wc-products/get-product-tag: the shaped single-tag record, the
+ * Exercises og-wc-products/get-product-tag: the shaped single-tag record, the
  * missing-tag 404 that must not collapse to a permission error, the
  * wrong-capability denial, and the exact closed output shape (flat, no parent).
  */
@@ -33,10 +33,10 @@ final class GetProductTagTest extends TestCase {
 	);
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-products/get-product-tag' );
+		$ability = wp_get_ability( 'og-wc-products/get-product-tag' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-products/get-product-tag', $ability->get_name() );
+		$this->assertSame( 'og-wc-products/get-product-tag', $ability->get_name() );
 	}
 
 	public function test_admin_reads_tag_detail(): void {
@@ -49,7 +49,7 @@ final class GetProductTagTest extends TestCase {
 		);
 		$tag_id = (int) $tag['term_id'];
 
-		$result = wp_get_ability( 'wc-products/get-product-tag' )->execute( array( 'id' => $tag_id ) );
+		$result = wp_get_ability( 'og-wc-products/get-product-tag' )->execute( array( 'id' => $tag_id ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( $tag_id, $result['id'] );
@@ -65,7 +65,7 @@ final class GetProductTagTest extends TestCase {
 		$tag    = wp_insert_term( 'Featured', 'product_tag' );
 		$tag_id = (int) $tag['term_id'];
 
-		$result = wp_get_ability( 'wc-products/get-product-tag' )->execute( array( 'id' => $tag_id ) );
+		$result = wp_get_ability( 'og-wc-products/get-product-tag' )->execute( array( 'id' => $tag_id ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( self::EXPECTED_KEYS, array_keys( $result ) );
@@ -86,7 +86,7 @@ final class GetProductTagTest extends TestCase {
 	public function test_missing_tag_returns_404_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-products/get-product-tag' )->execute( array( 'id' => 99999999 ) );
+		$result = wp_get_ability( 'og-wc-products/get-product-tag' )->execute( array( 'id' => 99999999 ) );
 
 		$this->assertInstanceOf( WP_Error::class, $result );
 		$this->assertSame( 'woocommerce_rest_term_invalid', $result->get_error_code() );
@@ -100,7 +100,7 @@ final class GetProductTagTest extends TestCase {
 
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-products/get-product-tag' );
+		$ability = wp_get_ability( 'og-wc-products/get-product-tag' );
 
 		$this->assertFalse( $ability->check_permissions( array( 'id' => $tag_id ) ) );
 

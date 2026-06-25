@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-reports/list-coupons-analytics`.
+ * Read ability: `og-wc-reports/list-coupons-analytics`.
  *
  * Wraps `GET /wc-analytics/reports/coupons` via `rest_do_request()` and returns
  * each coupon's discount performance over a date range as a flat summary row:
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * rest of `extended_info` (creation/expiry dates) is never returned — only the two
  * identity fields are flattened out.
  *
- * This is the per-coupon list read; use `wc-reports/get-coupons-stats` for the
+ * This is the per-coupon list read; use `og-wc-reports/get-coupons-stats` for the
  * aggregated totals (discount amount, coupon count, order count) over a range.
  * Set the range with `after`/`before` (ISO8601 date-time).
  *
@@ -60,7 +60,7 @@ final class ListCouponsAnalytics implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-reports/list-coupons-analytics';
+		return 'og-wc-reports/list-coupons-analytics';
 	}
 
 	/**
@@ -76,8 +76,8 @@ final class ListCouponsAnalytics implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'List Coupons Analytics', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns per-coupon discount performance from WooCommerce Analytics as flat rows, each with coupon_id, amount (total discount given), orders_count, and the coupon code and discount_type. The rest of the report\'s extended_info (creation and expiry dates) is intentionally dropped. Use this for a ranked coupon list over a date range; use wc-reports/get-coupons-stats for the aggregated totals. The range is set by after/before as ISO8601 date-times; omit them for WooCommerce\'s default range. Only available when the store\'s WooCommerce Analytics feature is enabled; for the always-present legacy totals use the wc-reports coupon totals reads. The report reads an analytics lookup table that an async sync populates, so a just-placed order may not appear immediately.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-reports',
+			'description'         => __( 'Returns per-coupon discount performance from WooCommerce Analytics as flat rows, each with coupon_id, amount (total discount given), orders_count, and the coupon code and discount_type. The rest of the report\'s extended_info (creation and expiry dates) is intentionally dropped. Use this for a ranked coupon list over a date range; use og-wc-reports/get-coupons-stats for the aggregated totals. The range is set by after/before as ISO8601 date-times; omit them for WooCommerce\'s default range. Only available when the store\'s WooCommerce Analytics feature is enabled; for the always-present legacy totals use the wc-reports coupon totals reads. The report reads an analytics lookup table that an async sync populates, so a just-placed order may not appear immediately.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-reports',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array(
@@ -125,7 +125,7 @@ final class ListCouponsAnalytics implements ConditionalAbility {
 				'properties'           => array(
 					'items' => array(
 						'type'        => 'array',
-						'description' => __( 'The per-coupon analytics rows. Use wc-reports/get-coupons-stats for the aggregated totals over the range.', 'abilities-catalog-woo' ),
+						'description' => __( 'The per-coupon analytics rows. Use og-wc-reports/get-coupons-stats for the aggregated totals over the range.', 'abilities-catalog-woo' ),
 						'items'       => AnalyticsReportShaper::analyticsItemSchema(
 							array(
 								'coupon_id'     => array(

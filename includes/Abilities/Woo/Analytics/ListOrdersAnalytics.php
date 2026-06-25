@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-reports/list-orders-analytics`.
+ * Read ability: `og-wc-reports/list-orders-analytics`.
  *
  * Wraps `GET /wc-analytics/reports/orders` via `rest_do_request()` and returns the
  * Analytics orders report as flat per-order rows. Each row is shaped to a small
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * coupons, customer, attribution) is intentionally dropped by
  * {@see AnalyticsReportShaper::analyticsRow()}.
  *
- * This is the per-order list counterpart to `wc-reports/get-orders-stats` (which
+ * This is the per-order list counterpart to `og-wc-reports/get-orders-stats` (which
  * returns the aggregated KPI totals over the range). The Analytics orders route is
  * a paginated report, so `total` is read from the `X-WP-Total` response header (the
  * full matching count), falling back to the number of returned rows only when the
@@ -62,7 +62,7 @@ final class ListOrdersAnalytics implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-reports/list-orders-analytics';
+		return 'og-wc-reports/list-orders-analytics';
 	}
 
 	/**
@@ -78,8 +78,8 @@ final class ListOrdersAnalytics implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'List Orders Analytics', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns the WooCommerce Analytics orders report as flat per-order rows, each with order_id, order_number, date_created, status, customer_id, customer_type (new or returning), num_items_sold, net_total, and total_formatted. Filter the date range with after/before (ISO8601 date-time) and page with per_page/page. Use this for a per-order breakdown; use wc-reports/get-orders-stats for the aggregated KPI totals over a range. The large per-order extended_info (products, coupons, customer, attribution) is intentionally omitted. Available only when the store\'s WooCommerce Analytics feature is enabled; Analytics reads from lookup tables synced asynchronously, so a just-placed order may not appear yet.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-reports',
+			'description'         => __( 'Returns the WooCommerce Analytics orders report as flat per-order rows, each with order_id, order_number, date_created, status, customer_id, customer_type (new or returning), num_items_sold, net_total, and total_formatted. Filter the date range with after/before (ISO8601 date-time) and page with per_page/page. Use this for a per-order breakdown; use og-wc-reports/get-orders-stats for the aggregated KPI totals over a range. The large per-order extended_info (products, coupons, customer, attribution) is intentionally omitted. Available only when the store\'s WooCommerce Analytics feature is enabled; Analytics reads from lookup tables synced asynchronously, so a just-placed order may not appear yet.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-reports',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array(

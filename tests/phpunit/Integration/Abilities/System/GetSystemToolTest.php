@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-system/get-system-tool ability.
+ * Integration tests for the og-wc-system/get-system-tool ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -13,7 +13,7 @@ use GalatanOvidiu\AbilitiesCatalogWoo\Tests\TestCase;
 use WP_Error;
 
 /**
- * Exercises wc-system/get-system-tool: the shaped single-tool row for a known
+ * Exercises og-wc-system/get-system-tool: the shaped single-tool row for a known
  * tool id (e.g. clear_transients), the unknown-tool 404 that must not collapse to
  * a permission error, the wrong-capability denial, and the exact closed output
  * shape with no raw REST fields.
@@ -33,16 +33,16 @@ final class GetSystemToolTest extends TestCase {
 	);
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-system/get-system-tool' );
+		$ability = wp_get_ability( 'og-wc-system/get-system-tool' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-system/get-system-tool', $ability->get_name() );
+		$this->assertSame( 'og-wc-system/get-system-tool', $ability->get_name() );
 	}
 
 	public function test_admin_reads_known_tool(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-system/get-system-tool' )->execute( array( 'id' => 'clear_transients' ) );
+		$result = wp_get_ability( 'og-wc-system/get-system-tool' )->execute( array( 'id' => 'clear_transients' ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( 'clear_transients', $result['id'] );
@@ -57,7 +57,7 @@ final class GetSystemToolTest extends TestCase {
 	public function test_output_shape_is_exact_and_closed(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-system/get-system-tool' )->execute( array( 'id' => 'clear_transients' ) );
+		$result = wp_get_ability( 'og-wc-system/get-system-tool' )->execute( array( 'id' => 'clear_transients' ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( self::EXPECTED_KEYS, array_keys( $result ) );
@@ -72,7 +72,7 @@ final class GetSystemToolTest extends TestCase {
 	public function test_missing_tool_returns_404_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-system/get-system-tool' )->execute( array( 'id' => 'no_such_tool_xyz' ) );
+		$result = wp_get_ability( 'og-wc-system/get-system-tool' )->execute( array( 'id' => 'no_such_tool_xyz' ) );
 
 		$this->assertInstanceOf( WP_Error::class, $result );
 		$this->assertSame( 'woocommerce_rest_system_status_tool_invalid_id', $result->get_error_code() );
@@ -83,7 +83,7 @@ final class GetSystemToolTest extends TestCase {
 	public function test_subscriber_is_denied(): void {
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-system/get-system-tool' );
+		$ability = wp_get_ability( 'og-wc-system/get-system-tool' );
 
 		$this->assertFalse( $ability->check_permissions( array( 'id' => 'clear_transients' ) ) );
 

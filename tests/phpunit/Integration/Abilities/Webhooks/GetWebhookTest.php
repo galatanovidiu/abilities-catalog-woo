@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-webhooks/get-webhook ability.
+ * Integration tests for the og-wc-webhooks/get-webhook ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -14,7 +14,7 @@ use WC_Webhook;
 use WP_Error;
 
 /**
- * Exercises wc-webhooks/get-webhook: the shaped detail row on a seeded webhook,
+ * Exercises og-wc-webhooks/get-webhook: the shaped detail row on a seeded webhook,
  * the webhook-secret redaction (no `secret` key, the raw secret never appears,
  * and `has_secret` is true), the missing-webhook 404 that must not collapse to a
  * permission error, the wrong-capability denial, and the exact closed output
@@ -70,17 +70,17 @@ final class GetWebhookTest extends TestCase {
 	}
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-webhooks/get-webhook' );
+		$ability = wp_get_ability( 'og-wc-webhooks/get-webhook' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-webhooks/get-webhook', $ability->get_name() );
+		$this->assertSame( 'og-wc-webhooks/get-webhook', $ability->get_name() );
 	}
 
 	public function test_admin_reads_seeded_webhook(): void {
 		$this->actingAs( 'administrator' );
 		$id = $this->seedWebhook();
 
-		$result = wp_get_ability( 'wc-webhooks/get-webhook' )->execute( array( 'id' => $id ) );
+		$result = wp_get_ability( 'og-wc-webhooks/get-webhook' )->execute( array( 'id' => $id ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( $id, $result['id'] );
@@ -98,7 +98,7 @@ final class GetWebhookTest extends TestCase {
 		$this->actingAs( 'administrator' );
 		$id = $this->seedWebhook();
 
-		$result = wp_get_ability( 'wc-webhooks/get-webhook' )->execute( array( 'id' => $id ) );
+		$result = wp_get_ability( 'og-wc-webhooks/get-webhook' )->execute( array( 'id' => $id ) );
 
 		$this->assertIsArray( $result );
 
@@ -117,7 +117,7 @@ final class GetWebhookTest extends TestCase {
 		$this->actingAs( 'administrator' );
 		$id = $this->seedWebhook();
 
-		$result = wp_get_ability( 'wc-webhooks/get-webhook' )->execute( array( 'id' => $id ) );
+		$result = wp_get_ability( 'og-wc-webhooks/get-webhook' )->execute( array( 'id' => $id ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( self::EXPECTED_KEYS, array_keys( $result ) );
@@ -145,7 +145,7 @@ final class GetWebhookTest extends TestCase {
 	public function test_missing_webhook_returns_404_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-webhooks/get-webhook' )->execute( array( 'id' => 99999999 ) );
+		$result = wp_get_ability( 'og-wc-webhooks/get-webhook' )->execute( array( 'id' => 99999999 ) );
 
 		$this->assertInstanceOf( WP_Error::class, $result );
 		$this->assertSame( 'woocommerce_rest_shop_webhook_invalid_id', $result->get_error_code() );
@@ -157,7 +157,7 @@ final class GetWebhookTest extends TestCase {
 		$this->actingAs( 'subscriber' );
 		$id = $this->seedWebhook();
 
-		$ability = wp_get_ability( 'wc-webhooks/get-webhook' );
+		$ability = wp_get_ability( 'og-wc-webhooks/get-webhook' );
 
 		$this->assertFalse( $ability->check_permissions( array( 'id' => $id ) ) );
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-customers/list-customer-downloads` ability.
+ * Integration tests for the `og-wc-customers/list-customer-downloads` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -21,7 +21,7 @@ use WP_Error;
  */
 final class ListCustomerDownloadsTest extends TestCase {
 
-	private const ABILITY = 'wc-customers/list-customer-downloads';
+	private const ABILITY = 'og-wc-customers/list-customer-downloads';
 
 	/**
 	 * The exact keys a shaped download summary row exposes.

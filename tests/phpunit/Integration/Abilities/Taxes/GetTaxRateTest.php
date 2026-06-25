@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-taxes/get-tax-rate ability.
+ * Integration tests for the og-wc-taxes/get-tax-rate ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -14,7 +14,7 @@ use WC_Tax;
 use WP_Error;
 
 /**
- * Exercises wc-taxes/get-tax-rate: the shaped single tax-rate row, the missing-rate
+ * Exercises og-wc-taxes/get-tax-rate: the shaped single tax-rate row, the missing-rate
  * 404 that must not collapse to a permission error, the wrong-capability denial, and
  * the exact closed output shape (flat, no raw postcodes/cities/order leak).
  */
@@ -62,10 +62,10 @@ final class GetTaxRateTest extends TestCase {
 	}
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-taxes/get-tax-rate' );
+		$ability = wp_get_ability( 'og-wc-taxes/get-tax-rate' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-taxes/get-tax-rate', $ability->get_name() );
+		$this->assertSame( 'og-wc-taxes/get-tax-rate', $ability->get_name() );
 	}
 
 	public function test_admin_reads_tax_rate_detail(): void {
@@ -73,7 +73,7 @@ final class GetTaxRateTest extends TestCase {
 
 		$id = $this->seedRate();
 
-		$result = wp_get_ability( 'wc-taxes/get-tax-rate' )->execute( array( 'id' => $id ) );
+		$result = wp_get_ability( 'og-wc-taxes/get-tax-rate' )->execute( array( 'id' => $id ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( $id, $result['id'] );
@@ -98,7 +98,7 @@ final class GetTaxRateTest extends TestCase {
 			)
 		);
 
-		$result = wp_get_ability( 'wc-taxes/get-tax-rate' )->execute( array( 'id' => $id ) );
+		$result = wp_get_ability( 'og-wc-taxes/get-tax-rate' )->execute( array( 'id' => $id ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( self::EXPECTED_KEYS, array_keys( $result ) );
@@ -126,7 +126,7 @@ final class GetTaxRateTest extends TestCase {
 	public function test_missing_tax_rate_returns_404_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-taxes/get-tax-rate' )->execute( array( 'id' => 99999999 ) );
+		$result = wp_get_ability( 'og-wc-taxes/get-tax-rate' )->execute( array( 'id' => 99999999 ) );
 
 		$this->assertInstanceOf( WP_Error::class, $result );
 		$this->assertSame( 'woocommerce_rest_invalid_id', $result->get_error_code() );
@@ -139,7 +139,7 @@ final class GetTaxRateTest extends TestCase {
 
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-taxes/get-tax-rate' );
+		$ability = wp_get_ability( 'og-wc-taxes/get-tax-rate' );
 
 		$this->assertFalse( $ability->check_permissions( array( 'id' => $id ) ) );
 

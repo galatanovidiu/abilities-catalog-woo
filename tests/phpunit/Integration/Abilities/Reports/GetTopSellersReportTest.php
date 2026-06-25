@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-reports/get-top-sellers-report` ability.
+ * Integration tests for the `og-wc-reports/get-top-sellers-report` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -19,7 +19,7 @@ use WP_Error;
  */
 final class GetTopSellersReportTest extends TestCase {
 
-	private const ABILITY = 'wc-reports/get-top-sellers-report';
+	private const ABILITY = 'og-wc-reports/get-top-sellers-report';
 
 	/**
 	 * The exact keys a shaped top-sellers row exposes.

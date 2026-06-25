@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-products/delete-product ability.
+ * Integration tests for the og-wc-products/delete-product ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -14,7 +14,7 @@ use WP_Error;
 use WC_Product_Simple;
 
 /**
- * Exercises wc-products/delete-product: the permanent force=true delete (product
+ * Exercises og-wc-products/delete-product: the permanent force=true delete (product
  * gone), the recoverable force=false trash (or the 501 when Trash is disabled),
  * the route's specific 404 for a missing product surfaced via RestError (not a
  * permission collapse), the wrong-cap denial leaving the product intact, and the
@@ -51,10 +51,10 @@ final class DeleteProductTest extends TestCase {
 	}
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-products/delete-product' );
+		$ability = wp_get_ability( 'og-wc-products/delete-product' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-products/delete-product', $ability->get_name() );
+		$this->assertSame( 'og-wc-products/delete-product', $ability->get_name() );
 	}
 
 	public function test_force_true_permanently_deletes_product(): void {
@@ -62,7 +62,7 @@ final class DeleteProductTest extends TestCase {
 
 		$id = $this->seedProduct( 'Doomed Product' );
 
-		$result = wp_get_ability( 'wc-products/delete-product' )->execute(
+		$result = wp_get_ability( 'og-wc-products/delete-product' )->execute(
 			array(
 				'id'    => $id,
 				'force' => true,
@@ -85,7 +85,7 @@ final class DeleteProductTest extends TestCase {
 
 		$id = $this->seedProduct( 'Trashable Product' );
 
-		$result = wp_get_ability( 'wc-products/delete-product' )->execute(
+		$result = wp_get_ability( 'og-wc-products/delete-product' )->execute(
 			array(
 				'id'    => $id,
 				'force' => false,
@@ -111,7 +111,7 @@ final class DeleteProductTest extends TestCase {
 	public function test_missing_product_returns_route_404_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-products/delete-product' )->execute(
+		$result = wp_get_ability( 'og-wc-products/delete-product' )->execute(
 			array(
 				'id'    => 99999999,
 				'force' => true,
@@ -129,7 +129,7 @@ final class DeleteProductTest extends TestCase {
 
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-products/delete-product' );
+		$ability = wp_get_ability( 'og-wc-products/delete-product' );
 
 		$this->assertFalse( $ability->check_permissions( array( 'id' => $id ) ) );
 
@@ -152,7 +152,7 @@ final class DeleteProductTest extends TestCase {
 
 		$id = $this->seedProduct( 'Shape Product' );
 
-		$result = wp_get_ability( 'wc-products/delete-product' )->execute(
+		$result = wp_get_ability( 'og-wc-products/delete-product' )->execute(
 			array(
 				'id'    => $id,
 				'force' => true,

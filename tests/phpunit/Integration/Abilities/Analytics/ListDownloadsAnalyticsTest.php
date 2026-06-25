@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-reports/list-downloads-analytics` ability.
+ * Integration tests for the `og-wc-reports/list-downloads-analytics` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -18,7 +18,7 @@ use WP_Error;
  */
 final class ListDownloadsAnalyticsTest extends TestCase {
 
-	private const ABILITY = 'wc-reports/list-downloads-analytics';
+	private const ABILITY = 'og-wc-reports/list-downloads-analytics';
 
 	/**
 	 * The exact keys a shaped download-analytics row exposes.

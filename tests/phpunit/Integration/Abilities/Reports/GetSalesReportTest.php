@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-reports/get-sales-report` ability.
+ * Integration tests for the `og-wc-reports/get-sales-report` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -19,7 +19,7 @@ use WP_Error;
  */
 final class GetSalesReportTest extends TestCase {
 
-	private const ABILITY = 'wc-reports/get-sales-report';
+	private const ABILITY = 'og-wc-reports/get-sales-report';
 
 	/**
 	 * The exact closed top-level key set the ability returns.

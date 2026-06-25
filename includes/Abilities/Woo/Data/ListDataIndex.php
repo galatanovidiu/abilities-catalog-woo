@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-data/list-data-index`.
+ * Read ability: `og-wc-data/list-data-index`.
  *
  * Wraps `GET wc/v3/data` via `rest_do_request()` and returns the index of
  * WooCommerce's static reference-data resources, each as a flat row with its
@@ -45,7 +45,7 @@ final class ListDataIndex implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-data/list-data-index';
+		return 'og-wc-data/list-data-index';
 	}
 
 	/**
@@ -61,8 +61,8 @@ final class ListDataIndex implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'List Data Index', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns the index of WooCommerce reference-data resources: three rows (continents, countries, currencies), each with its slug, a short description, and the endpoint URL that lists it. Use this to discover the wc-data reference surface, then read each resource with wc-data/list-continents, wc-data/list-countries, or wc-data/list-currencies. Read-only: it lists the resources, not their contents.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-data',
+			'description'         => __( 'Returns the index of WooCommerce reference-data resources: three rows (continents, countries, currencies), each with its slug, a short description, and the endpoint URL that lists it. Use this to discover the wc-data reference surface, then read each resource with og-wc-data/list-continents, og-wc-data/list-countries, or og-wc-data/list-currencies. Read-only: it lists the resources, not their contents.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-data',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => (object) array(),
@@ -74,7 +74,7 @@ final class ListDataIndex implements ConditionalAbility {
 				'properties'           => array(
 					'items' => array(
 						'type'        => 'array',
-						'description' => __( 'The reference-data resources as flat rows. Read each resource with its matching wc-data list ability (e.g. the "currencies" row maps to wc-data/list-currencies).', 'abilities-catalog-woo' ),
+						'description' => __( 'The reference-data resources as flat rows. Read each resource with its matching wc-data list ability (e.g. the "currencies" row maps to og-wc-data/list-currencies).', 'abilities-catalog-woo' ),
 						'items'       => array(
 							'type'                 => 'object',
 							'required'             => array( 'slug', 'endpoint' ),

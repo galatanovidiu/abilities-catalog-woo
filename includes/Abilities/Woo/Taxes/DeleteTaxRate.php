@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Destructive write ability: `wc-taxes/delete-tax-rate`.
+ * Destructive write ability: `og-wc-taxes/delete-tax-rate`.
  *
  * Wraps `DELETE wc/v3/taxes/<id>` via `rest_do_request()`. The id is a numeric path
  * segment, so it is concatenated into the route (not passed as a query param). The
@@ -37,7 +37,7 @@ final class DeleteTaxRate implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-taxes/delete-tax-rate';
+		return 'og-wc-taxes/delete-tax-rate';
 	}
 
 	/**
@@ -53,8 +53,8 @@ final class DeleteTaxRate implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Delete Tax Rate', 'abilities-catalog-woo' ),
-			'description'         => __( 'Permanently deletes a WooCommerce tax rate by ID. This cannot be undone: WooCommerce force-deletes the rate, bypassing the Trash, so there is no restore. This is a financial change: removing a rate alters what customers in the matched region are charged at checkout (one fewer rate applies there). Returns the deleted rate\'s display name for confirmation; no edit_link is returned because the rate no longer exists. Discover IDs with wc-taxes/list-tax-rates.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-taxes',
+			'description'         => __( 'Permanently deletes a WooCommerce tax rate by ID. This cannot be undone: WooCommerce force-deletes the rate, bypassing the Trash, so there is no restore. This is a financial change: removing a rate alters what customers in the matched region are charged at checkout (one fewer rate applies there). Returns the deleted rate\'s display name for confirmation; no edit_link is returned because the rate no longer exists. Discover IDs with og-wc-taxes/list-tax-rates.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-taxes',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
@@ -62,7 +62,7 @@ final class DeleteTaxRate implements ConditionalAbility {
 					'id' => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The tax rate ID to permanently delete. Discover IDs with wc-taxes/list-tax-rates.', 'abilities-catalog-woo' ),
+						'description' => __( 'The tax rate ID to permanently delete. Discover IDs with og-wc-taxes/list-tax-rates.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,

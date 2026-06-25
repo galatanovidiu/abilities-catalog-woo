@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-settings/list-setting-groups`.
+ * Read ability: `og-wc-settings/list-setting-groups`.
  *
  * Wraps `GET wc/v3/settings` via `rest_do_request()` and returns WooCommerce's
  * top-level settings groups (the tabs of the WooCommerce settings screen, e.g.
@@ -40,7 +40,7 @@ final class ListSettingGroups implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-settings/list-setting-groups';
+		return 'og-wc-settings/list-setting-groups';
 	}
 
 	/**
@@ -56,8 +56,8 @@ final class ListSettingGroups implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'List Setting Groups', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns WooCommerce\'s top-level settings groups (the tabs of the WooCommerce settings screen, e.g. General, Products, Tax, Shipping) as flat { id, label, description, parent_id } rows, plus the total count. Read-only discovery step: pass a row\'s id to wc-settings/list-group-settings to read that group\'s actual options. Groups are metadata only — they carry no setting values and no credentials.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-settings',
+			'description'         => __( 'Returns WooCommerce\'s top-level settings groups (the tabs of the WooCommerce settings screen, e.g. General, Products, Tax, Shipping) as flat { id, label, description, parent_id } rows, plus the total count. Read-only discovery step: pass a row\'s id to og-wc-settings/list-group-settings to read that group\'s actual options. Groups are metadata only — they carry no setting values and no credentials.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-settings',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => (object) array(),
@@ -69,7 +69,7 @@ final class ListSettingGroups implements ConditionalAbility {
 				'properties'           => array(
 					'items' => array(
 						'type'        => 'array',
-						'description' => __( 'The settings groups as flat summary rows. Pass a row\'s id to wc-settings/list-group-settings to read that group\'s options.', 'abilities-catalog-woo' ),
+						'description' => __( 'The settings groups as flat summary rows. Pass a row\'s id to og-wc-settings/list-group-settings to read that group\'s options.', 'abilities-catalog-woo' ),
 						'items'       => SettingListShaper::groupItemSchema(),
 					),
 					'total' => array(

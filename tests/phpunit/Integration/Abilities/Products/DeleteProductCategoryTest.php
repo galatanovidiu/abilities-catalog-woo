@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-products/delete-product-category ability.
+ * Integration tests for the og-wc-products/delete-product-category ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -13,7 +13,7 @@ use GalatanOvidiu\AbilitiesCatalogWoo\Tests\TestCase;
 use WP_Error;
 
 /**
- * Exercises wc-products/delete-product-category: the permanent (force=true) delete
+ * Exercises og-wc-products/delete-product-category: the permanent (force=true) delete
  * that removes a seeded category, the default-product-category guard that returns
  * woocommerce_rest_cannot_delete 500, the missing-category 404 surfaced as the
  * route's specific code (not a permission collapse), the wrong-capability denial
@@ -44,10 +44,10 @@ final class DeleteProductCategoryTest extends TestCase {
 	);
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-products/delete-product-category' );
+		$ability = wp_get_ability( 'og-wc-products/delete-product-category' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-products/delete-product-category', $ability->get_name() );
+		$this->assertSame( 'og-wc-products/delete-product-category', $ability->get_name() );
 	}
 
 	public function test_admin_permanently_deletes_a_category(): void {
@@ -57,7 +57,7 @@ final class DeleteProductCategoryTest extends TestCase {
 		$this->assertIsArray( $term );
 		$id = (int) $term['term_id'];
 
-		$result = wp_get_ability( 'wc-products/delete-product-category' )->execute(
+		$result = wp_get_ability( 'og-wc-products/delete-product-category' )->execute(
 			array( 'id' => $id )
 		);
 
@@ -79,7 +79,7 @@ final class DeleteProductCategoryTest extends TestCase {
 		$this->assertIsArray( $term );
 		$id = (int) $term['term_id'];
 
-		$result = wp_get_ability( 'wc-products/delete-product-category' )->execute(
+		$result = wp_get_ability( 'og-wc-products/delete-product-category' )->execute(
 			array( 'id' => $id )
 		);
 
@@ -112,7 +112,7 @@ final class DeleteProductCategoryTest extends TestCase {
 			update_option( 'default_product_cat', $existing_default_id );
 		}
 
-		$result = wp_get_ability( 'wc-products/delete-product-category' )->execute(
+		$result = wp_get_ability( 'og-wc-products/delete-product-category' )->execute(
 			array( 'id' => $existing_default_id )
 		);
 
@@ -139,7 +139,7 @@ final class DeleteProductCategoryTest extends TestCase {
 	public function test_missing_category_returns_term_invalid_404_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-products/delete-product-category' )->execute(
+		$result = wp_get_ability( 'og-wc-products/delete-product-category' )->execute(
 			array( 'id' => 99999999 )
 		);
 
@@ -156,7 +156,7 @@ final class DeleteProductCategoryTest extends TestCase {
 		$this->assertIsArray( $term );
 		$id = (int) $term['term_id'];
 
-		$ability = wp_get_ability( 'wc-products/delete-product-category' );
+		$ability = wp_get_ability( 'og-wc-products/delete-product-category' );
 
 		$this->assertFalse( $ability->check_permissions( array( 'id' => $id ) ) );
 

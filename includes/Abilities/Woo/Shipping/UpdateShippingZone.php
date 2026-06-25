@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Write ability: `wc-shipping/update-shipping-zone`.
+ * Write ability: `og-wc-shipping/update-shipping-zone`.
  *
  * Wraps `PUT wc/v3/shipping/zones/<id>` via `rest_do_request()`, changing a shipping
  * zone's name and/or sort order and returning the shaped updated zone
@@ -44,7 +44,7 @@ final class UpdateShippingZone implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-shipping/update-shipping-zone';
+		return 'og-wc-shipping/update-shipping-zone';
 	}
 
 	/**
@@ -60,8 +60,8 @@ final class UpdateShippingZone implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Update Shipping Zone', 'abilities-catalog-woo' ),
-			'description'         => __( 'Updates an existing WooCommerce shipping zone by ID and returns the shaped zone (id, name, order). Send only the fields you want to change; omitted fields are left untouched. Discover IDs with wc-shipping/list-shipping-zones. Use wc-shipping/create-shipping-zone to make a new zone instead. This changes only the zone label and sort order; to change its regions use wc-shipping/update-shipping-zone-locations and to change its rates use the shipping-zone-method abilities. IMPORTANT: zone 0, the always-present "Rest of the World" catch-all, is read-only and CANNOT be edited; attempting to update it returns a woocommerce_rest_shipping_zone_invalid_zone 403. A missing zone returns woocommerce_rest_shipping_zone_invalid 404.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-shipping',
+			'description'         => __( 'Updates an existing WooCommerce shipping zone by ID and returns the shaped zone (id, name, order). Send only the fields you want to change; omitted fields are left untouched. Discover IDs with og-wc-shipping/list-shipping-zones. Use og-wc-shipping/create-shipping-zone to make a new zone instead. This changes only the zone label and sort order; to change its regions use og-wc-shipping/update-shipping-zone-locations and to change its rates use the shipping-zone-method abilities. IMPORTANT: zone 0, the always-present "Rest of the World" catch-all, is read-only and CANNOT be edited; attempting to update it returns a woocommerce_rest_shipping_zone_invalid_zone 403. A missing zone returns woocommerce_rest_shipping_zone_invalid 404.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-shipping',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
@@ -69,7 +69,7 @@ final class UpdateShippingZone implements ConditionalAbility {
 					'id'    => array(
 						'type'        => 'integer',
 						'minimum'     => 0,
-						'description' => __( 'The shipping zone ID to update. Discover IDs with wc-shipping/list-shipping-zones. Id 0 is the read-only "Rest of the World" catch-all and cannot be edited (the route returns a 403).', 'abilities-catalog-woo' ),
+						'description' => __( 'The shipping zone ID to update. Discover IDs with og-wc-shipping/list-shipping-zones. Id 0 is the read-only "Rest of the World" catch-all and cannot be edited (the route returns a 403).', 'abilities-catalog-woo' ),
 					),
 					'name'  => array(
 						'type'        => 'string',

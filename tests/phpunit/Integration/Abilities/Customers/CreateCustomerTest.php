@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-customers/create-customer ability.
+ * Integration tests for the og-wc-customers/create-customer ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -13,7 +13,7 @@ use GalatanOvidiu\AbilitiesCatalogWoo\Tests\TestCase;
 use WP_Error;
 
 /**
- * Exercises wc-customers/create-customer: the shaped created customer with a real
+ * Exercises og-wc-customers/create-customer: the shaped created customer with a real
  * id, a honored field, the load-bearing password redaction (no `password` key in
  * the result even when one is supplied on input), the wrong-capability denial, and
  * the route's 400 for a duplicate email surfaced as a specific error rather than a
@@ -43,16 +43,16 @@ final class CreateCustomerTest extends TestCase {
 	);
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-customers/create-customer' );
+		$ability = wp_get_ability( 'og-wc-customers/create-customer' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-customers/create-customer', $ability->get_name() );
+		$this->assertSame( 'og-wc-customers/create-customer', $ability->get_name() );
 	}
 
 	public function test_admin_creates_customer_returns_shaped_record(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-customers/create-customer' )->execute(
+		$result = wp_get_ability( 'og-wc-customers/create-customer' )->execute(
 			array(
 				'email'      => 'buyer@example.test',
 				'first_name' => 'Grace',
@@ -70,7 +70,7 @@ final class CreateCustomerTest extends TestCase {
 		$this->actingAs( 'administrator' );
 
 		// A password IS supplied on input; it must never appear in the result.
-		$result = wp_get_ability( 'wc-customers/create-customer' )->execute(
+		$result = wp_get_ability( 'og-wc-customers/create-customer' )->execute(
 			array(
 				'email'    => 'shape@example.test',
 				'password' => 'super-secret-pass',
@@ -93,7 +93,7 @@ final class CreateCustomerTest extends TestCase {
 	public function test_subscriber_is_denied(): void {
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-customers/create-customer' );
+		$ability = wp_get_ability( 'og-wc-customers/create-customer' );
 
 		$this->assertFalse( $ability->check_permissions( array( 'email' => 'denied@example.test' ) ) );
 
@@ -117,7 +117,7 @@ final class CreateCustomerTest extends TestCase {
 			)
 		);
 
-		$result = wp_get_ability( 'wc-customers/create-customer' )->execute(
+		$result = wp_get_ability( 'og-wc-customers/create-customer' )->execute(
 			array( 'email' => 'taken@example.test' )
 		);
 

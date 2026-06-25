@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-reports/get-sales-report`.
+ * Read ability: `og-wc-reports/get-sales-report`.
  *
  * Wraps `GET /wc/v3/reports/sales` via `rest_do_request()` and returns the legacy
  * sales report as a single shaped object: the period's top-level money totals
@@ -38,7 +38,7 @@ final class GetSalesReport implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-reports/get-sales-report';
+		return 'og-wc-reports/get-sales-report';
 	}
 
 	/**
@@ -54,8 +54,8 @@ final class GetSalesReport implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Get Sales Report', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns WooCommerce\'s legacy sales report for a period as a single object: top-level totals (total_sales, net_sales, average_sales, total_orders, total_items, total_tax, total_shipping, total_refunds, total_discount, total_customers) plus a totals map broken down by day or month (each bucket carries sales, orders, items, tax, shipping, discount, refunds, and new customers). Use this for the time-series money totals of a store; use wc-reports/get-orders-totals for a per-status order count instead. This is the legacy reports surface — for trend or segment analysis use the wc-analytics abilities, which exist only when the WooCommerce Analytics feature is enabled.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-reports',
+			'description'         => __( 'Returns WooCommerce\'s legacy sales report for a period as a single object: top-level totals (total_sales, net_sales, average_sales, total_orders, total_items, total_tax, total_shipping, total_refunds, total_discount, total_customers) plus a totals map broken down by day or month (each bucket carries sales, orders, items, tax, shipping, discount, refunds, and new customers). Use this for the time-series money totals of a store; use og-wc-reports/get-orders-totals for a per-status order count instead. This is the legacy reports surface — for trend or segment analysis use the wc-analytics abilities, which exist only when the WooCommerce Analytics feature is enabled.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-reports',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array(

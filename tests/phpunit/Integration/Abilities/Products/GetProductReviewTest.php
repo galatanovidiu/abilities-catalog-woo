@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-products/get-product-review ability.
+ * Integration tests for the og-wc-products/get-product-review ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -14,7 +14,7 @@ use WC_Product_Simple;
 use WP_Error;
 
 /**
- * Exercises wc-products/get-product-review: the shaped single-review row
+ * Exercises og-wc-products/get-product-review: the shaped single-review row
  * (including reviewer_email), the missing-review 404 that must not collapse to a
  * permission error, the wrong-capability denial, and the exact closed output
  * shape (no raw comment fields leak).
@@ -40,10 +40,10 @@ final class GetProductReviewTest extends TestCase {
 	);
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-products/get-product-review' );
+		$ability = wp_get_ability( 'og-wc-products/get-product-review' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-products/get-product-review', $ability->get_name() );
+		$this->assertSame( 'og-wc-products/get-product-review', $ability->get_name() );
 	}
 
 	public function test_admin_reads_review_detail(): void {
@@ -52,7 +52,7 @@ final class GetProductReviewTest extends TestCase {
 		$product_id = $this->seedProduct( 'Seeded Product' );
 		$review_id  = $this->seedReview( $product_id, 'Ada Reviewer', 'ada@example.com', 'Great product, works well.', 5 );
 
-		$result = wp_get_ability( 'wc-products/get-product-review' )->execute( array( 'id' => $review_id ) );
+		$result = wp_get_ability( 'og-wc-products/get-product-review' )->execute( array( 'id' => $review_id ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( $review_id, $result['id'] );
@@ -73,7 +73,7 @@ final class GetProductReviewTest extends TestCase {
 		$product_id = $this->seedProduct( 'Seeded Product' );
 		$review_id  = $this->seedReview( $product_id, 'Bob Buyer', 'bob@example.com', 'Solid.', 4 );
 
-		$result = wp_get_ability( 'wc-products/get-product-review' )->execute( array( 'id' => $review_id ) );
+		$result = wp_get_ability( 'og-wc-products/get-product-review' )->execute( array( 'id' => $review_id ) );
 
 		$this->assertIsArray( $result );
 
@@ -96,7 +96,7 @@ final class GetProductReviewTest extends TestCase {
 	public function test_missing_review_returns_404_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-products/get-product-review' )->execute( array( 'id' => 99999999 ) );
+		$result = wp_get_ability( 'og-wc-products/get-product-review' )->execute( array( 'id' => 99999999 ) );
 
 		$this->assertInstanceOf( WP_Error::class, $result );
 		$this->assertSame( 'woocommerce_rest_review_invalid_id', $result->get_error_code() );
@@ -110,7 +110,7 @@ final class GetProductReviewTest extends TestCase {
 
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-products/get-product-review' );
+		$ability = wp_get_ability( 'og-wc-products/get-product-review' );
 
 		$this->assertFalse( $ability->check_permissions( array( 'id' => $review_id ) ) );
 

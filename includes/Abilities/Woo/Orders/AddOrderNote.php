@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Write ability: `wc-orders/add-order-note`.
+ * Write ability: `og-wc-orders/add-order-note`.
  *
  * Wraps `POST wc/v3/orders/<order_id>/notes` via `rest_do_request()`, adding a note
  * to an existing order. The `order_id` is a required route segment, so it is built
@@ -39,7 +39,7 @@ final class AddOrderNote implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-orders/add-order-note';
+		return 'og-wc-orders/add-order-note';
 	}
 
 	/**
@@ -55,8 +55,8 @@ final class AddOrderNote implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Add Order Note', 'abilities-catalog-woo' ),
-			'description'         => __( 'Adds a note to an existing WooCommerce order and returns the created note: its id, author, note text, customer_note flag, date_created, and the parent order_id. By default (customer_note false) the note is a private admin reference note. Setting customer_note to true SHOWS the note to the customer AND EMAILS it to them, so only set it for a message you intend the customer to receive. Set added_by_user to true to attribute the note to the current user instead of the system. This does not change the order itself; to edit an order use wc-orders/update-order and to change its status use wc-orders/update-order-status.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-orders',
+			'description'         => __( 'Adds a note to an existing WooCommerce order and returns the created note: its id, author, note text, customer_note flag, date_created, and the parent order_id. By default (customer_note false) the note is a private admin reference note. Setting customer_note to true SHOWS the note to the customer AND EMAILS it to them, so only set it for a message you intend the customer to receive. Set added_by_user to true to attribute the note to the current user instead of the system. This does not change the order itself; to edit an order use og-wc-orders/update-order and to change its status use og-wc-orders/update-order-status.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-orders',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'order_id', 'note' ),
@@ -64,7 +64,7 @@ final class AddOrderNote implements ConditionalAbility {
 					'order_id'      => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The parent order ID to attach the note to. Discover it with wc-orders/list-orders.', 'abilities-catalog-woo' ),
+						'description' => __( 'The parent order ID to attach the note to. Discover it with og-wc-orders/list-orders.', 'abilities-catalog-woo' ),
 					),
 					'note'          => array(
 						'type'        => 'string',

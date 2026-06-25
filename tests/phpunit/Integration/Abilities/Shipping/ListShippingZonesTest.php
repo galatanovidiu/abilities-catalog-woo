@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-shipping/list-shipping-zones` ability.
+ * Integration tests for the `og-wc-shipping/list-shipping-zones` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -18,7 +18,7 @@ use WP_Error;
  */
 final class ListShippingZonesTest extends TestCase {
 
-	private const ABILITY = 'wc-shipping/list-shipping-zones';
+	private const ABILITY = 'og-wc-shipping/list-shipping-zones';
 
 	/**
 	 * The exact keys a shaped shipping-zone summary row exposes.

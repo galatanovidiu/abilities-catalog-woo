@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Write ability: `wc-products/update-product-attribute`.
+ * Write ability: `og-wc-products/update-product-attribute`.
  *
  * Wraps `PUT wc/v3/products/attributes/<id>` via `rest_do_request()`, updating one
  * global product attribute definition (a row in the
@@ -49,7 +49,7 @@ final class UpdateProductAttribute implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/update-product-attribute';
+		return 'og-wc-products/update-product-attribute';
 	}
 
 	/**
@@ -65,8 +65,8 @@ final class UpdateProductAttribute implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Update Product Attribute', 'abilities-catalog-woo' ),
-			'description'         => __( 'Updates one WooCommerce global product attribute by ID and returns the updated attribute as a flat row (id, name, slug, type, order_by, has_archives). Send only the fields you want to change; an omitted field keeps its current value. This edits the global attribute definition (e.g. Color, Size), not a product\'s per-product attribute selection. Reversible: it changes only the catalog attribute, not orders or money, and can be reverted with another update. An unknown id returns a woocommerce_rest_taxonomy_invalid 404. Discover IDs with wc-products/list-product-attributes.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Updates one WooCommerce global product attribute by ID and returns the updated attribute as a flat row (id, name, slug, type, order_by, has_archives). Send only the fields you want to change; an omitted field keeps its current value. This edits the global attribute definition (e.g. Color, Size), not a product\'s per-product attribute selection. Reversible: it changes only the catalog attribute, not orders or money, and can be reverted with another update. An unknown id returns a woocommerce_rest_taxonomy_invalid 404. Discover IDs with og-wc-products/list-product-attributes.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
@@ -74,7 +74,7 @@ final class UpdateProductAttribute implements ConditionalAbility {
 					'id'           => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The global attribute ID to update. Discover IDs with wc-products/list-product-attributes.', 'abilities-catalog-woo' ),
+						'description' => __( 'The global attribute ID to update. Discover IDs with og-wc-products/list-product-attributes.', 'abilities-catalog-woo' ),
 					),
 					'name'         => array(
 						'type'        => 'string',

@@ -15,13 +15,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-products/list-product-attributes`.
+ * Read ability: `og-wc-products/list-product-attributes`.
  *
  * Wraps `GET wc/v3/products/attributes` via `rest_do_request()` and returns each
  * global product attribute definition as a flat summary row through
  * {@see ProductTermListShaper::attributeSummary()}, so a consumer scans the store's
  * attributes (Color, Size, …) without the raw attribute body. Use the returned `id`
- * with wc-products/list-attribute-terms to read an attribute's terms.
+ * with og-wc-products/list-attribute-terms to read an attribute's terms.
  *
  * The wrapped route accepts no collection params except `context`: it always returns
  * every global attribute, so there is no search or paging to expose — the input is
@@ -38,7 +38,7 @@ final class ListProductAttributes implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/list-product-attributes';
+		return 'og-wc-products/list-product-attributes';
 	}
 
 	/**
@@ -54,8 +54,8 @@ final class ListProductAttributes implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'List Product Attributes', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns the store\'s global WooCommerce product attributes (e.g. Color, Size) as flat summary rows, each with its id, name, slug, type, order_by, and has_archives. Always returns every global attribute: this route takes no search or paging filters. Use a returned id with wc-products/list-attribute-terms to read that attribute\'s terms, or wc-products/get-product-attribute for one attribute. Read-only: lists attribute definitions, not the terms under them and not per-product attribute selections.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Returns the store\'s global WooCommerce product attributes (e.g. Color, Size) as flat summary rows, each with its id, name, slug, type, order_by, and has_archives. Always returns every global attribute: this route takes no search or paging filters. Use a returned id with og-wc-products/list-attribute-terms to read that attribute\'s terms, or og-wc-products/get-product-attribute for one attribute. Read-only: lists attribute definitions, not the terms under them and not per-product attribute selections.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => (object) array(),
@@ -67,7 +67,7 @@ final class ListProductAttributes implements ConditionalAbility {
 				'properties'           => array(
 					'items' => array(
 						'type'        => 'array',
-						'description' => __( 'The global product attributes as flat summary rows. Use wc-products/list-attribute-terms with a row\'s id to read its terms.', 'abilities-catalog-woo' ),
+						'description' => __( 'The global product attributes as flat summary rows. Use og-wc-products/list-attribute-terms with a row\'s id to read its terms.', 'abilities-catalog-woo' ),
 						'items'       => ProductTermListShaper::attributeItemSchema(),
 					),
 					'total' => array(
@@ -93,7 +93,7 @@ final class ListProductAttributes implements ConditionalAbility {
 	/**
 	 * Permission check: WooCommerce's manage capability for product attributes.
 	 *
-	 * Encodes the catalog baseline for `wc-products/list-product-attributes`: the
+	 * Encodes the catalog baseline for `og-wc-products/list-product-attributes`: the
 	 * `manage_product_terms` capability, which is what
 	 * `wc_rest_check_manager_permissions( 'attributes', 'read' )` resolves to on the
 	 * wrapped `GET wc/v3/products/attributes` route. This is a coarse, object-

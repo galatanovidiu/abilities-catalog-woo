@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-products/list-products` ability.
+ * Integration tests for the `og-wc-products/list-products` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -18,7 +18,7 @@ use WP_Error;
  */
 final class ListProductsTest extends TestCase {
 
-	private const ABILITY = 'wc-products/list-products';
+	private const ABILITY = 'og-wc-products/list-products';
 
 	/**
 	 * The exact keys a shaped product summary row exposes.

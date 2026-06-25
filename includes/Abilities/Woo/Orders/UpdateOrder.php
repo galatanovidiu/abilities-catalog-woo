@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Write ability: `wc-orders/update-order`.
+ * Write ability: `og-wc-orders/update-order`.
  *
  * Wraps `PUT wc/v3/orders/<id>` via `rest_do_request()`, changing an existing
  * order's writable fields and returning the shaped updated order
@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Status is deliberately NOT writable here: the input schema merges
  * {@see OrderWriteSchema::writableProperties()}, which excludes `status`, and
  * never merges `createStatusProperty()`. Changing an existing order's status is
- * the separate elevated ability `wc-orders/update-order-status` (batch 23),
+ * the separate elevated ability `og-wc-orders/update-order-status` (batch 23),
  * because the paid statuses fire stock changes and customer emails.
  *
  * The coarse type-level `edit_shop_orders` cap is the hard guard; the wrapped
@@ -48,7 +48,7 @@ final class UpdateOrder implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-orders/update-order';
+		return 'og-wc-orders/update-order';
 	}
 
 	/**
@@ -64,8 +64,8 @@ final class UpdateOrder implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Update Order', 'abilities-catalog-woo' ),
-			'description'         => __( 'Updates an existing WooCommerce order by ID and returns the shaped order (id, number, status, totals, the billing/shipping subset, line_items, edit_link). Send only the fields you want to change; omitted fields are left untouched, and the billing, shipping, line_items, shipping_lines, fee_lines, and coupon_lines blocks REPLACE the current values rather than appending. Discover IDs with wc-orders/list-orders. This ability does NOT change status: to change an order\'s status use wc-orders/update-order-status (a separate ability because paid statuses such as processing and completed fire stock changes and customer emails). Use wc-orders/create-order to make a new order instead. WARNING: setting set_paid to true marks the order paid and fires payment_complete, which reduces stock and sends the paid-order customer emails. Surface edit_link so a human can review the change.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-orders',
+			'description'         => __( 'Updates an existing WooCommerce order by ID and returns the shaped order (id, number, status, totals, the billing/shipping subset, line_items, edit_link). Send only the fields you want to change; omitted fields are left untouched, and the billing, shipping, line_items, shipping_lines, fee_lines, and coupon_lines blocks REPLACE the current values rather than appending. Discover IDs with og-wc-orders/list-orders. This ability does NOT change status: to change an order\'s status use og-wc-orders/update-order-status (a separate ability because paid statuses such as processing and completed fire stock changes and customer emails). Use og-wc-orders/create-order to make a new order instead. WARNING: setting set_paid to true marks the order paid and fires payment_complete, which reduces stock and sends the paid-order customer emails. Surface edit_link so a human can review the change.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-orders',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
@@ -74,7 +74,7 @@ final class UpdateOrder implements ConditionalAbility {
 						'id' => array(
 							'type'        => 'integer',
 							'minimum'     => 1,
-							'description' => __( 'The ID of the order to update. Discover IDs with wc-orders/list-orders.', 'abilities-catalog-woo' ),
+							'description' => __( 'The ID of the order to update. Discover IDs with og-wc-orders/list-orders.', 'abilities-catalog-woo' ),
 						),
 					),
 					OrderWriteSchema::writableProperties()
@@ -99,7 +99,7 @@ final class UpdateOrder implements ConditionalAbility {
 	/**
 	 * Permission check: WooCommerce's edit capability for orders.
 	 *
-	 * Encodes the catalog capability for `wc-orders/update-order`: the coarse,
+	 * Encodes the catalog capability for `og-wc-orders/update-order`: the coarse,
 	 * type-level `edit_shop_orders` primitive (WP core derives it from the
 	 * `shop_order` post type's `capability_type` with `map_meta_cap`). The wrapped
 	 * `wc/v3` PUT route runs `wc_rest_check_post_permissions( 'shop_order',

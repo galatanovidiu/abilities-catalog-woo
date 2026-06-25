@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-products/delete-product-attribute` ability.
+ * Integration tests for the `og-wc-products/delete-product-attribute` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -13,7 +13,7 @@ use GalatanOvidiu\AbilitiesCatalogWoo\Tests\TestCase;
 use WP_Error;
 
 /**
- * Exercises wc-products/delete-product-attribute: the permanent force-delete that
+ * Exercises og-wc-products/delete-product-attribute: the permanent force-delete that
  * also drops the attribute's pa_* taxonomy and all its terms, the route's specific
  * 404 for a missing attribute (not a permission collapse), the wrong-cap denial
  * (attributes are manager-tier), and the exact closed output shape with no edit_link.
@@ -22,7 +22,7 @@ use WP_Error;
  */
 final class DeleteProductAttributeTest extends TestCase {
 
-	private const ABILITY = 'wc-products/delete-product-attribute';
+	private const ABILITY = 'og-wc-products/delete-product-attribute';
 
 	/**
 	 * Taxonomies registered in-request by this test class that must be

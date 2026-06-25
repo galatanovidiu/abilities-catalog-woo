@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Write ability: `wc-shipping/create-shipping-zone`.
+ * Write ability: `og-wc-shipping/create-shipping-zone`.
  *
  * Wraps `POST wc/v3/shipping/zones` via `rest_do_request()`, creating a new
  * WooCommerce shipping zone. The result is shaped through
@@ -24,8 +24,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * A new zone starts empty: it has no regions (locations) and no shipping methods
  * yet, so it matches no carts until both are added. After creating, attach regions
- * with `wc-shipping/update-shipping-zone-locations` and add a rate with
- * `wc-shipping/create-shipping-zone-method`.
+ * with `og-wc-shipping/update-shipping-zone-locations` and add a rate with
+ * `og-wc-shipping/create-shipping-zone-method`.
  *
  * Persists on a plain POST dispatch — unlike the CF7 routes, the WooCommerce
  * shipping route needs no `context=save` flag.
@@ -40,7 +40,7 @@ final class CreateShippingZone implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-shipping/create-shipping-zone';
+		return 'og-wc-shipping/create-shipping-zone';
 	}
 
 	/**
@@ -56,8 +56,8 @@ final class CreateShippingZone implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Create Shipping Zone', 'abilities-catalog-woo' ),
-			'description'         => __( 'Creates a new WooCommerce shipping zone and returns it as a flat row: id, name, and order. Only name is required. A new zone starts EMPTY — it has no regions (locations) and no shipping methods, so it matches no carts until you add both: attach regions with wc-shipping/update-shipping-zone-locations and add a rate with wc-shipping/create-shipping-zone-method. This adds a shipping configuration only; it does not change products, orders, or money, and is reversible by deleting the zone. Use this to make a brand-new zone; to rename or re-order an existing one use wc-shipping/update-shipping-zone instead.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-shipping',
+			'description'         => __( 'Creates a new WooCommerce shipping zone and returns it as a flat row: id, name, and order. Only name is required. A new zone starts EMPTY — it has no regions (locations) and no shipping methods, so it matches no carts until you add both: attach regions with og-wc-shipping/update-shipping-zone-locations and add a rate with og-wc-shipping/create-shipping-zone-method. This adds a shipping configuration only; it does not change products, orders, or money, and is reversible by deleting the zone. Use this to make a brand-new zone; to rename or re-order an existing one use og-wc-shipping/update-shipping-zone instead.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-shipping',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'name' ),
@@ -92,7 +92,7 @@ final class CreateShippingZone implements ConditionalAbility {
 	/**
 	 * Permission check: WooCommerce's store-management capability.
 	 *
-	 * Encodes the catalog capability for `wc-shipping/create-shipping-zone`:
+	 * Encodes the catalog capability for `og-wc-shipping/create-shipping-zone`:
 	 * `manage_woocommerce`, which is what `wc_rest_check_manager_permissions(
 	 * 'settings', 'create' )` resolves to on the wrapped `POST wc/v3/shipping/zones`
 	 * route — the helper ignores its `$context` argument and maps the `settings`

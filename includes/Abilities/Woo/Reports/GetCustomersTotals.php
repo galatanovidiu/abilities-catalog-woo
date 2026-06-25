@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-reports/get-customers-totals`.
+ * Read ability: `og-wc-reports/get-customers-totals`.
  *
  * Wraps `GET /wc/v3/reports/customers/totals` via `rest_do_request()` and returns
  * the legacy customer split as two flat rows: `paying` (users with the
@@ -37,7 +37,7 @@ final class GetCustomersTotals implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-reports/get-customers-totals';
+		return 'og-wc-reports/get-customers-totals';
 	}
 
 	/**
@@ -54,7 +54,7 @@ final class GetCustomersTotals implements ConditionalAbility {
 		return array(
 			'label'               => __( 'Get Customers Totals', 'abilities-catalog-woo' ),
 			'description'         => __( 'Returns the WooCommerce customer split as two rows: "paying" (users who have placed a paid order) and "non_paying" (everyone else), each with a count. Administrators and shop managers are excluded from both counts. This is the legacy headline pair, not a trend; use the wc-analytics customers surface for new-vs-returning segments and per-period breakdowns (present only when the Analytics feature is on).', 'abilities-catalog-woo' ),
-			'category'            => 'wc-reports',
+			'category'            => 'og-wc-reports',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => (object) array(),

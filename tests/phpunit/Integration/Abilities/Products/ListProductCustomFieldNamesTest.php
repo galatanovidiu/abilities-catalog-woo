@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-products/list-product-custom-field-names` ability.
+ * Integration tests for the `og-wc-products/list-product-custom-field-names` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -18,7 +18,7 @@ use WP_Error;
  */
 final class ListProductCustomFieldNamesTest extends TestCase {
 
-	private const ABILITY = 'wc-products/list-product-custom-field-names';
+	private const ABILITY = 'og-wc-products/list-product-custom-field-names';
 
 	/**
 	 * Seeds a published product carrying a public custom-field meta key.

@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-products/delete-attribute-term ability.
+ * Integration tests for the og-wc-products/delete-attribute-term ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -13,7 +13,7 @@ use GalatanOvidiu\AbilitiesCatalogWoo\Tests\TestCase;
 use WP_Error;
 
 /**
- * Exercises wc-products/delete-attribute-term: the happy-path permanent delete
+ * Exercises og-wc-products/delete-attribute-term: the happy-path permanent delete
  * (the term is gone from its pa_* taxonomy), the missing-term
  * woocommerce_rest_term_invalid 404, the bad-attribute_id
  * woocommerce_rest_taxonomy_invalid 404 (both surfaced as specific errors, never
@@ -36,10 +36,10 @@ final class DeleteAttributeTermTest extends TestCase {
 	);
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-products/delete-attribute-term' );
+		$ability = wp_get_ability( 'og-wc-products/delete-attribute-term' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-products/delete-attribute-term', $ability->get_name() );
+		$this->assertSame( 'og-wc-products/delete-attribute-term', $ability->get_name() );
 	}
 
 	public function test_admin_deletes_attribute_term(): void {
@@ -50,7 +50,7 @@ final class DeleteAttributeTermTest extends TestCase {
 		$this->assertNotWPError( $term );
 		$term_id = (int) $term['term_id'];
 
-		$result = wp_get_ability( 'wc-products/delete-attribute-term' )->execute(
+		$result = wp_get_ability( 'og-wc-products/delete-attribute-term' )->execute(
 			array(
 				'attribute_id' => $attribute['id'],
 				'id'           => $term_id,
@@ -76,7 +76,7 @@ final class DeleteAttributeTermTest extends TestCase {
 		$term      = wp_insert_term( 'Large', $attribute['taxonomy'] );
 		$this->assertNotWPError( $term );
 
-		$result = wp_get_ability( 'wc-products/delete-attribute-term' )->execute(
+		$result = wp_get_ability( 'og-wc-products/delete-attribute-term' )->execute(
 			array(
 				'attribute_id' => $attribute['id'],
 				'id'           => (int) $term['term_id'],
@@ -102,7 +102,7 @@ final class DeleteAttributeTermTest extends TestCase {
 
 		$attribute = $this->createGlobalAttribute( 'Material' );
 
-		$result = wp_get_ability( 'wc-products/delete-attribute-term' )->execute(
+		$result = wp_get_ability( 'og-wc-products/delete-attribute-term' )->execute(
 			array(
 				'attribute_id' => $attribute['id'],
 				'id'           => 99999999,
@@ -118,7 +118,7 @@ final class DeleteAttributeTermTest extends TestCase {
 	public function test_bad_attribute_id_returns_taxonomy_invalid_404(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-products/delete-attribute-term' )->execute(
+		$result = wp_get_ability( 'og-wc-products/delete-attribute-term' )->execute(
 			array(
 				'attribute_id' => 99999999,
 				'id'           => 1,
@@ -139,7 +139,7 @@ final class DeleteAttributeTermTest extends TestCase {
 
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-products/delete-attribute-term' );
+		$ability = wp_get_ability( 'og-wc-products/delete-attribute-term' );
 
 		$this->assertFalse(
 			$ability->check_permissions(

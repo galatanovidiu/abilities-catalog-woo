@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-payment-gateways/list-payment-gateways`.
+ * Read ability: `og-wc-payment-gateways/list-payment-gateways`.
  *
  * Wraps `GET wc/v3/payment_gateways` via `rest_do_request()` and returns each
  * installed payment gateway as a flat summary row through
@@ -29,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * NO settings at all: {@see PaymentGatewayShaper::summary()} omits the map
  * entirely, so a list response can never leak a credential. To inspect a gateway's
  * settings — with every credential value masked — use
- * `wc-payment-gateways/get-payment-gateway`.
+ * `og-wc-payment-gateways/get-payment-gateway`.
  *
  * Only available when WooCommerce is active (it is a {@see ConditionalAbility}).
  * The WC payment_gateways route is not paged, so `total` is the count of rows
@@ -43,7 +43,7 @@ final class ListPaymentGateways implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-payment-gateways/list-payment-gateways';
+		return 'og-wc-payment-gateways/list-payment-gateways';
 	}
 
 	/**
@@ -59,8 +59,8 @@ final class ListPaymentGateways implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'List Payment Gateways', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns the store\'s installed WooCommerce payment gateways as flat summary rows, each with its id (the gateway slug, e.g. bacs, cheque, cod, paypal), title, description, whether it is enabled, method_title, and checkout order, plus the total count. A summary row intentionally carries NO settings: to read a gateway\'s configuration use wc-payment-gateways/get-payment-gateway, where credential values (API keys, secrets, tokens) are masked, not exposed. Read-only: takes no input and returns every installed gateway, enabled or not.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-payment-gateways',
+			'description'         => __( 'Returns the store\'s installed WooCommerce payment gateways as flat summary rows, each with its id (the gateway slug, e.g. bacs, cheque, cod, paypal), title, description, whether it is enabled, method_title, and checkout order, plus the total count. A summary row intentionally carries NO settings: to read a gateway\'s configuration use og-wc-payment-gateways/get-payment-gateway, where credential values (API keys, secrets, tokens) are masked, not exposed. Read-only: takes no input and returns every installed gateway, enabled or not.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-payment-gateways',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => (object) array(),
@@ -72,7 +72,7 @@ final class ListPaymentGateways implements ConditionalAbility {
 				'properties'           => array(
 					'items' => array(
 						'type'        => 'array',
-						'description' => __( 'The installed payment gateways as flat summary rows. A row never carries the gateway settings; use wc-payment-gateways/get-payment-gateway for a single gateway\'s (credential-masked) configuration.', 'abilities-catalog-woo' ),
+						'description' => __( 'The installed payment gateways as flat summary rows. A row never carries the gateway settings; use og-wc-payment-gateways/get-payment-gateway for a single gateway\'s (credential-masked) configuration.', 'abilities-catalog-woo' ),
 						'items'       => PaymentGatewayShaper::itemSchema(),
 					),
 					'total' => array(

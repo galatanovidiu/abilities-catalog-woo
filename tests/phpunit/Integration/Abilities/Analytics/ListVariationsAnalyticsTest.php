@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-reports/list-variations-analytics` ability.
+ * Integration tests for the `og-wc-reports/list-variations-analytics` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -23,7 +23,7 @@ use WP_Error;
  */
 final class ListVariationsAnalyticsTest extends TestCase {
 
-	private const ABILITY = 'wc-reports/list-variations-analytics';
+	private const ABILITY = 'og-wc-reports/list-variations-analytics';
 
 	/**
 	 * The closed set of row keys the ability returns.

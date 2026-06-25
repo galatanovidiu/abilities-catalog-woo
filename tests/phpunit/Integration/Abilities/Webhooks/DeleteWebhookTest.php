@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-webhooks/delete-webhook ability.
+ * Integration tests for the og-wc-webhooks/delete-webhook ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -14,7 +14,7 @@ use WC_Webhook;
 use WP_Error;
 
 /**
- * Exercises wc-webhooks/delete-webhook: the permanent force delete of a seeded
+ * Exercises og-wc-webhooks/delete-webhook: the permanent force delete of a seeded
  * webhook with a follow-up assertion that the webhook is actually GONE, the
  * missing-webhook 404 that must not collapse to a permission error, the
  * wrong-capability denial, and the exact closed output shape (no edit_link, no
@@ -60,17 +60,17 @@ final class DeleteWebhookTest extends TestCase {
 	}
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-webhooks/delete-webhook' );
+		$ability = wp_get_ability( 'og-wc-webhooks/delete-webhook' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-webhooks/delete-webhook', $ability->get_name() );
+		$this->assertSame( 'og-wc-webhooks/delete-webhook', $ability->get_name() );
 	}
 
 	public function test_admin_deletes_webhook_and_it_is_gone(): void {
 		$this->actingAs( 'administrator' );
 		$id = $this->seedWebhook();
 
-		$result = wp_get_ability( 'wc-webhooks/delete-webhook' )->execute( array( 'id' => $id ) );
+		$result = wp_get_ability( 'og-wc-webhooks/delete-webhook' )->execute( array( 'id' => $id ) );
 
 		$this->assertIsArray( $result );
 		$this->assertTrue( $result['deleted'] );
@@ -86,7 +86,7 @@ final class DeleteWebhookTest extends TestCase {
 		$this->actingAs( 'administrator' );
 		$id = $this->seedWebhook();
 
-		$result = wp_get_ability( 'wc-webhooks/delete-webhook' )->execute( array( 'id' => $id ) );
+		$result = wp_get_ability( 'og-wc-webhooks/delete-webhook' )->execute( array( 'id' => $id ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( self::EXPECTED_KEYS, array_keys( $result ) );
@@ -105,7 +105,7 @@ final class DeleteWebhookTest extends TestCase {
 	public function test_missing_webhook_returns_404_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-webhooks/delete-webhook' )->execute( array( 'id' => 99999999 ) );
+		$result = wp_get_ability( 'og-wc-webhooks/delete-webhook' )->execute( array( 'id' => 99999999 ) );
 
 		$this->assertInstanceOf( WP_Error::class, $result );
 		$this->assertSame( 'woocommerce_rest_shop_webhook_invalid_id', $result->get_error_code() );
@@ -116,7 +116,7 @@ final class DeleteWebhookTest extends TestCase {
 	public function test_missing_required_id_is_rejected(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-webhooks/delete-webhook' )->execute( array() );
+		$result = wp_get_ability( 'og-wc-webhooks/delete-webhook' )->execute( array() );
 
 		$this->assertInstanceOf( WP_Error::class, $result );
 		$this->assertSame( 'ability_invalid_input', $result->get_error_code() );
@@ -126,7 +126,7 @@ final class DeleteWebhookTest extends TestCase {
 		$this->actingAs( 'subscriber' );
 		$id = $this->seedWebhook();
 
-		$ability = wp_get_ability( 'wc-webhooks/delete-webhook' );
+		$ability = wp_get_ability( 'og-wc-webhooks/delete-webhook' );
 
 		$this->assertFalse( $ability->check_permissions( array( 'id' => $id ) ) );
 

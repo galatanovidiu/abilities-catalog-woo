@@ -2,7 +2,7 @@
 
 Registers [WooCommerce](https://wordpress.org/plugins/woocommerce/) store operations on the WordPress **Abilities API** (ships in WP 7.0 core), so any Abilities API consumer can read and write products, orders, customers, coupons, settings, reports, and more — each gated by WooCommerce's own capabilities.
 
-It is **consumer-agnostic** and works standalone on the core Abilities API. The [Abilities Catalog](https://github.com/galatanovidiu/abilities-catalog) is optional: when its MCP server is active, this add-on contributes curated WooCommerce **domain tools** (`store-catalog`, `store-orders`, `store-config`, `store-reports`) through the catalog's public filters. No core files of Abilities Catalog are modified.
+It is **consumer-agnostic** and works standalone on the core Abilities API. The [Abilities Catalog](https://github.com/galatanovidiu/abilities-catalog) is optional: when its MCP server is active, this add-on contributes curated WooCommerce **domain tools** (`woocommerce-catalog`, `woocommerce-orders`, `woocommerce-config`, `woocommerce-reports`) through the catalog's public filters. No core files of Abilities Catalog are modified.
 
 WooCommerce is a hard runtime dependency: while WooCommerce is inactive the WooCommerce abilities do not register at all (they are absent from the Abilities API, not registered-and-denying), and the domain tools do not appear.
 

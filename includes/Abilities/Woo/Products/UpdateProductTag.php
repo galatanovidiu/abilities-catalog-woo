@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Write ability: `wc-products/update-product-tag`.
+ * Write ability: `og-wc-products/update-product-tag`.
  *
  * Wraps `PUT wc/v3/products/tags/<id>` via `rest_do_request()` (the `id` is a path
  * segment, built by concatenation), then returns the updated tag as one flat,
@@ -39,7 +39,7 @@ final class UpdateProductTag implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/update-product-tag';
+		return 'og-wc-products/update-product-tag';
 	}
 
 	/**
@@ -55,8 +55,8 @@ final class UpdateProductTag implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Update Product Tag', 'abilities-catalog-woo' ),
-			'description'         => __( 'Updates an existing WooCommerce product tag by ID and returns the updated tag as a flat row: id, name, slug, parent (always 0 — product tags are a flat taxonomy), product count, and description. Send only the fields you want to change; an omitted field keeps its current value. Setting a slug that already exists on the tag taxonomy fails with a term_exists 400, so branch on that to pick a different slug. This edit is reversible (run it again with the previous values) and affects only the catalog taxonomy, not orders or money. Discover IDs with wc-products/list-product-tags. Use wc-products/update-product-category for hierarchical categories instead.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Updates an existing WooCommerce product tag by ID and returns the updated tag as a flat row: id, name, slug, parent (always 0 — product tags are a flat taxonomy), product count, and description. Send only the fields you want to change; an omitted field keeps its current value. Setting a slug that already exists on the tag taxonomy fails with a term_exists 400, so branch on that to pick a different slug. This edit is reversible (run it again with the previous values) and affects only the catalog taxonomy, not orders or money. Discover IDs with og-wc-products/list-product-tags. Use og-wc-products/update-product-category for hierarchical categories instead.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
@@ -64,7 +64,7 @@ final class UpdateProductTag implements ConditionalAbility {
 					'id'          => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The product tag term ID to update. Discover IDs with wc-products/list-product-tags.', 'abilities-catalog-woo' ),
+						'description' => __( 'The product tag term ID to update. Discover IDs with og-wc-products/list-product-tags.', 'abilities-catalog-woo' ),
 					),
 					'name'        => array(
 						'type'        => 'string',

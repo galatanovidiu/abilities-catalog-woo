@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-settings/list-group-settings` ability.
+ * Integration tests for the `og-wc-settings/list-group-settings` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -18,7 +18,7 @@ use WP_Error;
  */
 final class ListGroupSettingsTest extends TestCase {
 
-	private const ABILITY = 'wc-settings/list-group-settings';
+	private const ABILITY = 'og-wc-settings/list-group-settings';
 
 	/**
 	 * The deterministic settings group seeded for every test.

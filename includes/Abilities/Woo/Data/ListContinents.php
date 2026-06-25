@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-data/list-continents`.
+ * Read ability: `og-wc-data/list-continents`.
  *
  * Wraps `GET /wc/v3/data/continents` via `rest_do_request()` and returns each
  * continent as a flat summary row carrying its `code`, `name`, and the
@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * nests fat per-country locale detail (currency, separators, units, states)
  * under every continent; {@see DataReferenceShaper::continentSummary()} drops
  * that and keeps only the country code and name — the per-country detail is
- * reachable via `wc-data/get-country`.
+ * reachable via `og-wc-data/get-country`.
  *
  * Only available when WooCommerce is active (it is a {@see ConditionalAbility}).
  * This continent reference data ships with WooCommerce and is always present.
@@ -38,7 +38,7 @@ final class ListContinents implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-data/list-continents';
+		return 'og-wc-data/list-continents';
 	}
 
 	/**
@@ -54,8 +54,8 @@ final class ListContinents implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'List Continents', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns WooCommerce\'s continents as flat summary rows, each with its 2-letter code, name, and the list of countries on it (code and name only). Use this to discover continent codes and which countries belong to each; use wc-data/get-continent for one continent by code, or wc-data/get-country for a country\'s full detail (states and locale). Read-only reference data shipped with WooCommerce.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-data',
+			'description'         => __( 'Returns WooCommerce\'s continents as flat summary rows, each with its 2-letter code, name, and the list of countries on it (code and name only). Use this to discover continent codes and which countries belong to each; use og-wc-data/get-continent for one continent by code, or og-wc-data/get-country for a country\'s full detail (states and locale). Read-only reference data shipped with WooCommerce.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-data',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => (object) array(),
@@ -67,7 +67,7 @@ final class ListContinents implements ConditionalAbility {
 				'properties'           => array(
 					'items' => array(
 						'type'        => 'array',
-						'description' => __( 'The continents as flat summary rows. Use wc-data/get-continent for a single continent by code.', 'abilities-catalog-woo' ),
+						'description' => __( 'The continents as flat summary rows. Use og-wc-data/get-continent for a single continent by code.', 'abilities-catalog-woo' ),
 						'items'       => DataReferenceShaper::continentItemSchema(),
 					),
 					'total' => array(

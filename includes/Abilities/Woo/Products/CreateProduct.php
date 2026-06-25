@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Write ability: `wc-products/create-product`.
+ * Write ability: `og-wc-products/create-product`.
  *
  * Wraps `POST wc/v3/products` via `rest_do_request()`, creating a new WooCommerce
  * product. Only `name` is required; every other field is optional and falls back
@@ -26,10 +26,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * — its `id`, `name`, `type`, `status`, `sku`, the price set, stock, visibility,
  * `permalink`, and an `edit_link` — not the raw ~120-field product body.
  *
- * To change an existing product use `wc-products/update-product`; to copy one use
- * `wc-products/duplicate-product`. To add variations, create the product with
+ * To change an existing product use `og-wc-products/update-product`; to copy one use
+ * `og-wc-products/duplicate-product`. To add variations, create the product with
  * `type` = `variable`, then add variations with
- * `wc-products/create-product-variation`.
+ * `og-wc-products/create-product-variation`.
  *
  * Only available when WooCommerce is active (it is a {@see ConditionalAbility}).
  *
@@ -41,7 +41,7 @@ final class CreateProduct implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/create-product';
+		return 'og-wc-products/create-product';
 	}
 
 	/**
@@ -57,8 +57,8 @@ final class CreateProduct implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Create Product', 'abilities-catalog-woo' ),
-			'description'         => __( 'Creates a new WooCommerce product and returns its id, name, type, status, sku, prices, stock, permalink, and edit_link. Only name is required; type defaults to simple and status to publish, so omit status (or set draft) to keep the product hidden while you finish it. Set type to variable to add variations afterward with wc-products/create-product-variation. To change an existing product use wc-products/update-product; to copy one use wc-products/duplicate-product. A duplicate sku is rejected by the route with a 400. After creating, surface edit_link so a human can review the product.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Creates a new WooCommerce product and returns its id, name, type, status, sku, prices, stock, permalink, and edit_link. Only name is required; type defaults to simple and status to publish, so omit status (or set draft) to keep the product hidden while you finish it. Set type to variable to add variations afterward with og-wc-products/create-product-variation. To change an existing product use og-wc-products/update-product; to copy one use og-wc-products/duplicate-product. A duplicate sku is rejected by the route with a 400. After creating, surface edit_link so a human can review the product.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'name' ),

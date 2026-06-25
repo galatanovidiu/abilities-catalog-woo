@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-orders/delete-order-refund ability.
+ * Integration tests for the og-wc-orders/delete-order-refund ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -14,7 +14,7 @@ use GalatanOvidiu\AbilitiesCatalogWoo\Tests\TestCase;
 use WP_Error;
 
 /**
- * Exercises wc-orders/delete-order-refund: the seed-then-delete happy path (the
+ * Exercises og-wc-orders/delete-order-refund: the seed-then-delete happy path (the
  * refund record is permanently gone, the amount is captured, permanent is true),
  * the missing-refund and missing-order 404s that must not collapse to a permission
  * error, the wrong-cap denial, and the closed output shape (no edit_link, no raw
@@ -37,17 +37,17 @@ final class DeleteOrderRefundTest extends TestCase {
 	);
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-orders/delete-order-refund' );
+		$ability = wp_get_ability( 'og-wc-orders/delete-order-refund' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-orders/delete-order-refund', $ability->get_name() );
+		$this->assertSame( 'og-wc-orders/delete-order-refund', $ability->get_name() );
 	}
 
 	public function test_admin_deletes_a_refund_permanently(): void {
 		$this->actingAs( 'administrator' );
 		[ $order_id, $refund_id ] = $this->seedOrderWithRefund();
 
-		$result = wp_get_ability( 'wc-orders/delete-order-refund' )->execute(
+		$result = wp_get_ability( 'og-wc-orders/delete-order-refund' )->execute(
 			array(
 				'order_id' => $order_id,
 				'id'       => $refund_id,
@@ -75,7 +75,7 @@ final class DeleteOrderRefundTest extends TestCase {
 		$this->actingAs( 'administrator' );
 		[ $order_id, $refund_id ] = $this->seedOrderWithRefund();
 
-		$result = wp_get_ability( 'wc-orders/delete-order-refund' )->execute(
+		$result = wp_get_ability( 'og-wc-orders/delete-order-refund' )->execute(
 			array(
 				'order_id' => $order_id,
 				'id'       => $refund_id,
@@ -94,7 +94,7 @@ final class DeleteOrderRefundTest extends TestCase {
 		$this->actingAs( 'administrator' );
 		[ $order_id ] = $this->seedOrderWithRefund();
 
-		$result = wp_get_ability( 'wc-orders/delete-order-refund' )->execute(
+		$result = wp_get_ability( 'og-wc-orders/delete-order-refund' )->execute(
 			array(
 				'order_id' => $order_id,
 				'id'       => 99999999,
@@ -111,7 +111,7 @@ final class DeleteOrderRefundTest extends TestCase {
 		$this->actingAs( 'administrator' );
 		[ , $refund_id ] = $this->seedOrderWithRefund();
 
-		$result = wp_get_ability( 'wc-orders/delete-order-refund' )->execute(
+		$result = wp_get_ability( 'og-wc-orders/delete-order-refund' )->execute(
 			array(
 				'order_id' => 99999999,
 				'id'       => $refund_id,
@@ -127,7 +127,7 @@ final class DeleteOrderRefundTest extends TestCase {
 		$this->actingAs( 'administrator' );
 		[ $order_id ] = $this->seedOrderWithRefund();
 
-		$result = wp_get_ability( 'wc-orders/delete-order-refund' )->execute(
+		$result = wp_get_ability( 'og-wc-orders/delete-order-refund' )->execute(
 			array(
 				'order_id' => $order_id,
 			)
@@ -143,7 +143,7 @@ final class DeleteOrderRefundTest extends TestCase {
 
 		$this->assertFalse( ( new DeleteOrderRefund() )->hasPermission( array() ) );
 
-		$result = wp_get_ability( 'wc-orders/delete-order-refund' )->execute(
+		$result = wp_get_ability( 'og-wc-orders/delete-order-refund' )->execute(
 			array(
 				'order_id' => $order_id,
 				'id'       => $refund_id,

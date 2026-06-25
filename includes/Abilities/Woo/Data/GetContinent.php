@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-data/get-continent`.
+ * Read ability: `og-wc-data/get-continent`.
  *
  * Wraps `GET wc/v3/data/continents/<code>` via `rest_do_request()` and returns one
  * continent from WooCommerce's static reference data as a flat, closed record: its
@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * locale detail (currency, separators, units) plus a `states` list; this projects
  * only the minimal stable `{code,name}` per country via
  * {@see DataReferenceShaper::continentSummary()}. Read a country's full detail
- * (states, locale) with `wc-data/get-country`.
+ * (states, locale) with `og-wc-data/get-country`.
  *
  * Only available when WooCommerce is active (it is a {@see ConditionalAbility}).
  *
@@ -38,7 +38,7 @@ final class GetContinent implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-data/get-continent';
+		return 'og-wc-data/get-continent';
 	}
 
 	/**
@@ -54,15 +54,15 @@ final class GetContinent implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Get Continent', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns one continent from WooCommerce\'s reference data by its 2-letter code: the continent name and the countries on it (each as a code and name). Use this to resolve a continent code to its name or to list the countries WooCommerce groups under it; for a country\'s own detail (states, locale) use wc-data/get-country instead. Discover continent codes with wc-data/list-continents.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-data',
+			'description'         => __( 'Returns one continent from WooCommerce\'s reference data by its 2-letter code: the continent name and the countries on it (each as a code and name). Use this to resolve a continent code to its name or to list the countries WooCommerce groups under it; for a country\'s own detail (states, locale) use og-wc-data/get-country instead. Discover continent codes with og-wc-data/list-continents.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-data',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'code' ),
 				'properties'           => array(
 					'code' => array(
 						'type'        => 'string',
-						'description' => __( 'The 2-letter continent code, e.g. NA for North America. Case-insensitive (WooCommerce uppercases it). Discover codes with wc-data/list-continents.', 'abilities-catalog-woo' ),
+						'description' => __( 'The 2-letter continent code, e.g. NA for North America. Case-insensitive (WooCommerce uppercases it). Discover codes with og-wc-data/list-continents.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,

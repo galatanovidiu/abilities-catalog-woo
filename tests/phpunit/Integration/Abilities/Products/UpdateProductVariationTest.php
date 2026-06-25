@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-products/update-product-variation ability.
+ * Integration tests for the og-wc-products/update-product-variation ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -14,7 +14,7 @@ use GalatanOvidiu\AbilitiesCatalogWoo\Tests\TestCase;
 use WP_Error;
 
 /**
- * Exercises wc-products/update-product-variation: the happy-path field change on a
+ * Exercises og-wc-products/update-product-variation: the happy-path field change on a
  * seeded variation, the missing-variation 404 that must not collapse to a
  * permission error, the wrong-cap denial, and the closed output shape (no raw
  * variation fields leak).
@@ -45,17 +45,17 @@ final class UpdateProductVariationTest extends TestCase {
 	);
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-products/update-product-variation' );
+		$ability = wp_get_ability( 'og-wc-products/update-product-variation' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-products/update-product-variation', $ability->get_name() );
+		$this->assertSame( 'og-wc-products/update-product-variation', $ability->get_name() );
 	}
 
 	public function test_admin_updates_a_variation_field(): void {
 		$this->actingAs( 'administrator' );
 		[ $product_id, $variation_id ] = $this->seedVariation();
 
-		$result = wp_get_ability( 'wc-products/update-product-variation' )->execute(
+		$result = wp_get_ability( 'og-wc-products/update-product-variation' )->execute(
 			array(
 				'product_id'    => $product_id,
 				'id'            => $variation_id,
@@ -77,7 +77,7 @@ final class UpdateProductVariationTest extends TestCase {
 		$this->actingAs( 'administrator' );
 		[ $product_id, $variation_id ] = $this->seedVariation();
 
-		$result = wp_get_ability( 'wc-products/update-product-variation' )->execute(
+		$result = wp_get_ability( 'og-wc-products/update-product-variation' )->execute(
 			array(
 				'product_id' => $product_id,
 				'id'         => $variation_id,
@@ -94,7 +94,7 @@ final class UpdateProductVariationTest extends TestCase {
 		$this->actingAs( 'administrator' );
 		[ $product_id, $variation_id ] = $this->seedVariation();
 
-		$result = wp_get_ability( 'wc-products/update-product-variation' )->execute(
+		$result = wp_get_ability( 'og-wc-products/update-product-variation' )->execute(
 			array(
 				'product_id' => $product_id,
 				'id'         => $variation_id,
@@ -116,7 +116,7 @@ final class UpdateProductVariationTest extends TestCase {
 		$this->actingAs( 'administrator' );
 		[ $product_id ] = $this->seedVariation();
 
-		$result = wp_get_ability( 'wc-products/update-product-variation' )->execute(
+		$result = wp_get_ability( 'og-wc-products/update-product-variation' )->execute(
 			array(
 				'product_id'    => $product_id,
 				'id'            => 99999999,
@@ -136,7 +136,7 @@ final class UpdateProductVariationTest extends TestCase {
 
 		$this->assertFalse( ( new UpdateProductVariation() )->hasPermission( array() ) );
 
-		$result = wp_get_ability( 'wc-products/update-product-variation' )->execute(
+		$result = wp_get_ability( 'og-wc-products/update-product-variation' )->execute(
 			array(
 				'product_id'    => $product_id,
 				'id'            => $variation_id,

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Write ability: `wc-products/create-product-review`.
+ * Write ability: `og-wc-products/create-product-review`.
  *
  * Wraps `POST wc/v3/products/reviews` via `rest_do_request()`, creating a new
  * WooCommerce product review. A WooCommerce product review IS a WordPress comment
@@ -46,7 +46,7 @@ final class CreateProductReview implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/create-product-review';
+		return 'og-wc-products/create-product-review';
 	}
 
 	/**
@@ -66,8 +66,8 @@ final class CreateProductReview implements ConditionalAbility {
 
 		return array(
 			'label'               => __( 'Create Product Review', 'abilities-catalog-woo' ),
-			'description'         => __( 'Creates a new WooCommerce product review on a product (a product review is a WordPress comment with comment_type "review") and returns it as a flat row: id, product_id, product_name, status, reviewer, reviewer_email, rating, review text, verified-buyer flag, and date. product_id, reviewer, reviewer_email, and review are required; an invalid product_id is rejected with a woocommerce_rest_product_invalid_id 404 and an empty review with a woocommerce_rest_review_content_invalid 400. status defaults to "approved" (the review is published immediately); set status to "hold" to leave it awaiting moderation. This writes only a review, not the product, and is reversible via wc-products/update-product-review (set status to spam/trash) or by deleting the review.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Creates a new WooCommerce product review on a product (a product review is a WordPress comment with comment_type "review") and returns it as a flat row: id, product_id, product_name, status, reviewer, reviewer_email, rating, review text, verified-buyer flag, and date. product_id, reviewer, reviewer_email, and review are required; an invalid product_id is rejected with a woocommerce_rest_product_invalid_id 404 and an empty review with a woocommerce_rest_review_content_invalid 400. status defaults to "approved" (the review is published immediately); set status to "hold" to leave it awaiting moderation. This writes only a review, not the product, and is reversible via og-wc-products/update-product-review (set status to spam/trash) or by deleting the review.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'product_id', 'reviewer', 'reviewer_email', 'review' ),
@@ -75,7 +75,7 @@ final class CreateProductReview implements ConditionalAbility {
 					'product_id'     => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The ID of the product this review is for. Required. Discover product IDs with wc-products/list-products. A non-product id is rejected with a woocommerce_rest_product_invalid_id 404.', 'abilities-catalog-woo' ),
+						'description' => __( 'The ID of the product this review is for. Required. Discover product IDs with og-wc-products/list-products. A non-product id is rejected with a woocommerce_rest_product_invalid_id 404.', 'abilities-catalog-woo' ),
 					),
 					'reviewer'       => array(
 						'type'        => 'string',
@@ -122,7 +122,7 @@ final class CreateProductReview implements ConditionalAbility {
 	/**
 	 * Permission check: WooCommerce's edit capability for product reviews.
 	 *
-	 * Encodes the catalog capability for `wc-products/create-product-review`: the
+	 * Encodes the catalog capability for `og-wc-products/create-product-review`: the
 	 * `edit_products` capability, which is what
 	 * `wc_rest_check_product_reviews_permissions( 'create' )` resolves to on the
 	 * wrapped `POST wc/v3/products/reviews` route. Note the asymmetry with the review

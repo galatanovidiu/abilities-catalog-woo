@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Write ability: `wc-products/update-product-brand`.
+ * Write ability: `og-wc-products/update-product-brand`.
  *
  * Wraps `PUT wc/v3/products/brands/<id>` via `rest_do_request()`, updating an
  * existing product brand (the hierarchical `product_brand` taxonomy). The Brands
@@ -47,7 +47,7 @@ final class UpdateProductBrand implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/update-product-brand';
+		return 'og-wc-products/update-product-brand';
 	}
 
 	/**
@@ -63,8 +63,8 @@ final class UpdateProductBrand implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Update Product Brand', 'abilities-catalog-woo' ),
-			'description'         => __( 'Updates an existing WooCommerce product brand (the hierarchical product_brand taxonomy) by ID and returns the shaped brand row: id, name, slug, parent, product count, and description. Send only the fields you want to change; an omitted field keeps its current value. Reversible catalog edit affecting only the brand taxonomy, not products, orders, or money. Set parent to a brand term ID to nest it (0 makes it top-level); changing slug to one already used by another product_brand term returns a term_exists error. This ability exists only when the store\'s WooCommerce Brands feature is active. Discover IDs with wc-products/list-product-brands.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Updates an existing WooCommerce product brand (the hierarchical product_brand taxonomy) by ID and returns the shaped brand row: id, name, slug, parent, product count, and description. Send only the fields you want to change; an omitted field keeps its current value. Reversible catalog edit affecting only the brand taxonomy, not products, orders, or money. Set parent to a brand term ID to nest it (0 makes it top-level); changing slug to one already used by another product_brand term returns a term_exists error. This ability exists only when the store\'s WooCommerce Brands feature is active. Discover IDs with og-wc-products/list-product-brands.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
@@ -72,7 +72,7 @@ final class UpdateProductBrand implements ConditionalAbility {
 					'id'          => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The brand term ID to update; discover with wc-products/list-product-brands.', 'abilities-catalog-woo' ),
+						'description' => __( 'The brand term ID to update; discover with og-wc-products/list-product-brands.', 'abilities-catalog-woo' ),
 					),
 					'name'        => array(
 						'type'        => 'string',
@@ -85,7 +85,7 @@ final class UpdateProductBrand implements ConditionalAbility {
 					'parent'      => array(
 						'type'        => 'integer',
 						'minimum'     => 0,
-						'description' => __( 'The parent brand term ID to nest this brand under, or 0 to make it top-level. Discover IDs with wc-products/list-product-brands. Omit to keep the current parent.', 'abilities-catalog-woo' ),
+						'description' => __( 'The parent brand term ID to nest this brand under, or 0 to make it top-level. Discover IDs with og-wc-products/list-product-brands. Omit to keep the current parent.', 'abilities-catalog-woo' ),
 					),
 					'description' => array(
 						'type'        => 'string',

@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Destructive write ability: `wc-products/delete-product-tag`.
+ * Destructive write ability: `og-wc-products/delete-product-tag`.
  *
  * Wraps `DELETE wc/v3/products/tags/<id>` via `rest_do_request()`. The product
  * tag taxonomy (`product_tag`) has no Trash: the shared
@@ -40,7 +40,7 @@ final class DeleteProductTag implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/delete-product-tag';
+		return 'og-wc-products/delete-product-tag';
 	}
 
 	/**
@@ -56,8 +56,8 @@ final class DeleteProductTag implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Delete Product Tag', 'abilities-catalog-woo' ),
-			'description'         => __( 'Permanently deletes a WooCommerce product tag by ID. This cannot be undone: product tags have no Trash, so the term is removed outright (no restore). Deleting a tag only removes the term and unassigns it from products; the products themselves are not deleted or reassigned. Returns a confirmation with the deleted tag\'s name. Discover IDs with wc-products/list-product-tags.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Permanently deletes a WooCommerce product tag by ID. This cannot be undone: product tags have no Trash, so the term is removed outright (no restore). Deleting a tag only removes the term and unassigns it from products; the products themselves are not deleted or reassigned. Returns a confirmation with the deleted tag\'s name. Discover IDs with og-wc-products/list-product-tags.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
@@ -65,7 +65,7 @@ final class DeleteProductTag implements ConditionalAbility {
 					'id' => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The product tag term ID to permanently delete. Discover IDs with wc-products/list-product-tags.', 'abilities-catalog-woo' ),
+						'description' => __( 'The product tag term ID to permanently delete. Discover IDs with og-wc-products/list-product-tags.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,

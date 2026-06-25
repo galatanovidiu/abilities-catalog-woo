@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-orders/list-order-statuses` ability.
+ * Integration tests for the `og-wc-orders/list-order-statuses` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -17,7 +17,7 @@ use WP_Error;
  */
 final class ListOrderStatusesTest extends TestCase {
 
-	private const ABILITY = 'wc-orders/list-order-statuses';
+	private const ABILITY = 'og-wc-orders/list-order-statuses';
 
 	/**
 	 * The seven order statuses WooCommerce ships with, slugs with the wc- prefix stripped.

@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Write ability: `wc-orders/create-order`.
+ * Write ability: `og-wc-orders/create-order`.
  *
  * Wraps `POST wc/v3/orders` via `rest_do_request()`, creating a new WooCommerce
  * order. Every field is optional — `status` defaults to `pending` and no field is
@@ -34,8 +34,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * EMAILS. Leave `set_paid` false (the default) and use `pending`/`on-hold` for an
  * unpaid order if those effects are not wanted.
  *
- * To change an existing order use `wc-orders/update-order`; to change an existing
- * order's status use `wc-orders/update-order-status` (a separate ability because
+ * To change an existing order use `og-wc-orders/update-order`; to change an existing
+ * order's status use `og-wc-orders/update-order-status` (a separate ability because
  * paid statuses fire stock changes and customer emails). `status` here sets the
  * INITIAL status only.
  *
@@ -49,7 +49,7 @@ final class CreateOrder implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-orders/create-order';
+		return 'og-wc-orders/create-order';
 	}
 
 	/**
@@ -65,8 +65,8 @@ final class CreateOrder implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Create Order', 'abilities-catalog-woo' ),
-			'description'         => __( 'Creates a new WooCommerce order and returns the shaped order: id, number, status, totals, customer_id, the billing/shipping blocks, line_items, and edit_link. Every field is optional; status defaults to pending and no field is required, so add line_items (each a product_id and quantity) to put products on the order. SIDE EFFECTS: set_paid=true marks the order paid and fires payment_complete, which sets the status to processing, REDUCES STOCK, and SENDS THE PAID-ORDER CUSTOMER EMAILS (WooCommerce: "It will set the status to processing and reduce stock items."); creating directly into a paid status (processing or completed) does the same. Keep set_paid false and use pending or on-hold for an unpaid order to avoid those effects. To edit an existing order use wc-orders/update-order; to change an order\'s status use wc-orders/update-order-status (status here is the INITIAL status only). After creating, surface edit_link so a human can review the order.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-orders',
+			'description'         => __( 'Creates a new WooCommerce order and returns the shaped order: id, number, status, totals, customer_id, the billing/shipping blocks, line_items, and edit_link. Every field is optional; status defaults to pending and no field is required, so add line_items (each a product_id and quantity) to put products on the order. SIDE EFFECTS: set_paid=true marks the order paid and fires payment_complete, which sets the status to processing, REDUCES STOCK, and SENDS THE PAID-ORDER CUSTOMER EMAILS (WooCommerce: "It will set the status to processing and reduce stock items."); creating directly into a paid status (processing or completed) does the same. Keep set_paid false and use pending or on-hold for an unpaid order to avoid those effects. To edit an existing order use og-wc-orders/update-order; to change an order\'s status use og-wc-orders/update-order-status (status here is the INITIAL status only). After creating, surface edit_link so a human can review the order.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-orders',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array_merge(

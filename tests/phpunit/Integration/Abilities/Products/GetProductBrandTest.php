@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-products/get-product-brand ability.
+ * Integration tests for the og-wc-products/get-product-brand ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -14,7 +14,7 @@ use GalatanOvidiu\AbilitiesCatalogWoo\Tests\TestCase;
 use WP_Error;
 
 /**
- * Exercises wc-products/get-product-brand: the shaped single-brand term row, the
+ * Exercises og-wc-products/get-product-brand: the shaped single-brand term row, the
  * parent linkage, the missing-brand 404 that must not collapse to a permission
  * error, the wrong-capability denial, and the exact closed output shape (no
  * display/image/menu_order leak).
@@ -45,10 +45,10 @@ final class GetProductBrandTest extends TestCase {
 			$this->markTestSkipped( 'The WooCommerce Brands feature is not active in this environment.' );
 		}
 
-		$ability = wp_get_ability( 'wc-products/get-product-brand' );
+		$ability = wp_get_ability( 'og-wc-products/get-product-brand' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-products/get-product-brand', $ability->get_name() );
+		$this->assertSame( 'og-wc-products/get-product-brand', $ability->get_name() );
 	}
 
 	public function test_admin_reads_brand_detail(): void {
@@ -61,7 +61,7 @@ final class GetProductBrandTest extends TestCase {
 		$parent_id = $this->seedBrand( 'Footwear', 0, '' );
 		$id        = $this->seedBrand( 'Acme', $parent_id, 'Premium running shoes.' );
 
-		$result = wp_get_ability( 'wc-products/get-product-brand' )->execute( array( 'id' => $id ) );
+		$result = wp_get_ability( 'og-wc-products/get-product-brand' )->execute( array( 'id' => $id ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( $id, $result['id'] );
@@ -81,7 +81,7 @@ final class GetProductBrandTest extends TestCase {
 
 		$id = $this->seedBrand( 'Globex', 0, '' );
 
-		$result = wp_get_ability( 'wc-products/get-product-brand' )->execute( array( 'id' => $id ) );
+		$result = wp_get_ability( 'og-wc-products/get-product-brand' )->execute( array( 'id' => $id ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( 0, $result['parent'] );
@@ -96,7 +96,7 @@ final class GetProductBrandTest extends TestCase {
 
 		$id = $this->seedBrand( 'Initech', 0, '' );
 
-		$result = wp_get_ability( 'wc-products/get-product-brand' )->execute( array( 'id' => $id ) );
+		$result = wp_get_ability( 'og-wc-products/get-product-brand' )->execute( array( 'id' => $id ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( self::EXPECTED_KEYS, array_keys( $result ) );
@@ -115,7 +115,7 @@ final class GetProductBrandTest extends TestCase {
 
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-products/get-product-brand' )->execute( array( 'id' => 99999999 ) );
+		$result = wp_get_ability( 'og-wc-products/get-product-brand' )->execute( array( 'id' => 99999999 ) );
 
 		$this->assertInstanceOf( WP_Error::class, $result );
 		$this->assertSame( 'woocommerce_rest_term_invalid', $result->get_error_code() );
@@ -131,7 +131,7 @@ final class GetProductBrandTest extends TestCase {
 		$id = $this->seedBrand( 'Umbrella', 0, '' );
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-products/get-product-brand' );
+		$ability = wp_get_ability( 'og-wc-products/get-product-brand' );
 
 		$this->assertFalse( $ability->check_permissions( array( 'id' => $id ) ) );
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-reports/get-products-stats ability.
+ * Integration tests for the og-wc-reports/get-products-stats ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -17,7 +17,7 @@ use WC_Product_Simple;
 use WP_Error;
 
 /**
- * Exercises wc-reports/get-products-stats: the shaped totals over a date range, the
+ * Exercises og-wc-reports/get-products-stats: the shaped totals over a date range, the
  * intentional omission of the raw `intervals` array (only `intervals_count` is
  * reported), a date-range filter, the wrong-capability denial, and the exact closed
  * output shape.
@@ -72,10 +72,10 @@ final class GetProductsStatsTest extends TestCase {
 	public function test_ability_is_registered(): void {
 		$this->requireAnalytics();
 
-		$ability = wp_get_ability( 'wc-reports/get-products-stats' );
+		$ability = wp_get_ability( 'og-wc-reports/get-products-stats' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-reports/get-products-stats', $ability->get_name() );
+		$this->assertSame( 'og-wc-reports/get-products-stats', $ability->get_name() );
 	}
 
 	public function test_admin_reads_shaped_totals(): void {
@@ -84,7 +84,7 @@ final class GetProductsStatsTest extends TestCase {
 
 		$this->seedCompletedOrder();
 
-		$result = wp_get_ability( 'wc-reports/get-products-stats' )->execute( array() );
+		$result = wp_get_ability( 'og-wc-reports/get-products-stats' )->execute( array() );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( self::ENVELOPE_KEYS, array_keys( $result ) );
@@ -111,7 +111,7 @@ final class GetProductsStatsTest extends TestCase {
 
 		$this->seedCompletedOrder();
 
-		$result = wp_get_ability( 'wc-reports/get-products-stats' )->execute( array() );
+		$result = wp_get_ability( 'og-wc-reports/get-products-stats' )->execute( array() );
 
 		$this->assertIsArray( $result );
 
@@ -139,7 +139,7 @@ final class GetProductsStatsTest extends TestCase {
 
 		$this->seedCompletedOrder();
 
-		$result = wp_get_ability( 'wc-reports/get-products-stats' )->execute(
+		$result = wp_get_ability( 'og-wc-reports/get-products-stats' )->execute(
 			array(
 				'after'    => gmdate( 'Y-m-d\TH:i:s', strtotime( '-1 day' ) ),
 				'before'   => gmdate( 'Y-m-d\TH:i:s', strtotime( '+1 day' ) ),
@@ -158,7 +158,7 @@ final class GetProductsStatsTest extends TestCase {
 		$this->requireAnalytics();
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-reports/get-products-stats' );
+		$ability = wp_get_ability( 'og-wc-reports/get-products-stats' );
 
 		$this->assertFalse( $ability->check_permissions( array() ) );
 

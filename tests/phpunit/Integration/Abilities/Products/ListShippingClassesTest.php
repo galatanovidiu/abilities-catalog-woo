@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-products/list-shipping-classes` ability.
+ * Integration tests for the `og-wc-products/list-shipping-classes` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -17,7 +17,7 @@ use WP_Error;
  */
 final class ListShippingClassesTest extends TestCase {
 
-	private const ABILITY = 'wc-products/list-shipping-classes';
+	private const ABILITY = 'og-wc-products/list-shipping-classes';
 
 	/**
 	 * The exact keys a shaped shipping-class summary row exposes.

@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Destructive write ability: `wc-products/delete-attribute-term`.
+ * Destructive write ability: `og-wc-products/delete-attribute-term`.
  *
  * Wraps `DELETE wc/v3/products/attributes/<attribute_id>/terms/<id>` via
  * `rest_do_request()`, permanently removing one term from a global product
@@ -45,7 +45,7 @@ final class DeleteAttributeTerm implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/delete-attribute-term';
+		return 'og-wc-products/delete-attribute-term';
 	}
 
 	/**
@@ -61,8 +61,8 @@ final class DeleteAttributeTerm implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Delete Attribute Term', 'abilities-catalog-woo' ),
-			'description'         => __( 'Permanently deletes a term from a global product attribute (e.g. removes "Red" from the "Color" attribute). This cannot be undone: attribute terms have no Trash, so the delete is irreversible — there is no force option and no restore. Deleting a term also unsets it from any product that referenced it. attribute_id is the parent attribute the term belongs to; discover it with wc-products/list-product-attributes, and discover the term id with wc-products/list-attribute-terms. A missing term returns a "woocommerce_rest_term_invalid" 404; a non-existent attribute_id returns a "woocommerce_rest_taxonomy_invalid" 404. Returns a confirmation carrying the deleted term\'s name; no edit_link is returned because the term no longer exists. To delete the whole attribute and its entire taxonomy instead, use wc-products/delete-product-attribute.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Permanently deletes a term from a global product attribute (e.g. removes "Red" from the "Color" attribute). This cannot be undone: attribute terms have no Trash, so the delete is irreversible — there is no force option and no restore. Deleting a term also unsets it from any product that referenced it. attribute_id is the parent attribute the term belongs to; discover it with og-wc-products/list-product-attributes, and discover the term id with og-wc-products/list-attribute-terms. A missing term returns a "woocommerce_rest_term_invalid" 404; a non-existent attribute_id returns a "woocommerce_rest_taxonomy_invalid" 404. Returns a confirmation carrying the deleted term\'s name; no edit_link is returned because the term no longer exists. To delete the whole attribute and its entire taxonomy instead, use og-wc-products/delete-product-attribute.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'attribute_id', 'id' ),
@@ -70,12 +70,12 @@ final class DeleteAttributeTerm implements ConditionalAbility {
 					'attribute_id' => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The parent attribute\'s id — the global attribute the term belongs to. Discover it with wc-products/list-product-attributes. A non-existent attribute_id returns a "woocommerce_rest_taxonomy_invalid" 404.', 'abilities-catalog-woo' ),
+						'description' => __( 'The parent attribute\'s id — the global attribute the term belongs to. Discover it with og-wc-products/list-product-attributes. A non-existent attribute_id returns a "woocommerce_rest_taxonomy_invalid" 404.', 'abilities-catalog-woo' ),
 					),
 					'id'           => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The attribute term id to permanently delete. Discover it with wc-products/list-attribute-terms. A non-existent term returns a "woocommerce_rest_term_invalid" 404.', 'abilities-catalog-woo' ),
+						'description' => __( 'The attribute term id to permanently delete. Discover it with og-wc-products/list-attribute-terms. A non-existent term returns a "woocommerce_rest_term_invalid" 404.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,
@@ -124,7 +124,7 @@ final class DeleteAttributeTerm implements ConditionalAbility {
 	/**
 	 * Permission check: WooCommerce's delete capability for product terms.
 	 *
-	 * Encodes the catalog capability for `wc-products/delete-attribute-term`: the
+	 * Encodes the catalog capability for `og-wc-products/delete-attribute-term`: the
 	 * `delete_product_terms` capability, which is what
 	 * `wc_rest_check_product_term_permissions( $taxonomy, 'delete' )` resolves to
 	 * on the wrapped term-delete route — the helper maps the `delete` context to

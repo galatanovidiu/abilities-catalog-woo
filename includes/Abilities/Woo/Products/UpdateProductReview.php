@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Write ability: `wc-products/update-product-review`.
+ * Write ability: `og-wc-products/update-product-review`.
  *
  * Wraps `PUT wc/v3/products/reviews/<id>` via `rest_do_request()`, updating an
  * existing WooCommerce product review (a WordPress comment on a product,
@@ -54,7 +54,7 @@ final class UpdateProductReview implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/update-product-review';
+		return 'og-wc-products/update-product-review';
 	}
 
 	/**
@@ -72,8 +72,8 @@ final class UpdateProductReview implements ConditionalAbility {
 
 		return array(
 			'label'               => __( 'Update Product Review', 'abilities-catalog-woo' ),
-			'description'         => __( 'Updates an existing WooCommerce product review by ID and returns the shaped review row (id, product_id, product_name, status, reviewer, reviewer_email, rating, review, verified, date_created). Send only the fields you want to change; an omitted field keeps its current value. The status field is the moderation lever: "approved" approves/publishes the review, "hold" un-approves it (back to the moderation queue), "spam" marks it spam, "unspam" restores it from spam, "trash" moves it to trash, and "untrash" restores it from trash. An update that changes only status moderates the review, so this ability IS the approve/hold/spam/trash action — there is no separate moderation ability. trash here is a recoverable moderation state, not a permanent delete. A product review is a WordPress comment on a product; reviewer_email is returned because this is an admin moderation tool gated on edit_products. Discover IDs with wc-products/list-product-reviews.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Updates an existing WooCommerce product review by ID and returns the shaped review row (id, product_id, product_name, status, reviewer, reviewer_email, rating, review, verified, date_created). Send only the fields you want to change; an omitted field keeps its current value. The status field is the moderation lever: "approved" approves/publishes the review, "hold" un-approves it (back to the moderation queue), "spam" marks it spam, "unspam" restores it from spam, "trash" moves it to trash, and "untrash" restores it from trash. An update that changes only status moderates the review, so this ability IS the approve/hold/spam/trash action — there is no separate moderation ability. trash here is a recoverable moderation state, not a permanent delete. A product review is a WordPress comment on a product; reviewer_email is returned because this is an admin moderation tool gated on edit_products. Discover IDs with og-wc-products/list-product-reviews.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
@@ -81,7 +81,7 @@ final class UpdateProductReview implements ConditionalAbility {
 					'id'             => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The review id to update; discover with wc-products/list-product-reviews.', 'abilities-catalog-woo' ),
+						'description' => __( 'The review id to update; discover with og-wc-products/list-product-reviews.', 'abilities-catalog-woo' ),
 					),
 					'reviewer'       => array(
 						'type'        => 'string',

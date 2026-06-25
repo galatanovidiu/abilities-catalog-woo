@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-products/update-product-category ability.
+ * Integration tests for the og-wc-products/update-product-category ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -13,7 +13,7 @@ use GalatanOvidiu\AbilitiesCatalogWoo\Tests\TestCase;
 use WP_Error;
 
 /**
- * Exercises wc-products/update-product-category: a name change on a seeded
+ * Exercises og-wc-products/update-product-category: a name change on a seeded
  * category, a parent re-nesting, the missing-category 404 that must not collapse
  * to a permission error, the wrong-capability denial (with the category
  * unchanged), and the exact closed output shape (no display/image/menu_order
@@ -36,10 +36,10 @@ final class UpdateProductCategoryTest extends TestCase {
 	);
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-products/update-product-category' );
+		$ability = wp_get_ability( 'og-wc-products/update-product-category' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-products/update-product-category', $ability->get_name() );
+		$this->assertSame( 'og-wc-products/update-product-category', $ability->get_name() );
 	}
 
 	public function test_admin_updates_category_name(): void {
@@ -47,7 +47,7 @@ final class UpdateProductCategoryTest extends TestCase {
 
 		$id = $this->seedCategory( 'Hats', 0, '' );
 
-		$result = wp_get_ability( 'wc-products/update-product-category' )->execute(
+		$result = wp_get_ability( 'og-wc-products/update-product-category' )->execute(
 			array(
 				'id'   => $id,
 				'name' => 'Headwear',
@@ -68,7 +68,7 @@ final class UpdateProductCategoryTest extends TestCase {
 		$parent_id = $this->seedCategory( 'Apparel', 0, '' );
 		$id        = $this->seedCategory( 'Beanies', 0, '' );
 
-		$result = wp_get_ability( 'wc-products/update-product-category' )->execute(
+		$result = wp_get_ability( 'og-wc-products/update-product-category' )->execute(
 			array(
 				'id'     => $id,
 				'parent' => $parent_id,
@@ -85,7 +85,7 @@ final class UpdateProductCategoryTest extends TestCase {
 
 		$id = $this->seedCategory( 'Gadgets', 0, '' );
 
-		$result = wp_get_ability( 'wc-products/update-product-category' )->execute(
+		$result = wp_get_ability( 'og-wc-products/update-product-category' )->execute(
 			array(
 				'id'         => $id,
 				'name'       => 'Devices',
@@ -107,7 +107,7 @@ final class UpdateProductCategoryTest extends TestCase {
 	public function test_missing_category_returns_404_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-products/update-product-category' )->execute(
+		$result = wp_get_ability( 'og-wc-products/update-product-category' )->execute(
 			array(
 				'id'   => 99999999,
 				'name' => 'Ghost',
@@ -125,7 +125,7 @@ final class UpdateProductCategoryTest extends TestCase {
 
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-products/update-product-category' );
+		$ability = wp_get_ability( 'og-wc-products/update-product-category' );
 
 		$this->assertFalse(
 			$ability->check_permissions(

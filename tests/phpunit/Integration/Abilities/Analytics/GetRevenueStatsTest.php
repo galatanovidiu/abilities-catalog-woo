@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-reports/get-revenue-stats` ability.
+ * Integration tests for the `og-wc-reports/get-revenue-stats` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -21,7 +21,7 @@ use WP_Error;
  */
 final class GetRevenueStatsTest extends TestCase {
 
-	private const ABILITY = 'wc-reports/get-revenue-stats';
+	private const ABILITY = 'og-wc-reports/get-revenue-stats';
 
 	/**
 	 * The exact keys the shaped revenue `totals` object exposes.

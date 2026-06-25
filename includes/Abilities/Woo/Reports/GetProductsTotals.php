@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-reports/get-products-totals`.
+ * Read ability: `og-wc-reports/get-products-totals`.
  *
  * Wraps `GET wc/v3/reports/products/totals` via `rest_do_request()` and returns
  * one row per product type — `slug` (the `product_type` term, e.g. "simple",
@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * body never leaks. Only available when WooCommerce is active (it is a
  * {@see ConditionalAbility}). For revenue, order, or trend analysis use the richer
  * `wc-analytics` reports (present only when the Analytics feature is on); use
- * `wc-products/list-products` to enumerate the products themselves.
+ * `og-wc-products/list-products` to enumerate the products themselves.
  *
  * @since 0.1.0
  */
@@ -37,7 +37,7 @@ final class GetProductsTotals implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-reports/get-products-totals';
+		return 'og-wc-reports/get-products-totals';
 	}
 
 	/**
@@ -53,8 +53,8 @@ final class GetProductsTotals implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Get Products Totals', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns the WooCommerce product-type breakdown as flat rows: each row has a product type slug (e.g. "simple", "variable", "grouped", "external"), its human-readable name, and the count of products of that type. This is the legacy product-mix report — it counts products by type, not sales or revenue. For sales or trend analysis use the wc-analytics reports (present only when the Analytics feature is on); use wc-products/list-products to enumerate the products themselves.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-reports',
+			'description'         => __( 'Returns the WooCommerce product-type breakdown as flat rows: each row has a product type slug (e.g. "simple", "variable", "grouped", "external"), its human-readable name, and the count of products of that type. This is the legacy product-mix report — it counts products by type, not sales or revenue. For sales or trend analysis use the wc-analytics reports (present only when the Analytics feature is on); use og-wc-products/list-products to enumerate the products themselves.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-reports',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => (object) array(),

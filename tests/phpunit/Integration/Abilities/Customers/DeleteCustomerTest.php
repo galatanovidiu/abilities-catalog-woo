@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-customers/delete-customer ability.
+ * Integration tests for the og-wc-customers/delete-customer ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -13,7 +13,7 @@ use GalatanOvidiu\AbilitiesCatalogWoo\Tests\TestCase;
 use WP_Error;
 
 /**
- * Exercises wc-customers/delete-customer: the permanent force delete of a customer
+ * Exercises og-wc-customers/delete-customer: the permanent force delete of a customer
  * (WordPress user) with the email/username captured and the user actually gone, the
  * reassign path that preserves content under another account, the route's specific
  * 404 for a missing customer surfaced as a real error rather than a permission
@@ -55,10 +55,10 @@ final class DeleteCustomerTest extends TestCase {
 	}
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-customers/delete-customer' );
+		$ability = wp_get_ability( 'og-wc-customers/delete-customer' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-customers/delete-customer', $ability->get_name() );
+		$this->assertSame( 'og-wc-customers/delete-customer', $ability->get_name() );
 	}
 
 	public function test_admin_deletes_customer_permanently_and_user_is_gone(): void {
@@ -66,7 +66,7 @@ final class DeleteCustomerTest extends TestCase {
 
 		$id = $this->seedCustomer();
 
-		$result = wp_get_ability( 'wc-customers/delete-customer' )->execute( array( 'id' => $id ) );
+		$result = wp_get_ability( 'og-wc-customers/delete-customer' )->execute( array( 'id' => $id ) );
 
 		$this->assertIsArray( $result );
 		$this->assertTrue( $result['deleted'] );
@@ -87,7 +87,7 @@ final class DeleteCustomerTest extends TestCase {
 		$customer_id = $this->seedCustomer( 'author@example.test', 'author_user' );
 		$reassign_id = $this->seedCustomer( 'keeper@example.test', 'keeper_user' );
 
-		$result = wp_get_ability( 'wc-customers/delete-customer' )->execute(
+		$result = wp_get_ability( 'og-wc-customers/delete-customer' )->execute(
 			array(
 				'id'       => $customer_id,
 				'reassign' => $reassign_id,
@@ -108,7 +108,7 @@ final class DeleteCustomerTest extends TestCase {
 
 		$id = $this->seedCustomer( 'shape@example.test', 'shape_user' );
 
-		$result = wp_get_ability( 'wc-customers/delete-customer' )->execute( array( 'id' => $id ) );
+		$result = wp_get_ability( 'og-wc-customers/delete-customer' )->execute( array( 'id' => $id ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( self::EXPECTED_KEYS, array_keys( $result ) );
@@ -130,7 +130,7 @@ final class DeleteCustomerTest extends TestCase {
 	public function test_missing_customer_returns_404_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-customers/delete-customer' )->execute( array( 'id' => 99999999 ) );
+		$result = wp_get_ability( 'og-wc-customers/delete-customer' )->execute( array( 'id' => 99999999 ) );
 
 		$this->assertInstanceOf( WP_Error::class, $result );
 		$this->assertSame( 'wc_user_invalid_id', $result->get_error_code() );
@@ -144,7 +144,7 @@ final class DeleteCustomerTest extends TestCase {
 		$id = $this->seedCustomer( 'selfreassign@example.test', 'self_user' );
 
 		// reassign equal to the deleted id is rejected by the route.
-		$result = wp_get_ability( 'wc-customers/delete-customer' )->execute(
+		$result = wp_get_ability( 'og-wc-customers/delete-customer' )->execute(
 			array(
 				'id'       => $id,
 				'reassign' => $id,
@@ -164,7 +164,7 @@ final class DeleteCustomerTest extends TestCase {
 
 		$id = $this->seedCustomer( 'survivor@example.test', 'survivor_user' );
 
-		$ability = wp_get_ability( 'wc-customers/delete-customer' );
+		$ability = wp_get_ability( 'og-wc-customers/delete-customer' );
 
 		$this->assertFalse( $ability->check_permissions( array( 'id' => $id ) ) );
 

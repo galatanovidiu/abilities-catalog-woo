@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-coupons/get-coupon ability.
+ * Integration tests for the og-wc-coupons/get-coupon ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -14,7 +14,7 @@ use WC_Coupon;
 use WP_Error;
 
 /**
- * Exercises wc-coupons/get-coupon: the shaped single-coupon record, the
+ * Exercises og-wc-coupons/get-coupon: the shaped single-coupon record, the
  * missing-coupon 404 that must not collapse to a permission error, the
  * wrong-capability denial, and the exact closed output shape (flat detail row
  * plus edit_link).
@@ -62,10 +62,10 @@ final class GetCouponTest extends TestCase {
 	}
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-coupons/get-coupon' );
+		$ability = wp_get_ability( 'og-wc-coupons/get-coupon' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-coupons/get-coupon', $ability->get_name() );
+		$this->assertSame( 'og-wc-coupons/get-coupon', $ability->get_name() );
 	}
 
 	public function test_admin_reads_coupon_detail(): void {
@@ -74,7 +74,7 @@ final class GetCouponTest extends TestCase {
 
 		$coupon_id = $this->seedCoupon();
 
-		$result = wp_get_ability( 'wc-coupons/get-coupon' )->execute( array( 'id' => $coupon_id ) );
+		$result = wp_get_ability( 'og-wc-coupons/get-coupon' )->execute( array( 'id' => $coupon_id ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( $coupon_id, $result['id'] );
@@ -94,7 +94,7 @@ final class GetCouponTest extends TestCase {
 
 		$coupon_id = $this->seedCoupon( 'shape20' );
 
-		$result = wp_get_ability( 'wc-coupons/get-coupon' )->execute( array( 'id' => $coupon_id ) );
+		$result = wp_get_ability( 'og-wc-coupons/get-coupon' )->execute( array( 'id' => $coupon_id ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( self::EXPECTED_KEYS, array_keys( $result ) );
@@ -121,7 +121,7 @@ final class GetCouponTest extends TestCase {
 		$this->enableCoupons();
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-coupons/get-coupon' )->execute( array( 'id' => 99999999 ) );
+		$result = wp_get_ability( 'og-wc-coupons/get-coupon' )->execute( array( 'id' => 99999999 ) );
 
 		$this->assertInstanceOf( WP_Error::class, $result );
 		$this->assertSame( 'woocommerce_rest_shop_coupon_invalid_id', $result->get_error_code() );
@@ -135,7 +135,7 @@ final class GetCouponTest extends TestCase {
 
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-coupons/get-coupon' );
+		$ability = wp_get_ability( 'og-wc-coupons/get-coupon' );
 
 		$this->assertFalse( $ability->check_permissions( array( 'id' => $coupon_id ) ) );
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-customers/get-customer ability.
+ * Integration tests for the og-wc-customers/get-customer ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -14,7 +14,7 @@ use WP_Error;
 use WC_Customer;
 
 /**
- * Exercises wc-customers/get-customer: the shaped single-customer record, the
+ * Exercises og-wc-customers/get-customer: the shaped single-customer record, the
  * billing/shipping detail blocks and edit_link, the missing-customer 404 that
  * must not collapse to a permission error, the wrong-capability denial, and the
  * exact closed output shape with no PII leak beyond the documented subset.
@@ -80,10 +80,10 @@ final class GetCustomerTest extends TestCase {
 	);
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-customers/get-customer' );
+		$ability = wp_get_ability( 'og-wc-customers/get-customer' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-customers/get-customer', $ability->get_name() );
+		$this->assertSame( 'og-wc-customers/get-customer', $ability->get_name() );
 	}
 
 	public function test_admin_reads_customer_detail(): void {
@@ -91,7 +91,7 @@ final class GetCustomerTest extends TestCase {
 
 		$customer_id = $this->seedCustomer();
 
-		$result = wp_get_ability( 'wc-customers/get-customer' )->execute( array( 'id' => $customer_id ) );
+		$result = wp_get_ability( 'og-wc-customers/get-customer' )->execute( array( 'id' => $customer_id ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( $customer_id, $result['id'] );
@@ -115,7 +115,7 @@ final class GetCustomerTest extends TestCase {
 
 		$customer_id = $this->seedCustomer();
 
-		$result = wp_get_ability( 'wc-customers/get-customer' )->execute( array( 'id' => $customer_id ) );
+		$result = wp_get_ability( 'og-wc-customers/get-customer' )->execute( array( 'id' => $customer_id ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( self::EXPECTED_KEYS, array_keys( $result ) );
@@ -133,7 +133,7 @@ final class GetCustomerTest extends TestCase {
 	public function test_missing_customer_returns_404_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-customers/get-customer' )->execute( array( 'id' => 99999999 ) );
+		$result = wp_get_ability( 'og-wc-customers/get-customer' )->execute( array( 'id' => 99999999 ) );
 
 		$this->assertInstanceOf( WP_Error::class, $result );
 		$this->assertSame( 'wc_user_invalid_id', $result->get_error_code() );
@@ -145,7 +145,7 @@ final class GetCustomerTest extends TestCase {
 		$customer_id = $this->seedCustomer();
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-customers/get-customer' );
+		$ability = wp_get_ability( 'og-wc-customers/get-customer' );
 
 		$this->assertFalse( $ability->check_permissions( array( 'id' => $customer_id ) ) );
 

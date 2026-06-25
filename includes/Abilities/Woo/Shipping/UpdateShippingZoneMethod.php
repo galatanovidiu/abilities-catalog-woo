@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Write ability: `wc-shipping/update-shipping-zone-method`.
+ * Write ability: `og-wc-shipping/update-shipping-zone-method`.
  *
  * Wraps `PUT wc/v3/shipping/zones/<zone_id>/methods/<instance_id>` via
  * `rest_do_request()`, changing a configured shipping-method instance on a zone and
@@ -41,7 +41,7 @@ final class UpdateShippingZoneMethod implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-shipping/update-shipping-zone-method';
+		return 'og-wc-shipping/update-shipping-zone-method';
 	}
 
 	/**
@@ -57,8 +57,8 @@ final class UpdateShippingZoneMethod implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Update Shipping Zone Method', 'abilities-catalog-woo' ),
-			'description'         => __( 'Updates a shipping-method instance already configured on a zone and returns the shaped instance (instance_id, method_id, title, enabled, order, settings_summary). Use this to enable or disable a method, change its sort order, or change its settings; use wc-shipping/create-shipping-zone-method to add a new method instead. The method TYPE (method_id, e.g. flat_rate) is fixed at create and cannot be changed here. Send only what you want to change: enabled, order, and any settings keys you include are applied; omitted settings keys keep their current value (this is a partial settings update, not a full replace). Discover zone_id with wc-shipping/list-shipping-zones and instance_id with wc-shipping/list-shipping-zone-methods; see a method\'s available settings ids with wc-shipping/get-shipping-zone-method.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-shipping',
+			'description'         => __( 'Updates a shipping-method instance already configured on a zone and returns the shaped instance (instance_id, method_id, title, enabled, order, settings_summary). Use this to enable or disable a method, change its sort order, or change its settings; use og-wc-shipping/create-shipping-zone-method to add a new method instead. The method TYPE (method_id, e.g. flat_rate) is fixed at create and cannot be changed here. Send only what you want to change: enabled, order, and any settings keys you include are applied; omitted settings keys keep their current value (this is a partial settings update, not a full replace). Discover zone_id with og-wc-shipping/list-shipping-zones and instance_id with og-wc-shipping/list-shipping-zone-methods; see a method\'s available settings ids with og-wc-shipping/get-shipping-zone-method.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-shipping',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'zone_id', 'instance_id' ),
@@ -66,12 +66,12 @@ final class UpdateShippingZoneMethod implements ConditionalAbility {
 					'zone_id'     => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The shipping zone ID that holds the method instance. Discover IDs with wc-shipping/list-shipping-zones.', 'abilities-catalog-woo' ),
+						'description' => __( 'The shipping zone ID that holds the method instance. Discover IDs with og-wc-shipping/list-shipping-zones.', 'abilities-catalog-woo' ),
 					),
 					'instance_id' => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The configured method instance ID within the zone to update. Discover IDs with wc-shipping/list-shipping-zone-methods.', 'abilities-catalog-woo' ),
+						'description' => __( 'The configured method instance ID within the zone to update. Discover IDs with og-wc-shipping/list-shipping-zone-methods.', 'abilities-catalog-woo' ),
 					),
 					'enabled'     => array(
 						'type'        => 'boolean',
@@ -83,7 +83,7 @@ final class UpdateShippingZoneMethod implements ConditionalAbility {
 					),
 					'settings'    => array(
 						'type'                 => 'object',
-						'description'          => __( 'A partial map of setting id to new value, e.g. {"cost": "10", "title": "Standard"} for flat_rate. Only the keys you send change; omitted keys keep their current value. The valid keys depend on the method type (method_id) and are intentionally open; discover a method\'s setting ids with wc-shipping/get-shipping-zone-method.', 'abilities-catalog-woo' ),
+						'description'          => __( 'A partial map of setting id to new value, e.g. {"cost": "10", "title": "Standard"} for flat_rate. Only the keys you send change; omitted keys keep their current value. The valid keys depend on the method type (method_id) and are intentionally open; discover a method\'s setting ids with og-wc-shipping/get-shipping-zone-method.', 'abilities-catalog-woo' ),
 						'additionalProperties' => true,
 					),
 				),

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-data/get-current-currency`.
+ * Read ability: `og-wc-data/get-current-currency`.
  *
  * Wraps `GET wc/v3/data/currencies/current` via `rest_do_request()` and returns the
  * store's configured currency — the value of the `woocommerce_currency` option — as
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * The dispatched path is the literal `/current` route, registered ahead of the
  * by-code `(?P<currency>[\w-]{3})` route, so it always resolves the store's own
  * currency and never a 3-character code lookup. To look up an arbitrary currency by
- * its ISO-4217 code, use `wc-data/get-currency` instead.
+ * its ISO-4217 code, use `og-wc-data/get-currency` instead.
  *
  * Only available when WooCommerce is active (it is a {@see ConditionalAbility}).
  *
@@ -37,7 +37,7 @@ final class GetCurrentCurrency implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-data/get-current-currency';
+		return 'og-wc-data/get-current-currency';
 	}
 
 	/**
@@ -53,8 +53,8 @@ final class GetCurrentCurrency implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Get Current Currency', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns the store\'s configured currency (the woocommerce_currency setting) as a code, full name, and symbol. Use this to answer "what currency does this store charge in". To look up an arbitrary currency by its ISO-4217 code instead, use wc-data/get-currency; to list every available currency, use wc-data/list-currencies. Read-only; takes no input.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-data',
+			'description'         => __( 'Returns the store\'s configured currency (the woocommerce_currency setting) as a code, full name, and symbol. Use this to answer "what currency does this store charge in". To look up an arbitrary currency by its ISO-4217 code instead, use og-wc-data/get-currency; to list every available currency, use og-wc-data/list-currencies. Read-only; takes no input.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-data',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => (object) array(),

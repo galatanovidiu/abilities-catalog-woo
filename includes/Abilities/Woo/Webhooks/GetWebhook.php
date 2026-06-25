@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-webhooks/get-webhook`.
+ * Read ability: `og-wc-webhooks/get-webhook`.
  *
  * Wraps `GET /wc/v3/webhooks/<id>` via `rest_do_request()` and returns one
  * webhook's flat detail row through {@see WebhookListShaper::detail()}. The
@@ -40,7 +40,7 @@ final class GetWebhook implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-webhooks/get-webhook';
+		return 'og-wc-webhooks/get-webhook';
 	}
 
 	/**
@@ -56,8 +56,8 @@ final class GetWebhook implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Get Webhook', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns one WooCommerce webhook by ID: its name, status, topic, resource, event, hooks (the WooCommerce action names that fire a delivery), delivery URL, failure count, and dates. The signing secret is signed but hidden — it is never returned; instead has_secret tells you whether deliveries are signed (true) or unsigned (false). Discover IDs with wc-webhooks/list-webhooks.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-webhooks',
+			'description'         => __( 'Returns one WooCommerce webhook by ID: its name, status, topic, resource, event, hooks (the WooCommerce action names that fire a delivery), delivery URL, failure count, and dates. The signing secret is signed but hidden — it is never returned; instead has_secret tells you whether deliveries are signed (true) or unsigned (false). Discover IDs with og-wc-webhooks/list-webhooks.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-webhooks',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
@@ -65,7 +65,7 @@ final class GetWebhook implements ConditionalAbility {
 					'id' => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The webhook ID. Discover IDs with wc-webhooks/list-webhooks.', 'abilities-catalog-woo' ),
+						'description' => __( 'The webhook ID. Discover IDs with og-wc-webhooks/list-webhooks.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-reports/list-taxes-analytics`.
+ * Read ability: `og-wc-reports/list-taxes-analytics`.
  *
  * Wraps `GET /wc-analytics/reports/taxes` via `rest_do_request()` and returns each
  * tax rate's collected-tax performance over a date range as a flat summary row:
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * so every field is read top-level. The controller's `priority` field is dropped —
  * only the whitelisted fields above are returned.
  *
- * This is the per-tax-rate list read; use `wc-reports/get-taxes-stats` for the
+ * This is the per-tax-rate list read; use `og-wc-reports/get-taxes-stats` for the
  * aggregated tax totals over a range. Set the range with `after`/`before`
  * (ISO8601 date-time).
  *
@@ -64,7 +64,7 @@ final class ListTaxesAnalytics implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-reports/list-taxes-analytics';
+		return 'og-wc-reports/list-taxes-analytics';
 	}
 
 	/**
@@ -80,8 +80,8 @@ final class ListTaxesAnalytics implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'List Taxes Analytics', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns per-tax-rate analytics from WooCommerce Analytics as flat rows, each with tax_rate_id, name, tax_rate, country, state, total_tax, order_tax, shipping_tax, and orders_count. Use this for a ranked tax-rate list over a date range; use wc-reports/get-taxes-stats for the aggregated tax totals. The range is set by after/before as ISO8601 date-times; omit them for the full history. Only available when the store\'s WooCommerce Analytics feature is enabled. The report reads an analytics lookup table that an async sync populates, so a just-placed order may not appear immediately.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-reports',
+			'description'         => __( 'Returns per-tax-rate analytics from WooCommerce Analytics as flat rows, each with tax_rate_id, name, tax_rate, country, state, total_tax, order_tax, shipping_tax, and orders_count. Use this for a ranked tax-rate list over a date range; use og-wc-reports/get-taxes-stats for the aggregated tax totals. The range is set by after/before as ISO8601 date-times; omit them for the full history. Only available when the store\'s WooCommerce Analytics feature is enabled. The report reads an analytics lookup table that an async sync populates, so a just-placed order may not appear immediately.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-reports',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array(
@@ -129,7 +129,7 @@ final class ListTaxesAnalytics implements ConditionalAbility {
 				'properties'           => array(
 					'items' => array(
 						'type'        => 'array',
-						'description' => __( 'The per-tax-rate analytics rows. Use wc-reports/get-taxes-stats for the aggregated totals over the range.', 'abilities-catalog-woo' ),
+						'description' => __( 'The per-tax-rate analytics rows. Use og-wc-reports/get-taxes-stats for the aggregated totals over the range.', 'abilities-catalog-woo' ),
 						'items'       => AnalyticsReportShaper::analyticsItemSchema(
 							array(
 								'tax_rate_id'  => array(

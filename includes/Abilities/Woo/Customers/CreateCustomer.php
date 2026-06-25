@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Write ability: `wc-customers/create-customer`.
+ * Write ability: `og-wc-customers/create-customer`.
  *
  * Wraps `POST wc/v3/customers` via `rest_do_request()`, creating a new WooCommerce
  * customer (a WordPress user with the `customer` role) and returning it shaped
@@ -62,7 +62,7 @@ final class CreateCustomer implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-customers/create-customer';
+		return 'og-wc-customers/create-customer';
 	}
 
 	/**
@@ -85,8 +85,8 @@ final class CreateCustomer implements ConditionalAbility {
 
 		return array(
 			'label'               => __( 'Create Customer', 'abilities-catalog-woo' ),
-			'description'         => __( 'Creates a new WooCommerce customer (a WordPress user with the customer role) and returns the shaped record: id, email, first and last name, username, role, registration date, orders_count, total_spent, the billing and shipping address blocks, and an edit_link. Only email is required; WooCommerce generates a username when none is given. Use this to create; use wc-customers/update-customer to change an existing customer (discover IDs with wc-customers/list-customers). The result contains personal data (the customer\'s name, email, and addresses). password is write-only: set it to give the account a password, but it is never returned in the result. After creating, surface edit_link so a human can review the account.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-customers',
+			'description'         => __( 'Creates a new WooCommerce customer (a WordPress user with the customer role) and returns the shaped record: id, email, first and last name, username, role, registration date, orders_count, total_spent, the billing and shipping address blocks, and an edit_link. Only email is required; WooCommerce generates a username when none is given. Use this to create; use og-wc-customers/update-customer to change an existing customer (discover IDs with og-wc-customers/list-customers). The result contains personal data (the customer\'s name, email, and addresses). password is write-only: set it to give the account a password, but it is never returned in the result. After creating, surface edit_link so a human can review the account.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-customers',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'email' ),

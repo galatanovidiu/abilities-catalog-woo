@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-system/list-system-tools`.
+ * Read ability: `og-wc-system/list-system-tools`.
  *
  * Wraps `GET wc/v3/system_status/tools` via `rest_do_request()` and returns every
  * WooCommerce maintenance tool as a flat `{ id, name, action, description }` row
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * This ability only LISTS the tools so a consumer can discover their ids and read
  * what each does; it does NOT run any of them. Running a tool is the deferred
- * dangerous `wc-system/run-system-tool` ability (not built), because several tools
+ * dangerous `og-wc-system/run-system-tool` ability (not built), because several tools
  * are irreversible (e.g. delete_taxes, reset_roles, db_update_routine).
  *
  * Only available when WooCommerce is active (it is a {@see ConditionalAbility}).
@@ -40,7 +40,7 @@ final class ListSystemTools implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-system/list-system-tools';
+		return 'og-wc-system/list-system-tools';
 	}
 
 	/**
@@ -56,8 +56,8 @@ final class ListSystemTools implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'List System Tools', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns every WooCommerce maintenance tool as flat { id, name, action, description } rows, plus the total count. The action is the button label — what running the tool would do (e.g. clear_transients, clear_expired_transients, regenerate_thumbnails). Read-only discovery step: use it to learn which tools exist and their ids, then read one with wc-system/get-system-tool. This ability only LISTS the tools; running one is the separate, deferred wc-system/run-system-tool ability, because several tools are irreversible. This route is unpaged, so total always equals the number of returned rows.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-system',
+			'description'         => __( 'Returns every WooCommerce maintenance tool as flat { id, name, action, description } rows, plus the total count. The action is the button label — what running the tool would do (e.g. clear_transients, clear_expired_transients, regenerate_thumbnails). Read-only discovery step: use it to learn which tools exist and their ids, then read one with og-wc-system/get-system-tool. This ability only LISTS the tools; running one is the separate, deferred og-wc-system/run-system-tool ability, because several tools are irreversible. This route is unpaged, so total always equals the number of returned rows.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-system',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => (object) array(),
@@ -69,7 +69,7 @@ final class ListSystemTools implements ConditionalAbility {
 				'properties'           => array(
 					'items' => array(
 						'type'        => 'array',
-						'description' => __( 'The maintenance tools as flat rows. Read one tool with wc-system/get-system-tool; run one with the deferred wc-system/run-system-tool.', 'abilities-catalog-woo' ),
+						'description' => __( 'The maintenance tools as flat rows. Read one tool with og-wc-system/get-system-tool; run one with the deferred og-wc-system/run-system-tool.', 'abilities-catalog-woo' ),
 						'items'       => SystemToolListShaper::itemSchema(),
 					),
 					'total' => array(

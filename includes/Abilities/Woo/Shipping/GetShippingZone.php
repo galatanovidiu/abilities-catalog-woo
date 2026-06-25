@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-shipping/get-shipping-zone`.
+ * Read ability: `og-wc-shipping/get-shipping-zone`.
  *
  * Wraps `GET wc/v3/shipping/zones/<id>` via `rest_do_request()` and returns one
  * shipping zone as a flat, closed record: its id, name, and order. The raw `wc/v3`
@@ -36,7 +36,7 @@ final class GetShippingZone implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-shipping/get-shipping-zone';
+		return 'og-wc-shipping/get-shipping-zone';
 	}
 
 	/**
@@ -52,8 +52,8 @@ final class GetShippingZone implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Get Shipping Zone', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns one WooCommerce shipping zone by ID: its id, name, and order (its sort position). Discover IDs with wc-shipping/list-shipping-zones. Id 0 is the always-present, read-only "Rest of the World" zone (the catch-all for regions not covered by another zone). Use wc-shipping/get-shipping-zone-locations for the zone\'s geographic match rules and wc-shipping/list-shipping-zone-methods for the methods configured on it.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-shipping',
+			'description'         => __( 'Returns one WooCommerce shipping zone by ID: its id, name, and order (its sort position). Discover IDs with og-wc-shipping/list-shipping-zones. Id 0 is the always-present, read-only "Rest of the World" zone (the catch-all for regions not covered by another zone). Use og-wc-shipping/get-shipping-zone-locations for the zone\'s geographic match rules and og-wc-shipping/list-shipping-zone-methods for the methods configured on it.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-shipping',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
@@ -61,7 +61,7 @@ final class GetShippingZone implements ConditionalAbility {
 					'id' => array(
 						'type'        => 'integer',
 						'minimum'     => 0,
-						'description' => __( 'The shipping zone ID. Discover IDs with wc-shipping/list-shipping-zones. Id 0 is the always-present "Rest of the World" catch-all zone.', 'abilities-catalog-woo' ),
+						'description' => __( 'The shipping zone ID. Discover IDs with og-wc-shipping/list-shipping-zones. Id 0 is the always-present "Rest of the World" catch-all zone.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,

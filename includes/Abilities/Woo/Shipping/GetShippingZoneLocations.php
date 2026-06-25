@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-shipping/get-shipping-zone-locations`.
+ * Read ability: `og-wc-shipping/get-shipping-zone-locations`.
  *
  * Wraps `GET wc/v3/shipping/zones/<id>/locations` via `rest_do_request()` and
  * returns the geographic match rules attached to one shipping zone. Each location
@@ -37,7 +37,7 @@ final class GetShippingZoneLocations implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-shipping/get-shipping-zone-locations';
+		return 'og-wc-shipping/get-shipping-zone-locations';
 	}
 
 	/**
@@ -53,8 +53,8 @@ final class GetShippingZoneLocations implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Get Shipping Zone Locations', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns the geographic match rules of one WooCommerce shipping zone by zone ID: each location is a { code, type } rule where type is one of country, state, postcode, or continent, and code is the matching region code. A location attaches the zone to a region; an empty locations array means the zone matches no region (common for a fresh zone, and always so for zone 0 "Rest of the World", the always-present catch-all). Discover the zone ID with wc-shipping/list-shipping-zones. Use wc-shipping/list-shipping-zone-methods for the zone\'s configured shipping methods.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-shipping',
+			'description'         => __( 'Returns the geographic match rules of one WooCommerce shipping zone by zone ID: each location is a { code, type } rule where type is one of country, state, postcode, or continent, and code is the matching region code. A location attaches the zone to a region; an empty locations array means the zone matches no region (common for a fresh zone, and always so for zone 0 "Rest of the World", the always-present catch-all). Discover the zone ID with og-wc-shipping/list-shipping-zones. Use og-wc-shipping/list-shipping-zone-methods for the zone\'s configured shipping methods.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-shipping',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
@@ -62,7 +62,7 @@ final class GetShippingZoneLocations implements ConditionalAbility {
 					'id' => array(
 						'type'        => 'integer',
 						'minimum'     => 0,
-						'description' => __( 'The shipping zone ID whose locations to read. Discover IDs with wc-shipping/list-shipping-zones; id 0 is the "Rest of the World" zone, which has no locations.', 'abilities-catalog-woo' ),
+						'description' => __( 'The shipping zone ID whose locations to read. Discover IDs with og-wc-shipping/list-shipping-zones; id 0 is the "Rest of the World" zone, which has no locations.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,
@@ -103,7 +103,7 @@ final class GetShippingZoneLocations implements ConditionalAbility {
 	/**
 	 * Permission check: WooCommerce's shipping-settings manager capability.
 	 *
-	 * Encodes the catalog baseline for `wc-shipping/get-shipping-zone-locations`:
+	 * Encodes the catalog baseline for `og-wc-shipping/get-shipping-zone-locations`:
 	 * `manage_woocommerce`, which is what `wc_rest_check_manager_permissions( 'settings', 'read' )`
 	 * resolves to on the wrapped `GET wc/v3/shipping/zones/<id>/locations` route — the
 	 * helper ignores the context and maps the `settings` object to `manage_woocommerce`.

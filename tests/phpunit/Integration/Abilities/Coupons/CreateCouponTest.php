@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-coupons/create-coupon ability.
+ * Integration tests for the og-wc-coupons/create-coupon ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -13,7 +13,7 @@ use GalatanOvidiu\AbilitiesCatalogWoo\Tests\TestCase;
 use WP_Error;
 
 /**
- * Exercises wc-coupons/create-coupon: the shaped created-coupon record with a real
+ * Exercises og-wc-coupons/create-coupon: the shaped created-coupon record with a real
  * id, an honored field, the wrong-capability denial, the bad-enum 400 surfaced via
  * RestError (not a permission collapse), and the exact closed output shape.
  */
@@ -42,17 +42,17 @@ final class CreateCouponTest extends TestCase {
 	);
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-coupons/create-coupon' );
+		$ability = wp_get_ability( 'og-wc-coupons/create-coupon' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-coupons/create-coupon', $ability->get_name() );
+		$this->assertSame( 'og-wc-coupons/create-coupon', $ability->get_name() );
 	}
 
 	public function test_admin_creates_coupon(): void {
 		$this->enableCoupons();
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-coupons/create-coupon' )->execute(
+		$result = wp_get_ability( 'og-wc-coupons/create-coupon' )->execute(
 			array(
 				'code'          => 'save10',
 				'discount_type' => 'percent',
@@ -75,7 +75,7 @@ final class CreateCouponTest extends TestCase {
 		$this->enableCoupons();
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-coupons/create-coupon' )->execute(
+		$result = wp_get_ability( 'og-wc-coupons/create-coupon' )->execute(
 			array(
 				'code'        => 'desc15',
 				'amount'      => '15',
@@ -93,7 +93,7 @@ final class CreateCouponTest extends TestCase {
 		$this->enableCoupons();
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-coupons/create-coupon' )->execute(
+		$result = wp_get_ability( 'og-wc-coupons/create-coupon' )->execute(
 			array(
 				'code'   => 'shape20',
 				'amount' => '20',
@@ -124,7 +124,7 @@ final class CreateCouponTest extends TestCase {
 		$this->enableCoupons();
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-coupons/create-coupon' )->execute(
+		$result = wp_get_ability( 'og-wc-coupons/create-coupon' )->execute(
 			array(
 				'code'          => 'bogus',
 				'discount_type' => 'not_a_type',
@@ -152,7 +152,7 @@ final class CreateCouponTest extends TestCase {
 		$this->enableCoupons();
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-coupons/create-coupon' );
+		$ability = wp_get_ability( 'og-wc-coupons/create-coupon' );
 
 		$this->assertFalse( $ability->check_permissions( array( 'code' => 'denied30' ) ) );
 

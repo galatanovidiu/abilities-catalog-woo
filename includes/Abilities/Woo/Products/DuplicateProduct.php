@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Write ability: `wc-products/duplicate-product`.
+ * Write ability: `og-wc-products/duplicate-product`.
  *
  * Wraps `POST wc/v3/products/<id>/duplicate` via `rest_do_request()`, which copies
  * the source product into a NEW post whose status is `draft` and whose name ends
@@ -40,7 +40,7 @@ final class DuplicateProduct implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/duplicate-product';
+		return 'og-wc-products/duplicate-product';
 	}
 
 	/**
@@ -56,8 +56,8 @@ final class DuplicateProduct implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Duplicate Product', 'abilities-catalog-woo' ),
-			'description'         => __( 'Duplicates a WooCommerce product by ID and returns the copy as a flat summary (its new id, name, type, status, sku, prices, stock, and edit_link). The copy is created as a DRAFT named "{original name} (copy)", so it is not visible to shoppers until published — edit it and publish with wc-products/update-product, and surface edit_link so a human can review it. Discover the source product ID with wc-products/list-products. A missing source returns a 404 (woocommerce_rest_product_invalid_id).', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Duplicates a WooCommerce product by ID and returns the copy as a flat summary (its new id, name, type, status, sku, prices, stock, and edit_link). The copy is created as a DRAFT named "{original name} (copy)", so it is not visible to shoppers until published — edit it and publish with og-wc-products/update-product, and surface edit_link so a human can review it. Discover the source product ID with og-wc-products/list-products. A missing source returns a 404 (woocommerce_rest_product_invalid_id).', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
@@ -65,7 +65,7 @@ final class DuplicateProduct implements ConditionalAbility {
 					'id' => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The ID of the product to copy. Discover IDs with wc-products/list-products.', 'abilities-catalog-woo' ),
+						'description' => __( 'The ID of the product to copy. Discover IDs with og-wc-products/list-products.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,

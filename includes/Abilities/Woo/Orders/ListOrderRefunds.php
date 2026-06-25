@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-orders/list-order-refunds`.
+ * Read ability: `og-wc-orders/list-order-refunds`.
  *
  * Wraps `GET wc/v3/orders/{order_id}/refunds` via `rest_do_request()` and returns
  * each refund recorded against the order as a flat summary row through
@@ -34,8 +34,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * only if that header is absent. NOTE: a non-existent `order_id` does NOT 404 on
  * this list route — the controller filters by `post_parent__in` and returns an
  * empty collection (HTTP 200), so an unknown order yields `items: []`, `total: 0`
- * (use wc-orders/get-order to confirm an order exists). A bad refund `id` 404s only
- * on the single-refund route wc-orders/get-order-refund.
+ * (use og-wc-orders/get-order to confirm an order exists). A bad refund `id` 404s only
+ * on the single-refund route og-wc-orders/get-order-refund.
  *
  * @since 0.1.0
  */
@@ -45,7 +45,7 @@ final class ListOrderRefunds implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-orders/list-order-refunds';
+		return 'og-wc-orders/list-order-refunds';
 	}
 
 	/**
@@ -61,8 +61,8 @@ final class ListOrderRefunds implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'List Order Refunds', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns the refunds recorded against one WooCommerce order as flat summary rows, each with its id, amount (the refund value as a decimal string — a refund has no separate total field), reason, creation date, and refunded_by (the staff user ID). The order_id identifies the parent order; discover it with wc-orders/list-orders. Use wc-orders/get-order-refund for one refund by ID. An unknown order_id returns an empty list rather than an error, so a non-empty result confirms the order has refunds. Read-only: does not create or reverse a refund.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-orders',
+			'description'         => __( 'Returns the refunds recorded against one WooCommerce order as flat summary rows, each with its id, amount (the refund value as a decimal string — a refund has no separate total field), reason, creation date, and refunded_by (the staff user ID). The order_id identifies the parent order; discover it with og-wc-orders/list-orders. Use og-wc-orders/get-order-refund for one refund by ID. An unknown order_id returns an empty list rather than an error, so a non-empty result confirms the order has refunds. Read-only: does not create or reverse a refund.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-orders',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'order_id' ),
@@ -70,7 +70,7 @@ final class ListOrderRefunds implements ConditionalAbility {
 					'order_id' => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The parent order ID whose refunds to list. Discover order IDs with wc-orders/list-orders.', 'abilities-catalog-woo' ),
+						'description' => __( 'The parent order ID whose refunds to list. Discover order IDs with og-wc-orders/list-orders.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,
@@ -85,7 +85,7 @@ final class ListOrderRefunds implements ConditionalAbility {
 					),
 					'items'    => array(
 						'type'        => 'array',
-						'description' => __( 'The refunds as flat summary rows. Use wc-orders/get-order-refund for a single refund by ID.', 'abilities-catalog-woo' ),
+						'description' => __( 'The refunds as flat summary rows. Use og-wc-orders/get-order-refund for a single refund by ID.', 'abilities-catalog-woo' ),
 						'items'       => OrderRefundListShaper::itemSchema(),
 					),
 					'total'    => array(
@@ -111,7 +111,7 @@ final class ListOrderRefunds implements ConditionalAbility {
 	/**
 	 * Permission check: WooCommerce's read capability for orders.
 	 *
-	 * Encodes the catalog baseline for `wc-orders/list-order-refunds`: the
+	 * Encodes the catalog baseline for `og-wc-orders/list-order-refunds`: the
 	 * `read_private_shop_orders` capability, which is what
 	 * `wc_rest_check_post_permissions( 'shop_order', 'read' )` resolves to on the
 	 * wrapped refunds route — refunds register with `capability_type => 'shop_order'`,

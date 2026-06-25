@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-reports/list-products-analytics` ability.
+ * Integration tests for the `og-wc-reports/list-products-analytics` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -19,7 +19,7 @@ use WC_Product_Simple;
  */
 final class ListProductsAnalyticsTest extends TestCase {
 
-	private const ABILITY = 'wc-reports/list-products-analytics';
+	private const ABILITY = 'og-wc-reports/list-products-analytics';
 
 	/**
 	 * The closed set of row keys the ability returns.

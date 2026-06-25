@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-reports/get-customers-totals` ability.
+ * Integration tests for the `og-wc-reports/get-customers-totals` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -17,7 +17,7 @@ use WP_Error;
  */
 final class GetCustomersTotalsTest extends TestCase {
 
-	private const ABILITY = 'wc-reports/get-customers-totals';
+	private const ABILITY = 'og-wc-reports/get-customers-totals';
 
 	/**
 	 * The ability registers and resolves under its name.

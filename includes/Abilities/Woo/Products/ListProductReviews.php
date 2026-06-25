@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-products/list-product-reviews`.
+ * Read ability: `og-wc-products/list-product-reviews`.
  *
  * Wraps `GET wc/v3/products/reviews` via `rest_do_request()` and returns each
  * product review as a flat summary row through
@@ -45,7 +45,7 @@ final class ListProductReviews implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/list-product-reviews';
+		return 'og-wc-products/list-product-reviews';
 	}
 
 	/**
@@ -61,8 +61,8 @@ final class ListProductReviews implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'List Product Reviews', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns the store\'s WooCommerce product reviews as flat summary rows, each with its id, product_id, product_name, status, reviewer, reviewer_email, rating, review text (plain-text excerpt), verified-buyer flag, and creation date. A product review is a WordPress comment on a product. This is the admin moderation read: filter by product ID, status ("approved" by default, "hold" = awaiting moderation, "spam", "trash", or "all"), search term, or reviewer email; page through results; and sort with orderby/order. The reviewer email is included on purpose because this tool is gated on the moderate_comments capability — the same capability WordPress\'s Comments screen needs to show it — so a moderator can identify, contact, or block a reviewer. Use wc-products/get-product-review for one review by ID. Read-only: does not change a review or its status.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Returns the store\'s WooCommerce product reviews as flat summary rows, each with its id, product_id, product_name, status, reviewer, reviewer_email, rating, review text (plain-text excerpt), verified-buyer flag, and creation date. A product review is a WordPress comment on a product. This is the admin moderation read: filter by product ID, status ("approved" by default, "hold" = awaiting moderation, "spam", "trash", or "all"), search term, or reviewer email; page through results; and sort with orderby/order. The reviewer email is included on purpose because this tool is gated on the moderate_comments capability — the same capability WordPress\'s Comments screen needs to show it — so a moderator can identify, contact, or block a reviewer. Use og-wc-products/get-product-review for one review by ID. Read-only: does not change a review or its status.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array(
@@ -94,7 +94,7 @@ final class ListProductReviews implements ConditionalAbility {
 							'type'    => 'integer',
 							'minimum' => 1,
 						),
-						'description' => __( 'Limit results to reviews of these product IDs. Discover product IDs with wc-products/list-products.', 'abilities-catalog-woo' ),
+						'description' => __( 'Limit results to reviews of these product IDs. Discover product IDs with og-wc-products/list-products.', 'abilities-catalog-woo' ),
 					),
 					'status'         => array(
 						'type'        => 'string',
@@ -128,7 +128,7 @@ final class ListProductReviews implements ConditionalAbility {
 				'properties'           => array(
 					'items' => array(
 						'type'        => 'array',
-						'description' => __( 'The product reviews as flat summary rows. Use wc-products/get-product-review for a single review by ID.', 'abilities-catalog-woo' ),
+						'description' => __( 'The product reviews as flat summary rows. Use og-wc-products/get-product-review for a single review by ID.', 'abilities-catalog-woo' ),
 						'items'       => ProductReviewListShaper::reviewItemSchema(),
 					),
 					'total' => array(
@@ -154,7 +154,7 @@ final class ListProductReviews implements ConditionalAbility {
 	/**
 	 * Permission check: WooCommerce's read capability for product reviews.
 	 *
-	 * Encodes the catalog baseline for `wc-products/list-product-reviews`: the
+	 * Encodes the catalog baseline for `og-wc-products/list-product-reviews`: the
 	 * `moderate_comments` capability, which is what
 	 * `wc_rest_check_product_reviews_permissions( 'read' )` resolves to on the
 	 * wrapped `GET wc/v3/products/reviews` route. It is also the capability

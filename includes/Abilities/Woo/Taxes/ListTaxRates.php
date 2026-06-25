@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-taxes/list-tax-rates`.
+ * Read ability: `og-wc-taxes/list-tax-rates`.
  *
  * Wraps `GET wc/v3/taxes` via `rest_do_request()` and returns each configured tax
  * rate as a flat summary row. The route has NO free-text search; results are
@@ -36,7 +36,7 @@ final class ListTaxRates implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-taxes/list-tax-rates';
+		return 'og-wc-taxes/list-tax-rates';
 	}
 
 	/**
@@ -52,8 +52,8 @@ final class ListTaxRates implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'List Tax Rates', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns the store\'s WooCommerce tax rates as flat summary rows, each with its id, country, state, rate (a decimal-string percentage), name, priority, compound and shipping flags, and tax class. Filter by tax class to read one class\'s rates; discover class slugs with wc-taxes/list-tax-classes. Use wc-taxes/get-tax-rate for a single rate. This route has no free-text search.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-taxes',
+			'description'         => __( 'Returns the store\'s WooCommerce tax rates as flat summary rows, each with its id, country, state, rate (a decimal-string percentage), name, priority, compound and shipping flags, and tax class. Filter by tax class to read one class\'s rates; discover class slugs with og-wc-taxes/list-tax-classes. Use og-wc-taxes/get-tax-rate for a single rate. This route has no free-text search.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-taxes',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array(
@@ -89,7 +89,7 @@ final class ListTaxRates implements ConditionalAbility {
 					),
 					'class'    => array(
 						'type'        => 'string',
-						'description' => __( 'Limit results to one tax class by its slug, e.g. standard, reduced-rate, or zero-rate. Discover slugs with wc-taxes/list-tax-classes.', 'abilities-catalog-woo' ),
+						'description' => __( 'Limit results to one tax class by its slug, e.g. standard, reduced-rate, or zero-rate. Discover slugs with og-wc-taxes/list-tax-classes.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,
@@ -100,7 +100,7 @@ final class ListTaxRates implements ConditionalAbility {
 				'properties'           => array(
 					'items' => array(
 						'type'        => 'array',
-						'description' => __( 'The tax rates as flat summary rows. Use wc-taxes/get-tax-rate for a single rate.', 'abilities-catalog-woo' ),
+						'description' => __( 'The tax rates as flat summary rows. Use og-wc-taxes/get-tax-rate for a single rate.', 'abilities-catalog-woo' ),
 						'items'       => TaxRateListShaper::itemSchema(),
 					),
 					'total' => array(

@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-reports/get-leaderboards` ability.
+ * Integration tests for the `og-wc-reports/get-leaderboards` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -20,7 +20,7 @@ use WP_Error;
  */
 final class GetLeaderboardsTest extends TestCase {
 
-	private const ABILITY = 'wc-reports/get-leaderboards';
+	private const ABILITY = 'og-wc-reports/get-leaderboards';
 
 	/**
 	 * The exact keys a shaped leaderboard exposes.

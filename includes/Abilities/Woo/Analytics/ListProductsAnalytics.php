@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-reports/list-products-analytics`.
+ * Read ability: `og-wc-reports/list-products-analytics`.
  *
  * Wraps `GET /wc-analytics/reports/products` via `rest_do_request()` and returns
  * each product's sales performance over a date range as a flat summary row:
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * `extended_info` object (image, category_ids, variations, stock) is never
  * returned — only the two identity fields are flattened out, the rest dropped.
  *
- * This is the per-product list read; use `wc-reports/get-products-stats` for the
+ * This is the per-product list read; use `og-wc-reports/get-products-stats` for the
  * aggregated totals (items sold, net revenue, orders) over a range. Discover the
  * date range with `after`/`before` (ISO8601 date-time).
  *
@@ -60,7 +60,7 @@ final class ListProductsAnalytics implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-reports/list-products-analytics';
+		return 'og-wc-reports/list-products-analytics';
 	}
 
 	/**
@@ -76,8 +76,8 @@ final class ListProductsAnalytics implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'List Products Analytics', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns per-product sales performance from WooCommerce Analytics as flat rows, each with product_id, items_sold, net_revenue, orders_count, and the product name and sku. The large extended_info block (image, categories, variations, stock) is intentionally dropped. Use this for a ranked product list over a date range; use wc-reports/get-products-stats for the aggregated totals. The range is set by after/before as ISO8601 date-times; omit them for the full history. Only available when the store\'s WooCommerce Analytics feature is enabled. The report reads an analytics lookup table that an async sync populates, so a just-placed order may not appear immediately.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-reports',
+			'description'         => __( 'Returns per-product sales performance from WooCommerce Analytics as flat rows, each with product_id, items_sold, net_revenue, orders_count, and the product name and sku. The large extended_info block (image, categories, variations, stock) is intentionally dropped. Use this for a ranked product list over a date range; use og-wc-reports/get-products-stats for the aggregated totals. The range is set by after/before as ISO8601 date-times; omit them for the full history. Only available when the store\'s WooCommerce Analytics feature is enabled. The report reads an analytics lookup table that an async sync populates, so a just-placed order may not appear immediately.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-reports',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array(
@@ -125,7 +125,7 @@ final class ListProductsAnalytics implements ConditionalAbility {
 				'properties'           => array(
 					'items' => array(
 						'type'        => 'array',
-						'description' => __( 'The per-product analytics rows. Use wc-reports/get-products-stats for the aggregated totals over the range.', 'abilities-catalog-woo' ),
+						'description' => __( 'The per-product analytics rows. Use og-wc-reports/get-products-stats for the aggregated totals over the range.', 'abilities-catalog-woo' ),
 						'items'       => AnalyticsReportShaper::analyticsItemSchema(
 							array(
 								'product_id'   => array(

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Write ability: `wc-products/create-attribute-term`.
+ * Write ability: `og-wc-products/create-attribute-term`.
  *
  * Wraps `POST wc/v3/products/attributes/<attribute_id>/terms` via
  * `rest_do_request()`, creating one new term on a global product attribute's
@@ -47,7 +47,7 @@ final class CreateAttributeTerm implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/create-attribute-term';
+		return 'og-wc-products/create-attribute-term';
 	}
 
 	/**
@@ -63,8 +63,8 @@ final class CreateAttributeTerm implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Create Attribute Term', 'abilities-catalog-woo' ),
-			'description'         => __( 'Creates a new term on a global product attribute (e.g. adds "Red" to the "Color" attribute) and returns the term as a flat row: id, name, slug, parent (always 0 — attribute terms are a flat taxonomy), product count, and description. attribute_id is the parent attribute the term is added to; discover it with wc-products/list-product-attributes. The slug must be unique on this attribute taxonomy: an existing slug returns a "term_exists" 400 error (with the existing term id in resource_id), so check before retrying. This is a catalog edit only — it adds a taxonomy term products can be assigned to, affects no orders or settings, and is reversible by deleting the term. Use wc-products/update-attribute-term to rename or re-slug it later.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Creates a new term on a global product attribute (e.g. adds "Red" to the "Color" attribute) and returns the term as a flat row: id, name, slug, parent (always 0 — attribute terms are a flat taxonomy), product count, and description. attribute_id is the parent attribute the term is added to; discover it with og-wc-products/list-product-attributes. The slug must be unique on this attribute taxonomy: an existing slug returns a "term_exists" 400 error (with the existing term id in resource_id), so check before retrying. This is a catalog edit only — it adds a taxonomy term products can be assigned to, affects no orders or settings, and is reversible by deleting the term. Use og-wc-products/update-attribute-term to rename or re-slug it later.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'attribute_id', 'name' ),
@@ -72,7 +72,7 @@ final class CreateAttributeTerm implements ConditionalAbility {
 					'attribute_id' => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The parent attribute\'s id — the global attribute this term is added to. Discover it with wc-products/list-product-attributes. A non-existent attribute_id returns a "woocommerce_rest_taxonomy_invalid" 404.', 'abilities-catalog-woo' ),
+						'description' => __( 'The parent attribute\'s id — the global attribute this term is added to. Discover it with og-wc-products/list-product-attributes. A non-existent attribute_id returns a "woocommerce_rest_taxonomy_invalid" 404.', 'abilities-catalog-woo' ),
 					),
 					'name'         => array(
 						'type'        => 'string',
@@ -110,7 +110,7 @@ final class CreateAttributeTerm implements ConditionalAbility {
 	/**
 	 * Permission check: WooCommerce's edit capability for product terms.
 	 *
-	 * Encodes the catalog capability for `wc-products/create-attribute-term`: the
+	 * Encodes the catalog capability for `og-wc-products/create-attribute-term`: the
 	 * `edit_product_terms` capability, which is what
 	 * `wc_rest_check_product_term_permissions( $taxonomy, 'create' )` resolves to
 	 * on the wrapped `POST wc/v3/products/attributes/<attribute_id>/terms` route —

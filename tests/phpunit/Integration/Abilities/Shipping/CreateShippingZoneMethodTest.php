@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-shipping/create-shipping-zone-method ability.
+ * Integration tests for the og-wc-shipping/create-shipping-zone-method ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -14,7 +14,7 @@ use WP_Error;
 use WC_Shipping_Zone;
 
 /**
- * Exercises wc-shipping/create-shipping-zone-method: the happy-path create
+ * Exercises og-wc-shipping/create-shipping-zone-method: the happy-path create
  * returning a shaped instance with instance_id > 0, a settings value round-tripping
  * into settings_summary, the route's 404 for an unknown zone surfaced via RestError
  * (not a permission collapse), the missing-required-field rejection, the wrong-cap
@@ -51,10 +51,10 @@ final class CreateShippingZoneMethodTest extends TestCase {
 	}
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-shipping/create-shipping-zone-method' );
+		$ability = wp_get_ability( 'og-wc-shipping/create-shipping-zone-method' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-shipping/create-shipping-zone-method', $ability->get_name() );
+		$this->assertSame( 'og-wc-shipping/create-shipping-zone-method', $ability->get_name() );
 	}
 
 	public function test_admin_adds_flat_rate_method(): void {
@@ -62,7 +62,7 @@ final class CreateShippingZoneMethodTest extends TestCase {
 
 		$zone_id = $this->seedZone();
 
-		$result = wp_get_ability( 'wc-shipping/create-shipping-zone-method' )->execute(
+		$result = wp_get_ability( 'og-wc-shipping/create-shipping-zone-method' )->execute(
 			array(
 				'zone_id'   => $zone_id,
 				'method_id' => 'flat_rate',
@@ -84,7 +84,7 @@ final class CreateShippingZoneMethodTest extends TestCase {
 
 		$zone_id = $this->seedZone();
 
-		$result = wp_get_ability( 'wc-shipping/create-shipping-zone-method' )->execute(
+		$result = wp_get_ability( 'og-wc-shipping/create-shipping-zone-method' )->execute(
 			array(
 				'zone_id'   => $zone_id,
 				'method_id' => 'flat_rate',
@@ -103,7 +103,7 @@ final class CreateShippingZoneMethodTest extends TestCase {
 
 		$zone_id = $this->seedZone();
 
-		$result = wp_get_ability( 'wc-shipping/create-shipping-zone-method' )->execute(
+		$result = wp_get_ability( 'og-wc-shipping/create-shipping-zone-method' )->execute(
 			array(
 				'zone_id'   => $zone_id,
 				'method_id' => 'flat_rate',
@@ -122,7 +122,7 @@ final class CreateShippingZoneMethodTest extends TestCase {
 	public function test_unknown_zone_returns_route_404_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-shipping/create-shipping-zone-method' )->execute(
+		$result = wp_get_ability( 'og-wc-shipping/create-shipping-zone-method' )->execute(
 			array(
 				'zone_id'   => 99999999,
 				'method_id' => 'flat_rate',
@@ -140,7 +140,7 @@ final class CreateShippingZoneMethodTest extends TestCase {
 
 		$zone_id = $this->seedZone();
 
-		$result = wp_get_ability( 'wc-shipping/create-shipping-zone-method' )->execute(
+		$result = wp_get_ability( 'og-wc-shipping/create-shipping-zone-method' )->execute(
 			array( 'zone_id' => $zone_id )
 		);
 
@@ -154,7 +154,7 @@ final class CreateShippingZoneMethodTest extends TestCase {
 
 		$zone_id = $this->seedZone();
 
-		$ability = wp_get_ability( 'wc-shipping/create-shipping-zone-method' );
+		$ability = wp_get_ability( 'og-wc-shipping/create-shipping-zone-method' );
 
 		$this->assertFalse(
 			$ability->check_permissions(

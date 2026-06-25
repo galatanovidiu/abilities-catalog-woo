@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Destructive delete ability: `wc-orders/delete-order-note`.
+ * Destructive delete ability: `og-wc-orders/delete-order-note`.
  *
  * Wraps `DELETE wc/v3/orders/<order_id>/notes/<id>` via `rest_do_request()`.
  * Order notes do NOT support the Trash — the route requires `force=true` (it
@@ -42,7 +42,7 @@ final class DeleteOrderNote implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-orders/delete-order-note';
+		return 'og-wc-orders/delete-order-note';
 	}
 
 	/**
@@ -58,8 +58,8 @@ final class DeleteOrderNote implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Delete Order Note', 'abilities-catalog-woo' ),
-			'description'         => __( 'Permanently deletes a single order note by ID and returns the deleted note text for confirmation. This cannot be undone: order notes do not support the Trash, so the note is force-deleted and there is no restore. Removing a note does not change the order itself (its status, totals, and line items are untouched) — it only removes that one private or customer-facing comment from the order history. Identify the parent order with wc-orders/list-orders and the note with wc-orders/list-order-notes. No edit_link is returned because the note no longer exists.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-orders',
+			'description'         => __( 'Permanently deletes a single order note by ID and returns the deleted note text for confirmation. This cannot be undone: order notes do not support the Trash, so the note is force-deleted and there is no restore. Removing a note does not change the order itself (its status, totals, and line items are untouched) — it only removes that one private or customer-facing comment from the order history. Identify the parent order with og-wc-orders/list-orders and the note with og-wc-orders/list-order-notes. No edit_link is returned because the note no longer exists.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-orders',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'order_id', 'id' ),
@@ -67,12 +67,12 @@ final class DeleteOrderNote implements ConditionalAbility {
 					'order_id' => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The parent order ID the note belongs to. Discover IDs with wc-orders/list-orders.', 'abilities-catalog-woo' ),
+						'description' => __( 'The parent order ID the note belongs to. Discover IDs with og-wc-orders/list-orders.', 'abilities-catalog-woo' ),
 					),
 					'id'       => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The order-note ID to permanently delete. Discover IDs with wc-orders/list-order-notes.', 'abilities-catalog-woo' ),
+						'description' => __( 'The order-note ID to permanently delete. Discover IDs with og-wc-orders/list-order-notes.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,

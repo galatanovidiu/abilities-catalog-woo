@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-products/create-product-brand ability.
+ * Integration tests for the og-wc-products/create-product-brand ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -15,7 +15,7 @@ use WP_Error;
 use WP_Term;
 
 /**
- * Exercises wc-products/create-product-brand: the top-level happy path, a nested
+ * Exercises og-wc-products/create-product-brand: the top-level happy path, a nested
  * brand whose returned parent matches a seeded brand, the wrong-capability denial,
  * and the exact closed output shape (no display, image, or menu_order leak).
  *
@@ -45,10 +45,10 @@ final class CreateProductBrandTest extends TestCase {
 			$this->markTestSkipped( 'The WooCommerce Brands feature is not active in this environment.' );
 		}
 
-		$ability = wp_get_ability( 'wc-products/create-product-brand' );
+		$ability = wp_get_ability( 'og-wc-products/create-product-brand' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-products/create-product-brand', $ability->get_name() );
+		$this->assertSame( 'og-wc-products/create-product-brand', $ability->get_name() );
 	}
 
 	public function test_admin_creates_a_top_level_brand(): void {
@@ -58,7 +58,7 @@ final class CreateProductBrandTest extends TestCase {
 
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-products/create-product-brand' )->execute(
+		$result = wp_get_ability( 'og-wc-products/create-product-brand' )->execute(
 			array( 'name' => 'Acme' )
 		);
 
@@ -80,13 +80,13 @@ final class CreateProductBrandTest extends TestCase {
 
 		$this->actingAs( 'administrator' );
 
-		$parent = wp_get_ability( 'wc-products/create-product-brand' )->execute(
+		$parent = wp_get_ability( 'og-wc-products/create-product-brand' )->execute(
 			array( 'name' => 'Footwear' )
 		);
 		$this->assertIsArray( $parent );
 		$parent_id = (int) $parent['id'];
 
-		$child = wp_get_ability( 'wc-products/create-product-brand' )->execute(
+		$child = wp_get_ability( 'og-wc-products/create-product-brand' )->execute(
 			array(
 				'name'   => 'Acme',
 				'parent' => $parent_id,
@@ -104,7 +104,7 @@ final class CreateProductBrandTest extends TestCase {
 
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-products/create-product-brand' )->execute(
+		$result = wp_get_ability( 'og-wc-products/create-product-brand' )->execute(
 			array(
 				'name'        => 'Globex',
 				'description' => 'A maker of fine things.',
@@ -131,7 +131,7 @@ final class CreateProductBrandTest extends TestCase {
 
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-products/create-product-brand' );
+		$ability = wp_get_ability( 'og-wc-products/create-product-brand' );
 
 		$this->assertFalse( $ability->check_permissions( array( 'name' => 'Acme' ) ) );
 

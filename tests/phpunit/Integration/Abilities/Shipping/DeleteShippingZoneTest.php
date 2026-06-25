@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-shipping/delete-shipping-zone ability.
+ * Integration tests for the og-wc-shipping/delete-shipping-zone ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -15,7 +15,7 @@ use WC_Shipping_Zones;
 use WP_Error;
 
 /**
- * Exercises wc-shipping/delete-shipping-zone: the permanent force-delete of a
+ * Exercises og-wc-shipping/delete-shipping-zone: the permanent force-delete of a
  * seeded zone with a name captured before deletion AND a follow-up assertion that
  * the zone is actually gone, the missing-zone 404 that must not collapse to a
  * permission error, the wrong-capability denial, and the exact closed output shape
@@ -36,10 +36,10 @@ final class DeleteShippingZoneTest extends TestCase {
 	);
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-shipping/delete-shipping-zone' );
+		$ability = wp_get_ability( 'og-wc-shipping/delete-shipping-zone' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-shipping/delete-shipping-zone', $ability->get_name() );
+		$this->assertSame( 'og-wc-shipping/delete-shipping-zone', $ability->get_name() );
 	}
 
 	public function test_admin_deletes_zone_and_it_is_gone(): void {
@@ -50,7 +50,7 @@ final class DeleteShippingZoneTest extends TestCase {
 		$zone->save();
 		$zone_id = $zone->get_id();
 
-		$result = wp_get_ability( 'wc-shipping/delete-shipping-zone' )->execute( array( 'id' => $zone_id ) );
+		$result = wp_get_ability( 'og-wc-shipping/delete-shipping-zone' )->execute( array( 'id' => $zone_id ) );
 
 		$this->assertIsArray( $result );
 		$this->assertTrue( $result['deleted'] );
@@ -70,7 +70,7 @@ final class DeleteShippingZoneTest extends TestCase {
 		$zone->save();
 		$zone_id = $zone->get_id();
 
-		$result = wp_get_ability( 'wc-shipping/delete-shipping-zone' )->execute( array( 'id' => $zone_id ) );
+		$result = wp_get_ability( 'og-wc-shipping/delete-shipping-zone' )->execute( array( 'id' => $zone_id ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( self::EXPECTED_KEYS, array_keys( $result ) );
@@ -90,7 +90,7 @@ final class DeleteShippingZoneTest extends TestCase {
 	public function test_missing_zone_returns_404_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-shipping/delete-shipping-zone' )->execute( array( 'id' => 99999999 ) );
+		$result = wp_get_ability( 'og-wc-shipping/delete-shipping-zone' )->execute( array( 'id' => 99999999 ) );
 
 		$this->assertInstanceOf( WP_Error::class, $result );
 		$this->assertSame( 'woocommerce_rest_shipping_zone_invalid', $result->get_error_code() );
@@ -106,7 +106,7 @@ final class DeleteShippingZoneTest extends TestCase {
 
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-shipping/delete-shipping-zone' );
+		$ability = wp_get_ability( 'og-wc-shipping/delete-shipping-zone' );
 
 		$this->assertFalse( $ability->check_permissions( array( 'id' => $zone_id ) ) );
 

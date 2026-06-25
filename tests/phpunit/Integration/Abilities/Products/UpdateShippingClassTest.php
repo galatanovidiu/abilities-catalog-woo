@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-products/update-shipping-class ability.
+ * Integration tests for the og-wc-products/update-shipping-class ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -13,7 +13,7 @@ use GalatanOvidiu\AbilitiesCatalogWoo\Tests\TestCase;
 use WP_Error;
 
 /**
- * Exercises wc-products/update-shipping-class: a name change on a seeded class,
+ * Exercises og-wc-products/update-shipping-class: a name change on a seeded class,
  * the missing-class 404 that must not collapse to a permission error, the
  * wrong-capability denial (with the class unchanged), and the exact closed output
  * shape (no parent, no raw term fields leak).
@@ -34,10 +34,10 @@ final class UpdateShippingClassTest extends TestCase {
 	);
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-products/update-shipping-class' );
+		$ability = wp_get_ability( 'og-wc-products/update-shipping-class' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-products/update-shipping-class', $ability->get_name() );
+		$this->assertSame( 'og-wc-products/update-shipping-class', $ability->get_name() );
 	}
 
 	public function test_admin_updates_shipping_class_name(): void {
@@ -45,7 +45,7 @@ final class UpdateShippingClassTest extends TestCase {
 
 		$id = $this->seedShippingClass( 'Heavy', '' );
 
-		$result = wp_get_ability( 'wc-products/update-shipping-class' )->execute(
+		$result = wp_get_ability( 'og-wc-products/update-shipping-class' )->execute(
 			array(
 				'id'   => $id,
 				'name' => 'Bulky',
@@ -65,7 +65,7 @@ final class UpdateShippingClassTest extends TestCase {
 
 		$id = $this->seedShippingClass( 'Fragile', 'Old note' );
 
-		$result = wp_get_ability( 'wc-products/update-shipping-class' )->execute(
+		$result = wp_get_ability( 'og-wc-products/update-shipping-class' )->execute(
 			array(
 				'id'          => $id,
 				'description' => 'Handle with care',
@@ -85,7 +85,7 @@ final class UpdateShippingClassTest extends TestCase {
 
 		$id = $this->seedShippingClass( 'Oversize', '' );
 
-		$result = wp_get_ability( 'wc-products/update-shipping-class' )->execute(
+		$result = wp_get_ability( 'og-wc-products/update-shipping-class' )->execute(
 			array(
 				'id'   => $id,
 				'name' => 'Extra Large',
@@ -104,7 +104,7 @@ final class UpdateShippingClassTest extends TestCase {
 	public function test_missing_class_returns_404_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-products/update-shipping-class' )->execute(
+		$result = wp_get_ability( 'og-wc-products/update-shipping-class' )->execute(
 			array(
 				'id'   => 99999999,
 				'name' => 'Ghost',
@@ -122,7 +122,7 @@ final class UpdateShippingClassTest extends TestCase {
 
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-products/update-shipping-class' );
+		$ability = wp_get_ability( 'og-wc-products/update-shipping-class' );
 
 		$this->assertFalse(
 			$ability->check_permissions(

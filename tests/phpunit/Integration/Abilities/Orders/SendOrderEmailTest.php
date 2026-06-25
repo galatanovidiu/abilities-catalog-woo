@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-orders/send-order-email ability.
+ * Integration tests for the og-wc-orders/send-order-email ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -15,7 +15,7 @@ use WC_Product_Simple;
 use WP_Error;
 
 /**
- * Exercises wc-orders/send-order-email: the happy-path send returning sent=true and
+ * Exercises og-wc-orders/send-order-email: the happy-path send returning sent=true and
  * echoing the template_id plus the billing email (with the real email asserted via
  * the WP mock mailer), the invalid-template-for-status 400, the missing-email 400,
  * the missing-order 404 that must not collapse to a permission error, the
@@ -53,10 +53,10 @@ final class SendOrderEmailTest extends TestCase {
 	}
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-orders/send-order-email' );
+		$ability = wp_get_ability( 'og-wc-orders/send-order-email' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-orders/send-order-email', $ability->get_name() );
+		$this->assertSame( 'og-wc-orders/send-order-email', $ability->get_name() );
 	}
 
 	public function test_admin_sends_customer_invoice(): void {
@@ -69,7 +69,7 @@ final class SendOrderEmailTest extends TestCase {
 		// during seedOrder() (e.g. the admin new-order notification to admin@example.org).
 		reset_phpmailer_instance();
 
-		$result = wp_get_ability( 'wc-orders/send-order-email' )->execute(
+		$result = wp_get_ability( 'og-wc-orders/send-order-email' )->execute(
 			array(
 				'id'          => $order_id,
 				'template_id' => 'customer_invoice',
@@ -93,7 +93,7 @@ final class SendOrderEmailTest extends TestCase {
 
 		$order_id = $this->seedOrder( 'processing' );
 
-		$result = wp_get_ability( 'wc-orders/send-order-email' )->execute(
+		$result = wp_get_ability( 'og-wc-orders/send-order-email' )->execute(
 			array(
 				'id'          => $order_id,
 				'template_id' => 'customer_invoice',
@@ -121,7 +121,7 @@ final class SendOrderEmailTest extends TestCase {
 		// A pending order: customer_completed_order is not a valid template for it.
 		$order_id = $this->seedOrder( 'pending' );
 
-		$result = wp_get_ability( 'wc-orders/send-order-email' )->execute(
+		$result = wp_get_ability( 'og-wc-orders/send-order-email' )->execute(
 			array(
 				'id'          => $order_id,
 				'template_id' => 'customer_completed_order',
@@ -139,7 +139,7 @@ final class SendOrderEmailTest extends TestCase {
 
 		$order_id = $this->seedOrder( 'processing', false );
 
-		$result = wp_get_ability( 'wc-orders/send-order-email' )->execute(
+		$result = wp_get_ability( 'og-wc-orders/send-order-email' )->execute(
 			array(
 				'id'          => $order_id,
 				'template_id' => 'customer_invoice',
@@ -155,7 +155,7 @@ final class SendOrderEmailTest extends TestCase {
 	public function test_missing_order_returns_404_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-orders/send-order-email' )->execute(
+		$result = wp_get_ability( 'og-wc-orders/send-order-email' )->execute(
 			array(
 				'id'          => 99999999,
 				'template_id' => 'customer_invoice',
@@ -173,7 +173,7 @@ final class SendOrderEmailTest extends TestCase {
 
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-orders/send-order-email' );
+		$ability = wp_get_ability( 'og-wc-orders/send-order-email' );
 
 		$this->assertFalse(
 			$ability->check_permissions(

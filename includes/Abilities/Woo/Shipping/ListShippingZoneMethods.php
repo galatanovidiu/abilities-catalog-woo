@@ -15,14 +15,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-shipping/list-shipping-zone-methods`.
+ * Read ability: `og-wc-shipping/list-shipping-zone-methods`.
  *
  * Wraps `GET wc/v3/shipping/zones/{zone_id}/methods` via `rest_do_request()` and
  * returns the shipping methods configured on one zone as flat summary rows through
  * {@see ShippingZoneMethodListShaper::summary()}. These are method INSTANCES — the
  * concrete methods an admin added to the zone (each with its own title, enabled
  * flag, sort order, and configured settings) — not the method-type templates the
- * `wc-shipping/list-shipping-methods` registry lists. The `zone_id` identifies the
+ * `og-wc-shipping/list-shipping-methods` registry lists. The `zone_id` identifies the
  * parent zone and is a required route segment, so this read is always scoped to one
  * zone. A zone with no methods configured returns an empty `items` array.
  *
@@ -38,7 +38,7 @@ final class ListShippingZoneMethods implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-shipping/list-shipping-zone-methods';
+		return 'og-wc-shipping/list-shipping-zone-methods';
 	}
 
 	/**
@@ -54,8 +54,8 @@ final class ListShippingZoneMethods implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'List Shipping Zone Methods', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns the shipping methods configured on one WooCommerce shipping zone as flat summary rows, each with its instance_id, method_id, title, enabled flag, order, and a compact settings_summary of its configured values. These are method INSTANCES added to the zone, not the available method types; list the method-type registry with wc-shipping/list-shipping-methods. Identify the zone with zone_id (discover zones with wc-shipping/list-shipping-zones; zone_id 0 is the "Rest of the World" catch-all zone). A zone with no methods configured returns an empty items array. Read-only: returns each method\'s settings as a compact summary, not the full per-setting field descriptors — use wc-shipping/get-shipping-zone-method for one method instance in full.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-shipping',
+			'description'         => __( 'Returns the shipping methods configured on one WooCommerce shipping zone as flat summary rows, each with its instance_id, method_id, title, enabled flag, order, and a compact settings_summary of its configured values. These are method INSTANCES added to the zone, not the available method types; list the method-type registry with og-wc-shipping/list-shipping-methods. Identify the zone with zone_id (discover zones with og-wc-shipping/list-shipping-zones; zone_id 0 is the "Rest of the World" catch-all zone). A zone with no methods configured returns an empty items array. Read-only: returns each method\'s settings as a compact summary, not the full per-setting field descriptors — use og-wc-shipping/get-shipping-zone-method for one method instance in full.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-shipping',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'zone_id' ),
@@ -63,7 +63,7 @@ final class ListShippingZoneMethods implements ConditionalAbility {
 					'zone_id' => array(
 						'type'        => 'integer',
 						'minimum'     => 0,
-						'description' => __( 'The shipping zone ID whose configured methods to list. Discover zone IDs with wc-shipping/list-shipping-zones; zone_id 0 is the always-present "Rest of the World" catch-all zone.', 'abilities-catalog-woo' ),
+						'description' => __( 'The shipping zone ID whose configured methods to list. Discover zone IDs with og-wc-shipping/list-shipping-zones; zone_id 0 is the always-present "Rest of the World" catch-all zone.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,
@@ -78,7 +78,7 @@ final class ListShippingZoneMethods implements ConditionalAbility {
 					),
 					'items'   => array(
 						'type'        => 'array',
-						'description' => __( 'The configured shipping-method instances as flat summary rows. Use wc-shipping/get-shipping-zone-method for one instance in full.', 'abilities-catalog-woo' ),
+						'description' => __( 'The configured shipping-method instances as flat summary rows. Use og-wc-shipping/get-shipping-zone-method for one instance in full.', 'abilities-catalog-woo' ),
 						'items'       => ShippingZoneMethodListShaper::itemSchema(),
 					),
 					'total'   => array(
@@ -104,7 +104,7 @@ final class ListShippingZoneMethods implements ConditionalAbility {
 	/**
 	 * Permission check: WooCommerce's shipping-management capability.
 	 *
-	 * Encodes the catalog baseline for `wc-shipping/list-shipping-zone-methods`:
+	 * Encodes the catalog baseline for `og-wc-shipping/list-shipping-zone-methods`:
 	 * `manage_woocommerce`, which is what the wrapped `GET
 	 * wc/v3/shipping/zones/{zone_id}/methods` route resolves to — its
 	 * `get_items_permissions_check()` calls `wc_rest_check_manager_permissions(

@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-orders/get-order ability.
+ * Integration tests for the og-wc-orders/get-order ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -15,7 +15,7 @@ use WC_Order;
 use WC_Product_Simple;
 
 /**
- * Exercises wc-orders/get-order: the shaped single-order record, the detail
+ * Exercises og-wc-orders/get-order: the shaped single-order record, the detail
  * fields (line items, billing/shipping blocks, edit_link), the missing-order 404
  * that must not collapse to a permission error, the wrong-capability denial, and
  * the exact closed output shape with no PII leak beyond the documented subset.
@@ -80,10 +80,10 @@ final class GetOrderTest extends TestCase {
 	);
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-orders/get-order' );
+		$ability = wp_get_ability( 'og-wc-orders/get-order' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-orders/get-order', $ability->get_name() );
+		$this->assertSame( 'og-wc-orders/get-order', $ability->get_name() );
 	}
 
 	public function test_admin_reads_order_detail(): void {
@@ -91,7 +91,7 @@ final class GetOrderTest extends TestCase {
 
 		$order_id = $this->seedOrder();
 
-		$result = wp_get_ability( 'wc-orders/get-order' )->execute( array( 'id' => $order_id ) );
+		$result = wp_get_ability( 'og-wc-orders/get-order' )->execute( array( 'id' => $order_id ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( $order_id, $result['id'] );
@@ -123,7 +123,7 @@ final class GetOrderTest extends TestCase {
 
 		$order_id = $this->seedOrder();
 
-		$result = wp_get_ability( 'wc-orders/get-order' )->execute( array( 'id' => $order_id ) );
+		$result = wp_get_ability( 'og-wc-orders/get-order' )->execute( array( 'id' => $order_id ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( self::EXPECTED_KEYS, array_keys( $result ) );
@@ -140,7 +140,7 @@ final class GetOrderTest extends TestCase {
 	public function test_missing_order_returns_404_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-orders/get-order' )->execute( array( 'id' => 99999999 ) );
+		$result = wp_get_ability( 'og-wc-orders/get-order' )->execute( array( 'id' => 99999999 ) );
 
 		$this->assertInstanceOf( WP_Error::class, $result );
 		$this->assertSame( 'woocommerce_rest_shop_order_invalid_id', $result->get_error_code() );
@@ -152,7 +152,7 @@ final class GetOrderTest extends TestCase {
 		$order_id = $this->seedOrder();
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-orders/get-order' );
+		$ability = wp_get_ability( 'og-wc-orders/get-order' );
 
 		$this->assertFalse( $ability->check_permissions( array( 'id' => $order_id ) ) );
 

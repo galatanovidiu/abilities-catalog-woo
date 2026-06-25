@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Destructive write ability: `wc-taxes/delete-tax-class`.
+ * Destructive write ability: `og-wc-taxes/delete-tax-class`.
  *
  * Wraps `DELETE wc/v3/taxes/classes/<slug>` via `rest_do_request()` with
  * `force=true`. The slug is a STRING route segment, so the path is built with
@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * database row) and cannot be deleted — the route returns
  * `woocommerce_rest_tax_class_invalid_slug` for it. There is no update route for
  * tax classes; to rename one, delete it and recreate it with
- * `wc-taxes/create-tax-class`.
+ * `og-wc-taxes/create-tax-class`.
  *
  * Returns no `edit_link` — the class no longer exists.
  *
@@ -48,7 +48,7 @@ final class DeleteTaxClass implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-taxes/delete-tax-class';
+		return 'og-wc-taxes/delete-tax-class';
 	}
 
 	/**
@@ -64,8 +64,8 @@ final class DeleteTaxClass implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Delete Tax Class', 'abilities-catalog-woo' ),
-			'description'         => __( 'Permanently deletes one WooCommerce tax class by its slug and returns the deleted slug and name for confirmation. This cannot be undone: tax classes have no Trash, so there is no restore. Financial cascade: deleting a class also deletes every tax rate assigned to it, so products and orders that used the class fall back to the standard rate — this changes what customers are charged at checkout. The built-in "standard" class cannot be deleted (it is a virtual class and the route rejects it with a "woocommerce_rest_tax_class_invalid_slug" 404); the built-in "reduced-rate" and "zero-rate" classes and any custom class can be deleted. There is no update route for tax classes — to rename a class, delete it and recreate it with wc-taxes/create-tax-class. No edit_link is returned because the class no longer exists. Discover slugs with wc-taxes/list-tax-classes.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-taxes',
+			'description'         => __( 'Permanently deletes one WooCommerce tax class by its slug and returns the deleted slug and name for confirmation. This cannot be undone: tax classes have no Trash, so there is no restore. Financial cascade: deleting a class also deletes every tax rate assigned to it, so products and orders that used the class fall back to the standard rate — this changes what customers are charged at checkout. The built-in "standard" class cannot be deleted (it is a virtual class and the route rejects it with a "woocommerce_rest_tax_class_invalid_slug" 404); the built-in "reduced-rate" and "zero-rate" classes and any custom class can be deleted. There is no update route for tax classes — to rename a class, delete it and recreate it with og-wc-taxes/create-tax-class. No edit_link is returned because the class no longer exists. Discover slugs with og-wc-taxes/list-tax-classes.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-taxes',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'slug' ),
@@ -73,7 +73,7 @@ final class DeleteTaxClass implements ConditionalAbility {
 					'slug' => array(
 						'type'        => 'string',
 						'minLength'   => 1,
-						'description' => __( 'The tax-class slug to permanently delete, e.g. "reduced-rate". Discover slugs with wc-taxes/list-tax-classes. The built-in "standard" class cannot be deleted.', 'abilities-catalog-woo' ),
+						'description' => __( 'The tax-class slug to permanently delete, e.g. "reduced-rate". Discover slugs with og-wc-taxes/list-tax-classes. The built-in "standard" class cannot be deleted.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,
@@ -118,7 +118,7 @@ final class DeleteTaxClass implements ConditionalAbility {
 	/**
 	 * Permission check: WooCommerce's manager capability for store settings.
 	 *
-	 * Encodes the catalog capability for `wc-taxes/delete-tax-class`:
+	 * Encodes the catalog capability for `og-wc-taxes/delete-tax-class`:
 	 * `manage_woocommerce`, which is what
 	 * `wc_rest_check_manager_permissions( 'settings', 'delete' )` resolves to on the
 	 * wrapped `DELETE wc/v3/taxes/classes/<slug>` route (the helper ignores the

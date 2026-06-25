@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-reports/list-categories-analytics`.
+ * Read ability: `og-wc-reports/list-categories-analytics`.
  *
  * Wraps `GET /wc-analytics/reports/categories` via `rest_do_request()` and returns
  * each product-category's sales performance over a date range as a flat summary
@@ -63,7 +63,7 @@ final class ListCategoriesAnalytics implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-reports/list-categories-analytics';
+		return 'og-wc-reports/list-categories-analytics';
 	}
 
 	/**
@@ -80,7 +80,7 @@ final class ListCategoriesAnalytics implements ConditionalAbility {
 		return array(
 			'label'               => __( 'List Categories Analytics', 'abilities-catalog-woo' ),
 			'description'         => __( 'Returns per-category sales performance from WooCommerce Analytics as flat rows, each with category_id, items_sold, net_revenue, orders_count, products_count, and the category_name. It answers "which product categories sold the most over a date range". The large extended_info block is intentionally dropped; only the category name is lifted out. The range is set by after/before as ISO8601 date-times; omit them for the full history. There is no matching categories stats report in core, so this list is the only category analytics read. Only available when the store\'s WooCommerce Analytics feature is enabled. The report reads an analytics lookup table that an async sync populates, so a just-placed order may not appear immediately.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-reports',
+			'category'            => 'og-wc-reports',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array(

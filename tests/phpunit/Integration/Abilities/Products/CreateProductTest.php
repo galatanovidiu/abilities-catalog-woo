@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-products/create-product ability.
+ * Integration tests for the og-wc-products/create-product ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -14,7 +14,7 @@ use WP_Error;
 use WC_Product_Simple;
 
 /**
- * Exercises wc-products/create-product: the happy-path create returning a shaped
+ * Exercises og-wc-products/create-product: the happy-path create returning a shaped
  * product with id > 0, a forwarded field honored on the created product, the
  * route's 400 surfaced via RestError (not a permission collapse), the wrong-cap
  * denial, and the exact closed output shape.
@@ -44,16 +44,16 @@ final class CreateProductTest extends TestCase {
 	);
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-products/create-product' );
+		$ability = wp_get_ability( 'og-wc-products/create-product' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-products/create-product', $ability->get_name() );
+		$this->assertSame( 'og-wc-products/create-product', $ability->get_name() );
 	}
 
 	public function test_admin_creates_product(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-products/create-product' )->execute( array( 'name' => 'Widget' ) );
+		$result = wp_get_ability( 'og-wc-products/create-product' )->execute( array( 'name' => 'Widget' ) );
 
 		$this->assertIsArray( $result );
 		$this->assertGreaterThan( 0, $result['id'] );
@@ -68,7 +68,7 @@ final class CreateProductTest extends TestCase {
 	public function test_forwarded_fields_are_honored(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-products/create-product' )->execute(
+		$result = wp_get_ability( 'og-wc-products/create-product' )->execute(
 			array(
 				'name'          => 'Priced Widget',
 				'status'        => 'draft',
@@ -84,7 +84,7 @@ final class CreateProductTest extends TestCase {
 	public function test_output_shape_is_exact_and_closed(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-products/create-product' )->execute( array( 'name' => 'Shape Widget' ) );
+		$result = wp_get_ability( 'og-wc-products/create-product' )->execute( array( 'name' => 'Shape Widget' ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( self::EXPECTED_KEYS, array_keys( $result ) );
@@ -105,7 +105,7 @@ final class CreateProductTest extends TestCase {
 		$existing->set_sku( 'DUP-SKU' );
 		$existing->save();
 
-		$result = wp_get_ability( 'wc-products/create-product' )->execute(
+		$result = wp_get_ability( 'og-wc-products/create-product' )->execute(
 			array(
 				'name' => 'Clash Widget',
 				'sku'  => 'DUP-SKU',
@@ -124,7 +124,7 @@ final class CreateProductTest extends TestCase {
 		// `type` is a closed enum in the input schema, so the Abilities API rejects
 		// a bad value during input validation (before execute()), not as a route
 		// 400 — but the rejection must NOT collapse to a permission error.
-		$result = wp_get_ability( 'wc-products/create-product' )->execute(
+		$result = wp_get_ability( 'og-wc-products/create-product' )->execute(
 			array(
 				'name' => 'Bad Type',
 				'type' => 'not-a-real-type',
@@ -139,7 +139,7 @@ final class CreateProductTest extends TestCase {
 	public function test_subscriber_is_denied(): void {
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-products/create-product' );
+		$ability = wp_get_ability( 'og-wc-products/create-product' );
 
 		$this->assertFalse( $ability->check_permissions( array( 'name' => 'Nope' ) ) );
 

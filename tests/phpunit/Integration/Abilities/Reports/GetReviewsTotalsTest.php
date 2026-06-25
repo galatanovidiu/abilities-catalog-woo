@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-reports/get-reviews-totals ability.
+ * Integration tests for the og-wc-reports/get-reviews-totals ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -12,7 +12,7 @@ namespace GalatanOvidiu\AbilitiesCatalogWoo\Tests\Integration\Abilities\Reports;
 use GalatanOvidiu\AbilitiesCatalogWoo\Tests\TestCase;
 
 /**
- * Exercises wc-reports/get-reviews-totals: the five rating buckets returned for
+ * Exercises og-wc-reports/get-reviews-totals: the five rating buckets returned for
  * the legacy wc/v3 reviews-totals report, the wrong-capability denial, and the
  * exact closed row shape (no raw report fields or _links leak; total is an int).
  */
@@ -39,16 +39,16 @@ final class GetReviewsTotalsTest extends TestCase {
 	);
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-reports/get-reviews-totals' );
+		$ability = wp_get_ability( 'og-wc-reports/get-reviews-totals' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-reports/get-reviews-totals', $ability->get_name() );
+		$this->assertSame( 'og-wc-reports/get-reviews-totals', $ability->get_name() );
 	}
 
 	public function test_admin_gets_the_five_rated_rows(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-reports/get-reviews-totals' )->execute( array() );
+		$result = wp_get_ability( 'og-wc-reports/get-reviews-totals' )->execute( array() );
 
 		$this->assertIsArray( $result );
 		$this->assertArrayHasKey( 'items', $result );
@@ -65,7 +65,7 @@ final class GetReviewsTotalsTest extends TestCase {
 	public function test_row_shape_is_exact_and_closed(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-reports/get-reviews-totals' )->execute( array() );
+		$result = wp_get_ability( 'og-wc-reports/get-reviews-totals' )->execute( array() );
 
 		$this->assertIsArray( $result );
 		$this->assertNotEmpty( $result['items'] );
@@ -87,7 +87,7 @@ final class GetReviewsTotalsTest extends TestCase {
 	public function test_subscriber_is_denied(): void {
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-reports/get-reviews-totals' );
+		$ability = wp_get_ability( 'og-wc-reports/get-reviews-totals' );
 
 		$this->assertFalse( $ability->check_permissions( array() ) );
 	}

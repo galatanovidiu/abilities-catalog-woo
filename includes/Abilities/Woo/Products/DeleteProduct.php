@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Destructive write ability: `wc-products/delete-product`.
+ * Destructive write ability: `og-wc-products/delete-product`.
  *
  * Wraps `DELETE wc/v3/products/<id>` via `rest_do_request()`, deleting a single
  * WooCommerce product. The product is Trash-capable: with `force` omitted or
@@ -46,7 +46,7 @@ final class DeleteProduct implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/delete-product';
+		return 'og-wc-products/delete-product';
 	}
 
 	/**
@@ -62,8 +62,8 @@ final class DeleteProduct implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Delete Product', 'abilities-catalog-woo' ),
-			'description'         => __( 'Deletes a WooCommerce product by id and returns a confirmation { deleted, id, name, force_used, permanent }. By default (force false) the product is moved to the Trash and can be restored; set force true to permanently delete it, which cannot be undone and also permanently deletes the variations of a variable product. If the store has the Trash disabled (EMPTY_TRASH_DAYS is 0) a force=false call is rejected with woocommerce_rest_trash_not_supported 501, so pass force=true there; deleting an already-trashed product with force=false returns woocommerce_rest_already_trashed 410. A missing product returns woocommerce_rest_product_invalid_id 404. No edit_link is returned because the product is gone. To delete a single variation use wc-products/delete-product-variation. Discover ids with wc-products/list-products.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Deletes a WooCommerce product by id and returns a confirmation { deleted, id, name, force_used, permanent }. By default (force false) the product is moved to the Trash and can be restored; set force true to permanently delete it, which cannot be undone and also permanently deletes the variations of a variable product. If the store has the Trash disabled (EMPTY_TRASH_DAYS is 0) a force=false call is rejected with woocommerce_rest_trash_not_supported 501, so pass force=true there; deleting an already-trashed product with force=false returns woocommerce_rest_already_trashed 410. A missing product returns woocommerce_rest_product_invalid_id 404. No edit_link is returned because the product is gone. To delete a single variation use og-wc-products/delete-product-variation. Discover ids with og-wc-products/list-products.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
@@ -71,7 +71,7 @@ final class DeleteProduct implements ConditionalAbility {
 					'id'    => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The product id to delete. Discover ids with wc-products/list-products.', 'abilities-catalog-woo' ),
+						'description' => __( 'The product id to delete. Discover ids with og-wc-products/list-products.', 'abilities-catalog-woo' ),
 					),
 					'force' => array(
 						'type'        => 'boolean',

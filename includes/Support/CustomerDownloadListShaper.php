@@ -95,7 +95,7 @@ final class CustomerDownloadListShaper {
 				),
 				'product_id'          => array(
 					'type'        => 'integer',
-					'description' => __( 'The downloadable product ID. Read the full product with wc-products/get-product.', 'abilities-catalog-woo' ),
+					'description' => __( 'The downloadable product ID. Read the full product with og-wc-products/get-product.', 'abilities-catalog-woo' ),
 				),
 				'product_name'        => array(
 					'type'        => 'string',
@@ -107,7 +107,7 @@ final class CustomerDownloadListShaper {
 				),
 				'order_id'            => array(
 					'type'        => 'integer',
-					'description' => __( 'The order ID that granted this download. Read the full order with wc-orders/get-order.', 'abilities-catalog-woo' ),
+					'description' => __( 'The order ID that granted this download. Read the full order with og-wc-orders/get-order.', 'abilities-catalog-woo' ),
 				),
 				'downloads_remaining' => array(
 					'type'        => 'string',

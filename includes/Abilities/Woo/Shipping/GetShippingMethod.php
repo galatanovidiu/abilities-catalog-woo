@@ -15,14 +15,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-shipping/get-shipping-method`.
+ * Read ability: `og-wc-shipping/get-shipping-method`.
  *
  * Wraps `GET wc/v3/shipping_methods/<id>` via `rest_do_request()` and returns one
  * shipping method TYPE from WooCommerce's read-only registry as a flat, closed
  * record: its string `id` slug, `title`, and `description`. A method type is the
  * kind of shipping a zone can offer (e.g. flat_rate, free_shipping, local_pickup),
  * not a configured instance on a zone — for an instance configured on a zone use
- * `wc-shipping/get-shipping-zone-method` instead.
+ * `og-wc-shipping/get-shipping-zone-method` instead.
  *
  * The `id` is the string method-type slug (the `[\w-]+` route segment), NOT a
  * numeric identifier, so it is concatenated into the route path. An unknown id
@@ -39,7 +39,7 @@ final class GetShippingMethod implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-shipping/get-shipping-method';
+		return 'og-wc-shipping/get-shipping-method';
 	}
 
 	/**
@@ -55,15 +55,15 @@ final class GetShippingMethod implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Get Shipping Method', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns one WooCommerce shipping method type from the read-only registry by its string id: the method type id, title, and description. A method type is the kind of shipping a zone can offer (e.g. flat_rate, free_shipping, local_pickup), not a configured instance on a zone — use wc-shipping/get-shipping-zone-method for an instance configured on a zone. Discover ids with wc-shipping/list-shipping-methods.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-shipping',
+			'description'         => __( 'Returns one WooCommerce shipping method type from the read-only registry by its string id: the method type id, title, and description. A method type is the kind of shipping a zone can offer (e.g. flat_rate, free_shipping, local_pickup), not a configured instance on a zone — use og-wc-shipping/get-shipping-zone-method for an instance configured on a zone. Discover ids with og-wc-shipping/list-shipping-methods.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-shipping',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
 				'properties'           => array(
 					'id' => array(
 						'type'        => 'string',
-						'description' => __( 'The shipping method type id (a slug, e.g. "flat_rate", "free_shipping", or "local_pickup"), not a number. Discover ids with wc-shipping/list-shipping-methods.', 'abilities-catalog-woo' ),
+						'description' => __( 'The shipping method type id (a slug, e.g. "flat_rate", "free_shipping", or "local_pickup"), not a number. Discover ids with og-wc-shipping/list-shipping-methods.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,

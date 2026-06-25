@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-products/get-product-attribute ability.
+ * Integration tests for the og-wc-products/get-product-attribute ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -13,7 +13,7 @@ use GalatanOvidiu\AbilitiesCatalogWoo\Tests\TestCase;
 use WP_Error;
 
 /**
- * Exercises wc-products/get-product-attribute: the shaped single-attribute
+ * Exercises og-wc-products/get-product-attribute: the shaped single-attribute
  * record, the missing-attribute 404 that must not collapse to a permission
  * error, the wrong-capability denial, and the exact closed output shape.
  */
@@ -34,10 +34,10 @@ final class GetProductAttributeTest extends TestCase {
 	);
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-products/get-product-attribute' );
+		$ability = wp_get_ability( 'og-wc-products/get-product-attribute' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-products/get-product-attribute', $ability->get_name() );
+		$this->assertSame( 'og-wc-products/get-product-attribute', $ability->get_name() );
 	}
 
 	public function test_admin_reads_attribute_detail(): void {
@@ -45,7 +45,7 @@ final class GetProductAttributeTest extends TestCase {
 
 		$attribute_id = $this->seedAttribute( 'Color', 'select' );
 
-		$result = wp_get_ability( 'wc-products/get-product-attribute' )->execute( array( 'id' => $attribute_id ) );
+		$result = wp_get_ability( 'og-wc-products/get-product-attribute' )->execute( array( 'id' => $attribute_id ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( $attribute_id, $result['id'] );
@@ -61,7 +61,7 @@ final class GetProductAttributeTest extends TestCase {
 
 		$attribute_id = $this->seedAttribute( 'Size', 'select' );
 
-		$result = wp_get_ability( 'wc-products/get-product-attribute' )->execute( array( 'id' => $attribute_id ) );
+		$result = wp_get_ability( 'og-wc-products/get-product-attribute' )->execute( array( 'id' => $attribute_id ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( self::EXPECTED_KEYS, array_keys( $result ) );
@@ -74,7 +74,7 @@ final class GetProductAttributeTest extends TestCase {
 	public function test_missing_attribute_returns_404_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-products/get-product-attribute' )->execute( array( 'id' => 99999999 ) );
+		$result = wp_get_ability( 'og-wc-products/get-product-attribute' )->execute( array( 'id' => 99999999 ) );
 
 		$this->assertInstanceOf( WP_Error::class, $result );
 		$this->assertSame( 'woocommerce_rest_taxonomy_invalid', $result->get_error_code() );
@@ -86,7 +86,7 @@ final class GetProductAttributeTest extends TestCase {
 		$attribute_id = $this->seedAttribute( 'Material', 'select' );
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-products/get-product-attribute' );
+		$ability = wp_get_ability( 'og-wc-products/get-product-attribute' );
 
 		$this->assertFalse( $ability->check_permissions( array( 'id' => $attribute_id ) ) );
 

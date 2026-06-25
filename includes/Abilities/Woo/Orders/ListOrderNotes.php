@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-orders/list-order-notes`.
+ * Read ability: `og-wc-orders/list-order-notes`.
  *
  * Wraps `GET wc/v3/orders/{order_id}/notes` via `rest_do_request()` and returns
  * the order's notes as flat summary rows through {@see OrderNoteListShaper::summary()}.
@@ -36,7 +36,7 @@ final class ListOrderNotes implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-orders/list-order-notes';
+		return 'og-wc-orders/list-order-notes';
 	}
 
 	/**
@@ -52,8 +52,8 @@ final class ListOrderNotes implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'List Order Notes', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns the notes on one WooCommerce order as flat summary rows, each with its id, author, note text, customer_note flag, and date_created. Notes include system notes WooCommerce records automatically (status changes, payment events) and notes an admin added; customer_note is true for notes shown to the customer. Identify the parent order with order_id (discover it with wc-orders/list-orders). Read-only: does not create notes or return order details — use wc-orders/get-order for the order itself.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-orders',
+			'description'         => __( 'Returns the notes on one WooCommerce order as flat summary rows, each with its id, author, note text, customer_note flag, and date_created. Notes include system notes WooCommerce records automatically (status changes, payment events) and notes an admin added; customer_note is true for notes shown to the customer. Identify the parent order with order_id (discover it with og-wc-orders/list-orders). Read-only: does not create notes or return order details — use og-wc-orders/get-order for the order itself.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-orders',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'order_id' ),
@@ -61,7 +61,7 @@ final class ListOrderNotes implements ConditionalAbility {
 					'order_id' => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The parent order ID whose notes to list. Discover order IDs with wc-orders/list-orders.', 'abilities-catalog-woo' ),
+						'description' => __( 'The parent order ID whose notes to list. Discover order IDs with og-wc-orders/list-orders.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,
@@ -102,7 +102,7 @@ final class ListOrderNotes implements ConditionalAbility {
 	/**
 	 * Permission check: WooCommerce's read capability for orders.
 	 *
-	 * Encodes the catalog baseline for `wc-orders/list-order-notes`: the
+	 * Encodes the catalog baseline for `og-wc-orders/list-order-notes`: the
 	 * `read_private_shop_orders` capability, which is what
 	 * `wc_rest_check_post_permissions( 'shop_order', 'read' )` resolves to on the
 	 * wrapped `GET wc/v3/orders/{order_id}/notes` route (the `shop_order` post type

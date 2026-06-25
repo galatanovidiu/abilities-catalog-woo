@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-products/list-products`.
+ * Read ability: `og-wc-products/list-products`.
  *
  * Wraps `GET wc/v3/products` via `rest_do_request()` and returns each product as
  * a flat summary row through {@see ProductListShaper::summary()}, so a consumer
@@ -36,7 +36,7 @@ final class ListProducts implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/list-products';
+		return 'og-wc-products/list-products';
 	}
 
 	/**
@@ -52,8 +52,8 @@ final class ListProducts implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'List Products', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns the store\'s WooCommerce products as flat summary rows, each with its id, name, type, status, sku, price, stock status, and edit_link. Filter by search term, status, type, sku, category or tag ID, featured, or on-sale, and sort with orderby/order. Use wc-products/get-product for one product\'s full detail (description, categories, tags, images, attributes). Read-only: does not return variations — list those with wc-products/list-product-variations.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Returns the store\'s WooCommerce products as flat summary rows, each with its id, name, type, status, sku, price, stock status, and edit_link. Filter by search term, status, type, sku, category or tag ID, featured, or on-sale, and sort with orderby/order. Use og-wc-products/get-product for one product\'s full detail (description, categories, tags, images, attributes). Read-only: does not return variations — list those with og-wc-products/list-product-variations.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array(
@@ -128,7 +128,7 @@ final class ListProducts implements ConditionalAbility {
 				'properties'           => array(
 					'items' => array(
 						'type'        => 'array',
-						'description' => __( 'The products as flat summary rows. Use wc-products/get-product for a single product\'s full detail.', 'abilities-catalog-woo' ),
+						'description' => __( 'The products as flat summary rows. Use og-wc-products/get-product for a single product\'s full detail.', 'abilities-catalog-woo' ),
 						'items'       => ProductListShaper::itemSchema(),
 					),
 					'total' => array(
@@ -154,7 +154,7 @@ final class ListProducts implements ConditionalAbility {
 	/**
 	 * Permission check: WooCommerce's read capability for products.
 	 *
-	 * Encodes the catalog baseline for `wc-products/list-products`: the
+	 * Encodes the catalog baseline for `og-wc-products/list-products`: the
 	 * `read_private_products` capability, which is what
 	 * `wc_rest_check_post_permissions( 'product', 'read' )` resolves to on the
 	 * wrapped `GET wc/v3/products` route (the product post type maps the `read`

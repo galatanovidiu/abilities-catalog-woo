@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-products/list-product-brands` ability.
+ * Integration tests for the `og-wc-products/list-product-brands` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -18,7 +18,7 @@ use WP_Error;
  */
 final class ListProductBrandsTest extends TestCase {
 
-	private const ABILITY = 'wc-products/list-product-brands';
+	private const ABILITY = 'og-wc-products/list-product-brands';
 
 	/**
 	 * The exact keys a shaped brand summary row exposes.
@@ -42,7 +42,7 @@ final class ListProductBrandsTest extends TestCase {
 	 *
 	 * The two brand abilities are conditional on the `/wc/v3/products/brands`
 	 * route, which the Brands feature registers on `rest_api_init`. The distributed
-	 * test build may not register it, in which case `wc-products/list-product-brands`
+	 * test build may not register it, in which case `og-wc-products/list-product-brands`
 	 * does not register and there is nothing to exercise.
 	 */
 	public function set_up(): void {

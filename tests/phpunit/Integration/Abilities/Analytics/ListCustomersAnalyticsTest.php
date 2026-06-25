@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-reports/list-customers-analytics` ability.
+ * Integration tests for the `og-wc-reports/list-customers-analytics` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -21,7 +21,7 @@ use WP_Error;
  */
 final class ListCustomersAnalyticsTest extends TestCase {
 
-	private const ABILITY = 'wc-reports/list-customers-analytics';
+	private const ABILITY = 'og-wc-reports/list-customers-analytics';
 
 	/**
 	 * The closed set of row keys the ability returns.

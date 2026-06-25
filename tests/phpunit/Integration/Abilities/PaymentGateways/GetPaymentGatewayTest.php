@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-payment-gateways/get-payment-gateway ability.
+ * Integration tests for the og-wc-payment-gateways/get-payment-gateway ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -14,7 +14,7 @@ use GalatanOvidiu\AbilitiesCatalogWoo\Tests\TestCase;
 use WP_Error;
 
 /**
- * Exercises wc-payment-gateways/get-payment-gateway: the shaped single-gateway
+ * Exercises og-wc-payment-gateways/get-payment-gateway: the shaped single-gateway
  * record, the redaction of a password-type settings field (the raw secret must
  * never appear), the missing-gateway 404 that must not collapse to a permission
  * error, the wrong-capability denial, and the exact closed output shape.
@@ -45,16 +45,16 @@ final class GetPaymentGatewayTest extends TestCase {
 	private const RAW_SECRET = 'super-secret-api-key-1234567890';
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-payment-gateways/get-payment-gateway' );
+		$ability = wp_get_ability( 'og-wc-payment-gateways/get-payment-gateway' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-payment-gateways/get-payment-gateway', $ability->get_name() );
+		$this->assertSame( 'og-wc-payment-gateways/get-payment-gateway', $ability->get_name() );
 	}
 
 	public function test_admin_reads_gateway_detail(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-payment-gateways/get-payment-gateway' )->execute( array( 'id' => 'bacs' ) );
+		$result = wp_get_ability( 'og-wc-payment-gateways/get-payment-gateway' )->execute( array( 'id' => 'bacs' ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( 'bacs', $result['id'] );
@@ -87,7 +87,7 @@ final class GetPaymentGatewayTest extends TestCase {
 			}
 		);
 
-		$result = wp_get_ability( 'wc-payment-gateways/get-payment-gateway' )->execute( array( 'id' => 'bacs' ) );
+		$result = wp_get_ability( 'og-wc-payment-gateways/get-payment-gateway' )->execute( array( 'id' => 'bacs' ) );
 
 		$this->assertIsArray( $result );
 
@@ -111,7 +111,7 @@ final class GetPaymentGatewayTest extends TestCase {
 		$this->actingAs( 'administrator' );
 
 		// "Account details" / title-type fields on bacs are non-secret; the title field carries a real value.
-		$result = wp_get_ability( 'wc-payment-gateways/get-payment-gateway' )->execute( array( 'id' => 'bacs' ) );
+		$result = wp_get_ability( 'og-wc-payment-gateways/get-payment-gateway' )->execute( array( 'id' => 'bacs' ) );
 
 		$this->assertIsArray( $result );
 
@@ -130,7 +130,7 @@ final class GetPaymentGatewayTest extends TestCase {
 	public function test_output_shape_is_exact_and_closed(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-payment-gateways/get-payment-gateway' )->execute( array( 'id' => 'bacs' ) );
+		$result = wp_get_ability( 'og-wc-payment-gateways/get-payment-gateway' )->execute( array( 'id' => 'bacs' ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( self::EXPECTED_KEYS, array_keys( $result ) );
@@ -157,7 +157,7 @@ final class GetPaymentGatewayTest extends TestCase {
 	public function test_missing_gateway_returns_404_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-payment-gateways/get-payment-gateway' )->execute( array( 'id' => 'does-not-exist' ) );
+		$result = wp_get_ability( 'og-wc-payment-gateways/get-payment-gateway' )->execute( array( 'id' => 'does-not-exist' ) );
 
 		$this->assertInstanceOf( WP_Error::class, $result );
 		$this->assertSame( 'woocommerce_rest_payment_gateway_invalid', $result->get_error_code() );
@@ -168,7 +168,7 @@ final class GetPaymentGatewayTest extends TestCase {
 	public function test_subscriber_is_denied(): void {
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-payment-gateways/get-payment-gateway' );
+		$ability = wp_get_ability( 'og-wc-payment-gateways/get-payment-gateway' );
 
 		$this->assertFalse( $ability->check_permissions( array( 'id' => 'bacs' ) ) );
 

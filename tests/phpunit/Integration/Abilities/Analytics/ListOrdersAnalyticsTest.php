@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-reports/list-orders-analytics` ability.
+ * Integration tests for the `og-wc-reports/list-orders-analytics` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -21,7 +21,7 @@ use WP_Error;
  */
 final class ListOrdersAnalyticsTest extends TestCase {
 
-	private const ABILITY = 'wc-reports/list-orders-analytics';
+	private const ABILITY = 'og-wc-reports/list-orders-analytics';
 
 	/**
 	 * The exact keys a shaped order-analytics row exposes.

@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-products/list-product-categories`.
+ * Read ability: `og-wc-products/list-product-categories`.
  *
  * Wraps `GET wc/v3/products/categories` via `rest_do_request()` and returns each
  * product category as a flat summary row through
@@ -39,7 +39,7 @@ final class ListProductCategories implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/list-product-categories';
+		return 'og-wc-products/list-product-categories';
 	}
 
 	/**
@@ -55,8 +55,8 @@ final class ListProductCategories implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'List Product Categories', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns the store\'s WooCommerce product categories as flat summary rows, each with its id, name, slug, parent, product count, and description. Filter by search term or parent category ID, hide empty categories, page through results, and sort with orderby/order. Product categories are hierarchical: use parent to walk the tree (parent 0 returns only top-level categories). Use wc-products/get-product-category for one category by ID. Read-only: does not return the category image, display type, or menu order.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Returns the store\'s WooCommerce product categories as flat summary rows, each with its id, name, slug, parent, product count, and description. Filter by search term or parent category ID, hide empty categories, page through results, and sort with orderby/order. Product categories are hierarchical: use parent to walk the tree (parent 0 returns only top-level categories). Use og-wc-products/get-product-category for one category by ID. Read-only: does not return the category image, display type, or menu order.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array(
@@ -107,7 +107,7 @@ final class ListProductCategories implements ConditionalAbility {
 				'properties'           => array(
 					'items' => array(
 						'type'        => 'array',
-						'description' => __( 'The product categories as flat summary rows. Use wc-products/get-product-category for a single category by ID.', 'abilities-catalog-woo' ),
+						'description' => __( 'The product categories as flat summary rows. Use og-wc-products/get-product-category for a single category by ID.', 'abilities-catalog-woo' ),
 						'items'       => ProductTermListShaper::termItemSchema(),
 					),
 					'total' => array(
@@ -133,7 +133,7 @@ final class ListProductCategories implements ConditionalAbility {
 	/**
 	 * Permission check: WooCommerce's read capability for product terms.
 	 *
-	 * Encodes the catalog baseline for `wc-products/list-product-categories`: the
+	 * Encodes the catalog baseline for `og-wc-products/list-product-categories`: the
 	 * `manage_product_terms` capability, which is what
 	 * `wc_rest_check_product_term_permissions( 'product_cat', 'read' )` resolves to
 	 * on the wrapped `GET wc/v3/products/categories` route (it reads the

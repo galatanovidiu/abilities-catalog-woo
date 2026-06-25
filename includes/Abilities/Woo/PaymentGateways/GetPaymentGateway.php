@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-payment-gateways/get-payment-gateway`.
+ * Read ability: `og-wc-payment-gateways/get-payment-gateway`.
  *
  * Wraps `GET wc/v3/payment_gateways/<id>` via `rest_do_request()` and returns one
  * gateway as a flat, closed record: the summary fields (`id`, `title`,
@@ -41,7 +41,7 @@ final class GetPaymentGateway implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-payment-gateways/get-payment-gateway';
+		return 'og-wc-payment-gateways/get-payment-gateway';
 	}
 
 	/**
@@ -57,8 +57,8 @@ final class GetPaymentGateway implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Get Payment Gateway', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns one WooCommerce payment gateway by ID, including its title, description, enabled state, method title and description, and its settings fields. Discover the gateway id with wc-payment-gateways/list-payment-gateways. Credential-bearing settings (API keys, secrets, tokens, passwords) are masked: a redacted field shows a hidden marker for its value and a has_value flag that tells configured from empty, so a masked value means "configured but hidden", not missing.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-payment-gateways',
+			'description'         => __( 'Returns one WooCommerce payment gateway by ID, including its title, description, enabled state, method title and description, and its settings fields. Discover the gateway id with og-wc-payment-gateways/list-payment-gateways. Credential-bearing settings (API keys, secrets, tokens, passwords) are masked: a redacted field shows a hidden marker for its value and a has_value flag that tells configured from empty, so a masked value means "configured but hidden", not missing.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-payment-gateways',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
@@ -66,7 +66,7 @@ final class GetPaymentGateway implements ConditionalAbility {
 					'id' => array(
 						'type'        => 'string',
 						'minLength'   => 1,
-						'description' => __( 'The payment gateway ID, a string such as "bacs" or "stripe". Discover the gateway id with wc-payment-gateways/list-payment-gateways.', 'abilities-catalog-woo' ),
+						'description' => __( 'The payment gateway ID, a string such as "bacs" or "stripe". Discover the gateway id with og-wc-payment-gateways/list-payment-gateways.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,

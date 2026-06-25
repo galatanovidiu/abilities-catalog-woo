@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-reports/get-orders-totals` ability.
+ * Integration tests for the `og-wc-reports/get-orders-totals` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -19,7 +19,7 @@ use WP_Error;
  */
 final class GetOrdersTotalsTest extends TestCase {
 
-	private const ABILITY = 'wc-reports/get-orders-totals';
+	private const ABILITY = 'og-wc-reports/get-orders-totals';
 
 	/**
 	 * The keys a shaped totals row exposes — and nothing more.

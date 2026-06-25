@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-payment-gateways/list-payment-gateways` ability.
+ * Integration tests for the `og-wc-payment-gateways/list-payment-gateways` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -18,7 +18,7 @@ use WP_Error;
  */
 final class ListPaymentGatewaysTest extends TestCase {
 
-	private const ABILITY = 'wc-payment-gateways/list-payment-gateways';
+	private const ABILITY = 'og-wc-payment-gateways/list-payment-gateways';
 
 	/**
 	 * The exact keys a shaped payment-gateway summary row exposes.

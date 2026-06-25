@@ -15,14 +15,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-data/list-currencies`.
+ * Read ability: `og-wc-data/list-currencies`.
  *
  * Wraps `GET wc/v3/data/currencies` via `rest_do_request()` and returns every
  * currency WooCommerce knows about as a flat `{ code, name, symbol }` row via
  * {@see DataReferenceShaper::currencySummary()}, plus the total count. This is the
  * discovery step for the ISO-4217 codes the by-code ability accepts: pass a row's
- * `code` to `wc-data/get-currency` to read one currency, or use
- * `wc-data/get-current-currency` to read the currency this store charges in.
+ * `code` to `og-wc-data/get-currency` to read one currency, or use
+ * `og-wc-data/get-current-currency` to read the currency this store charges in.
  *
  * This is WooCommerce's full static currency table (shipped in `i18n/`), not the
  * currencies enabled on the store; the list is the same on every site.
@@ -39,7 +39,7 @@ final class ListCurrencies implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-data/list-currencies';
+		return 'og-wc-data/list-currencies';
 	}
 
 	/**
@@ -55,8 +55,8 @@ final class ListCurrencies implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'List Currencies', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns every currency WooCommerce knows about as flat { code, name, symbol } rows, plus the total count. Read-only discovery step: use a row\'s ISO-4217 code with wc-data/get-currency to read one currency, or wc-data/get-current-currency to read the currency this store charges in. This is WooCommerce\'s full static currency table, not the currencies enabled on the store, so the list is the same on every site.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-data',
+			'description'         => __( 'Returns every currency WooCommerce knows about as flat { code, name, symbol } rows, plus the total count. Read-only discovery step: use a row\'s ISO-4217 code with og-wc-data/get-currency to read one currency, or og-wc-data/get-current-currency to read the currency this store charges in. This is WooCommerce\'s full static currency table, not the currencies enabled on the store, so the list is the same on every site.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-data',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => (object) array(),
@@ -68,7 +68,7 @@ final class ListCurrencies implements ConditionalAbility {
 				'properties'           => array(
 					'items' => array(
 						'type'        => 'array',
-						'description' => __( 'The currencies as flat summary rows. Use a row\'s code with wc-data/get-currency for a single currency.', 'abilities-catalog-woo' ),
+						'description' => __( 'The currencies as flat summary rows. Use a row\'s code with og-wc-data/get-currency for a single currency.', 'abilities-catalog-woo' ),
 						'items'       => DataReferenceShaper::currencyItemSchema(),
 					),
 					'total' => array(

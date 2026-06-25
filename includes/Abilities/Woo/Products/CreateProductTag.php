@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Write ability: `wc-products/create-product-tag`.
+ * Write ability: `og-wc-products/create-product-tag`.
  *
  * Wraps `POST wc/v3/products/tags` via `rest_do_request()`, creating one product
  * tag and returning it as a flat, closed term row through
@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * tags are a flat taxonomy), count, and description. Never returns the raw `wc/v3`
  * tag body.
  *
- * Reversible: a tag created here is editable with `wc-products/update-product-tag`
+ * Reversible: a tag created here is editable with `og-wc-products/update-product-tag`
  * and removable with the corresponding delete ability. The change touches only the
  * `product_tag` catalog taxonomy — it does not affect orders, money, or products
  * already published.
@@ -38,7 +38,7 @@ final class CreateProductTag implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/create-product-tag';
+		return 'og-wc-products/create-product-tag';
 	}
 
 	/**
@@ -54,8 +54,8 @@ final class CreateProductTag implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Create Product Tag', 'abilities-catalog-woo' ),
-			'description'         => __( 'Creates one WooCommerce product tag and returns its id, name, slug, parent (always 0 — product tags are a flat, non-hierarchical taxonomy), product count, and description. Only name is required; an omitted slug is derived from the name. Reusing an existing tag slug fails with a "term_exists" 400 error carrying the existing tag id in resource_id, so branch on that to reuse instead of recreate. Reversible: edit it later with wc-products/update-product-tag. This edits only the product_tag catalog taxonomy and does not affect orders or products. To list or discover tags use wc-products/list-product-tags; for categories use wc-products/create-product-category instead.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Creates one WooCommerce product tag and returns its id, name, slug, parent (always 0 — product tags are a flat, non-hierarchical taxonomy), product count, and description. Only name is required; an omitted slug is derived from the name. Reusing an existing tag slug fails with a "term_exists" 400 error carrying the existing tag id in resource_id, so branch on that to reuse instead of recreate. Reversible: edit it later with og-wc-products/update-product-tag. This edits only the product_tag catalog taxonomy and does not affect orders or products. To list or discover tags use og-wc-products/list-product-tags; for categories use og-wc-products/create-product-category instead.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'name' ),
@@ -93,7 +93,7 @@ final class CreateProductTag implements ConditionalAbility {
 	/**
 	 * Permission check: WooCommerce's edit capability for product terms.
 	 *
-	 * Encodes the catalog capability for `wc-products/create-product-tag`: the
+	 * Encodes the catalog capability for `og-wc-products/create-product-tag`: the
 	 * `edit_product_terms` capability, which is what
 	 * `wc_rest_check_product_term_permissions( 'product_tag', 'create' )` resolves
 	 * to on the wrapped `POST wc/v3/products/tags` route (the create context maps

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-coupons/list-coupons`.
+ * Read ability: `og-wc-coupons/list-coupons`.
  *
  * Wraps `GET wc/v3/coupons` via `rest_do_request()` and returns each coupon as a
  * flat summary row (id, code, amount, discount type, expiry, usage, individual-use
@@ -39,7 +39,7 @@ final class ListCoupons implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-coupons/list-coupons';
+		return 'og-wc-coupons/list-coupons';
 	}
 
 	/**
@@ -55,8 +55,8 @@ final class ListCoupons implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'List Coupons', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns the store\'s WooCommerce coupons as flat summary rows, each with its id, code, discount amount, discount type, expiry date, usage count, usage limit, and individual-use flag. Filter by code for an exact-code lookup, or by a free-text search. Use wc-coupons/get-coupon for one coupon\'s full detail (description, product include/exclude lists, and amount thresholds). Read-only.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-coupons',
+			'description'         => __( 'Returns the store\'s WooCommerce coupons as flat summary rows, each with its id, code, discount amount, discount type, expiry date, usage count, usage limit, and individual-use flag. Filter by code for an exact-code lookup, or by a free-text search. Use og-wc-coupons/get-coupon for one coupon\'s full detail (description, product include/exclude lists, and amount thresholds). Read-only.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-coupons',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array(
@@ -102,7 +102,7 @@ final class ListCoupons implements ConditionalAbility {
 				'properties'           => array(
 					'items' => array(
 						'type'        => 'array',
-						'description' => __( 'The coupons as flat summary rows. Use wc-coupons/get-coupon for a single coupon\'s full detail.', 'abilities-catalog-woo' ),
+						'description' => __( 'The coupons as flat summary rows. Use og-wc-coupons/get-coupon for a single coupon\'s full detail.', 'abilities-catalog-woo' ),
 						'items'       => CouponListShaper::itemSchema(),
 					),
 					'total' => array(
@@ -128,7 +128,7 @@ final class ListCoupons implements ConditionalAbility {
 	/**
 	 * Permission check: WooCommerce's read capability for coupons.
 	 *
-	 * Encodes the catalog baseline for `wc-coupons/list-coupons`: the
+	 * Encodes the catalog baseline for `og-wc-coupons/list-coupons`: the
 	 * `read_private_shop_coupons` capability, which is what
 	 * `wc_rest_check_post_permissions( 'shop_coupon', 'read' )` resolves to on the
 	 * wrapped `GET wc/v3/coupons` route (the shop_coupon post type maps the `read`

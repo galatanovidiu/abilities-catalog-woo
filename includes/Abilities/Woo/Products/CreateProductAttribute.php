@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Write ability: `wc-products/create-product-attribute`.
+ * Write ability: `og-wc-products/create-product-attribute`.
  *
  * Wraps `POST wc/v3/products/attributes` via `rest_do_request()`, creating a new
  * GLOBAL product attribute definition (a row in the `woocommerce_attribute_taxonomies`
@@ -29,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * duplicate-slug path: a create that WooCommerce refuses surfaces the route's
  * `woocommerce_rest_cannot_create` 400 verbatim via {@see RestError::from()},
  * never collapsed into a generic permission denial. The edit is reversible with
- * `wc-products/update-product-attribute` and affects only the catalog taxonomy
+ * `og-wc-products/update-product-attribute` and affects only the catalog taxonomy
  * layer — never orders, money, or stored secrets.
  *
  * Only available when WooCommerce is active (it is a {@see ConditionalAbility}).
@@ -42,7 +42,7 @@ final class CreateProductAttribute implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/create-product-attribute';
+		return 'og-wc-products/create-product-attribute';
 	}
 
 	/**
@@ -58,8 +58,8 @@ final class CreateProductAttribute implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Create Product Attribute', 'abilities-catalog-woo' ),
-			'description'         => __( 'Creates a new WooCommerce global product attribute (e.g. Color or Size) and returns its id, name, slug, type, order_by, and has_archives. A global attribute defines a reusable pa_<slug> taxonomy whose values are managed with wc-products/create-attribute-term. Only name is required; WooCommerce derives the slug from the name when you omit it. This is a catalog-taxonomy edit, reversible with wc-products/update-product-attribute and affecting no orders or money. Use wc-products/list-product-attributes to discover existing attributes before creating a duplicate.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Creates a new WooCommerce global product attribute (e.g. Color or Size) and returns its id, name, slug, type, order_by, and has_archives. A global attribute defines a reusable pa_<slug> taxonomy whose values are managed with og-wc-products/create-attribute-term. Only name is required; WooCommerce derives the slug from the name when you omit it. This is a catalog-taxonomy edit, reversible with og-wc-products/update-product-attribute and affecting no orders or money. Use og-wc-products/list-product-attributes to discover existing attributes before creating a duplicate.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'name' ),
@@ -109,7 +109,7 @@ final class CreateProductAttribute implements ConditionalAbility {
 	/**
 	 * Permission check: WooCommerce's manager capability for product attributes.
 	 *
-	 * Encodes the catalog capability for `wc-products/create-product-attribute`:
+	 * Encodes the catalog capability for `og-wc-products/create-product-attribute`:
 	 * `manage_product_terms`, which is what
 	 * `wc_rest_check_manager_permissions( 'attributes', 'create' )` resolves to on
 	 * the wrapped `POST wc/v3/products/attributes` route (the helper ignores the

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Write ability: `wc-products/update-shipping-class`.
+ * Write ability: `og-wc-products/update-shipping-class`.
  *
  * Wraps `PUT wc/v3/products/shipping_classes/<id>` via `rest_do_request()`,
  * updating an existing product shipping class (the flat `product_shipping_class`
@@ -42,7 +42,7 @@ final class UpdateShippingClass implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/update-shipping-class';
+		return 'og-wc-products/update-shipping-class';
 	}
 
 	/**
@@ -58,8 +58,8 @@ final class UpdateShippingClass implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Update Shipping Class', 'abilities-catalog-woo' ),
-			'description'         => __( 'Updates an existing WooCommerce product shipping class (the flat product_shipping_class taxonomy) by ID and returns the shaped class row: id, name, slug, product count, and description. Send only the fields you want to change; an omitted field keeps its current value. Shipping classes are non-hierarchical, so there is no parent. Reversible catalog edit affecting only the shipping-class taxonomy, not products, orders, or money. Changing slug to one already used by another product_shipping_class term returns a term_exists error. Discover IDs with wc-products/list-shipping-classes.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Updates an existing WooCommerce product shipping class (the flat product_shipping_class taxonomy) by ID and returns the shaped class row: id, name, slug, product count, and description. Send only the fields you want to change; an omitted field keeps its current value. Shipping classes are non-hierarchical, so there is no parent. Reversible catalog edit affecting only the shipping-class taxonomy, not products, orders, or money. Changing slug to one already used by another product_shipping_class term returns a term_exists error. Discover IDs with og-wc-products/list-shipping-classes.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
@@ -67,7 +67,7 @@ final class UpdateShippingClass implements ConditionalAbility {
 					'id'          => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The shipping class term ID to update. Discover IDs with wc-products/list-shipping-classes.', 'abilities-catalog-woo' ),
+						'description' => __( 'The shipping class term ID to update. Discover IDs with og-wc-products/list-shipping-classes.', 'abilities-catalog-woo' ),
 					),
 					'name'        => array(
 						'type'        => 'string',

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-settings/list-group-settings`.
+ * Read ability: `og-wc-settings/list-group-settings`.
  *
  * Wraps `GET wc/v3/settings/<group>` via `rest_do_request()` and returns the
  * group's setting options as flat summary rows. The `<group>` is a string path
@@ -42,7 +42,7 @@ final class ListGroupSettings implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-settings/list-group-settings';
+		return 'og-wc-settings/list-group-settings';
 	}
 
 	/**
@@ -58,8 +58,8 @@ final class ListGroupSettings implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'List Group Settings', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns one WooCommerce settings group\'s options as flat summary rows, each with its id, label, type, value, and default. Discover the group with wc-settings/list-setting-groups; use wc-settings/get-setting-option for one option\'s full detail. Credential-bearing values (a password-type option, or one whose id is a known secret key) are masked with a hidden marker, so a masked value means "configured but hidden", not missing.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-settings',
+			'description'         => __( 'Returns one WooCommerce settings group\'s options as flat summary rows, each with its id, label, type, value, and default. Discover the group with og-wc-settings/list-setting-groups; use og-wc-settings/get-setting-option for one option\'s full detail. Credential-bearing values (a password-type option, or one whose id is a known secret key) are masked with a hidden marker, so a masked value means "configured but hidden", not missing.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-settings',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'group' ),
@@ -67,7 +67,7 @@ final class ListGroupSettings implements ConditionalAbility {
 					'group' => array(
 						'type'        => 'string',
 						'minLength'   => 1,
-						'description' => __( 'The settings group ID, e.g. "general" or "tax". Discover valid group IDs with wc-settings/list-setting-groups.', 'abilities-catalog-woo' ),
+						'description' => __( 'The settings group ID, e.g. "general" or "tax". Discover valid group IDs with og-wc-settings/list-setting-groups.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,
@@ -82,7 +82,7 @@ final class ListGroupSettings implements ConditionalAbility {
 					),
 					'items' => array(
 						'type'        => 'array',
-						'description' => __( 'The group\'s setting options as flat summary rows. Use wc-settings/get-setting-option for a single option\'s full detail. Credential-bearing values are masked.', 'abilities-catalog-woo' ),
+						'description' => __( 'The group\'s setting options as flat summary rows. Use og-wc-settings/get-setting-option for a single option\'s full detail. Credential-bearing values are masked.', 'abilities-catalog-woo' ),
 						'items'       => SettingListShaper::optionItemSchema(),
 					),
 					'total' => array(

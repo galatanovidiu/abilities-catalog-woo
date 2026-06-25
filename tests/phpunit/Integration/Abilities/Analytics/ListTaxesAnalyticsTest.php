@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-reports/list-taxes-analytics` ability.
+ * Integration tests for the `og-wc-reports/list-taxes-analytics` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -20,7 +20,7 @@ use WC_Tax;
  */
 final class ListTaxesAnalyticsTest extends TestCase {
 
-	private const ABILITY = 'wc-reports/list-taxes-analytics';
+	private const ABILITY = 'og-wc-reports/list-taxes-analytics';
 
 	/**
 	 * The closed set of row keys the ability returns.

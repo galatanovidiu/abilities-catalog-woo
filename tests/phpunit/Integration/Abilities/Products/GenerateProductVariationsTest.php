@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-products/generate-product-variations ability.
+ * Integration tests for the og-wc-products/generate-product-variations ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -16,7 +16,7 @@ use WC_Product_Variable;
 use WP_Error;
 
 /**
- * Exercises wc-products/generate-product-variations: the bulk cartesian-product
+ * Exercises og-wc-products/generate-product-variations: the bulk cartesian-product
  * generation of missing variation combinations, the shaped result rows, the
  * created_count signal, the non-variable parent error, input validation, and the
  * cap guard.
@@ -24,17 +24,17 @@ use WP_Error;
 final class GenerateProductVariationsTest extends TestCase {
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-products/generate-product-variations' );
+		$ability = wp_get_ability( 'og-wc-products/generate-product-variations' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-products/generate-product-variations', $ability->get_name() );
+		$this->assertSame( 'og-wc-products/generate-product-variations', $ability->get_name() );
 	}
 
 	public function test_admin_generates_missing_variations(): void {
 		$this->actingAs( 'administrator' );
 		$product = $this->seedVariableProductWithoutVariations();
 
-		$result = wp_get_ability( 'wc-products/generate-product-variations' )->execute(
+		$result = wp_get_ability( 'og-wc-products/generate-product-variations' )->execute(
 			array( 'product_id' => $product->get_id() )
 		);
 
@@ -55,7 +55,7 @@ final class GenerateProductVariationsTest extends TestCase {
 		$this->actingAs( 'administrator' );
 		$product = $this->seedVariableProductWithoutVariations();
 
-		$result = wp_get_ability( 'wc-products/generate-product-variations' )->execute(
+		$result = wp_get_ability( 'og-wc-products/generate-product-variations' )->execute(
 			array( 'product_id' => $product->get_id() )
 		);
 
@@ -94,7 +94,7 @@ final class GenerateProductVariationsTest extends TestCase {
 		$this->actingAs( 'administrator' );
 		$simple = $this->seedSimpleProduct();
 
-		$result = wp_get_ability( 'wc-products/generate-product-variations' )->execute(
+		$result = wp_get_ability( 'og-wc-products/generate-product-variations' )->execute(
 			array( 'product_id' => $simple->get_id() )
 		);
 
@@ -113,7 +113,7 @@ final class GenerateProductVariationsTest extends TestCase {
 	public function test_missing_product_returns_route_404(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-products/generate-product-variations' )->execute(
+		$result = wp_get_ability( 'og-wc-products/generate-product-variations' )->execute(
 			array( 'product_id' => 99999999 )
 		);
 
@@ -126,7 +126,7 @@ final class GenerateProductVariationsTest extends TestCase {
 	public function test_missing_product_id_is_rejected_at_validation(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-products/generate-product-variations' )->execute( array() );
+		$result = wp_get_ability( 'og-wc-products/generate-product-variations' )->execute( array() );
 
 		$this->assertInstanceOf( WP_Error::class, $result );
 		$this->assertSame( 'ability_invalid_input', $result->get_error_code() );
@@ -136,7 +136,7 @@ final class GenerateProductVariationsTest extends TestCase {
 		$product = $this->seedVariableProductWithoutVariations();
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-products/generate-product-variations' );
+		$ability = wp_get_ability( 'og-wc-products/generate-product-variations' );
 		$this->assertNotTrue( $ability->check_permissions( array( 'product_id' => $product->get_id() ) ) );
 
 		$result = $ability->execute( array( 'product_id' => $product->get_id() ) );

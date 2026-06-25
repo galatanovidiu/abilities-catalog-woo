@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Destructive write ability: `wc-shipping/delete-shipping-zone-method`.
+ * Destructive write ability: `og-wc-shipping/delete-shipping-zone-method`.
  *
  * Wraps `DELETE wc/v3/shipping/zones/<zone_id>/methods/<instance_id>` via
  * `rest_do_request()` with `force=true`. The zone_id and instance_id are route
@@ -41,7 +41,7 @@ final class DeleteShippingZoneMethod implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-shipping/delete-shipping-zone-method';
+		return 'og-wc-shipping/delete-shipping-zone-method';
 	}
 
 	/**
@@ -57,8 +57,8 @@ final class DeleteShippingZoneMethod implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Delete Shipping Zone Method', 'abilities-catalog-woo' ),
-			'description'         => __( 'Permanently deletes a configured shipping-method instance from a shipping zone, removing that rate from the zone\'s checkout options. This cannot be undone: the method instance is force-deleted, bypassing the Trash, so there is no restore (re-add it with wc-shipping/create-shipping-zone-method). The zone itself and its other methods are unaffected. Returns the deleted instance id and its title for confirmation; no edit_link is returned because the instance no longer exists. Discover zone_id with wc-shipping/list-shipping-zones and instance_id with wc-shipping/list-shipping-zone-methods.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-shipping',
+			'description'         => __( 'Permanently deletes a configured shipping-method instance from a shipping zone, removing that rate from the zone\'s checkout options. This cannot be undone: the method instance is force-deleted, bypassing the Trash, so there is no restore (re-add it with og-wc-shipping/create-shipping-zone-method). The zone itself and its other methods are unaffected. Returns the deleted instance id and its title for confirmation; no edit_link is returned because the instance no longer exists. Discover zone_id with og-wc-shipping/list-shipping-zones and instance_id with og-wc-shipping/list-shipping-zone-methods.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-shipping',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'zone_id', 'instance_id' ),
@@ -66,12 +66,12 @@ final class DeleteShippingZoneMethod implements ConditionalAbility {
 					'zone_id'     => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The shipping zone ID that holds the method instance. Discover IDs with wc-shipping/list-shipping-zones.', 'abilities-catalog-woo' ),
+						'description' => __( 'The shipping zone ID that holds the method instance. Discover IDs with og-wc-shipping/list-shipping-zones.', 'abilities-catalog-woo' ),
 					),
 					'instance_id' => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The configured method instance ID within the zone to permanently delete. Discover IDs with wc-shipping/list-shipping-zone-methods.', 'abilities-catalog-woo' ),
+						'description' => __( 'The configured method instance ID within the zone to permanently delete. Discover IDs with og-wc-shipping/list-shipping-zone-methods.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,

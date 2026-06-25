@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-products/delete-product-review ability.
+ * Integration tests for the og-wc-products/delete-product-review ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -14,7 +14,7 @@ use WC_Product_Simple;
 use WP_Error;
 
 /**
- * Exercises wc-products/delete-product-review: the permanent (force=true) delete and
+ * Exercises og-wc-products/delete-product-review: the permanent (force=true) delete and
  * its removal of the comment, the recoverable (force=false) trash, the missing-review
  * 404 that must not collapse to a permission error, the wrong-capability denial, and
  * the exact closed output shape (no edit_link, no raw comment fields).
@@ -36,10 +36,10 @@ final class DeleteProductReviewTest extends TestCase {
 	);
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-products/delete-product-review' );
+		$ability = wp_get_ability( 'og-wc-products/delete-product-review' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-products/delete-product-review', $ability->get_name() );
+		$this->assertSame( 'og-wc-products/delete-product-review', $ability->get_name() );
 	}
 
 	public function test_force_delete_removes_the_review(): void {
@@ -48,7 +48,7 @@ final class DeleteProductReviewTest extends TestCase {
 		$product_id = $this->seedProduct( 'Seeded Product' );
 		$review_id  = $this->seedReview( $product_id, 'Ada Reviewer', 'ada@example.com', 'Great product.' );
 
-		$result = wp_get_ability( 'wc-products/delete-product-review' )->execute(
+		$result = wp_get_ability( 'og-wc-products/delete-product-review' )->execute(
 			array(
 				'id'    => $review_id,
 				'force' => true,
@@ -73,7 +73,7 @@ final class DeleteProductReviewTest extends TestCase {
 		$product_id = $this->seedProduct( 'Seeded Product' );
 		$review_id  = $this->seedReview( $product_id, 'Bob Buyer', 'bob@example.com', 'Solid.' );
 
-		$result = wp_get_ability( 'wc-products/delete-product-review' )->execute( array( 'id' => $review_id ) );
+		$result = wp_get_ability( 'og-wc-products/delete-product-review' )->execute( array( 'id' => $review_id ) );
 
 		if ( EMPTY_TRASH_DAYS > 0 ) {
 			// Trash enabled: the review is moved to the Trash (recoverable), not removed.
@@ -97,7 +97,7 @@ final class DeleteProductReviewTest extends TestCase {
 		$product_id = $this->seedProduct( 'Seeded Product' );
 		$review_id  = $this->seedReview( $product_id, 'Cara Customer', 'cara@example.com', 'Nice.' );
 
-		$result = wp_get_ability( 'wc-products/delete-product-review' )->execute(
+		$result = wp_get_ability( 'og-wc-products/delete-product-review' )->execute(
 			array(
 				'id'    => $review_id,
 				'force' => true,
@@ -129,7 +129,7 @@ final class DeleteProductReviewTest extends TestCase {
 	public function test_missing_review_returns_404_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-products/delete-product-review' )->execute(
+		$result = wp_get_ability( 'og-wc-products/delete-product-review' )->execute(
 			array(
 				'id'    => 99999999,
 				'force' => true,
@@ -148,7 +148,7 @@ final class DeleteProductReviewTest extends TestCase {
 
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-products/delete-product-review' );
+		$ability = wp_get_ability( 'og-wc-products/delete-product-review' );
 
 		// A subscriber lacks edit_products, so the coarse permission check denies.
 		$this->assertFalse( $ability->check_permissions( array( 'id' => $review_id ) ) );

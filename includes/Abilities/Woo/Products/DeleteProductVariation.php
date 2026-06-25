@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Destructive write ability: `wc-products/delete-product-variation`.
+ * Destructive write ability: `og-wc-products/delete-product-variation`.
  *
  * Wraps `DELETE wc/v3/products/<product_id>/variations/<id>` via
  * `rest_do_request()`. The `product_id` is a required route segment: the route
@@ -50,7 +50,7 @@ final class DeleteProductVariation implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/delete-product-variation';
+		return 'og-wc-products/delete-product-variation';
 	}
 
 	/**
@@ -66,8 +66,8 @@ final class DeleteProductVariation implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Delete Product Variation', 'abilities-catalog-woo' ),
-			'description'         => __( 'Deletes one variation of a WooCommerce VARIABLE product, identified by its parent product_id and its variation id, and returns a confirmation with the deleted variation\'s name (e.g. "Color: Red, Size: Large"). The variation must belong to the given parent: a missing variation or a parent mismatch returns woocommerce_rest_product_variation_invalid_id (404). By default (force=false) the variation is moved to the Trash and can be restored, but if the store has Trash disabled (EMPTY_TRASH_DAYS=0) the route requires force=true and otherwise returns woocommerce_rest_trash_not_supported (501); set force=true to permanently delete it, which cannot be undone. Deleting a variation does not delete the parent product. Discover the parent product_id with wc-products/list-products and the variation id with wc-products/list-product-variations. No edit_link is returned because the variation no longer exists.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Deletes one variation of a WooCommerce VARIABLE product, identified by its parent product_id and its variation id, and returns a confirmation with the deleted variation\'s name (e.g. "Color: Red, Size: Large"). The variation must belong to the given parent: a missing variation or a parent mismatch returns woocommerce_rest_product_variation_invalid_id (404). By default (force=false) the variation is moved to the Trash and can be restored, but if the store has Trash disabled (EMPTY_TRASH_DAYS=0) the route requires force=true and otherwise returns woocommerce_rest_trash_not_supported (501); set force=true to permanently delete it, which cannot be undone. Deleting a variation does not delete the parent product. Discover the parent product_id with og-wc-products/list-products and the variation id with og-wc-products/list-product-variations. No edit_link is returned because the variation no longer exists.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'product_id', 'id' ),
@@ -75,12 +75,12 @@ final class DeleteProductVariation implements ConditionalAbility {
 					'product_id' => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The parent variable product ID the variation belongs to. Discover it with wc-products/list-products.', 'abilities-catalog-woo' ),
+						'description' => __( 'The parent variable product ID the variation belongs to. Discover it with og-wc-products/list-products.', 'abilities-catalog-woo' ),
 					),
 					'id'         => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The variation ID to delete. Discover it with wc-products/list-product-variations for the parent product.', 'abilities-catalog-woo' ),
+						'description' => __( 'The variation ID to delete. Discover it with og-wc-products/list-product-variations for the parent product.', 'abilities-catalog-woo' ),
 					),
 					'force'      => array(
 						'type'        => 'boolean',

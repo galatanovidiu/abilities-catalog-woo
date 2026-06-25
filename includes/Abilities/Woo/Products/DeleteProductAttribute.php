@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Destructive write ability: `wc-products/delete-product-attribute`.
+ * Destructive write ability: `og-wc-products/delete-product-attribute`.
  *
  * Wraps `DELETE wc/v3/products/attributes/<id>` via `rest_do_request()`. It first
  * reads the attribute (`GET wc/v3/products/attributes/<id>`) to capture its name —
@@ -45,7 +45,7 @@ final class DeleteProductAttribute implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/delete-product-attribute';
+		return 'og-wc-products/delete-product-attribute';
 	}
 
 	/**
@@ -61,8 +61,8 @@ final class DeleteProductAttribute implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Delete Product Attribute', 'abilities-catalog-woo' ),
-			'description'         => __( 'Permanently deletes a WooCommerce global product attribute by ID and returns a confirmation with the deleted attribute\'s name. THIS IS IRREVERSIBLE AND HAS THE LARGEST BLAST RADIUS IN THE PRODUCT CATALOG: deleting a global attribute also drops its entire pa_<slug> taxonomy, deletes ALL of that attribute\'s terms, and unsets the attribute on every product that used it. Global attributes have no Trash — there is no recoverable state, so this always force-deletes (no force input). Returns deleted, id, name, force_used (always true), and permanent (always true); no edit_link is returned because the attribute no longer exists. To remove a single term instead of the whole attribute, use wc-products/delete-attribute-term. Discover attribute IDs with wc-products/list-product-attributes.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Permanently deletes a WooCommerce global product attribute by ID and returns a confirmation with the deleted attribute\'s name. THIS IS IRREVERSIBLE AND HAS THE LARGEST BLAST RADIUS IN THE PRODUCT CATALOG: deleting a global attribute also drops its entire pa_<slug> taxonomy, deletes ALL of that attribute\'s terms, and unsets the attribute on every product that used it. Global attributes have no Trash — there is no recoverable state, so this always force-deletes (no force input). Returns deleted, id, name, force_used (always true), and permanent (always true); no edit_link is returned because the attribute no longer exists. To remove a single term instead of the whole attribute, use og-wc-products/delete-attribute-term. Discover attribute IDs with og-wc-products/list-product-attributes.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
@@ -70,7 +70,7 @@ final class DeleteProductAttribute implements ConditionalAbility {
 					'id' => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The global attribute ID to permanently delete. Discover IDs with wc-products/list-product-attributes.', 'abilities-catalog-woo' ),
+						'description' => __( 'The global attribute ID to permanently delete. Discover IDs with og-wc-products/list-product-attributes.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,
@@ -119,7 +119,7 @@ final class DeleteProductAttribute implements ConditionalAbility {
 	/**
 	 * Permission check: WooCommerce's manager capability for product attributes.
 	 *
-	 * Encodes the catalog capability for `wc-products/delete-product-attribute`:
+	 * Encodes the catalog capability for `og-wc-products/delete-product-attribute`:
 	 * `manage_product_terms`, which is what
 	 * `wc_rest_check_manager_permissions( 'attributes', 'delete' )` resolves to on
 	 * the wrapped `DELETE wc/v3/products/attributes/<id>` route (the helper checks

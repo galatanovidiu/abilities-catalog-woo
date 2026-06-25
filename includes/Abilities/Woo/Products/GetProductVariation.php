@@ -15,14 +15,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-products/get-product-variation`.
+ * Read ability: `og-wc-products/get-product-variation`.
  *
  * Wraps `GET wc/v3/products/<product_id>/variations/<id>` via `rest_do_request()`
  * and returns one variation as a flat, closed summary row (the
  * {@see ProductListShaper::variationSummary()} fields — price, stock, attribute
  * selections, permalink, edit_link) PLUS the variation `description`, which the
  * list shaper omits. Use this for a single variation's detail after finding its id
- * with `wc-products/list-product-variations`.
+ * with `og-wc-products/list-product-variations`.
  *
  * Only available when WooCommerce is active (it is a {@see ConditionalAbility}).
  *
@@ -34,7 +34,7 @@ final class GetProductVariation implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/get-product-variation';
+		return 'og-wc-products/get-product-variation';
 	}
 
 	/**
@@ -50,8 +50,8 @@ final class GetProductVariation implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Get Product Variation', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns one WooCommerce product variation by its parent product_id and variation id, including its sku, prices, stock status and quantity, the attribute selections that define it (e.g. Size: Large), its permalink, and its description. Both IDs must match: the variation must belong to the given product, or the route returns woocommerce_rest_product_variation_invalid_id (404). Discover both IDs with wc-products/list-product-variations. Use wc-products/get-product for the parent product itself.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Returns one WooCommerce product variation by its parent product_id and variation id, including its sku, prices, stock status and quantity, the attribute selections that define it (e.g. Size: Large), its permalink, and its description. Both IDs must match: the variation must belong to the given product, or the route returns woocommerce_rest_product_variation_invalid_id (404). Discover both IDs with og-wc-products/list-product-variations. Use og-wc-products/get-product for the parent product itself.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'product_id', 'id' ),
@@ -59,12 +59,12 @@ final class GetProductVariation implements ConditionalAbility {
 					'product_id' => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The parent variable product ID. Discover it with wc-products/list-products or wc-products/list-product-variations.', 'abilities-catalog-woo' ),
+						'description' => __( 'The parent variable product ID. Discover it with og-wc-products/list-products or og-wc-products/list-product-variations.', 'abilities-catalog-woo' ),
 					),
 					'id'         => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The variation ID, which must belong to product_id. Discover it with wc-products/list-product-variations.', 'abilities-catalog-woo' ),
+						'description' => __( 'The variation ID, which must belong to product_id. Discover it with og-wc-products/list-product-variations.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,

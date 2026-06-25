@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Write ability: `wc-shipping/update-shipping-zone-locations`.
+ * Write ability: `og-wc-shipping/update-shipping-zone-locations`.
  *
  * Wraps `PUT wc/v3/shipping/zones/<id>/locations` via `rest_do_request()` and
  * returns the zone's resulting full location set as `{ id, locations, total }`.
@@ -38,7 +38,7 @@ final class UpdateShippingZoneLocations implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-shipping/update-shipping-zone-locations';
+		return 'og-wc-shipping/update-shipping-zone-locations';
 	}
 
 	/**
@@ -54,8 +54,8 @@ final class UpdateShippingZoneLocations implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Update Shipping Zone Locations', 'abilities-catalog-woo' ),
-			'description'         => __( 'Replaces the geographic match rules of one WooCommerce shipping zone by zone ID and returns the resulting full set as { id, locations, total }, each location a { code, type } rule. FULL REPLACE — this is a footgun: WooCommerce sets the zone\'s locations to EXACTLY the array you send, so any location currently on the zone that is NOT in your locations array is DROPPED. To add or change one location without losing the others, first read the current set with wc-shipping/get-shipping-zone-locations, modify the list, and send the COMPLETE desired set back. Sending an empty locations array CLEARS the zone (it then matches no region). Discover the zone ID with wc-shipping/list-shipping-zones. Zone 0 ("Rest of the World"), the always-present catch-all, cannot be edited: the route returns a 403. Use wc-shipping/update-shipping-zone to rename or reorder a zone.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-shipping',
+			'description'         => __( 'Replaces the geographic match rules of one WooCommerce shipping zone by zone ID and returns the resulting full set as { id, locations, total }, each location a { code, type } rule. FULL REPLACE — this is a footgun: WooCommerce sets the zone\'s locations to EXACTLY the array you send, so any location currently on the zone that is NOT in your locations array is DROPPED. To add or change one location without losing the others, first read the current set with og-wc-shipping/get-shipping-zone-locations, modify the list, and send the COMPLETE desired set back. Sending an empty locations array CLEARS the zone (it then matches no region). Discover the zone ID with og-wc-shipping/list-shipping-zones. Zone 0 ("Rest of the World"), the always-present catch-all, cannot be edited: the route returns a 403. Use og-wc-shipping/update-shipping-zone to rename or reorder a zone.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-shipping',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id', 'locations' ),
@@ -63,11 +63,11 @@ final class UpdateShippingZoneLocations implements ConditionalAbility {
 					'id'        => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The shipping zone ID whose locations to replace. Discover IDs with wc-shipping/list-shipping-zones. Zone 0 ("Rest of the World") cannot be edited.', 'abilities-catalog-woo' ),
+						'description' => __( 'The shipping zone ID whose locations to replace. Discover IDs with og-wc-shipping/list-shipping-zones. Zone 0 ("Rest of the World") cannot be edited.', 'abilities-catalog-woo' ),
 					),
 					'locations' => array(
 						'type'        => 'array',
-						'description' => __( 'The COMPLETE desired set of geographic match rules for the zone. This REPLACES the zone\'s current locations entirely: any location not in this array is dropped, and an empty array clears the zone. To add one location, read the current set with wc-shipping/get-shipping-zone-locations first, then send the whole list back.', 'abilities-catalog-woo' ),
+						'description' => __( 'The COMPLETE desired set of geographic match rules for the zone. This REPLACES the zone\'s current locations entirely: any location not in this array is dropped, and an empty array clears the zone. To add one location, read the current set with og-wc-shipping/get-shipping-zone-locations first, then send the whole list back.', 'abilities-catalog-woo' ),
 						'items'       => array(
 							'type'                 => 'object',
 							'required'             => array( 'code', 'type' ),
@@ -125,7 +125,7 @@ final class UpdateShippingZoneLocations implements ConditionalAbility {
 	/**
 	 * Permission check: WooCommerce's shipping-settings manager capability.
 	 *
-	 * Encodes the catalog baseline for `wc-shipping/update-shipping-zone-locations`:
+	 * Encodes the catalog baseline for `og-wc-shipping/update-shipping-zone-locations`:
 	 * `manage_woocommerce`, which is what `wc_rest_check_manager_permissions( 'settings', 'edit' )`
 	 * resolves to on the wrapped `PUT wc/v3/shipping/zones/<id>/locations` route — the
 	 * helper ignores the context and maps the `settings` object to `manage_woocommerce`.
@@ -213,7 +213,7 @@ final class UpdateShippingZoneLocations implements ConditionalAbility {
 	 * A location carries only the two fields the WC schema declares: the region
 	 * `code` and its `type` (postcode/state/country/continent). Each is read with a
 	 * null-coalescing default and cast to string. Matches the row shape
-	 * `wc-shipping/get-shipping-zone-locations` returns.
+	 * `og-wc-shipping/get-shipping-zone-locations` returns.
 	 *
 	 * @param array<string,mixed> $row A single location from the `PUT` response.
 	 * @return array{code:string,type:string} The flat location row.

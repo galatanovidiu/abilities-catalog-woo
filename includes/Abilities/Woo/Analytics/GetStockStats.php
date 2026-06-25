@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-reports/get-stock-stats`.
+ * Read ability: `og-wc-reports/get-stock-stats`.
  *
  * Wraps `GET /wc-analytics/reports/stock/stats` via `rest_do_request()` and
  * returns the store-wide inventory snapshot: how many products there are
@@ -66,7 +66,7 @@ final class GetStockStats implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-reports/get-stock-stats';
+		return 'og-wc-reports/get-stock-stats';
 	}
 
 	/**
@@ -82,8 +82,8 @@ final class GetStockStats implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Get Stock Stats', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns the store-wide WooCommerce Analytics inventory snapshot: products (total number of products), lowstock (products low on stock), instock, outofstock, and onbackorder (per-status product counts). This is a CURRENT snapshot, not a time series — unlike the other analytics /stats reports it returns no intervals_count and no period envelope, and takes no date or filter parameters. Use this for the store-wide instock/lowstock/outofstock totals; use wc-reports/list-stock-analytics for the per-product inventory rows. Only available when the store\'s WooCommerce Analytics feature is enabled.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-reports',
+			'description'         => __( 'Returns the store-wide WooCommerce Analytics inventory snapshot: products (total number of products), lowstock (products low on stock), instock, outofstock, and onbackorder (per-status product counts). This is a CURRENT snapshot, not a time series — unlike the other analytics /stats reports it returns no intervals_count and no period envelope, and takes no date or filter parameters. Use this for the store-wide instock/lowstock/outofstock totals; use og-wc-reports/list-stock-analytics for the per-product inventory rows. Only available when the store\'s WooCommerce Analytics feature is enabled.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-reports',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => (object) array(),

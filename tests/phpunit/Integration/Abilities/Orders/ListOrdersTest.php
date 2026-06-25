@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-orders/list-orders` ability.
+ * Integration tests for the `og-wc-orders/list-orders` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -19,7 +19,7 @@ use WP_Error;
  */
 final class ListOrdersTest extends TestCase {
 
-	private const ABILITY = 'wc-orders/list-orders';
+	private const ABILITY = 'og-wc-orders/list-orders';
 
 	/**
 	 * The exact keys a shaped order summary row exposes.

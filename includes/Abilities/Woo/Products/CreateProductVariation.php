@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Write ability: `wc-products/create-product-variation`.
+ * Write ability: `og-wc-products/create-product-variation`.
  *
  * Wraps `POST wc/v3/products/<product_id>/variations` via `rest_do_request()`,
  * adding one variation to an existing VARIABLE product. The parent is named only
@@ -33,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * `attributes` are supplied for a parent that does not exist the route returns
  * `woocommerce_rest_product_variation_invalid_parent` (404). To add many variations
  * at once from the parent's attribute combinations, use
- * `wc-products/generate-product-variations` instead.
+ * `og-wc-products/generate-product-variations` instead.
  *
  * Only available when WooCommerce is active (it is a {@see ConditionalAbility}).
  *
@@ -45,7 +45,7 @@ final class CreateProductVariation implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/create-product-variation';
+		return 'og-wc-products/create-product-variation';
 	}
 
 	/**
@@ -61,8 +61,8 @@ final class CreateProductVariation implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Create Product Variation', 'abilities-catalog-woo' ),
-			'description'         => __( 'Adds one variation to an existing WooCommerce VARIABLE product and returns the shaped variation (id, sku, prices, stock, the attribute selections that define it, permalink, edit_link) plus the parent product_id. Identify each variation by its attributes, e.g. {"name": "Color", "option": "Red"} — the names must match attributes the parent marks "used for variations". The parent should already be type=variable; if you pass attributes for a parent that does not exist the route returns woocommerce_rest_product_variation_invalid_parent (404). Set regular_price, sku, stock and the other writable fields as needed. Discover the parent product_id with wc-products/list-products and read existing variations with wc-products/list-product-variations. To bulk-create every missing attribute combination at once, use wc-products/generate-product-variations instead.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Adds one variation to an existing WooCommerce VARIABLE product and returns the shaped variation (id, sku, prices, stock, the attribute selections that define it, permalink, edit_link) plus the parent product_id. Identify each variation by its attributes, e.g. {"name": "Color", "option": "Red"} — the names must match attributes the parent marks "used for variations". The parent should already be type=variable; if you pass attributes for a parent that does not exist the route returns woocommerce_rest_product_variation_invalid_parent (404). Set regular_price, sku, stock and the other writable fields as needed. Discover the parent product_id with og-wc-products/list-products and read existing variations with og-wc-products/list-product-variations. To bulk-create every missing attribute combination at once, use og-wc-products/generate-product-variations instead.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'product_id' ),
@@ -71,7 +71,7 @@ final class CreateProductVariation implements ConditionalAbility {
 						'product_id' => array(
 							'type'        => 'integer',
 							'minimum'     => 1,
-							'description' => __( 'The parent variable product ID the variation is added to. The product must be type=variable. Discover it with wc-products/list-products.', 'abilities-catalog-woo' ),
+							'description' => __( 'The parent variable product ID the variation is added to. The product must be type=variable. Discover it with og-wc-products/list-products.', 'abilities-catalog-woo' ),
 						),
 					),
 					ProductWriteSchema::writableVariationProperties()

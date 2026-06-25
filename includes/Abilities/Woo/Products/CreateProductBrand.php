@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Write ability: `wc-products/create-product-brand`.
+ * Write ability: `og-wc-products/create-product-brand`.
  *
  * Wraps `POST wc/v3/products/brands` via `rest_do_request()`, creating a new
  * product brand term in the hierarchical `product_brand` taxonomy. The result is
@@ -45,7 +45,7 @@ final class CreateProductBrand implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/create-product-brand';
+		return 'og-wc-products/create-product-brand';
 	}
 
 	/**
@@ -61,8 +61,8 @@ final class CreateProductBrand implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Create Product Brand', 'abilities-catalog-woo' ),
-			'description'         => __( 'Creates a new WooCommerce product brand (the hierarchical product_brand taxonomy) and returns the new brand as a flat row: id, name, slug, parent, product count, and description. Only name is required; WordPress derives the slug from the name unless you set one. Set parent to nest the brand under another (parent 0, the default, makes a top-level brand); discover a parent id with wc-products/list-product-brands. A slug already used in this taxonomy is rejected with a WordPress core term_exists 400 error (note: not woocommerce_rest_*), so retry with a different slug or omit it. This ability exists only when the store\'s WooCommerce Brands feature is active. This affects only the store catalog taxonomy, not products, orders, or money, and is reversible by deleting the brand. Surface the returned id to review the brand in wp-admin.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Creates a new WooCommerce product brand (the hierarchical product_brand taxonomy) and returns the new brand as a flat row: id, name, slug, parent, product count, and description. Only name is required; WordPress derives the slug from the name unless you set one. Set parent to nest the brand under another (parent 0, the default, makes a top-level brand); discover a parent id with og-wc-products/list-product-brands. A slug already used in this taxonomy is rejected with a WordPress core term_exists 400 error (note: not woocommerce_rest_*), so retry with a different slug or omit it. This ability exists only when the store\'s WooCommerce Brands feature is active. This affects only the store catalog taxonomy, not products, orders, or money, and is reversible by deleting the brand. Surface the returned id to review the brand in wp-admin.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'name' ),
@@ -78,7 +78,7 @@ final class CreateProductBrand implements ConditionalAbility {
 					'parent'      => array(
 						'type'        => 'integer',
 						'minimum'     => 0,
-						'description' => __( 'The parent brand term id to nest this brand under. Use 0 (the default) for a top-level brand. Discover a parent id with wc-products/list-product-brands.', 'abilities-catalog-woo' ),
+						'description' => __( 'The parent brand term id to nest this brand under. Use 0 (the default) for a top-level brand. Discover a parent id with og-wc-products/list-product-brands.', 'abilities-catalog-woo' ),
 					),
 					'description' => array(
 						'type'        => 'string',
@@ -105,7 +105,7 @@ final class CreateProductBrand implements ConditionalAbility {
 	/**
 	 * Permission check: WooCommerce's edit capability for product terms.
 	 *
-	 * Encodes the catalog capability for `wc-products/create-product-brand`: the
+	 * Encodes the catalog capability for `og-wc-products/create-product-brand`: the
 	 * `edit_product_terms` capability, which is what
 	 * `wc_rest_check_product_term_permissions( 'product_brand', 'create' )` resolves
 	 * to on the wrapped `POST wc/v3/products/brands` route (it maps `create` to the

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-products/get-product-brand`.
+ * Read ability: `og-wc-products/get-product-brand`.
  *
  * Wraps `GET wc/v3/products/brands/<id>` via `rest_do_request()` and returns one
  * product brand as a flat, closed term row — id, name, slug, parent, count, and
@@ -38,7 +38,7 @@ final class GetProductBrand implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/get-product-brand';
+		return 'og-wc-products/get-product-brand';
 	}
 
 	/**
@@ -58,8 +58,8 @@ final class GetProductBrand implements ConditionalAbility {
 
 		return array(
 			'label'               => __( 'Get Product Brand', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns one WooCommerce product brand by ID: its name, slug, parent brand, product count, and description. Product brands are the hierarchical product_brand taxonomy; a parent of 0 means a top-level brand. This ability exists only when the store\'s WooCommerce Brands feature is active. Use wc-products/list-product-brands to scan brands and discover IDs; use this for one brand\'s detail.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Returns one WooCommerce product brand by ID: its name, slug, parent brand, product count, and description. Product brands are the hierarchical product_brand taxonomy; a parent of 0 means a top-level brand. This ability exists only when the store\'s WooCommerce Brands feature is active. Use og-wc-products/list-product-brands to scan brands and discover IDs; use this for one brand\'s detail.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
@@ -67,7 +67,7 @@ final class GetProductBrand implements ConditionalAbility {
 					'id' => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The product brand term ID. Discover IDs with wc-products/list-product-brands.', 'abilities-catalog-woo' ),
+						'description' => __( 'The product brand term ID. Discover IDs with og-wc-products/list-product-brands.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,
