@@ -1,0 +1,70 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  static:
+    name: Lint & static analysis
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          coverage: none
+          tools: composer:v2
+
+      - name: Install Composer dependencies
+        uses: ramsey/composer-install@v3
+
+      - name: PHPCS (coding standards)
+        run: composer lint
+
+      - name: PHPStan (static analysis)
+        run: composer phpstan
+
+  integration:
+    name: Integration suite (wp-env)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      # wp-env reads .wp-env.json: latest WordPress core (ships the Abilities API)
+      # plus the WooCommerce plugin the abilities wrap. Docker is preinstalled on
+      # the runner.
+      - name: Start wp-env
+        run: npm run wp-env -- start
+
+      # The abilities wrap live wc/v3 routes, so they only run against a real
+      # WooCommerce install — composer install inside the container builds vendor/
+      # against the container PHP.
+      - name: Install Composer dependencies in the container
+        run: npm run wp-env -- run cli --env-cwd=wp-content/plugins/abilities-catalog-woo/ composer install --no-interaction --no-progress
+
+      - name: Run the integration suite
+        run: npm run wp-env -- run cli --env-cwd=wp-content/plugins/abilities-catalog-woo/ vendor/bin/phpunit -c phpunit.xml.dist --no-coverage
+
+      - name: Stop wp-env
+        if: always()
+        run: npm run wp-env -- stop

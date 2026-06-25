@@ -1,0 +1,17 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/wp-env.json",
+	"testsEnvironment": false,
+	"port": 8894,
+	"core": null,
+	"plugins": [
+		"https://downloads.wordpress.org/plugin/woocommerce.zip",
+		"./."
+	],
+	"config": {
+		"FS_METHOD": "direct",
+		"WP_DEBUG": true
+	},
+	"mappings": {
+		"/wp-content/plugins/abilities-catalog-woo": "."
+	}
+}
