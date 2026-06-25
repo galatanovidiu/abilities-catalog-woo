@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-shipping/list-shipping-methods` ability.
+ * Integration tests for the `og-wc-shipping/list-shipping-methods` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -17,7 +17,7 @@ use WP_Error;
  */
 final class ListShippingMethodsTest extends TestCase {
 
-	private const ABILITY = 'wc-shipping/list-shipping-methods';
+	private const ABILITY = 'og-wc-shipping/list-shipping-methods';
 
 	/**
 	 * The exact keys a shaped shipping-method-type row exposes.

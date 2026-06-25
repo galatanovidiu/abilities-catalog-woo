@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-customers/list-customer-downloads`.
+ * Read ability: `og-wc-customers/list-customer-downloads`.
  *
  * Wraps `GET wc/v3/customers/<customer_id>/downloads` via `rest_do_request()` and
  * returns the downloadable files a customer may download as flat summary rows
@@ -41,7 +41,7 @@ final class ListCustomerDownloads implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-customers/list-customer-downloads';
+		return 'og-wc-customers/list-customer-downloads';
 	}
 
 	/**
@@ -57,8 +57,8 @@ final class ListCustomerDownloads implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'List Customer Downloads', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns the downloadable files a WooCommerce customer has access to as flat summary rows, each with the download_id, product (id and name), download_name, the order_id that granted access, downloads_remaining, and access_expires. Pass the customer\'s user ID; discover IDs with wc-customers/list-customers. Read-only. For privacy and security the result deliberately omits the raw download URL, order key, customer email, and file block: the download URL is an unauthenticated bearer link to the file, so it is never surfaced.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-customers',
+			'description'         => __( 'Returns the downloadable files a WooCommerce customer has access to as flat summary rows, each with the download_id, product (id and name), download_name, the order_id that granted access, downloads_remaining, and access_expires. Pass the customer\'s user ID; discover IDs with og-wc-customers/list-customers. Read-only. For privacy and security the result deliberately omits the raw download URL, order key, customer email, and file block: the download URL is an unauthenticated bearer link to the file, so it is never surfaced.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-customers',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'customer_id' ),
@@ -66,7 +66,7 @@ final class ListCustomerDownloads implements ConditionalAbility {
 					'customer_id' => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The customer\'s WordPress user ID. Discover IDs with wc-customers/list-customers. A missing customer returns a 404 (wc_user_invalid_id).', 'abilities-catalog-woo' ),
+						'description' => __( 'The customer\'s WordPress user ID. Discover IDs with og-wc-customers/list-customers. A missing customer returns a 404 (wc_user_invalid_id).', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,
@@ -107,7 +107,7 @@ final class ListCustomerDownloads implements ConditionalAbility {
 	/**
 	 * Permission check: WooCommerce's read capability for customers.
 	 *
-	 * Encodes the catalog baseline for `wc-customers/list-customer-downloads`: the
+	 * Encodes the catalog baseline for `og-wc-customers/list-customer-downloads`: the
 	 * `list_users` capability, which is what `wc_rest_check_user_permissions( 'read' )`
 	 * resolves to on the wrapped customer routes. This is the coarse,
 	 * object-independent guard; the wrapped route additionally object-checks the

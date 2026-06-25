@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-system/list-system-tools` ability.
+ * Integration tests for the `og-wc-system/list-system-tools` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -17,7 +17,7 @@ use WP_Error;
  */
 final class ListSystemToolsTest extends TestCase {
 
-	private const ABILITY = 'wc-system/list-system-tools';
+	private const ABILITY = 'og-wc-system/list-system-tools';
 
 	/**
 	 * Tool ids WooCommerce always ships with.

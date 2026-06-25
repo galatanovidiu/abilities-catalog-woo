@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-reports/list-categories-analytics` ability.
+ * Integration tests for the `og-wc-reports/list-categories-analytics` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -21,7 +21,7 @@ use WP_Error;
  */
 final class ListCategoriesAnalyticsTest extends TestCase {
 
-	private const ABILITY = 'wc-reports/list-categories-analytics';
+	private const ABILITY = 'og-wc-reports/list-categories-analytics';
 
 	/**
 	 * The closed set of row keys the ability returns, in schema order.

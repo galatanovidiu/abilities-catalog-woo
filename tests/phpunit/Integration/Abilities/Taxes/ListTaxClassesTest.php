@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-taxes/list-tax-classes` ability.
+ * Integration tests for the `og-wc-taxes/list-tax-classes` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -18,7 +18,7 @@ use WP_Error;
  */
 final class ListTaxClassesTest extends TestCase {
 
-	private const ABILITY = 'wc-taxes/list-tax-classes';
+	private const ABILITY = 'og-wc-taxes/list-tax-classes';
 
 	/**
 	 * The exact keys a shaped tax-class summary row exposes.

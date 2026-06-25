@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Write ability: `wc-products/update-product-variation`.
+ * Write ability: `og-wc-products/update-product-variation`.
  *
  * Wraps `PUT wc/v3/products/<product_id>/variations/<id>` via `rest_do_request()`,
  * editing a single variation of a variable product and returning the shaped
@@ -41,7 +41,7 @@ final class UpdateProductVariation implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/update-product-variation';
+		return 'og-wc-products/update-product-variation';
 	}
 
 	/**
@@ -57,8 +57,8 @@ final class UpdateProductVariation implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Update Product Variation', 'abilities-catalog-woo' ),
-			'description'         => __( 'Updates a single WooCommerce product variation by its parent product_id and variation id, returning the shaped updated variation (id, sku, prices, stock status and quantity, the attribute selections, permalink, edit_link, and product_id). Send only the fields you want to change; omitted fields are left untouched. The variation must belong to product_id, or the route returns woocommerce_rest_product_variation_invalid_id (404). Discover both IDs with wc-products/list-product-variations. To create a new variation instead use wc-products/create-product-variation; to edit the parent product use wc-products/update-product.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Updates a single WooCommerce product variation by its parent product_id and variation id, returning the shaped updated variation (id, sku, prices, stock status and quantity, the attribute selections, permalink, edit_link, and product_id). Send only the fields you want to change; omitted fields are left untouched. The variation must belong to product_id, or the route returns woocommerce_rest_product_variation_invalid_id (404). Discover both IDs with og-wc-products/list-product-variations. To create a new variation instead use og-wc-products/create-product-variation; to edit the parent product use og-wc-products/update-product.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'product_id', 'id' ),
@@ -67,12 +67,12 @@ final class UpdateProductVariation implements ConditionalAbility {
 						'product_id' => array(
 							'type'        => 'integer',
 							'minimum'     => 1,
-							'description' => __( 'The parent variable product ID. Discover it with wc-products/list-product-variations or wc-products/list-products.', 'abilities-catalog-woo' ),
+							'description' => __( 'The parent variable product ID. Discover it with og-wc-products/list-product-variations or og-wc-products/list-products.', 'abilities-catalog-woo' ),
 						),
 						'id'         => array(
 							'type'        => 'integer',
 							'minimum'     => 1,
-							'description' => __( 'The variation ID to update, which must belong to product_id. Discover it with wc-products/list-product-variations.', 'abilities-catalog-woo' ),
+							'description' => __( 'The variation ID to update, which must belong to product_id. Discover it with og-wc-products/list-product-variations.', 'abilities-catalog-woo' ),
 						),
 					),
 					ProductWriteSchema::writableVariationProperties()

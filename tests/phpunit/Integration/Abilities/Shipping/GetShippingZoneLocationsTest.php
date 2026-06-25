@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-shipping/get-shipping-zone-locations ability.
+ * Integration tests for the og-wc-shipping/get-shipping-zone-locations ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -14,7 +14,7 @@ use WC_Shipping_Zone;
 use WP_Error;
 
 /**
- * Exercises wc-shipping/get-shipping-zone-locations: the shaped location rules of a
+ * Exercises og-wc-shipping/get-shipping-zone-locations: the shaped location rules of a
  * seeded zone, the empty-locations case for an unconfigured zone, the missing-zone
  * 404 that must not collapse to a permission error, the wrong-capability denial, and
  * the exact closed output shape (each row { code, type } only).
@@ -60,10 +60,10 @@ final class GetShippingZoneLocationsTest extends TestCase {
 	}
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-shipping/get-shipping-zone-locations' );
+		$ability = wp_get_ability( 'og-wc-shipping/get-shipping-zone-locations' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-shipping/get-shipping-zone-locations', $ability->get_name() );
+		$this->assertSame( 'og-wc-shipping/get-shipping-zone-locations', $ability->get_name() );
 	}
 
 	public function test_admin_reads_seeded_zone_locations(): void {
@@ -71,7 +71,7 @@ final class GetShippingZoneLocationsTest extends TestCase {
 
 		$zone_id = $this->seedZone( array( array( 'code' => 'US', 'type' => 'country' ) ) );
 
-		$result = wp_get_ability( 'wc-shipping/get-shipping-zone-locations' )->execute( array( 'id' => $zone_id ) );
+		$result = wp_get_ability( 'og-wc-shipping/get-shipping-zone-locations' )->execute( array( 'id' => $zone_id ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( $zone_id, $result['id'] );
@@ -87,7 +87,7 @@ final class GetShippingZoneLocationsTest extends TestCase {
 
 		$zone_id = $this->seedZone();
 
-		$result = wp_get_ability( 'wc-shipping/get-shipping-zone-locations' )->execute( array( 'id' => $zone_id ) );
+		$result = wp_get_ability( 'og-wc-shipping/get-shipping-zone-locations' )->execute( array( 'id' => $zone_id ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( $zone_id, $result['id'] );
@@ -100,7 +100,7 @@ final class GetShippingZoneLocationsTest extends TestCase {
 
 		$zone_id = $this->seedZone( array( array( 'code' => 'GB', 'type' => 'country' ) ) );
 
-		$result = wp_get_ability( 'wc-shipping/get-shipping-zone-locations' )->execute( array( 'id' => $zone_id ) );
+		$result = wp_get_ability( 'og-wc-shipping/get-shipping-zone-locations' )->execute( array( 'id' => $zone_id ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( self::EXPECTED_KEYS, array_keys( $result ) );
@@ -121,7 +121,7 @@ final class GetShippingZoneLocationsTest extends TestCase {
 	public function test_missing_zone_returns_404_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-shipping/get-shipping-zone-locations' )->execute( array( 'id' => 99999999 ) );
+		$result = wp_get_ability( 'og-wc-shipping/get-shipping-zone-locations' )->execute( array( 'id' => 99999999 ) );
 
 		$this->assertInstanceOf( WP_Error::class, $result );
 		$this->assertSame( 'woocommerce_rest_shipping_zone_invalid', $result->get_error_code() );
@@ -134,7 +134,7 @@ final class GetShippingZoneLocationsTest extends TestCase {
 
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-shipping/get-shipping-zone-locations' );
+		$ability = wp_get_ability( 'og-wc-shipping/get-shipping-zone-locations' );
 
 		$this->assertFalse( $ability->check_permissions( array( 'id' => $zone_id ) ) );
 

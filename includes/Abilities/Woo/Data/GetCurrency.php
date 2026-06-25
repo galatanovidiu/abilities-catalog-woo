@@ -15,12 +15,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-data/get-currency`.
+ * Read ability: `og-wc-data/get-currency`.
  *
  * Wraps `GET wc/v3/data/currencies/<code>` via `rest_do_request()` and returns the
  * one currency's flat `{ code, name, symbol }` summary from WooCommerce's shipped
  * ISO-4217 currency table. Looks up an arbitrary currency by code; use
- * `wc-data/get-current-currency` for the currency the store actually charges in.
+ * `og-wc-data/get-current-currency` for the currency the store actually charges in.
  *
  * The route's regex captures the code as the `currency` param (3-character
  * `[\w-]{3}`); the path is built by concatenation so the captured code reaches the
@@ -38,7 +38,7 @@ final class GetCurrency implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-data/get-currency';
+		return 'og-wc-data/get-currency';
 	}
 
 	/**
@@ -54,15 +54,15 @@ final class GetCurrency implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Get Currency', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns one WooCommerce currency by its ISO-4217 code: its code, full name, and symbol. Looks up any currency in WooCommerce\'s shipped table; use wc-data/get-current-currency for the currency this store charges in, and wc-data/list-currencies to discover valid codes.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-data',
+			'description'         => __( 'Returns one WooCommerce currency by its ISO-4217 code: its code, full name, and symbol. Looks up any currency in WooCommerce\'s shipped table; use og-wc-data/get-current-currency for the currency this store charges in, and og-wc-data/list-currencies to discover valid codes.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-data',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'code' ),
 				'properties'           => array(
 					'code' => array(
 						'type'        => 'string',
-						'description' => __( 'The ISO-4217 3-letter currency code, e.g. USD. Case-insensitive (WooCommerce uppercases it). Discover valid codes with wc-data/list-currencies.', 'abilities-catalog-woo' ),
+						'description' => __( 'The ISO-4217 3-letter currency code, e.g. USD. Case-insensitive (WooCommerce uppercases it). Discover valid codes with og-wc-data/list-currencies.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,

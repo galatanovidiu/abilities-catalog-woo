@@ -15,14 +15,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-system/get-system-tool`.
+ * Read ability: `og-wc-system/get-system-tool`.
  *
  * Wraps `GET wc/v3/system_status/tools/<id>` via `rest_do_request()` and returns
  * one WooCommerce maintenance tool as a flat row ({id,name,action,description}),
  * shaped through {@see SystemToolListShaper}. The `action` is the button label —
  * what running the tool would do. This is a READ only: it describes a tool but
  * does not run it. RUNNING a tool is the deferred dangerous ability
- * `wc-system/run-system-tool` (several tools are irreversible, e.g. `delete_taxes`,
+ * `og-wc-system/run-system-tool` (several tools are irreversible, e.g. `delete_taxes`,
  * `reset_roles`), which is not part of this read.
  *
  * The tool `id` is a STRING path segment (e.g. `clear_transients`), so the route
@@ -39,7 +39,7 @@ final class GetSystemTool implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-system/get-system-tool';
+		return 'og-wc-system/get-system-tool';
 	}
 
 	/**
@@ -55,8 +55,8 @@ final class GetSystemTool implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Get System Tool', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns one WooCommerce maintenance tool by its string id (e.g. "clear_transients"): its id, name, action (the button label describing what running it would do), and description. Discover tool ids with wc-system/list-system-tools. This read only describes the tool; it does not run it. To run a tool, use the deferred dangerous wc-system/run-system-tool ability, which is separate because several tools are irreversible.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-system',
+			'description'         => __( 'Returns one WooCommerce maintenance tool by its string id (e.g. "clear_transients"): its id, name, action (the button label describing what running it would do), and description. Discover tool ids with og-wc-system/list-system-tools. This read only describes the tool; it does not run it. To run a tool, use the deferred dangerous og-wc-system/run-system-tool ability, which is separate because several tools are irreversible.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-system',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
@@ -64,7 +64,7 @@ final class GetSystemTool implements ConditionalAbility {
 					'id' => array(
 						'type'        => 'string',
 						'minLength'   => 1,
-						'description' => __( 'The tool id, a string slug such as "clear_transients". Discover ids with wc-system/list-system-tools.', 'abilities-catalog-woo' ),
+						'description' => __( 'The tool id, a string slug such as "clear_transients". Discover ids with og-wc-system/list-system-tools.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,

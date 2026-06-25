@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Write ability: `wc-taxes/create-tax-class`.
+ * Write ability: `og-wc-taxes/create-tax-class`.
  *
  * Wraps `POST wc/v3/taxes/classes` via `rest_do_request()` (the controller calls
  * `WC_Tax::create_tax_class( $name )`), creating one WooCommerce tax class and
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * No update route: a tax class can be CREATED and DELETED, never updated — the
  * `wc/v3` tax-classes controller registers no PUT/EDITABLE route. To rename or
- * otherwise change a class, delete it with `wc-taxes/delete-tax-class` and create a
+ * otherwise change a class, delete it with `og-wc-taxes/delete-tax-class` and create a
  * new one. A duplicate name is rejected with a `woocommerce_rest_tax_class_exists`
  * 400 surfaced via {@see RestError::from()}.
  *
@@ -39,7 +39,7 @@ final class CreateTaxClass implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-taxes/create-tax-class';
+		return 'og-wc-taxes/create-tax-class';
 	}
 
 	/**
@@ -55,8 +55,8 @@ final class CreateTaxClass implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Create Tax Class', 'abilities-catalog-woo' ),
-			'description'         => __( 'Creates one WooCommerce tax class and returns its slug and name. Tax classes group tax rates (the built-in classes are "standard", "reduced-rate", and "zero-rate"); the returned slug is the value you assign as a product\'s or a tax rate\'s class (e.g. via wc-taxes/create-tax-rate). Only name is required; WooCommerce derives the slug from it (the slug is read-only and cannot be set). A duplicate name returns a "woocommerce_rest_tax_class_exists" 400 error. Note: there is no update route — a tax class can only be created and deleted, never edited. To rename or change a class, delete it with wc-taxes/delete-tax-class and create a new one. List existing classes with wc-taxes/list-tax-classes.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-taxes',
+			'description'         => __( 'Creates one WooCommerce tax class and returns its slug and name. Tax classes group tax rates (the built-in classes are "standard", "reduced-rate", and "zero-rate"); the returned slug is the value you assign as a product\'s or a tax rate\'s class (e.g. via og-wc-taxes/create-tax-rate). Only name is required; WooCommerce derives the slug from it (the slug is read-only and cannot be set). A duplicate name returns a "woocommerce_rest_tax_class_exists" 400 error. Note: there is no update route — a tax class can only be created and deleted, never edited. To rename or change a class, delete it with og-wc-taxes/delete-tax-class and create a new one. List existing classes with og-wc-taxes/list-tax-classes.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-taxes',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'name' ),
@@ -86,7 +86,7 @@ final class CreateTaxClass implements ConditionalAbility {
 	/**
 	 * Permission check: WooCommerce's manager capability for store settings.
 	 *
-	 * Encodes the catalog capability for `wc-taxes/create-tax-class`:
+	 * Encodes the catalog capability for `og-wc-taxes/create-tax-class`:
 	 * `manage_woocommerce`, which is what
 	 * `wc_rest_check_manager_permissions( 'settings', 'create' )` resolves to on the
 	 * wrapped `POST wc/v3/taxes/classes` route (the helper ignores the context

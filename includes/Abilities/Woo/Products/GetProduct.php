@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-products/get-product`.
+ * Read ability: `og-wc-products/get-product`.
  *
  * Wraps `GET wc/v3/products/<id>` via `rest_do_request()` and returns one
  * product as a flat, closed record: the {@see ProductListShaper::summary()}
@@ -35,7 +35,7 @@ final class GetProduct implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/get-product';
+		return 'og-wc-products/get-product';
 	}
 
 	/**
@@ -51,8 +51,8 @@ final class GetProduct implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Get Product', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns one WooCommerce product by ID: its name, type, status, sku, prices, stock, visibility, permalink, the full and short descriptions, its categories and tags, images, attribute selections, and an edit_link. Use wc-products/list-products to scan products and discover IDs; use this for one product\'s full detail. Read-only: does not return variations (use wc-products/list-product-variations for a variable product\'s variations).', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Returns one WooCommerce product by ID: its name, type, status, sku, prices, stock, visibility, permalink, the full and short descriptions, its categories and tags, images, attribute selections, and an edit_link. Use og-wc-products/list-products to scan products and discover IDs; use this for one product\'s full detail. Read-only: does not return variations (use og-wc-products/list-product-variations for a variable product\'s variations).', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
@@ -60,7 +60,7 @@ final class GetProduct implements ConditionalAbility {
 					'id' => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The product ID. Discover IDs with wc-products/list-products.', 'abilities-catalog-woo' ),
+						'description' => __( 'The product ID. Discover IDs with og-wc-products/list-products.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,

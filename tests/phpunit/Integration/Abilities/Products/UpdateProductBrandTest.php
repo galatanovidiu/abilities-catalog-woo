@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-products/update-product-brand ability.
+ * Integration tests for the og-wc-products/update-product-brand ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -14,7 +14,7 @@ use GalatanOvidiu\AbilitiesCatalogWoo\Tests\TestCase;
 use WP_Error;
 
 /**
- * Exercises wc-products/update-product-brand: a name/description change on a
+ * Exercises og-wc-products/update-product-brand: a name/description change on a
  * seeded brand, the missing-brand 404 that must not collapse to a permission
  * error, the wrong-capability denial (with the brand unchanged), and the exact
  * closed output shape.
@@ -45,10 +45,10 @@ final class UpdateProductBrandTest extends TestCase {
 			$this->markTestSkipped( 'WooCommerce Brands feature is not active in this environment.' );
 		}
 
-		$ability = wp_get_ability( 'wc-products/update-product-brand' );
+		$ability = wp_get_ability( 'og-wc-products/update-product-brand' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-products/update-product-brand', $ability->get_name() );
+		$this->assertSame( 'og-wc-products/update-product-brand', $ability->get_name() );
 	}
 
 	public function test_admin_updates_brand_name_and_description(): void {
@@ -60,7 +60,7 @@ final class UpdateProductBrandTest extends TestCase {
 
 		$id = $this->seedBrand( 'Acme', 0, '' );
 
-		$result = wp_get_ability( 'wc-products/update-product-brand' )->execute(
+		$result = wp_get_ability( 'og-wc-products/update-product-brand' )->execute(
 			array(
 				'id'          => $id,
 				'name'        => 'Acme Corp',
@@ -87,7 +87,7 @@ final class UpdateProductBrandTest extends TestCase {
 
 		$id = $this->seedBrand( 'Globex', 0, '' );
 
-		$result = wp_get_ability( 'wc-products/update-product-brand' )->execute(
+		$result = wp_get_ability( 'og-wc-products/update-product-brand' )->execute(
 			array(
 				'id'   => $id,
 				'name' => 'Globex Inc',
@@ -111,7 +111,7 @@ final class UpdateProductBrandTest extends TestCase {
 
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-products/update-product-brand' )->execute(
+		$result = wp_get_ability( 'og-wc-products/update-product-brand' )->execute(
 			array(
 				'id'   => 99999999,
 				'name' => 'Ghost',
@@ -133,7 +133,7 @@ final class UpdateProductBrandTest extends TestCase {
 
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-products/update-product-brand' );
+		$ability = wp_get_ability( 'og-wc-products/update-product-brand' );
 
 		$this->assertFalse(
 			$ability->check_permissions(

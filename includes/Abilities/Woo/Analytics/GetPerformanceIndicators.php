@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-reports/get-performance-indicators`.
+ * Read ability: `og-wc-reports/get-performance-indicators`.
  *
  * Wraps `GET /wc-analytics/reports/performance-indicators` via `rest_do_request()`
  * and returns the store's top-level KPI snapshot for a date range: one flat row per
@@ -22,8 +22,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * indicator has no data for the range), and `format` (`number` or `currency`). This
  * is the single-call "store at a glance" read — total sales, net revenue, orders,
  * average order value, items sold, refunds, and so on — as opposed to the per-report
- * stats abilities (`wc-reports/get-revenue-stats`, `wc-reports/get-orders-stats`,
- * `wc-reports/get-products-stats`), which each return one report's full KPI totals
+ * stats abilities (`og-wc-reports/get-revenue-stats`, `og-wc-reports/get-orders-stats`,
+ * `og-wc-reports/get-products-stats`), which each return one report's full KPI totals
  * plus the interval count.
  *
  * Only available when the store's WooCommerce **Analytics** feature is enabled (it is
@@ -39,7 +39,7 @@ final class GetPerformanceIndicators implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-reports/get-performance-indicators';
+		return 'og-wc-reports/get-performance-indicators';
 	}
 
 	/**
@@ -55,8 +55,8 @@ final class GetPerformanceIndicators implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Get Performance Indicators', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns WooCommerce Analytics performance indicators for a date range as flat rows, each with its stat key, human label, numeric value (or null when the indicator has no data for the range), and format ("number" or "currency"). This is the single-call store-at-a-glance KPI snapshot (total sales, net revenue, orders, average order value, items sold, refunds, and more); use it instead of the per-report stats abilities (wc-reports/get-revenue-stats, wc-reports/get-orders-stats) when you want a cross-report KPI summary rather than one report\'s full totals. Set after/before (ISO8601 date-time) to bound the range; an empty or data-less range yields indicators with a null value. Omit stats to return every available indicator (recommended); to limit, pass an array of stat keys (e.g. "revenue/total_sales"). Only available when the store\'s WooCommerce Analytics feature is enabled.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-reports',
+			'description'         => __( 'Returns WooCommerce Analytics performance indicators for a date range as flat rows, each with its stat key, human label, numeric value (or null when the indicator has no data for the range), and format ("number" or "currency"). This is the single-call store-at-a-glance KPI snapshot (total sales, net revenue, orders, average order value, items sold, refunds, and more); use it instead of the per-report stats abilities (og-wc-reports/get-revenue-stats, og-wc-reports/get-orders-stats) when you want a cross-report KPI summary rather than one report\'s full totals. Set after/before (ISO8601 date-time) to bound the range; an empty or data-less range yields indicators with a null value. Omit stats to return every available indicator (recommended); to limit, pass an array of stat keys (e.g. "revenue/total_sales"). Only available when the store\'s WooCommerce Analytics feature is enabled.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-reports',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array(

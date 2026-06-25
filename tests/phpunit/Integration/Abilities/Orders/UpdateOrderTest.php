@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-orders/update-order ability.
+ * Integration tests for the og-wc-orders/update-order ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -15,7 +15,7 @@ use WC_Order;
 use WC_Product_Simple;
 
 /**
- * Exercises wc-orders/update-order: a field change on a seeded order, the
+ * Exercises og-wc-orders/update-order: a field change on a seeded order, the
  * missing-order invalid-id error that must not collapse to a permission error,
  * the wrong-capability denial (with the order unchanged), the absence of a
  * `status` input param (status changes are a separate ability), and the exact
@@ -49,10 +49,10 @@ final class UpdateOrderTest extends TestCase {
 	);
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-orders/update-order' );
+		$ability = wp_get_ability( 'og-wc-orders/update-order' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-orders/update-order', $ability->get_name() );
+		$this->assertSame( 'og-wc-orders/update-order', $ability->get_name() );
 	}
 
 	public function test_admin_updates_a_billing_field(): void {
@@ -60,7 +60,7 @@ final class UpdateOrderTest extends TestCase {
 
 		$id = $this->seedOrder();
 
-		$result = wp_get_ability( 'wc-orders/update-order' )->execute(
+		$result = wp_get_ability( 'og-wc-orders/update-order' )->execute(
 			array(
 				'id'      => $id,
 				'billing' => array(
@@ -84,7 +84,7 @@ final class UpdateOrderTest extends TestCase {
 
 		$id = $this->seedOrder();
 
-		$result = wp_get_ability( 'wc-orders/update-order' )->execute(
+		$result = wp_get_ability( 'og-wc-orders/update-order' )->execute(
 			array(
 				'id'      => $id,
 				'billing' => array(
@@ -103,9 +103,9 @@ final class UpdateOrderTest extends TestCase {
 	}
 
 	public function test_input_schema_has_no_status_param(): void {
-		// Status changes go through wc-orders/update-order-status (batch 23); the
+		// Status changes go through og-wc-orders/update-order-status (batch 23); the
 		// writable subset must structurally exclude status.
-		$ability = wp_get_ability( 'wc-orders/update-order' );
+		$ability = wp_get_ability( 'og-wc-orders/update-order' );
 		$schema  = $ability->get_input_schema();
 
 		$this->assertArrayNotHasKey( 'status', $schema['properties'] );
@@ -114,7 +114,7 @@ final class UpdateOrderTest extends TestCase {
 	public function test_missing_order_returns_invalid_id_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-orders/update-order' )->execute(
+		$result = wp_get_ability( 'og-wc-orders/update-order' )->execute(
 			array(
 				'id'      => 99999999,
 				'billing' => array(
@@ -134,7 +134,7 @@ final class UpdateOrderTest extends TestCase {
 
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-orders/update-order' );
+		$ability = wp_get_ability( 'og-wc-orders/update-order' );
 
 		$this->assertFalse(
 			$ability->check_permissions(

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-reports/get-reviews-totals`.
+ * Read ability: `og-wc-reports/get-reviews-totals`.
  *
  * Wraps `GET /wc/v3/reports/reviews/totals` via `rest_do_request()` and returns
  * the product-review counts bucketed by star rating: exactly five rows
@@ -39,7 +39,7 @@ final class GetReviewsTotals implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-reports/get-reviews-totals';
+		return 'og-wc-reports/get-reviews-totals';
 	}
 
 	/**
@@ -56,7 +56,7 @@ final class GetReviewsTotals implements ConditionalAbility {
 		return array(
 			'label'               => __( 'Get Reviews Totals', 'abilities-catalog-woo' ),
 			'description'         => __( 'Returns WooCommerce product-review counts bucketed by star rating: exactly five rows (rated 1 through 5 out of 5), each with its slug, label, and review count. Answers "how many product reviews have each star rating?". This is the legacy wc/v3 report; for review trends over time use the wc-analytics surface (present only when the Analytics feature is on). Read-only: returns counts only, not the review text or authors.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-reports',
+			'category'            => 'og-wc-reports',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => (object) array(),

@@ -15,12 +15,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-orders/get-order-note`.
+ * Read ability: `og-wc-orders/get-order-note`.
  *
  * Wraps `GET wc/v3/orders/<order_id>/notes/<id>` via `rest_do_request()` and
  * returns one order note as a flat, closed row through
  * {@see OrderNoteListShaper::summary()} — the same shaped fields a
- * `wc-orders/list-order-notes` row carries: `id`, `author`, `note`,
+ * `og-wc-orders/list-order-notes` row carries: `id`, `author`, `note`,
  * `customer_note`, and `date_created`. A WooCommerce order note is a WordPress
  * comment on an order; the note may be an internal admin note or a
  * customer-facing one (the `customer_note` flag).
@@ -39,7 +39,7 @@ final class GetOrderNote implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-orders/get-order-note';
+		return 'og-wc-orders/get-order-note';
 	}
 
 	/**
@@ -55,8 +55,8 @@ final class GetOrderNote implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Get Order Note', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns one WooCommerce order note by ID: its content, author, whether it is shown to the customer, and creation date. An order note is a WordPress comment on an order. Both order_id (the parent order) and id (the note) are required; the note is read from that order and a note that belongs to a different order is rejected. Discover order_id and id with wc-orders/list-order-notes. Read-only; orders carry customer PII, so this is gated on the read_private_shop_orders capability.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-orders',
+			'description'         => __( 'Returns one WooCommerce order note by ID: its content, author, whether it is shown to the customer, and creation date. An order note is a WordPress comment on an order. Both order_id (the parent order) and id (the note) are required; the note is read from that order and a note that belongs to a different order is rejected. Discover order_id and id with og-wc-orders/list-order-notes. Read-only; orders carry customer PII, so this is gated on the read_private_shop_orders capability.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-orders',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'order_id', 'id' ),
@@ -64,12 +64,12 @@ final class GetOrderNote implements ConditionalAbility {
 					'order_id' => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The parent order ID the note belongs to. Discover it with wc-orders/list-orders or wc-orders/list-order-notes.', 'abilities-catalog-woo' ),
+						'description' => __( 'The parent order ID the note belongs to. Discover it with og-wc-orders/list-orders or og-wc-orders/list-order-notes.', 'abilities-catalog-woo' ),
 					),
 					'id'       => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The order note ID. Discover it with wc-orders/list-order-notes.', 'abilities-catalog-woo' ),
+						'description' => __( 'The order note ID. Discover it with og-wc-orders/list-order-notes.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,

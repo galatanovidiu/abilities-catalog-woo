@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-reports/get-taxes-stats` ability.
+ * Integration tests for the `og-wc-reports/get-taxes-stats` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -22,7 +22,7 @@ use WP_Error;
  */
 final class GetTaxesStatsTest extends TestCase {
 
-	private const ABILITY = 'wc-reports/get-taxes-stats';
+	private const ABILITY = 'og-wc-reports/get-taxes-stats';
 
 	/**
 	 * The exact keys the shaped taxes `totals` object exposes.

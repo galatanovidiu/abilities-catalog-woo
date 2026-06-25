@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-data/get-current-currency` ability.
+ * Integration tests for the `og-wc-data/get-current-currency` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -17,7 +17,7 @@ use WP_Error;
  */
 final class GetCurrentCurrencyTest extends TestCase {
 
-	private const ABILITY = 'wc-data/get-current-currency';
+	private const ABILITY = 'og-wc-data/get-current-currency';
 
 	/**
 	 * The exact closed key set the currency summary exposes.

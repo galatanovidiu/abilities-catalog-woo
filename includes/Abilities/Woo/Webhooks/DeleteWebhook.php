@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Destructive write ability: `wc-webhooks/delete-webhook`.
+ * Destructive write ability: `og-wc-webhooks/delete-webhook`.
  *
  * Wraps `DELETE /wc/v3/webhooks/<id>` via `rest_do_request()`. The route does not
  * support trashing: with `force=false` (its default) it returns a 501
@@ -43,7 +43,7 @@ final class DeleteWebhook implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-webhooks/delete-webhook';
+		return 'og-wc-webhooks/delete-webhook';
 	}
 
 	/**
@@ -59,8 +59,8 @@ final class DeleteWebhook implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Delete Webhook', 'abilities-catalog-woo' ),
-			'description'         => __( 'Permanently deletes a WooCommerce webhook by ID. This cannot be undone: WooCommerce force-deletes the webhook, bypassing the Trash (the route returns a 501 error if asked not to), so there is no restore, and the webhook stops receiving any further deliveries. Returns the deleted webhook\'s name for confirmation; no edit_link is returned because the webhook no longer exists. Discover IDs with wc-webhooks/list-webhooks. Note: this is the only webhook write in the catalog — creating and updating webhooks are the deferred dangerous tier (a free-form delivery_url is a data-exfiltration vector) and are not available.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-webhooks',
+			'description'         => __( 'Permanently deletes a WooCommerce webhook by ID. This cannot be undone: WooCommerce force-deletes the webhook, bypassing the Trash (the route returns a 501 error if asked not to), so there is no restore, and the webhook stops receiving any further deliveries. Returns the deleted webhook\'s name for confirmation; no edit_link is returned because the webhook no longer exists. Discover IDs with og-wc-webhooks/list-webhooks. Note: this is the only webhook write in the catalog — creating and updating webhooks are the deferred dangerous tier (a free-form delivery_url is a data-exfiltration vector) and are not available.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-webhooks',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
@@ -68,7 +68,7 @@ final class DeleteWebhook implements ConditionalAbility {
 					'id' => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The webhook ID to permanently delete. Discover IDs with wc-webhooks/list-webhooks.', 'abilities-catalog-woo' ),
+						'description' => __( 'The webhook ID to permanently delete. Discover IDs with og-wc-webhooks/list-webhooks.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,

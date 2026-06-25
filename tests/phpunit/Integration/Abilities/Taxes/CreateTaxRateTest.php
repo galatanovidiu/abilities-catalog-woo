@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-taxes/create-tax-rate ability.
+ * Integration tests for the og-wc-taxes/create-tax-rate ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -14,7 +14,7 @@ use WC_Tax;
 use WP_Error;
 
 /**
- * Exercises wc-taxes/create-tax-rate: the happy-path create returning a shaped rate
+ * Exercises og-wc-taxes/create-tax-rate: the happy-path create returning a shaped rate
  * with id > 0, forwarded fields honored on the created rate, the wrong-capability
  * denial, and the exact closed output shape (flat, no raw postcodes/cities/order
  * leak).
@@ -39,16 +39,16 @@ final class CreateTaxRateTest extends TestCase {
 	);
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-taxes/create-tax-rate' );
+		$ability = wp_get_ability( 'og-wc-taxes/create-tax-rate' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-taxes/create-tax-rate', $ability->get_name() );
+		$this->assertSame( 'og-wc-taxes/create-tax-rate', $ability->get_name() );
 	}
 
 	public function test_admin_creates_tax_rate(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-taxes/create-tax-rate' )->execute(
+		$result = wp_get_ability( 'og-wc-taxes/create-tax-rate' )->execute(
 			array(
 				'country' => 'US',
 				'state'   => 'CA',
@@ -75,7 +75,7 @@ final class CreateTaxRateTest extends TestCase {
 	public function test_forwarded_fields_are_honored(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-taxes/create-tax-rate' )->execute(
+		$result = wp_get_ability( 'og-wc-taxes/create-tax-rate' )->execute(
 			array(
 				'country'  => 'GB',
 				'rate'     => '20.0',
@@ -98,7 +98,7 @@ final class CreateTaxRateTest extends TestCase {
 	public function test_output_shape_is_exact_and_closed(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-taxes/create-tax-rate' )->execute(
+		$result = wp_get_ability( 'og-wc-taxes/create-tax-rate' )->execute(
 			array(
 				'country'  => 'US',
 				'postcode' => '90210',
@@ -134,7 +134,7 @@ final class CreateTaxRateTest extends TestCase {
 	public function test_subscriber_is_denied(): void {
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-taxes/create-tax-rate' );
+		$ability = wp_get_ability( 'og-wc-taxes/create-tax-rate' );
 
 		$this->assertFalse( $ability->check_permissions( array( 'country' => 'US' ) ) );
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-taxes/update-tax-rate ability.
+ * Integration tests for the og-wc-taxes/update-tax-rate ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -14,7 +14,7 @@ use WC_Tax;
 use WP_Error;
 
 /**
- * Exercises wc-taxes/update-tax-rate: the happy-path shaped updated rate, a changed
+ * Exercises og-wc-taxes/update-tax-rate: the happy-path shaped updated rate, a changed
  * field reflecting, the missing-rate 404 that must not collapse to a permission
  * error, the wrong-capability denial, and the exact closed output shape.
  */
@@ -62,10 +62,10 @@ final class UpdateTaxRateTest extends TestCase {
 	}
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-taxes/update-tax-rate' );
+		$ability = wp_get_ability( 'og-wc-taxes/update-tax-rate' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-taxes/update-tax-rate', $ability->get_name() );
+		$this->assertSame( 'og-wc-taxes/update-tax-rate', $ability->get_name() );
 	}
 
 	public function test_admin_updates_rate_and_change_reflects(): void {
@@ -73,7 +73,7 @@ final class UpdateTaxRateTest extends TestCase {
 
 		$id = $this->seedRate();
 
-		$result = wp_get_ability( 'wc-taxes/update-tax-rate' )->execute(
+		$result = wp_get_ability( 'og-wc-taxes/update-tax-rate' )->execute(
 			array(
 				'id'   => $id,
 				'rate' => '10.0',
@@ -98,7 +98,7 @@ final class UpdateTaxRateTest extends TestCase {
 
 		$id = $this->seedRate();
 
-		$result = wp_get_ability( 'wc-taxes/update-tax-rate' )->execute(
+		$result = wp_get_ability( 'og-wc-taxes/update-tax-rate' )->execute(
 			array(
 				'id'       => $id,
 				'name'     => 'Renamed VAT',
@@ -114,7 +114,7 @@ final class UpdateTaxRateTest extends TestCase {
 	public function test_missing_rate_returns_404_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-taxes/update-tax-rate' )->execute(
+		$result = wp_get_ability( 'og-wc-taxes/update-tax-rate' )->execute(
 			array(
 				'id'   => 99999999,
 				'rate' => '5.0',
@@ -130,7 +130,7 @@ final class UpdateTaxRateTest extends TestCase {
 	public function test_missing_required_id_is_rejected(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-taxes/update-tax-rate' )->execute(
+		$result = wp_get_ability( 'og-wc-taxes/update-tax-rate' )->execute(
 			array(
 				'rate' => '5.0',
 			)
@@ -145,7 +145,7 @@ final class UpdateTaxRateTest extends TestCase {
 
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-taxes/update-tax-rate' );
+		$ability = wp_get_ability( 'og-wc-taxes/update-tax-rate' );
 
 		$this->assertFalse( $ability->check_permissions( array( 'id' => $id ) ) );
 
@@ -169,7 +169,7 @@ final class UpdateTaxRateTest extends TestCase {
 
 		$id = $this->seedRate();
 
-		$result = wp_get_ability( 'wc-taxes/update-tax-rate' )->execute(
+		$result = wp_get_ability( 'og-wc-taxes/update-tax-rate' )->execute(
 			array(
 				'id'   => $id,
 				'rate' => '12.5',

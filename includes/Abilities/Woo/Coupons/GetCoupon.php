@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-coupons/get-coupon`.
+ * Read ability: `og-wc-coupons/get-coupon`.
  *
  * Wraps `GET wc/v3/coupons/<id>` via `rest_do_request()` and returns one coupon
  * as a flat, closed record: the summary fields (code, amount, discount_type,
@@ -38,7 +38,7 @@ final class GetCoupon implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-coupons/get-coupon';
+		return 'og-wc-coupons/get-coupon';
 	}
 
 	/**
@@ -54,8 +54,8 @@ final class GetCoupon implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Get Coupon', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns one WooCommerce coupon by ID: its code, discount amount and type, expiry date, usage count and limit, the product include/exclude ID lists, the minimum and maximum order-amount thresholds, the description, and the wp-admin edit_link. Use this for one coupon\'s full configuration; discover IDs with wc-coupons/list-coupons.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-coupons',
+			'description'         => __( 'Returns one WooCommerce coupon by ID: its code, discount amount and type, expiry date, usage count and limit, the product include/exclude ID lists, the minimum and maximum order-amount thresholds, the description, and the wp-admin edit_link. Use this for one coupon\'s full configuration; discover IDs with og-wc-coupons/list-coupons.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-coupons',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
@@ -63,7 +63,7 @@ final class GetCoupon implements ConditionalAbility {
 					'id' => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The coupon ID. Discover IDs with wc-coupons/list-coupons.', 'abilities-catalog-woo' ),
+						'description' => __( 'The coupon ID. Discover IDs with og-wc-coupons/list-coupons.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,

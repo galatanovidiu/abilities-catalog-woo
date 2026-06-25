@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-reports/get-revenue-stats`.
+ * Read ability: `og-wc-reports/get-revenue-stats`.
  *
  * Wraps `GET /wc-analytics/reports/revenue/stats` via `rest_do_request()` and
  * returns the aggregated revenue KPI `totals` over a date range, plus
@@ -63,7 +63,7 @@ final class GetRevenueStats implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-reports/get-revenue-stats';
+		return 'og-wc-reports/get-revenue-stats';
 	}
 
 	/**
@@ -79,8 +79,8 @@ final class GetRevenueStats implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Get Revenue Stats', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns aggregated WooCommerce Analytics revenue KPIs over a date range: total_sales, net_revenue, gross_sales, coupons, coupons_count, shipping, taxes, refunds, orders_count, and num_items_sold. Use this for store-wide revenue totals; use wc-reports/get-orders-stats for order-centric KPIs (average order value, customer counts) or wc-reports/list-orders-analytics for per-order rows. The date range is set with after/before (ISO8601 date-time); interval buckets the breakdown that drives intervals_count. The full per-interval breakdown is intentionally omitted — only intervals_count (the number of buckets) is reported. Only available when the store\'s WooCommerce Analytics feature is enabled.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-reports',
+			'description'         => __( 'Returns aggregated WooCommerce Analytics revenue KPIs over a date range: total_sales, net_revenue, gross_sales, coupons, coupons_count, shipping, taxes, refunds, orders_count, and num_items_sold. Use this for store-wide revenue totals; use og-wc-reports/get-orders-stats for order-centric KPIs (average order value, customer counts) or og-wc-reports/list-orders-analytics for per-order rows. The date range is set with after/before (ISO8601 date-time); interval buckets the breakdown that drives intervals_count. The full per-interval breakdown is intentionally omitted — only intervals_count (the number of buckets) is reported. Only available when the store\'s WooCommerce Analytics feature is enabled.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-reports',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array(

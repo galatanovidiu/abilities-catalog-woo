@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-products/list-shipping-classes`.
+ * Read ability: `og-wc-products/list-shipping-classes`.
  *
  * Wraps `GET wc/v3/products/shipping_classes` via `rest_do_request()` and returns
  * each shipping class as a flat summary row, so a consumer scans the store's
@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * than through the shared {@see \GalatanOvidiu\AbilitiesCatalogWoo\Support\ProductTermListShaper},
  * which carries a `parent` field) so a shipping-class row exposes exactly the five
  * fields the WC controller returns — `id`, `name`, `slug`, `count`, `description` —
- * with no `parent` and no raw term fields. Use `wc-products/get-shipping-class` for
+ * with no `parent` and no raw term fields. Use `og-wc-products/get-shipping-class` for
  * one shipping class by ID.
  *
  * Only available when WooCommerce is active (it is a {@see ConditionalAbility}).
@@ -43,7 +43,7 @@ final class ListShippingClasses implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/list-shipping-classes';
+		return 'og-wc-products/list-shipping-classes';
 	}
 
 	/**
@@ -59,8 +59,8 @@ final class ListShippingClasses implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'List Shipping Classes', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns the store\'s WooCommerce product shipping classes as flat summary rows, each with its id, name, slug, product count, and description. Filter by search term, page through results, sort with orderby/order, and set hide_empty to drop shipping classes with no published products. Shipping classes are flat (no hierarchy), so a row has no parent field. Use wc-products/get-shipping-class for one shipping class by ID.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Returns the store\'s WooCommerce product shipping classes as flat summary rows, each with its id, name, slug, product count, and description. Filter by search term, page through results, sort with orderby/order, and set hide_empty to drop shipping classes with no published products. Shipping classes are flat (no hierarchy), so a row has no parent field. Use og-wc-products/get-shipping-class for one shipping class by ID.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array(
@@ -108,7 +108,7 @@ final class ListShippingClasses implements ConditionalAbility {
 				'properties'           => array(
 					'items' => array(
 						'type'        => 'array',
-						'description' => __( 'The product shipping classes as flat summary rows. Use wc-products/get-shipping-class for a single shipping class by ID. A row has no parent field because shipping classes are a flat taxonomy.', 'abilities-catalog-woo' ),
+						'description' => __( 'The product shipping classes as flat summary rows. Use og-wc-products/get-shipping-class for a single shipping class by ID. A row has no parent field because shipping classes are a flat taxonomy.', 'abilities-catalog-woo' ),
 						'items'       => self::shippingClassItemSchema(),
 					),
 					'total' => array(
@@ -134,7 +134,7 @@ final class ListShippingClasses implements ConditionalAbility {
 	/**
 	 * Permission check: WooCommerce's read capability for product terms.
 	 *
-	 * Encodes the catalog baseline for `wc-products/list-shipping-classes`: the
+	 * Encodes the catalog baseline for `og-wc-products/list-shipping-classes`: the
 	 * `manage_product_terms` capability, which is what
 	 * `wc_rest_check_product_term_permissions( 'product_shipping_class', 'read' )`
 	 * resolves to on the wrapped `GET wc/v3/products/shipping_classes` route — the
@@ -242,7 +242,7 @@ final class ListShippingClasses implements ConditionalAbility {
 			'properties'           => array(
 				'id'          => array(
 					'type'        => 'integer',
-					'description' => __( 'The shipping class ID. Read one shipping class with wc-products/get-shipping-class.', 'abilities-catalog-woo' ),
+					'description' => __( 'The shipping class ID. Read one shipping class with og-wc-products/get-shipping-class.', 'abilities-catalog-woo' ),
 				),
 				'name'        => array(
 					'type'        => 'string',

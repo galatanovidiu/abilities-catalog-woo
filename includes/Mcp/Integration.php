@@ -15,8 +15,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * The catalog exposes one curated MCP tool per domain, not one per ability, and is
  * extensible through public filters. This class is the add-on's whole MCP surface:
- * it registers four domain tools — `store-catalog`, `store-orders`, `store-config`,
- * and `store-reports` — grouping the `wc-*` abilities a store operator reasons
+ * it registers four domain tools — `woocommerce-catalog`, `woocommerce-orders`,
+ * `woocommerce-config`, and `woocommerce-reports` — grouping the `wc-*` abilities a
+ * store operator reasons
  * about together. Each tool's description and the abilities it owns live in one
  * place.
  *
@@ -35,178 +36,178 @@ if ( ! defined( 'ABSPATH' ) ) {
 final class Integration {
 
 	/**
-	 * The `store-catalog` tool's ability names (wc-products), in tool order.
+	 * The `woocommerce-catalog` tool's ability names (wc-products), in tool order.
 	 *
 	 * @var list<string>
 	 */
-	private const STORE_CATALOG_ABILITIES = array(
-		'wc-products/list-products',
-		'wc-products/get-product',
-		'wc-products/list-product-variations',
-		'wc-products/get-product-variation',
-		'wc-products/list-product-custom-field-names',
-		'wc-products/list-product-attributes',
-		'wc-products/get-product-attribute',
-		'wc-products/list-attribute-terms',
-		'wc-products/get-attribute-term',
-		'wc-products/list-product-categories',
-		'wc-products/get-product-category',
-		'wc-products/list-product-tags',
-		'wc-products/get-product-tag',
-		'wc-products/list-product-brands',
-		'wc-products/get-product-brand',
-		'wc-products/list-shipping-classes',
-		'wc-products/get-shipping-class',
-		'wc-products/list-product-reviews',
-		'wc-products/get-product-review',
-		'wc-products/create-product',
-		'wc-products/update-product',
-		'wc-products/duplicate-product',
-		'wc-products/create-product-variation',
-		'wc-products/update-product-variation',
-		'wc-products/generate-product-variations',
-		'wc-products/create-product-attribute',
-		'wc-products/update-product-attribute',
-		'wc-products/create-attribute-term',
-		'wc-products/update-attribute-term',
-		'wc-products/create-product-category',
-		'wc-products/update-product-category',
-		'wc-products/create-product-tag',
-		'wc-products/update-product-tag',
-		'wc-products/create-product-brand',
-		'wc-products/update-product-brand',
-		'wc-products/create-shipping-class',
-		'wc-products/update-shipping-class',
-		'wc-products/create-product-review',
-		'wc-products/update-product-review',
-		'wc-products/delete-product',
-		'wc-products/delete-product-variation',
-		'wc-products/delete-product-attribute',
-		'wc-products/delete-attribute-term',
-		'wc-products/delete-product-category',
-		'wc-products/delete-product-tag',
-		'wc-products/delete-product-brand',
-		'wc-products/delete-shipping-class',
-		'wc-products/delete-product-review',
+	private const WOOCOMMERCE_CATALOG_ABILITIES = array(
+		'og-wc-products/list-products',
+		'og-wc-products/get-product',
+		'og-wc-products/list-product-variations',
+		'og-wc-products/get-product-variation',
+		'og-wc-products/list-product-custom-field-names',
+		'og-wc-products/list-product-attributes',
+		'og-wc-products/get-product-attribute',
+		'og-wc-products/list-attribute-terms',
+		'og-wc-products/get-attribute-term',
+		'og-wc-products/list-product-categories',
+		'og-wc-products/get-product-category',
+		'og-wc-products/list-product-tags',
+		'og-wc-products/get-product-tag',
+		'og-wc-products/list-product-brands',
+		'og-wc-products/get-product-brand',
+		'og-wc-products/list-shipping-classes',
+		'og-wc-products/get-shipping-class',
+		'og-wc-products/list-product-reviews',
+		'og-wc-products/get-product-review',
+		'og-wc-products/create-product',
+		'og-wc-products/update-product',
+		'og-wc-products/duplicate-product',
+		'og-wc-products/create-product-variation',
+		'og-wc-products/update-product-variation',
+		'og-wc-products/generate-product-variations',
+		'og-wc-products/create-product-attribute',
+		'og-wc-products/update-product-attribute',
+		'og-wc-products/create-attribute-term',
+		'og-wc-products/update-attribute-term',
+		'og-wc-products/create-product-category',
+		'og-wc-products/update-product-category',
+		'og-wc-products/create-product-tag',
+		'og-wc-products/update-product-tag',
+		'og-wc-products/create-product-brand',
+		'og-wc-products/update-product-brand',
+		'og-wc-products/create-shipping-class',
+		'og-wc-products/update-shipping-class',
+		'og-wc-products/create-product-review',
+		'og-wc-products/update-product-review',
+		'og-wc-products/delete-product',
+		'og-wc-products/delete-product-variation',
+		'og-wc-products/delete-product-attribute',
+		'og-wc-products/delete-attribute-term',
+		'og-wc-products/delete-product-category',
+		'og-wc-products/delete-product-tag',
+		'og-wc-products/delete-product-brand',
+		'og-wc-products/delete-shipping-class',
+		'og-wc-products/delete-product-review',
 	);
 
 	/**
-	 * The `store-orders` tool's ability names (wc-orders + wc-customers + wc-coupons), in tool order.
+	 * The `woocommerce-orders` tool's ability names (wc-orders + wc-customers + wc-coupons), in tool order.
 	 *
 	 * @var list<string>
 	 */
-	private const STORE_ORDERS_ABILITIES = array(
-		'wc-orders/list-orders',
-		'wc-orders/get-order',
-		'wc-orders/list-order-statuses',
-		'wc-orders/list-order-notes',
-		'wc-orders/get-order-note',
-		'wc-orders/list-order-refunds',
-		'wc-orders/get-order-refund',
-		'wc-orders/create-order',
-		'wc-orders/update-order',
-		'wc-orders/add-order-note',
-		'wc-customers/list-customers',
-		'wc-customers/get-customer',
-		'wc-customers/list-customer-downloads',
-		'wc-coupons/list-coupons',
-		'wc-coupons/get-coupon',
-		'wc-customers/create-customer',
-		'wc-customers/update-customer',
-		'wc-coupons/create-coupon',
-		'wc-coupons/update-coupon',
-		'wc-orders/delete-order',
-		'wc-orders/delete-order-note',
-		'wc-orders/delete-order-refund',
-		'wc-coupons/delete-coupon',
-		'wc-customers/delete-customer',
-		'wc-orders/update-order-status',
-		'wc-orders/send-order-email',
+	private const WOOCOMMERCE_ORDERS_ABILITIES = array(
+		'og-wc-orders/list-orders',
+		'og-wc-orders/get-order',
+		'og-wc-orders/list-order-statuses',
+		'og-wc-orders/list-order-notes',
+		'og-wc-orders/get-order-note',
+		'og-wc-orders/list-order-refunds',
+		'og-wc-orders/get-order-refund',
+		'og-wc-orders/create-order',
+		'og-wc-orders/update-order',
+		'og-wc-orders/add-order-note',
+		'og-wc-customers/list-customers',
+		'og-wc-customers/get-customer',
+		'og-wc-customers/list-customer-downloads',
+		'og-wc-coupons/list-coupons',
+		'og-wc-coupons/get-coupon',
+		'og-wc-customers/create-customer',
+		'og-wc-customers/update-customer',
+		'og-wc-coupons/create-coupon',
+		'og-wc-coupons/update-coupon',
+		'og-wc-orders/delete-order',
+		'og-wc-orders/delete-order-note',
+		'og-wc-orders/delete-order-refund',
+		'og-wc-coupons/delete-coupon',
+		'og-wc-customers/delete-customer',
+		'og-wc-orders/update-order-status',
+		'og-wc-orders/send-order-email',
 	);
 
 	/**
-	 * The `store-config` tool's ability names (wc-settings + wc-shipping + wc-taxes
+	 * The `woocommerce-config` tool's ability names (wc-settings + wc-shipping + wc-taxes
 	 * + wc-payment-gateways + wc-webhooks + wc-system + wc-data), in tool order.
 	 *
 	 * @var list<string>
 	 */
-	private const STORE_CONFIG_ABILITIES = array(
-		'wc-shipping/list-shipping-zones',
-		'wc-shipping/get-shipping-zone',
-		'wc-shipping/get-shipping-zone-locations',
-		'wc-shipping/list-shipping-zone-methods',
-		'wc-shipping/get-shipping-zone-method',
-		'wc-shipping/list-shipping-methods',
-		'wc-shipping/get-shipping-method',
-		'wc-taxes/list-tax-rates',
-		'wc-taxes/get-tax-rate',
-		'wc-taxes/list-tax-classes',
-		'wc-payment-gateways/list-payment-gateways',
-		'wc-payment-gateways/get-payment-gateway',
-		'wc-settings/list-setting-groups',
-		'wc-settings/list-group-settings',
-		'wc-settings/get-setting-option',
-		'wc-webhooks/list-webhooks',
-		'wc-webhooks/get-webhook',
-		'wc-system/get-system-status',
-		'wc-system/list-system-tools',
-		'wc-system/get-system-tool',
-		'wc-data/list-data-index',
-		'wc-data/list-countries',
-		'wc-data/get-country',
-		'wc-data/list-currencies',
-		'wc-data/get-current-currency',
-		'wc-data/get-currency',
-		'wc-data/list-continents',
-		'wc-data/get-continent',
-		'wc-shipping/create-shipping-zone',
-		'wc-shipping/update-shipping-zone',
-		'wc-shipping/update-shipping-zone-locations',
-		'wc-shipping/create-shipping-zone-method',
-		'wc-shipping/update-shipping-zone-method',
-		'wc-taxes/create-tax-rate',
-		'wc-taxes/update-tax-rate',
-		'wc-taxes/create-tax-class',
-		'wc-shipping/delete-shipping-zone',
-		'wc-shipping/delete-shipping-zone-method',
-		'wc-taxes/delete-tax-rate',
-		'wc-taxes/delete-tax-class',
-		'wc-webhooks/delete-webhook',
+	private const WOOCOMMERCE_CONFIG_ABILITIES = array(
+		'og-wc-shipping/list-shipping-zones',
+		'og-wc-shipping/get-shipping-zone',
+		'og-wc-shipping/get-shipping-zone-locations',
+		'og-wc-shipping/list-shipping-zone-methods',
+		'og-wc-shipping/get-shipping-zone-method',
+		'og-wc-shipping/list-shipping-methods',
+		'og-wc-shipping/get-shipping-method',
+		'og-wc-taxes/list-tax-rates',
+		'og-wc-taxes/get-tax-rate',
+		'og-wc-taxes/list-tax-classes',
+		'og-wc-payment-gateways/list-payment-gateways',
+		'og-wc-payment-gateways/get-payment-gateway',
+		'og-wc-settings/list-setting-groups',
+		'og-wc-settings/list-group-settings',
+		'og-wc-settings/get-setting-option',
+		'og-wc-webhooks/list-webhooks',
+		'og-wc-webhooks/get-webhook',
+		'og-wc-system/get-system-status',
+		'og-wc-system/list-system-tools',
+		'og-wc-system/get-system-tool',
+		'og-wc-data/list-data-index',
+		'og-wc-data/list-countries',
+		'og-wc-data/get-country',
+		'og-wc-data/list-currencies',
+		'og-wc-data/get-current-currency',
+		'og-wc-data/get-currency',
+		'og-wc-data/list-continents',
+		'og-wc-data/get-continent',
+		'og-wc-shipping/create-shipping-zone',
+		'og-wc-shipping/update-shipping-zone',
+		'og-wc-shipping/update-shipping-zone-locations',
+		'og-wc-shipping/create-shipping-zone-method',
+		'og-wc-shipping/update-shipping-zone-method',
+		'og-wc-taxes/create-tax-rate',
+		'og-wc-taxes/update-tax-rate',
+		'og-wc-taxes/create-tax-class',
+		'og-wc-shipping/delete-shipping-zone',
+		'og-wc-shipping/delete-shipping-zone-method',
+		'og-wc-taxes/delete-tax-rate',
+		'og-wc-taxes/delete-tax-class',
+		'og-wc-webhooks/delete-webhook',
 	);
 
 	/**
-	 * The `store-reports` tool's ability names (wc-reports, legacy + analytics), in tool order.
+	 * The `woocommerce-reports` tool's ability names (wc-reports, legacy + analytics), in tool order.
 	 *
 	 * @var list<string>
 	 */
-	private const STORE_REPORTS_ABILITIES = array(
-		'wc-reports/get-sales-report',
-		'wc-reports/get-top-sellers-report',
-		'wc-reports/get-orders-totals',
-		'wc-reports/get-products-totals',
-		'wc-reports/get-customers-totals',
-		'wc-reports/get-coupons-totals',
-		'wc-reports/get-reviews-totals',
-		'wc-reports/get-revenue-stats',
-		'wc-reports/list-orders-analytics',
-		'wc-reports/get-orders-stats',
-		'wc-reports/list-products-analytics',
-		'wc-reports/get-products-stats',
-		'wc-reports/get-performance-indicators',
-		'wc-reports/get-leaderboards',
-		'wc-reports/list-categories-analytics',
-		'wc-reports/list-coupons-analytics',
-		'wc-reports/get-coupons-stats',
-		'wc-reports/list-taxes-analytics',
-		'wc-reports/get-taxes-stats',
-		'wc-reports/list-customers-analytics',
-		'wc-reports/get-customers-stats',
-		'wc-reports/list-stock-analytics',
-		'wc-reports/get-stock-stats',
-		'wc-reports/list-variations-analytics',
-		'wc-reports/get-variations-stats',
-		'wc-reports/list-downloads-analytics',
-		'wc-reports/get-downloads-stats',
+	private const WOOCOMMERCE_REPORTS_ABILITIES = array(
+		'og-wc-reports/get-sales-report',
+		'og-wc-reports/get-top-sellers-report',
+		'og-wc-reports/get-orders-totals',
+		'og-wc-reports/get-products-totals',
+		'og-wc-reports/get-customers-totals',
+		'og-wc-reports/get-coupons-totals',
+		'og-wc-reports/get-reviews-totals',
+		'og-wc-reports/get-revenue-stats',
+		'og-wc-reports/list-orders-analytics',
+		'og-wc-reports/get-orders-stats',
+		'og-wc-reports/list-products-analytics',
+		'og-wc-reports/get-products-stats',
+		'og-wc-reports/get-performance-indicators',
+		'og-wc-reports/get-leaderboards',
+		'og-wc-reports/list-categories-analytics',
+		'og-wc-reports/list-coupons-analytics',
+		'og-wc-reports/get-coupons-stats',
+		'og-wc-reports/list-taxes-analytics',
+		'og-wc-reports/get-taxes-stats',
+		'og-wc-reports/list-customers-analytics',
+		'og-wc-reports/get-customers-stats',
+		'og-wc-reports/list-stock-analytics',
+		'og-wc-reports/get-stock-stats',
+		'og-wc-reports/list-variations-analytics',
+		'og-wc-reports/get-variations-stats',
+		'og-wc-reports/list-downloads-analytics',
+		'og-wc-reports/get-downloads-stats',
 	);
 
 	/**
@@ -235,24 +236,24 @@ final class Integration {
 			return $domains;
 		}
 
-		$domains['store-catalog'] = array(
+		$domains['woocommerce-catalog'] = array(
 			'description' => __( 'Manage the WooCommerce product catalog — list, read, create, update, and delete products and product taxonomies.', 'abilities-catalog-woo' ),
-			'abilities'   => self::STORE_CATALOG_ABILITIES,
+			'abilities'   => self::WOOCOMMERCE_CATALOG_ABILITIES,
 		);
 
-		$domains['store-orders'] = array(
+		$domains['woocommerce-orders'] = array(
 			'description' => __( 'Manage WooCommerce orders, customers, and coupons — list, read, create, update, and delete.', 'abilities-catalog-woo' ),
-			'abilities'   => self::STORE_ORDERS_ABILITIES,
+			'abilities'   => self::WOOCOMMERCE_ORDERS_ABILITIES,
 		);
 
-		$domains['store-config'] = array(
+		$domains['woocommerce-config'] = array(
 			'description' => __( 'Configure the WooCommerce store — settings, shipping, taxes, payment gateways, webhooks, system status, and reference data.', 'abilities-catalog-woo' ),
-			'abilities'   => self::STORE_CONFIG_ABILITIES,
+			'abilities'   => self::WOOCOMMERCE_CONFIG_ABILITIES,
 		);
 
-		$domains['store-reports'] = array(
+		$domains['woocommerce-reports'] = array(
 			'description' => __( 'Read WooCommerce sales reports and analytics.', 'abilities-catalog-woo' ),
-			'abilities'   => self::STORE_REPORTS_ABILITIES,
+			'abilities'   => self::WOOCOMMERCE_REPORTS_ABILITIES,
 		);
 
 		return $domains;

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-reports/get-products-stats`.
+ * Read ability: `og-wc-reports/get-products-stats`.
  *
  * Wraps `GET /wc-analytics/reports/products/stats` via `rest_do_request()` and
  * returns the aggregated product-sales KPIs over a date range: a `totals` object
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * request's `after`/`before`/`interval` back. The full per-interval breakdown — a
  * potentially huge `intervals` array, one object per bucket — is intentionally
  * omitted; only its size is reported as `intervals_count`. Use this for an
- * aggregated products-sold/net-revenue total; use `wc-reports/list-products-analytics`
+ * aggregated products-sold/net-revenue total; use `og-wc-reports/list-products-analytics`
  * for per-product rows.
  *
  * Only available when the store's WooCommerce **Analytics** feature is enabled (it
@@ -54,7 +54,7 @@ final class GetProductsStats implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-reports/get-products-stats';
+		return 'og-wc-reports/get-products-stats';
 	}
 
 	/**
@@ -70,8 +70,8 @@ final class GetProductsStats implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Get Products Stats', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns aggregated WooCommerce Analytics product-sales totals over a date range: items_sold, net_revenue, and orders_count, plus intervals_count (the number of period buckets) and the period the report covered. The full per-interval breakdown is intentionally omitted — only intervals_count is reported. Use this for an aggregated products total; use wc-reports/list-products-analytics for per-product rows. The date range is set with after/before (ISO8601 date-time) and interval buckets the breakdown that drives intervals_count. Only available when the store\'s WooCommerce Analytics feature is enabled.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-reports',
+			'description'         => __( 'Returns aggregated WooCommerce Analytics product-sales totals over a date range: items_sold, net_revenue, and orders_count, plus intervals_count (the number of period buckets) and the period the report covered. The full per-interval breakdown is intentionally omitted — only intervals_count is reported. Use this for an aggregated products total; use og-wc-reports/list-products-analytics for per-product rows. The date range is set with after/before (ISO8601 date-time) and interval buckets the breakdown that drives intervals_count. Only available when the store\'s WooCommerce Analytics feature is enabled.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-reports',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array(
@@ -97,7 +97,7 @@ final class GetProductsStats implements ConditionalAbility {
 							'type'    => 'integer',
 							'minimum' => 1,
 						),
-						'description' => __( 'Limit the totals to the given product IDs. Omit to aggregate across all products. Discover product IDs with wc-products/list-products.', 'abilities-catalog-woo' ),
+						'description' => __( 'Limit the totals to the given product IDs. Omit to aggregate across all products. Discover product IDs with og-wc-products/list-products.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,

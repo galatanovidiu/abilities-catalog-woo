@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-orders/list-orders`.
+ * Read ability: `og-wc-orders/list-orders`.
  *
  * Wraps `GET wc/v3/orders` via `rest_do_request()` and returns each order as a
  * flat summary row through {@see OrderListShaper::summary()}, so a consumer scans
@@ -39,7 +39,7 @@ final class ListOrders implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-orders/list-orders';
+		return 'og-wc-orders/list-orders';
 	}
 
 	/**
@@ -55,8 +55,8 @@ final class ListOrders implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'List Orders', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns the store\'s WooCommerce orders as flat summary rows, each with its id, number, status, currency, total, customer_id, billing name and email, and line-item count. Filter by search term, status, customer (user ID), or a date window (after/before), and sort with orderby/order. Use wc-orders/get-order for one order\'s full detail (line items, billing and shipping blocks, edit_link). Orders carry buyer PII; read-only, and only callers with the order capability may read them.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-orders',
+			'description'         => __( 'Returns the store\'s WooCommerce orders as flat summary rows, each with its id, number, status, currency, total, customer_id, billing name and email, and line-item count. Filter by search term, status, customer (user ID), or a date window (after/before), and sort with orderby/order. Use og-wc-orders/get-order for one order\'s full detail (line items, billing and shipping blocks, edit_link). Orders carry buyer PII; read-only, and only callers with the order capability may read them.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-orders',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array(
@@ -86,7 +86,7 @@ final class ListOrders implements ConditionalAbility {
 					'customer' => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'Limit results to orders placed by this customer (a WordPress user ID). Discover IDs with wc-customers/list-customers. Guest orders have customer_id 0 and are not matched by this filter.', 'abilities-catalog-woo' ),
+						'description' => __( 'Limit results to orders placed by this customer (a WordPress user ID). Discover IDs with og-wc-customers/list-customers. Guest orders have customer_id 0 and are not matched by this filter.', 'abilities-catalog-woo' ),
 					),
 					'after'    => array(
 						'type'        => 'string',
@@ -119,7 +119,7 @@ final class ListOrders implements ConditionalAbility {
 				'properties'           => array(
 					'items' => array(
 						'type'        => 'array',
-						'description' => __( 'The orders as flat summary rows. Use wc-orders/get-order for a single order\'s full detail.', 'abilities-catalog-woo' ),
+						'description' => __( 'The orders as flat summary rows. Use og-wc-orders/get-order for a single order\'s full detail.', 'abilities-catalog-woo' ),
 						'items'       => OrderListShaper::itemSchema(),
 					),
 					'total' => array(
@@ -145,7 +145,7 @@ final class ListOrders implements ConditionalAbility {
 	/**
 	 * Permission check: WooCommerce's read capability for orders.
 	 *
-	 * Encodes the catalog baseline for `wc-orders/list-orders`: the
+	 * Encodes the catalog baseline for `og-wc-orders/list-orders`: the
 	 * `read_private_shop_orders` capability, which is what
 	 * `wc_rest_check_post_permissions( 'shop_order', 'read' )` resolves to on the
 	 * wrapped `GET wc/v3/orders` route (the `shop_order` post type maps the meta

@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-reports/get-leaderboards`.
+ * Read ability: `og-wc-reports/get-leaderboards`.
  *
  * Wraps `GET /wc-analytics/leaderboards` via `rest_do_request()` and returns
  * WooCommerce Analytics' bounded leaderboard tables — top customers (by total
@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * compact, display-ready table (`id`, `label`, column `headers`, and `rows` of
  * cells), so this ability passes the shaped leaderboard objects through a closed
  * nested schema rather than reducing them to a totals subset (unlike the
- * `wc-reports/*-stats` abilities). There is no top-level total on this route.
+ * `og-wc-reports/*-stats` abilities). There is no top-level total on this route.
  *
  * Only available when the store's WooCommerce **Analytics** feature is enabled
  * (it is a {@see ConditionalAbility} gated on {@see WooPlugin::hasAnalytics()});
@@ -41,7 +41,7 @@ final class GetLeaderboards implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-reports/get-leaderboards';
+		return 'og-wc-reports/get-leaderboards';
 	}
 
 	/**
@@ -57,8 +57,8 @@ final class GetLeaderboards implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Get Leaderboards', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns WooCommerce Analytics leaderboards over a date range: top customers (by total spend), top coupons (by orders), top categories (by items sold), and top products (by items sold). Each leaderboard is a compact table with an id, label, column headers, and rows of cells ({ display, value, format }); these are returned as-is — there is no totals subset and no top-level total. Use this for ranked "top N" tables; use wc-reports/get-revenue-stats or wc-reports/get-orders-stats for aggregated KPI totals over a range. The date range is set with after/before (ISO8601 date-time); per_page caps each leaderboard at up to 20 rows. Available only when the store\'s WooCommerce Analytics feature is enabled.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-reports',
+			'description'         => __( 'Returns WooCommerce Analytics leaderboards over a date range: top customers (by total spend), top coupons (by orders), top categories (by items sold), and top products (by items sold). Each leaderboard is a compact table with an id, label, column headers, and rows of cells ({ display, value, format }); these are returned as-is — there is no totals subset and no top-level total. Use this for ranked "top N" tables; use og-wc-reports/get-revenue-stats or og-wc-reports/get-orders-stats for aggregated KPI totals over a range. The date range is set with after/before (ISO8601 date-time); per_page caps each leaderboard at up to 20 rows. Available only when the store\'s WooCommerce Analytics feature is enabled.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-reports',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array(
@@ -115,7 +115,7 @@ final class GetLeaderboards implements ConditionalAbility {
 	 * `Automattic\WooCommerce\Admin\API\Leaderboards::get_items_permissions_check()`);
 	 * this ability guards on the narrower `view_woocommerce_reports`, which is the
 	 * common, always-sufficient analytics-read capability shared with the
-	 * `wc-reports/*-stats` siblings. The Analytics-feature and WooCommerce-active
+	 * `og-wc-reports/*-stats` siblings. The Analytics-feature and WooCommerce-active
 	 * gates keep the denial clean when the dependency is absent. The route surfaces
 	 * any object-level error itself.
 	 *

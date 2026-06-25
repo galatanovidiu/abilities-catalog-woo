@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-reports/get-top-sellers-report`.
+ * Read ability: `og-wc-reports/get-top-sellers-report`.
  *
  * Wraps `GET /wc/v3/reports/top_sellers` via `rest_do_request()` and returns the
  * best-selling products for a reporting period, each as a flat row of
@@ -41,7 +41,7 @@ final class GetTopSellersReport implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-reports/get-top-sellers-report';
+		return 'og-wc-reports/get-top-sellers-report';
 	}
 
 	/**
@@ -57,8 +57,8 @@ final class GetTopSellersReport implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Get Top Sellers Report', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns WooCommerce\'s legacy top-sellers report: the best-selling products for a period, each as a flat row of product_id, name, and total quantity sold, ordered most-sold first. Answers "which products sold the most by unit count". With no input it reports the default period (this week); pass period or a date_min/date_max range to scope it. Products are counted only from orders within the range; products never sold do not appear. Use wc-reports/get-sales-report for time-series money totals (sales, tax, refunds) rather than per-product units, and the wc-analytics product leaderboards for revenue-weighted or segmented analysis.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-reports',
+			'description'         => __( 'Returns WooCommerce\'s legacy top-sellers report: the best-selling products for a period, each as a flat row of product_id, name, and total quantity sold, ordered most-sold first. Answers "which products sold the most by unit count". With no input it reports the default period (this week); pass period or a date_min/date_max range to scope it. Products are counted only from orders within the range; products never sold do not appear. Use og-wc-reports/get-sales-report for time-series money totals (sales, tax, refunds) rather than per-product units, and the wc-analytics product leaderboards for revenue-weighted or segmented analysis.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-reports',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array(
@@ -93,7 +93,7 @@ final class GetTopSellersReport implements ConditionalAbility {
 							'properties'           => array(
 								'product_id' => array(
 									'type'        => 'integer',
-									'description' => __( 'The product ID. Read the full product with wc-products/get-product.', 'abilities-catalog-woo' ),
+									'description' => __( 'The product ID. Read the full product with og-wc-products/get-product.', 'abilities-catalog-woo' ),
 								),
 								'name'       => array(
 									'type'        => 'string',

@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-reports/get-customers-stats`.
+ * Read ability: `og-wc-reports/get-customers-stats`.
  *
  * Wraps `GET /wc-analytics/reports/customers/stats` via `rest_do_request()` and
  * returns the store-wide customer aggregate: `customers_count`,
@@ -44,7 +44,7 @@ final class GetCustomersStats implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-reports/get-customers-stats';
+		return 'og-wc-reports/get-customers-stats';
 	}
 
 	/**
@@ -60,8 +60,8 @@ final class GetCustomersStats implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Get Customers Stats', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns the store-wide WooCommerce Analytics customer aggregate: customers_count (number of customers), avg_orders_count (average orders per customer), avg_total_spend (average lifetime spend per customer), and avg_avg_order_value (average AOV per customer). This is a SINGLE aggregate with no time buckets — unlike the other analytics /stats reports it returns no intervals_count and no period envelope. Use this for headline customer KPIs; use wc-reports/list-customers-analytics for the per-customer rows. Optionally narrow the set with registered_after/registered_before (signup date) and last_order_after/last_order_before (last-order date), all ISO8601 date-times; omit them for all customers. Only available when the store\'s WooCommerce Analytics feature is enabled.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-reports',
+			'description'         => __( 'Returns the store-wide WooCommerce Analytics customer aggregate: customers_count (number of customers), avg_orders_count (average orders per customer), avg_total_spend (average lifetime spend per customer), and avg_avg_order_value (average AOV per customer). This is a SINGLE aggregate with no time buckets — unlike the other analytics /stats reports it returns no intervals_count and no period envelope. Use this for headline customer KPIs; use og-wc-reports/list-customers-analytics for the per-customer rows. Optionally narrow the set with registered_after/registered_before (signup date) and last_order_after/last_order_before (last-order date), all ISO8601 date-times; omit them for all customers. Only available when the store\'s WooCommerce Analytics feature is enabled.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-reports',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array(

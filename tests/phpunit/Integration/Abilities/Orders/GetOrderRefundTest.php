@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-orders/get-order-refund ability.
+ * Integration tests for the og-wc-orders/get-order-refund ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -14,7 +14,7 @@ use GalatanOvidiu\AbilitiesCatalogWoo\Tests\TestCase;
 use WP_Error;
 
 /**
- * Exercises wc-orders/get-order-refund: the shaped single-refund read, the
+ * Exercises og-wc-orders/get-order-refund: the shaped single-refund read, the
  * missing-refund 404 that must not collapse to a permission error, the wrong-cap
  * denial, and the closed output shape (no raw refund fields or meta_data leak).
  */
@@ -34,17 +34,17 @@ final class GetOrderRefundTest extends TestCase {
 	);
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-orders/get-order-refund' );
+		$ability = wp_get_ability( 'og-wc-orders/get-order-refund' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-orders/get-order-refund', $ability->get_name() );
+		$this->assertSame( 'og-wc-orders/get-order-refund', $ability->get_name() );
 	}
 
 	public function test_admin_reads_a_single_refund(): void {
 		$this->actingAs( 'administrator' );
 		[ $order_id, $refund_id ] = $this->seedOrderWithRefund();
 
-		$result = wp_get_ability( 'wc-orders/get-order-refund' )->execute(
+		$result = wp_get_ability( 'og-wc-orders/get-order-refund' )->execute(
 			array(
 				'order_id' => $order_id,
 				'id'       => $refund_id,
@@ -64,7 +64,7 @@ final class GetOrderRefundTest extends TestCase {
 		$this->actingAs( 'administrator' );
 		[ $order_id, $refund_id ] = $this->seedOrderWithRefund();
 
-		$result = wp_get_ability( 'wc-orders/get-order-refund' )->execute(
+		$result = wp_get_ability( 'og-wc-orders/get-order-refund' )->execute(
 			array(
 				'order_id' => $order_id,
 				'id'       => $refund_id,
@@ -83,7 +83,7 @@ final class GetOrderRefundTest extends TestCase {
 		$this->actingAs( 'administrator' );
 		[ $order_id ] = $this->seedOrderWithRefund();
 
-		$result = wp_get_ability( 'wc-orders/get-order-refund' )->execute(
+		$result = wp_get_ability( 'og-wc-orders/get-order-refund' )->execute(
 			array(
 				'order_id' => $order_id,
 				'id'       => 99999999,
@@ -101,7 +101,7 @@ final class GetOrderRefundTest extends TestCase {
 		[ , $refund_id ]  = $this->seedOrderWithRefund();
 		[ $other_order ]  = $this->seedOrderWithRefund();
 
-		$result = wp_get_ability( 'wc-orders/get-order-refund' )->execute(
+		$result = wp_get_ability( 'og-wc-orders/get-order-refund' )->execute(
 			array(
 				'order_id' => $other_order,
 				'id'       => $refund_id,
@@ -121,7 +121,7 @@ final class GetOrderRefundTest extends TestCase {
 
 		$this->assertFalse( ( new GetOrderRefund() )->hasPermission( array() ) );
 
-		$result = wp_get_ability( 'wc-orders/get-order-refund' )->execute(
+		$result = wp_get_ability( 'og-wc-orders/get-order-refund' )->execute(
 			array(
 				'order_id' => $order_id,
 				'id'       => $refund_id,

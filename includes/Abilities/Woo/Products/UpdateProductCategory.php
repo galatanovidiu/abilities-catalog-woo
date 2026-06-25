@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Write ability: `wc-products/update-product-category`.
+ * Write ability: `og-wc-products/update-product-category`.
  *
  * Wraps `PUT wc/v3/products/categories/<id>` via `rest_do_request()`, updating an
  * existing product category (the hierarchical `product_cat` taxonomy). The `id` is
@@ -42,7 +42,7 @@ final class UpdateProductCategory implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/update-product-category';
+		return 'og-wc-products/update-product-category';
 	}
 
 	/**
@@ -58,8 +58,8 @@ final class UpdateProductCategory implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Update Product Category', 'abilities-catalog-woo' ),
-			'description'         => __( 'Updates an existing WooCommerce product category (the hierarchical product_cat taxonomy) by ID and returns the shaped category row: id, name, slug, parent, product count, and description. Send only the fields you want to change; an omitted field keeps its current value. Reversible catalog edit affecting only the category taxonomy, not products, orders, or money. Set parent to a category term ID to nest it (0 makes it top-level); changing slug to one already used by another product_cat term returns a term_exists error. display, image, and menu_order can be set but are not returned. Discover IDs with wc-products/list-product-categories.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Updates an existing WooCommerce product category (the hierarchical product_cat taxonomy) by ID and returns the shaped category row: id, name, slug, parent, product count, and description. Send only the fields you want to change; an omitted field keeps its current value. Reversible catalog edit affecting only the category taxonomy, not products, orders, or money. Set parent to a category term ID to nest it (0 makes it top-level); changing slug to one already used by another product_cat term returns a term_exists error. display, image, and menu_order can be set but are not returned. Discover IDs with og-wc-products/list-product-categories.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
@@ -67,7 +67,7 @@ final class UpdateProductCategory implements ConditionalAbility {
 					'id'          => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The product category term ID to update. Discover IDs with wc-products/list-product-categories.', 'abilities-catalog-woo' ),
+						'description' => __( 'The product category term ID to update. Discover IDs with og-wc-products/list-product-categories.', 'abilities-catalog-woo' ),
 					),
 					'name'        => array(
 						'type'        => 'string',
@@ -80,7 +80,7 @@ final class UpdateProductCategory implements ConditionalAbility {
 					'parent'      => array(
 						'type'        => 'integer',
 						'minimum'     => 0,
-						'description' => __( 'The parent category term ID to nest this category under, or 0 to make it top-level. Discover IDs with wc-products/list-product-categories. Omit to keep the current parent.', 'abilities-catalog-woo' ),
+						'description' => __( 'The parent category term ID to nest this category under, or 0 to make it top-level. Discover IDs with og-wc-products/list-product-categories. Omit to keep the current parent.', 'abilities-catalog-woo' ),
 					),
 					'description' => array(
 						'type'        => 'string',

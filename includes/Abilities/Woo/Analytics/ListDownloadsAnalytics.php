@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-reports/list-downloads-analytics`.
+ * Read ability: `og-wc-reports/list-downloads-analytics`.
  *
  * Wraps `GET /wc-analytics/reports/downloads` via `rest_do_request()` and returns
  * the Analytics downloads report as flat per-event rows — one row per downloadable-
@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * {@see self::ROW_KEYS}, so the shaper's whitelist never copies them and they cannot
  * leak through this ability.
  *
- * This is the per-event list counterpart to `wc-reports/get-downloads-stats` (which
+ * This is the per-event list counterpart to `og-wc-reports/get-downloads-stats` (which
  * returns the aggregated download_count over the range). The Analytics downloads
  * route is paginated, so `total` is read from the `X-WP-Total` response header (the
  * full matching count), falling back to the number of returned rows only when the
@@ -67,7 +67,7 @@ final class ListDownloadsAnalytics implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-reports/list-downloads-analytics';
+		return 'og-wc-reports/list-downloads-analytics';
 	}
 
 	/**
@@ -83,8 +83,8 @@ final class ListDownloadsAnalytics implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'List Downloads Analytics', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns the WooCommerce Analytics downloads report as flat per-event rows — one row per downloadable-file download — each with id, product_id, date, download_id, file_name, order_id, order_number, and user_id. Filter the date range with after/before (ISO8601 date-time; omit for the Analytics default range), page with per_page/page, and narrow by products, orders, or customers (arrays of IDs). Use this for a per-download breakdown; use wc-reports/get-downloads-stats for the aggregated download count over a range. Privacy: the downloader\'s IP address and username are intentionally omitted from every row. Available only when the store\'s WooCommerce Analytics feature is enabled; Analytics reads from lookup tables synced asynchronously, so a just-recorded download may not appear yet.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-reports',
+			'description'         => __( 'Returns the WooCommerce Analytics downloads report as flat per-event rows — one row per downloadable-file download — each with id, product_id, date, download_id, file_name, order_id, order_number, and user_id. Filter the date range with after/before (ISO8601 date-time; omit for the Analytics default range), page with per_page/page, and narrow by products, orders, or customers (arrays of IDs). Use this for a per-download breakdown; use og-wc-reports/get-downloads-stats for the aggregated download count over a range. Privacy: the downloader\'s IP address and username are intentionally omitted from every row. Available only when the store\'s WooCommerce Analytics feature is enabled; Analytics reads from lookup tables synced asynchronously, so a just-recorded download may not appear yet.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-reports',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array(
@@ -129,7 +129,7 @@ final class ListDownloadsAnalytics implements ConditionalAbility {
 							'type'    => 'integer',
 							'minimum' => 1,
 						),
-						'description' => __( 'Limit to downloads of the given product IDs. Omit for all products. Discover product IDs with wc-products/list-products.', 'abilities-catalog-woo' ),
+						'description' => __( 'Limit to downloads of the given product IDs. Omit for all products. Discover product IDs with og-wc-products/list-products.', 'abilities-catalog-woo' ),
 					),
 					'orders'    => array(
 						'type'        => 'array',
@@ -137,7 +137,7 @@ final class ListDownloadsAnalytics implements ConditionalAbility {
 							'type'    => 'integer',
 							'minimum' => 1,
 						),
-						'description' => __( 'Limit to downloads tied to the given order IDs. Omit for all orders. Discover order IDs with wc-orders/list-orders.', 'abilities-catalog-woo' ),
+						'description' => __( 'Limit to downloads tied to the given order IDs. Omit for all orders. Discover order IDs with og-wc-orders/list-orders.', 'abilities-catalog-woo' ),
 					),
 					'customers' => array(
 						'type'        => 'array',
@@ -145,7 +145,7 @@ final class ListDownloadsAnalytics implements ConditionalAbility {
 							'type'    => 'integer',
 							'minimum' => 1,
 						),
-						'description' => __( 'Limit to downloads by the given customer (WooCommerce customer) IDs. Omit for all customers. Discover customer IDs with wc-customers/list-customers.', 'abilities-catalog-woo' ),
+						'description' => __( 'Limit to downloads by the given customer (WooCommerce customer) IDs. Omit for all customers. Discover customer IDs with og-wc-customers/list-customers.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,

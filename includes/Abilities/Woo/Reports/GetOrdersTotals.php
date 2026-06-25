@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-reports/get-orders-totals`.
+ * Read ability: `og-wc-reports/get-orders-totals`.
  *
  * Wraps `GET wc/v3/reports/orders/totals` via `rest_do_request()` and returns one
  * row per order status with its order count — the data behind the "Orders by
@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * This is one of WooCommerce's small, always-present legacy `wc/v3` reports. For
  * the time-series money totals (sales, net sales, refunds over a period) use
- * `wc-reports/get-sales-report` instead; for deeper trend/segment analysis the
+ * `og-wc-reports/get-sales-report` instead; for deeper trend/segment analysis the
  * richer `wc-analytics` surface is available only when WooCommerce Analytics is
  * active.
  *
@@ -42,7 +42,7 @@ final class GetOrdersTotals implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-reports/get-orders-totals';
+		return 'og-wc-reports/get-orders-totals';
 	}
 
 	/**
@@ -58,8 +58,8 @@ final class GetOrdersTotals implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Get Orders Totals', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns the order count for each order status as flat { slug, name, total } rows — the data behind WooCommerce\'s "Orders by status" breakdown (e.g. how many orders are completed, processing, or on-hold). Read-only legacy report; only statuses with at least one order appear. Use wc-reports/get-sales-report for time-series money totals over a date range, and the wc-analytics surface (when active) for deeper trend analysis.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-reports',
+			'description'         => __( 'Returns the order count for each order status as flat { slug, name, total } rows — the data behind WooCommerce\'s "Orders by status" breakdown (e.g. how many orders are completed, processing, or on-hold). Read-only legacy report; only statuses with at least one order appear. Use og-wc-reports/get-sales-report for time-series money totals over a date range, and the wc-analytics surface (when active) for deeper trend analysis.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-reports',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => (object) array(),

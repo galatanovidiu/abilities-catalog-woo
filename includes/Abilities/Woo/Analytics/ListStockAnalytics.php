@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-reports/list-stock-analytics`.
+ * Read ability: `og-wc-reports/list-stock-analytics`.
  *
  * Wraps `GET /wc-analytics/reports/stock` via `rest_do_request()` and returns the
  * store's CURRENT inventory snapshot as flat rows — one per product/variation —
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * report controller `unset()`s the `after`/`before` date params, so there is no
  * date window to filter on.
  *
- * This is the per-product inventory list read; use `wc-reports/get-stock-stats` for
+ * This is the per-product inventory list read; use `og-wc-reports/get-stock-stats` for
  * the store-wide instock/lowstock/outofstock counts. The controller always casts
  * `stock_quantity` to a number, so a product that does not manage stock reports `0`
  * (with `manage_stock` false), never a JSON null.
@@ -63,7 +63,7 @@ final class ListStockAnalytics implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-reports/list-stock-analytics';
+		return 'og-wc-reports/list-stock-analytics';
 	}
 
 	/**
@@ -79,8 +79,8 @@ final class ListStockAnalytics implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'List Stock Analytics', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns WooCommerce Analytics\' current inventory snapshot as flat rows, one per product or variation, each with id, parent_id, name, sku, stock_status, stock_quantity, and manage_stock. This is a present-state snapshot, not a time series, so it takes no after/before date window. Use this to list the per-product stock levels and statuses; use wc-reports/get-stock-stats for the store-wide instock/lowstock/outofstock counts. Filter the report type to all, lowstock, or a specific stock_status (e.g. outofstock). Only available when the store\'s WooCommerce Analytics feature is enabled. A product that does not manage stock reports stock_quantity 0 with manage_stock false.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-reports',
+			'description'         => __( 'Returns WooCommerce Analytics\' current inventory snapshot as flat rows, one per product or variation, each with id, parent_id, name, sku, stock_status, stock_quantity, and manage_stock. This is a present-state snapshot, not a time series, so it takes no after/before date window. Use this to list the per-product stock levels and statuses; use og-wc-reports/get-stock-stats for the store-wide instock/lowstock/outofstock counts. Filter the report type to all, lowstock, or a specific stock_status (e.g. outofstock). Only available when the store\'s WooCommerce Analytics feature is enabled. A product that does not manage stock reports stock_quantity 0 with manage_stock false.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-reports',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array(
@@ -124,7 +124,7 @@ final class ListStockAnalytics implements ConditionalAbility {
 				'properties'           => array(
 					'items' => array(
 						'type'        => 'array',
-						'description' => __( 'The current inventory rows. Use wc-reports/get-stock-stats for the store-wide stock-status counts.', 'abilities-catalog-woo' ),
+						'description' => __( 'The current inventory rows. Use og-wc-reports/get-stock-stats for the store-wide stock-status counts.', 'abilities-catalog-woo' ),
 						'items'       => AnalyticsReportShaper::analyticsItemSchema(
 							array(
 								'id'             => array(

@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Destructive write ability: `wc-shipping/delete-shipping-zone`.
+ * Destructive write ability: `og-wc-shipping/delete-shipping-zone`.
  *
  * Wraps `DELETE wc/v3/shipping/zones/<id>` via `rest_do_request()`, sending
  * `force=true` because WooCommerce shipping zones do not support trashing — with
@@ -41,7 +41,7 @@ final class DeleteShippingZone implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-shipping/delete-shipping-zone';
+		return 'og-wc-shipping/delete-shipping-zone';
 	}
 
 	/**
@@ -57,8 +57,8 @@ final class DeleteShippingZone implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Delete Shipping Zone', 'abilities-catalog-woo' ),
-			'description'         => __( 'Permanently deletes a WooCommerce shipping zone by ID and returns a confirmation: the deleted flag, the id, and the zone name (captured before deletion). This CANNOT be undone — WooCommerce force-deletes the zone, bypassing the Trash, so there is no restore. Deleting a zone also removes its regions (locations) and all of its configured shipping methods, so carts that previously matched it fall through to the next zone. Zone 0 ("Rest of the World") is the always-present, read-only catch-all and cannot be deleted; pass a real zone id (>= 1). No edit_link is returned because the zone no longer exists. Discover zone IDs with wc-shipping/list-shipping-zones.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-shipping',
+			'description'         => __( 'Permanently deletes a WooCommerce shipping zone by ID and returns a confirmation: the deleted flag, the id, and the zone name (captured before deletion). This CANNOT be undone — WooCommerce force-deletes the zone, bypassing the Trash, so there is no restore. Deleting a zone also removes its regions (locations) and all of its configured shipping methods, so carts that previously matched it fall through to the next zone. Zone 0 ("Rest of the World") is the always-present, read-only catch-all and cannot be deleted; pass a real zone id (>= 1). No edit_link is returned because the zone no longer exists. Discover zone IDs with og-wc-shipping/list-shipping-zones.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-shipping',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
@@ -66,7 +66,7 @@ final class DeleteShippingZone implements ConditionalAbility {
 					'id' => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The shipping zone ID to permanently delete. Discover IDs with wc-shipping/list-shipping-zones. Zone 0 is the read-only "Rest of the World" catch-all and cannot be deleted.', 'abilities-catalog-woo' ),
+						'description' => __( 'The shipping zone ID to permanently delete. Discover IDs with og-wc-shipping/list-shipping-zones. Zone 0 is the read-only "Rest of the World" catch-all and cannot be deleted.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,
@@ -111,7 +111,7 @@ final class DeleteShippingZone implements ConditionalAbility {
 	/**
 	 * Permission check: WooCommerce's store-management capability.
 	 *
-	 * Encodes the catalog capability for `wc-shipping/delete-shipping-zone`:
+	 * Encodes the catalog capability for `og-wc-shipping/delete-shipping-zone`:
 	 * `manage_woocommerce`, which is what `wc_rest_check_manager_permissions(
 	 * 'settings', 'delete' )` resolves to on the wrapped `DELETE wc/v3/shipping/zones/<id>`
 	 * route — the helper ignores its `$context` argument and maps the `settings`

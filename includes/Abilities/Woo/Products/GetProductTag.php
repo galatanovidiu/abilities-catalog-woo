@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-products/get-product-tag`.
+ * Read ability: `og-wc-products/get-product-tag`.
  *
  * Wraps `GET wc/v3/products/tags/<id>` via `rest_do_request()` and returns one
  * product tag as a flat, closed record: its id, name, slug, product count, and
@@ -33,7 +33,7 @@ final class GetProductTag implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/get-product-tag';
+		return 'og-wc-products/get-product-tag';
 	}
 
 	/**
@@ -49,8 +49,8 @@ final class GetProductTag implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Get Product Tag', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns one WooCommerce product tag by ID: its name, slug, the number of products assigned to it (count), and its description. Product tags are a flat taxonomy, so no parent is returned. Discover IDs with wc-products/list-product-tags; use wc-products/get-product-category for a category instead.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Returns one WooCommerce product tag by ID: its name, slug, the number of products assigned to it (count), and its description. Product tags are a flat taxonomy, so no parent is returned. Discover IDs with og-wc-products/list-product-tags; use og-wc-products/get-product-category for a category instead.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
@@ -58,7 +58,7 @@ final class GetProductTag implements ConditionalAbility {
 					'id' => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The product tag term ID. Discover IDs with wc-products/list-product-tags.', 'abilities-catalog-woo' ),
+						'description' => __( 'The product tag term ID. Discover IDs with og-wc-products/list-product-tags.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,

@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-taxes/create-tax-class` ability.
+ * Integration tests for the `og-wc-taxes/create-tax-class` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -18,7 +18,7 @@ use WP_Error;
  */
 final class CreateTaxClassTest extends TestCase {
 
-	private const ABILITY = 'wc-taxes/create-tax-class';
+	private const ABILITY = 'og-wc-taxes/create-tax-class';
 
 	/**
 	 * The exact keys a shaped tax-class row exposes.

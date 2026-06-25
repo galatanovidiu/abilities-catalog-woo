@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Destructive write ability: `wc-coupons/delete-coupon`.
+ * Destructive write ability: `og-wc-coupons/delete-coupon`.
  *
  * Wraps `DELETE wc/v3/coupons/<id>` via `rest_do_request()`. The coupon post type
  * (`shop_coupon`) supports Trash, so the wrapped route exposes a `force` flag:
@@ -45,7 +45,7 @@ final class DeleteCoupon implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-coupons/delete-coupon';
+		return 'og-wc-coupons/delete-coupon';
 	}
 
 	/**
@@ -61,8 +61,8 @@ final class DeleteCoupon implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Delete Coupon', 'abilities-catalog-woo' ),
-			'description'         => __( 'Deletes a WooCommerce coupon by ID and returns the deleted coupon\'s code for confirmation. By default (force=false) the coupon is moved to the wp-admin Trash and can be restored; set force=true to delete it permanently and irreversibly. Either way the discount code stops working at checkout immediately. The result reports permanent: true when the coupon was force-deleted (gone forever) and permanent: false when it was only trashed (restorable from wp-admin). No edit_link is returned because the coupon no longer exists or sits in the Trash. Discover IDs with wc-coupons/list-coupons.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-coupons',
+			'description'         => __( 'Deletes a WooCommerce coupon by ID and returns the deleted coupon\'s code for confirmation. By default (force=false) the coupon is moved to the wp-admin Trash and can be restored; set force=true to delete it permanently and irreversibly. Either way the discount code stops working at checkout immediately. The result reports permanent: true when the coupon was force-deleted (gone forever) and permanent: false when it was only trashed (restorable from wp-admin). No edit_link is returned because the coupon no longer exists or sits in the Trash. Discover IDs with og-wc-coupons/list-coupons.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-coupons',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
@@ -70,7 +70,7 @@ final class DeleteCoupon implements ConditionalAbility {
 					'id'    => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The coupon ID to delete. Discover IDs with wc-coupons/list-coupons.', 'abilities-catalog-woo' ),
+						'description' => __( 'The coupon ID to delete. Discover IDs with og-wc-coupons/list-coupons.', 'abilities-catalog-woo' ),
 					),
 					'force' => array(
 						'type'        => 'boolean',
@@ -124,7 +124,7 @@ final class DeleteCoupon implements ConditionalAbility {
 	/**
 	 * Permission check: WooCommerce's delete capability for coupons.
 	 *
-	 * Encodes the catalog capability for `wc-coupons/delete-coupon`: the primitive
+	 * Encodes the catalog capability for `og-wc-coupons/delete-coupon`: the primitive
 	 * `delete_shop_coupons` cap the wrapped `wc/v3` DELETE route resolves the
 	 * `'delete'` context to (`wc_rest_check_post_permissions( 'shop_coupon',
 	 * 'delete' )` maps `'delete' => 'delete_post'`, which WP core resolves through

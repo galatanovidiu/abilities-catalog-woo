@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-products/create-product-attribute` ability.
+ * Integration tests for the `og-wc-products/create-product-attribute` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -13,7 +13,7 @@ use GalatanOvidiu\AbilitiesCatalogWoo\Tests\TestCase;
 use WP_Error;
 
 /**
- * Exercises wc-products/create-product-attribute: the happy-path create returning
+ * Exercises og-wc-products/create-product-attribute: the happy-path create returning
  * a shaped attribute row with a real id, the exact closed output shape (no raw
  * attribute body leaks), and the wrong-cap denial (attributes are manager-tier,
  * so an editor without manage_product_terms is denied too).
@@ -22,7 +22,7 @@ use WP_Error;
  */
 final class CreateProductAttributeTest extends TestCase {
 
-	private const ABILITY = 'wc-products/create-product-attribute';
+	private const ABILITY = 'og-wc-products/create-product-attribute';
 
 	/**
 	 * The exact keys a shaped attribute summary row exposes.

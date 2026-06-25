@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-coupons/delete-coupon ability.
+ * Integration tests for the og-wc-coupons/delete-coupon ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -14,7 +14,7 @@ use WC_Coupon;
 use WP_Error;
 
 /**
- * Exercises wc-coupons/delete-coupon: the default Trash delete (permanent: false)
+ * Exercises og-wc-coupons/delete-coupon: the default Trash delete (permanent: false)
  * and the force permanent delete (permanent: true), the captured coupon code, the
  * missing-coupon 404 that must not collapse to a permission error, the
  * wrong-capability denial, and the exact closed output shape (no edit_link, no raw
@@ -53,10 +53,10 @@ final class DeleteCouponTest extends TestCase {
 	}
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-coupons/delete-coupon' );
+		$ability = wp_get_ability( 'og-wc-coupons/delete-coupon' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-coupons/delete-coupon', $ability->get_name() );
+		$this->assertSame( 'og-wc-coupons/delete-coupon', $ability->get_name() );
 	}
 
 	public function test_default_delete_trashes_coupon_and_captures_code(): void {
@@ -71,7 +71,7 @@ final class DeleteCouponTest extends TestCase {
 
 		$coupon_id = $this->seedCoupon( 'trash10' );
 
-		$result = wp_get_ability( 'wc-coupons/delete-coupon' )->execute( array( 'id' => $coupon_id ) );
+		$result = wp_get_ability( 'og-wc-coupons/delete-coupon' )->execute( array( 'id' => $coupon_id ) );
 
 		$this->assertIsArray( $result );
 		$this->assertTrue( $result['deleted'] );
@@ -93,7 +93,7 @@ final class DeleteCouponTest extends TestCase {
 
 		$coupon_id = $this->seedCoupon( 'gone20' );
 
-		$result = wp_get_ability( 'wc-coupons/delete-coupon' )->execute(
+		$result = wp_get_ability( 'og-wc-coupons/delete-coupon' )->execute(
 			array(
 				'id'    => $coupon_id,
 				'force' => true,
@@ -118,7 +118,7 @@ final class DeleteCouponTest extends TestCase {
 
 		$coupon_id = $this->seedCoupon( 'shape30' );
 
-		$result = wp_get_ability( 'wc-coupons/delete-coupon' )->execute(
+		$result = wp_get_ability( 'og-wc-coupons/delete-coupon' )->execute(
 			array(
 				'id'    => $coupon_id,
 				'force' => true,
@@ -145,7 +145,7 @@ final class DeleteCouponTest extends TestCase {
 		$this->enableCoupons();
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-coupons/delete-coupon' )->execute( array( 'id' => 99999999 ) );
+		$result = wp_get_ability( 'og-wc-coupons/delete-coupon' )->execute( array( 'id' => 99999999 ) );
 
 		$this->assertInstanceOf( WP_Error::class, $result );
 		$this->assertSame( 'woocommerce_rest_shop_coupon_invalid_id', $result->get_error_code() );
@@ -159,7 +159,7 @@ final class DeleteCouponTest extends TestCase {
 
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-coupons/delete-coupon' );
+		$ability = wp_get_ability( 'og-wc-coupons/delete-coupon' );
 
 		$this->assertFalse( $ability->check_permissions( array( 'id' => $coupon_id ) ) );
 

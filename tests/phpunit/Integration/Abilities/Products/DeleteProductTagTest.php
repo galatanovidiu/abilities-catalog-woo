@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-products/delete-product-tag ability.
+ * Integration tests for the og-wc-products/delete-product-tag ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -13,7 +13,7 @@ use GalatanOvidiu\AbilitiesCatalogWoo\Tests\TestCase;
 use WP_Error;
 
 /**
- * Exercises wc-products/delete-product-tag: the happy-path permanent delete that
+ * Exercises og-wc-products/delete-product-tag: the happy-path permanent delete that
  * removes the term, the missing-tag woocommerce_rest_term_invalid 404 surfaced
  * via RestError (not a permission collapse), the wrong-capability denial that
  * leaves the tag intact, and the exact closed output shape (no edit_link, no raw
@@ -49,10 +49,10 @@ final class DeleteProductTagTest extends TestCase {
 	}
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-products/delete-product-tag' );
+		$ability = wp_get_ability( 'og-wc-products/delete-product-tag' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-products/delete-product-tag', $ability->get_name() );
+		$this->assertSame( 'og-wc-products/delete-product-tag', $ability->get_name() );
 	}
 
 	public function test_admin_permanently_deletes_tag(): void {
@@ -60,7 +60,7 @@ final class DeleteProductTagTest extends TestCase {
 
 		$id = $this->seedTag( 'Sale', 'sale' );
 
-		$result = wp_get_ability( 'wc-products/delete-product-tag' )->execute( array( 'id' => $id ) );
+		$result = wp_get_ability( 'og-wc-products/delete-product-tag' )->execute( array( 'id' => $id ) );
 
 		$this->assertIsArray( $result );
 		$this->assertTrue( $result['deleted'] );
@@ -79,7 +79,7 @@ final class DeleteProductTagTest extends TestCase {
 
 		$id = $this->seedTag( 'Featured', 'featured' );
 
-		$result = wp_get_ability( 'wc-products/delete-product-tag' )->execute( array( 'id' => $id ) );
+		$result = wp_get_ability( 'og-wc-products/delete-product-tag' )->execute( array( 'id' => $id ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( self::EXPECTED_KEYS, array_keys( $result ) );
@@ -100,7 +100,7 @@ final class DeleteProductTagTest extends TestCase {
 	public function test_missing_tag_returns_term_invalid_404_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-products/delete-product-tag' )->execute( array( 'id' => 99999999 ) );
+		$result = wp_get_ability( 'og-wc-products/delete-product-tag' )->execute( array( 'id' => 99999999 ) );
 
 		$this->assertInstanceOf( WP_Error::class, $result );
 		$this->assertSame( 'woocommerce_rest_term_invalid', $result->get_error_code() );
@@ -113,7 +113,7 @@ final class DeleteProductTagTest extends TestCase {
 
 		$id = $this->seedTag( 'Keep', 'keep' );
 
-		$ability = wp_get_ability( 'wc-products/delete-product-tag' );
+		$ability = wp_get_ability( 'og-wc-products/delete-product-tag' );
 
 		$this->assertFalse( $ability->check_permissions( array( 'id' => $id ) ) );
 

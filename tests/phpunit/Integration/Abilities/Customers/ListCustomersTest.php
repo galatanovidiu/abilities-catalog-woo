@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-customers/list-customers` ability.
+ * Integration tests for the `og-wc-customers/list-customers` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -17,7 +17,7 @@ use WP_Error;
  */
 final class ListCustomersTest extends TestCase {
 
-	private const ABILITY = 'wc-customers/list-customers';
+	private const ABILITY = 'og-wc-customers/list-customers';
 
 	/**
 	 * The exact keys a shaped customer summary row exposes.

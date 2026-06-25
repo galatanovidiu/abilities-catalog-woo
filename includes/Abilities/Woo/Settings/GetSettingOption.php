@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-settings/get-setting-option`.
+ * Read ability: `og-wc-settings/get-setting-option`.
  *
  * Wraps `GET wc/v3/settings/<group>/<id>` via `rest_do_request()` and returns one
  * WooCommerce setting option as a flat, closed record: its id, group_id, label,
@@ -43,7 +43,7 @@ final class GetSettingOption implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-settings/get-setting-option';
+		return 'og-wc-settings/get-setting-option';
 	}
 
 	/**
@@ -59,8 +59,8 @@ final class GetSettingOption implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Get Setting Option', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns one WooCommerce setting option by group and id: its label, description, field type, configured value, default, and a has_value flag. Use this for a single option\'s detail; discover the group with wc-settings/list-setting-groups, then the option id with wc-settings/list-group-settings. Credential-bearing values (a password-type field or a known secret key) are masked with a hidden marker, so a masked value means "configured but hidden", not "missing" — use has_value to tell configured from empty.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-settings',
+			'description'         => __( 'Returns one WooCommerce setting option by group and id: its label, description, field type, configured value, default, and a has_value flag. Use this for a single option\'s detail; discover the group with og-wc-settings/list-setting-groups, then the option id with og-wc-settings/list-group-settings. Credential-bearing values (a password-type field or a known secret key) are masked with a hidden marker, so a masked value means "configured but hidden", not "missing" — use has_value to tell configured from empty.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-settings',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'group', 'id' ),
@@ -68,12 +68,12 @@ final class GetSettingOption implements ConditionalAbility {
 					'group' => array(
 						'type'        => 'string',
 						'minLength'   => 1,
-						'description' => __( 'The settings group ID, e.g. "general". Discover it with wc-settings/list-setting-groups.', 'abilities-catalog-woo' ),
+						'description' => __( 'The settings group ID, e.g. "general". Discover it with og-wc-settings/list-setting-groups.', 'abilities-catalog-woo' ),
 					),
 					'id'    => array(
 						'type'        => 'string',
 						'minLength'   => 1,
-						'description' => __( 'The setting option ID within the group. Discover it with wc-settings/list-group-settings.', 'abilities-catalog-woo' ),
+						'description' => __( 'The setting option ID within the group. Discover it with og-wc-settings/list-group-settings.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,

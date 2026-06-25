@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-products/list-product-custom-field-names`.
+ * Read ability: `og-wc-products/list-product-custom-field-names`.
  *
  * Wraps `GET wc/v3/products/custom-fields/names` via `rest_do_request()`. The WC
  * route returns a bare array of distinct, non-private (`meta_key` not starting with
@@ -32,7 +32,7 @@ final class ListProductCustomFieldNames implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/list-product-custom-field-names';
+		return 'og-wc-products/list-product-custom-field-names';
 	}
 
 	/**
@@ -48,8 +48,8 @@ final class ListProductCustomFieldNames implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'List Product Custom Field Names', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns the distinct custom-field key names used across products as a flat list of strings, plus the total matching count. These are the public (non-underscore-prefixed) meta keys WooCommerce stores against products. This is a read-only discovery step: it returns key names only, not their values and not per-product data. It does not edit anything — a single product\'s custom fields are read and written through that product\'s meta_data field (e.g. with wc-products/get-product), not here.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Returns the distinct custom-field key names used across products as a flat list of strings, plus the total matching count. These are the public (non-underscore-prefixed) meta keys WooCommerce stores against products. This is a read-only discovery step: it returns key names only, not their values and not per-product data. It does not edit anything — a single product\'s custom fields are read and written through that product\'s meta_data field (e.g. with og-wc-products/get-product), not here.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array(

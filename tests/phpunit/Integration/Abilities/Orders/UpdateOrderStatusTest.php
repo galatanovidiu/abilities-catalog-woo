@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-orders/update-order-status ability.
+ * Integration tests for the og-wc-orders/update-order-status ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -15,7 +15,7 @@ use WC_Product_Simple;
 use WP_Error;
 
 /**
- * Exercises wc-orders/update-order-status: the happy-path pending->processing
+ * Exercises og-wc-orders/update-order-status: the happy-path pending->processing
  * transition returning the shaped order with status and previous_status, the real
  * status-transition side effect firing (the woocommerce_order_status_changed hook),
  * the invalid-status 400 surfaced via RestError (not a permission collapse), the
@@ -48,10 +48,10 @@ final class UpdateOrderStatusTest extends TestCase {
 	);
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-orders/update-order-status' );
+		$ability = wp_get_ability( 'og-wc-orders/update-order-status' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-orders/update-order-status', $ability->get_name() );
+		$this->assertSame( 'og-wc-orders/update-order-status', $ability->get_name() );
 	}
 
 	public function test_admin_changes_status_and_sees_transition(): void {
@@ -59,7 +59,7 @@ final class UpdateOrderStatusTest extends TestCase {
 
 		$id = $this->seedOrder();
 
-		$result = wp_get_ability( 'wc-orders/update-order-status' )->execute(
+		$result = wp_get_ability( 'og-wc-orders/update-order-status' )->execute(
 			array(
 				'id'     => $id,
 				'status' => 'processing',
@@ -97,7 +97,7 @@ final class UpdateOrderStatusTest extends TestCase {
 			3
 		);
 
-		wp_get_ability( 'wc-orders/update-order-status' )->execute(
+		wp_get_ability( 'og-wc-orders/update-order-status' )->execute(
 			array(
 				'id'     => $id,
 				'status' => 'processing',
@@ -115,7 +115,7 @@ final class UpdateOrderStatusTest extends TestCase {
 
 		$id = $this->seedOrder();
 
-		$result = wp_get_ability( 'wc-orders/update-order-status' )->execute(
+		$result = wp_get_ability( 'og-wc-orders/update-order-status' )->execute(
 			array(
 				'id'     => $id,
 				'status' => 'processing',
@@ -145,7 +145,7 @@ final class UpdateOrderStatusTest extends TestCase {
 
 		$id = $this->seedOrder();
 
-		$result = wp_get_ability( 'wc-orders/update-order-status' )->execute(
+		$result = wp_get_ability( 'og-wc-orders/update-order-status' )->execute(
 			array(
 				'id'     => $id,
 				'status' => 'not-a-real-status',
@@ -163,7 +163,7 @@ final class UpdateOrderStatusTest extends TestCase {
 	public function test_missing_order_returns_invalid_id_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-orders/update-order-status' )->execute(
+		$result = wp_get_ability( 'og-wc-orders/update-order-status' )->execute(
 			array(
 				'id'     => 99999999,
 				'status' => 'processing',
@@ -181,7 +181,7 @@ final class UpdateOrderStatusTest extends TestCase {
 
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-orders/update-order-status' );
+		$ability = wp_get_ability( 'og-wc-orders/update-order-status' );
 
 		$this->assertFalse(
 			$ability->check_permissions(

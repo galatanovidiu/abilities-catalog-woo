@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-reports/get-coupons-totals`.
+ * Read ability: `og-wc-reports/get-coupons-totals`.
  *
  * Wraps `GET /wc/v3/reports/coupons/totals` via `rest_do_request()` and returns
  * one row per coupon type (`percent`, `fixed_cart`, `fixed_product`, plus any
@@ -39,7 +39,7 @@ final class GetCouponsTotals implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-reports/get-coupons-totals';
+		return 'og-wc-reports/get-coupons-totals';
 	}
 
 	/**
@@ -56,7 +56,7 @@ final class GetCouponsTotals implements ConditionalAbility {
 		return array(
 			'label'               => __( 'Get Coupons Totals', 'abilities-catalog-woo' ),
 			'description'         => __( 'Returns the WooCommerce coupon count broken down by coupon type, as flat rows of { slug, name, total } — e.g. how many "percent", "fixed_cart", and "fixed_product" coupons exist. This is the legacy reports summary; the count is cached for up to one year, so it may lag a recently created or deleted coupon. For richer, time-filtered coupon analytics use the wc-analytics surface where available.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-reports',
+			'category'            => 'og-wc-reports',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => (object) array(),

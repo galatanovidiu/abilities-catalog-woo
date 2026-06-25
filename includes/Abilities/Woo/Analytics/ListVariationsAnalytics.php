@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-reports/list-variations-analytics`.
+ * Read ability: `og-wc-reports/list-variations-analytics`.
  *
  * Wraps `GET /wc-analytics/reports/variations` via `rest_do_request()` and returns
  * each product variation's sales performance over a date range as a flat summary
@@ -26,9 +26,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * permalink, attributes, low_stock_amount) is never returned — only those four
  * identity/inventory fields are flattened out, the rest dropped.
  *
- * This is the per-variation list read; use `wc-reports/get-variations-stats` for the
+ * This is the per-variation list read; use `og-wc-reports/get-variations-stats` for the
  * aggregated totals (items sold, net revenue, orders) over a range, or
- * `wc-reports/list-products-analytics` for parent-product rows. The range is set by
+ * `og-wc-reports/list-products-analytics` for parent-product rows. The range is set by
  * `after`/`before` (ISO8601 date-time); omit them for the analytics default range.
  *
  * Only available when the store's WooCommerce **Analytics** feature is enabled (it
@@ -68,7 +68,7 @@ final class ListVariationsAnalytics implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-reports/list-variations-analytics';
+		return 'og-wc-reports/list-variations-analytics';
 	}
 
 	/**
@@ -84,8 +84,8 @@ final class ListVariationsAnalytics implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'List Variations Analytics', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns per-variation sales performance from WooCommerce Analytics as flat rows, each with product_id, variation_id, items_sold, net_revenue, orders_count, and the variation name, price, stock_status, and stock_quantity. The large extended_info block (image, permalink, attributes, low_stock_amount) is intentionally dropped. Use this for a ranked variation list over a date range; use wc-reports/get-variations-stats for the aggregated totals, or wc-reports/list-products-analytics for parent-product rows. The range is set by after/before as ISO8601 date-times; omit them for the analytics default range. Only available when the store\'s WooCommerce Analytics feature is enabled. The report reads an analytics lookup table that an async sync populates, so a just-placed order may not appear immediately.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-reports',
+			'description'         => __( 'Returns per-variation sales performance from WooCommerce Analytics as flat rows, each with product_id, variation_id, items_sold, net_revenue, orders_count, and the variation name, price, stock_status, and stock_quantity. The large extended_info block (image, permalink, attributes, low_stock_amount) is intentionally dropped. Use this for a ranked variation list over a date range; use og-wc-reports/get-variations-stats for the aggregated totals, or og-wc-reports/list-products-analytics for parent-product rows. The range is set by after/before as ISO8601 date-times; omit them for the analytics default range. Only available when the store\'s WooCommerce Analytics feature is enabled. The report reads an analytics lookup table that an async sync populates, so a just-placed order may not appear immediately.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-reports',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array(
@@ -130,7 +130,7 @@ final class ListVariationsAnalytics implements ConditionalAbility {
 							'type'    => 'integer',
 							'minimum' => 1,
 						),
-						'description' => __( 'Limit to variations of the given parent product IDs. Discover product IDs with wc-reports/list-products-analytics.', 'abilities-catalog-woo' ),
+						'description' => __( 'Limit to variations of the given parent product IDs. Discover product IDs with og-wc-reports/list-products-analytics.', 'abilities-catalog-woo' ),
 					),
 					'extended_info' => array(
 						'type'        => 'boolean',
@@ -146,7 +146,7 @@ final class ListVariationsAnalytics implements ConditionalAbility {
 				'properties'           => array(
 					'items' => array(
 						'type'        => 'array',
-						'description' => __( 'The per-variation analytics rows. Use wc-reports/get-variations-stats for the aggregated totals over the range.', 'abilities-catalog-woo' ),
+						'description' => __( 'The per-variation analytics rows. Use og-wc-reports/get-variations-stats for the aggregated totals over the range.', 'abilities-catalog-woo' ),
 						'items'       => AnalyticsReportShaper::analyticsItemSchema(
 							array(
 								'product_id'     => array(

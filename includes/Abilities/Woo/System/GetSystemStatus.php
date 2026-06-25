@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-system/get-system-status`.
+ * Read ability: `og-wc-system/get-system-status`.
  *
  * Wraps `GET wc/v3/system_status` via `rest_do_request()` and returns a small,
  * curated store-health summary through {@see SystemStatusShaper::subset()} — NOT
@@ -39,7 +39,7 @@ final class GetSystemStatus implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-system/get-system-status';
+		return 'og-wc-system/get-system-status';
 	}
 
 	/**
@@ -56,7 +56,7 @@ final class GetSystemStatus implements ConditionalAbility {
 		return array(
 			'label'               => __( 'Get System Status', 'abilities-catalog-woo' ),
 			'description'         => __( 'Returns a curated WooCommerce store-health summary: the WooCommerce and WordPress versions, PHP version, web server, WordPress memory limit and debug mode, the WooCommerce database schema version and table count, the active theme (name, version, whether it is a child theme), how many plugins are active, and the store security posture (HTTPS, hidden PHP errors). This is a small health subset, NOT the full System Status report: it deliberately omits the store URLs, store id, log directory, the full plugin lists, the settings block, and the database table map. For the complete report, use the WooCommerce wp-admin System Status screen (WooCommerce > Status). Read-only; takes no input.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-system',
+			'category'            => 'og-wc-system',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => (object) array(),

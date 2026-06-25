@@ -15,14 +15,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Write ability: `wc-coupons/update-coupon`.
+ * Write ability: `og-wc-coupons/update-coupon`.
  *
  * Wraps `PUT wc/v3/coupons/<id>` via `rest_do_request()` and returns the updated
  * coupon shaped through {@see CouponListShaper::detail()} plus the wp-admin
  * `edit_link`. Send only the fields you want to change — all are optional except
  * `id`. A missing coupon surfaces the route's specific
  * `woocommerce_rest_shop_coupon_invalid_id` 400 via {@see RestError::from()}
- * (this UPDATE code differs from `wc-coupons/get-coupon`'s
+ * (this UPDATE code differs from `og-wc-coupons/get-coupon`'s
  * `woocommerce_rest_invalid_shop_coupon_id`), so it is not masked as a permission
  * failure.
  *
@@ -64,7 +64,7 @@ final class UpdateCoupon implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-coupons/update-coupon';
+		return 'og-wc-coupons/update-coupon';
 	}
 
 	/**
@@ -80,8 +80,8 @@ final class UpdateCoupon implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Update Coupon', 'abilities-catalog-woo' ),
-			'description'         => __( 'Updates an existing WooCommerce coupon by ID and returns the updated coupon (code, discount amount and type, expiry date, usage count and limit, product include/exclude lists, amount thresholds, description) plus its wp-admin edit_link. Send only the fields you want to change; every field except id is optional. Use wc-coupons/create-coupon to make a new coupon instead. Discover IDs with wc-coupons/list-coupons; an unknown id returns a woocommerce_rest_shop_coupon_invalid_id 400.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-coupons',
+			'description'         => __( 'Updates an existing WooCommerce coupon by ID and returns the updated coupon (code, discount amount and type, expiry date, usage count and limit, product include/exclude lists, amount thresholds, description) plus its wp-admin edit_link. Send only the fields you want to change; every field except id is optional. Use og-wc-coupons/create-coupon to make a new coupon instead. Discover IDs with og-wc-coupons/list-coupons; an unknown id returns a woocommerce_rest_shop_coupon_invalid_id 400.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-coupons',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
@@ -89,7 +89,7 @@ final class UpdateCoupon implements ConditionalAbility {
 					'id'                   => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The coupon ID to update. Discover IDs with wc-coupons/list-coupons.', 'abilities-catalog-woo' ),
+						'description' => __( 'The coupon ID to update. Discover IDs with og-wc-coupons/list-coupons.', 'abilities-catalog-woo' ),
 					),
 					'code'                 => array(
 						'type'        => 'string',
@@ -118,14 +118,14 @@ final class UpdateCoupon implements ConditionalAbility {
 					),
 					'product_ids'          => array(
 						'type'        => 'array',
-						'description' => __( 'The product IDs the coupon can be used on. An empty array applies it to all products. Discover product IDs with wc-products/list-products.', 'abilities-catalog-woo' ),
+						'description' => __( 'The product IDs the coupon can be used on. An empty array applies it to all products. Discover product IDs with og-wc-products/list-products.', 'abilities-catalog-woo' ),
 						'items'       => array(
 							'type' => 'integer',
 						),
 					),
 					'excluded_product_ids' => array(
 						'type'        => 'array',
-						'description' => __( 'The product IDs the coupon cannot be used on. Discover product IDs with wc-products/list-products.', 'abilities-catalog-woo' ),
+						'description' => __( 'The product IDs the coupon cannot be used on. Discover product IDs with og-wc-products/list-products.', 'abilities-catalog-woo' ),
 						'items'       => array(
 							'type' => 'integer',
 						),
@@ -168,7 +168,7 @@ final class UpdateCoupon implements ConditionalAbility {
 	/**
 	 * Permission check: WooCommerce's edit capability for coupons.
 	 *
-	 * Encodes the catalog capability for `wc-coupons/update-coupon`: the coarse,
+	 * Encodes the catalog capability for `og-wc-coupons/update-coupon`: the coarse,
 	 * object-INDEPENDENT type-level cap `edit_shop_coupons` that
 	 * `wc_rest_check_post_permissions( 'shop_coupon', 'edit' )` resolves to
 	 * (`edit_posts` → `edit_shop_coupons`). The per-object decision is deferred to

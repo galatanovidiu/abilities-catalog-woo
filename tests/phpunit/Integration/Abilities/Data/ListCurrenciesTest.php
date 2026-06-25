@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-data/list-currencies` ability.
+ * Integration tests for the `og-wc-data/list-currencies` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -17,7 +17,7 @@ use WP_Error;
  */
 final class ListCurrenciesTest extends TestCase {
 
-	private const ABILITY = 'wc-data/list-currencies';
+	private const ABILITY = 'og-wc-data/list-currencies';
 
 	/**
 	 * The keys a shaped currency row exposes — and nothing more.

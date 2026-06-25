@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Elevated, side-effecting write ability: `wc-orders/send-order-email`.
+ * Elevated, side-effecting write ability: `og-wc-orders/send-order-email`.
  *
  * Wraps `POST wc/v3/orders/<id>/actions/send_email` (WooCommerce's
  * `OrderActionsRestController`, whose `route_namespace` is `wc/v3`; the controller's
@@ -72,7 +72,7 @@ final class SendOrderEmail implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-orders/send-order-email';
+		return 'og-wc-orders/send-order-email';
 	}
 
 	/**
@@ -88,8 +88,8 @@ final class SendOrderEmail implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Send Order Email', 'abilities-catalog-woo' ),
-			'description'         => __( 'Sends a WooCommerce customer email for an existing order to the order\'s billing address and returns { sent, id, template_id, customer_email }. SIDE EFFECT: this sends a REAL email to the customer AND records an order note — it is not a preview or a dry run, and it cannot be undone once sent, so only call it when you intend the customer to receive the email. Pick the template with template_id (e.g. customer_invoice, customer_completed_order); omit it to let WooCommerce auto-select the best template for the order\'s current status. A template that is not valid for the order\'s current status (e.g. customer_completed_order on a pending order) is rejected with a 400 woocommerce_rest_invalid_email_template error, and an order with no billing email is rejected with a 400 woocommerce_rest_missing_email error. Discover order IDs with wc-orders/list-orders.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-orders',
+			'description'         => __( 'Sends a WooCommerce customer email for an existing order to the order\'s billing address and returns { sent, id, template_id, customer_email }. SIDE EFFECT: this sends a REAL email to the customer AND records an order note — it is not a preview or a dry run, and it cannot be undone once sent, so only call it when you intend the customer to receive the email. Pick the template with template_id (e.g. customer_invoice, customer_completed_order); omit it to let WooCommerce auto-select the best template for the order\'s current status. A template that is not valid for the order\'s current status (e.g. customer_completed_order on a pending order) is rejected with a 400 woocommerce_rest_invalid_email_template error, and an order with no billing email is rejected with a 400 woocommerce_rest_missing_email error. Discover order IDs with og-wc-orders/list-orders.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-orders',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
@@ -97,7 +97,7 @@ final class SendOrderEmail implements ConditionalAbility {
 					'id'          => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The ID of the order to email about. Discover IDs with wc-orders/list-orders.', 'abilities-catalog-woo' ),
+						'description' => __( 'The ID of the order to email about. Discover IDs with og-wc-orders/list-orders.', 'abilities-catalog-woo' ),
 					),
 					'template_id' => array(
 						'type'        => 'string',

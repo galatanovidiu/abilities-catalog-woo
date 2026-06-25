@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-reports/get-performance-indicators` ability.
+ * Integration tests for the `og-wc-reports/get-performance-indicators` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -97,10 +97,10 @@ final class GetPerformanceIndicatorsTest extends TestCase {
 	 * The ability resolves from the registry and is named.
 	 */
 	public function test_registered(): void {
-		$ability = wp_get_ability( 'wc-reports/get-performance-indicators' );
+		$ability = wp_get_ability( 'og-wc-reports/get-performance-indicators' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-reports/get-performance-indicators', $ability->get_name() );
+		$this->assertSame( 'og-wc-reports/get-performance-indicators', $ability->get_name() );
 	}
 
 	/**
@@ -110,7 +110,7 @@ final class GetPerformanceIndicatorsTest extends TestCase {
 		$this->actingAs( 'administrator' );
 		$this->seedSyncedOrder();
 
-		$result = wp_get_ability( 'wc-reports/get-performance-indicators' )->execute( array() );
+		$result = wp_get_ability( 'og-wc-reports/get-performance-indicators' )->execute( array() );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( array( 'indicators', 'total' ), array_keys( $result ) );
@@ -127,7 +127,7 @@ final class GetPerformanceIndicatorsTest extends TestCase {
 		$this->actingAs( 'administrator' );
 		$this->seedSyncedOrder();
 
-		$result = wp_get_ability( 'wc-reports/get-performance-indicators' )->execute( array( 'stats' => self::STATS ) );
+		$result = wp_get_ability( 'og-wc-reports/get-performance-indicators' )->execute( array( 'stats' => self::STATS ) );
 
 		$this->assertIsArray( $result );
 		$this->assertNotEmpty( $result['indicators'] );
@@ -158,11 +158,11 @@ final class GetPerformanceIndicatorsTest extends TestCase {
 		$this->actingAs( 'administrator' );
 		$this->seedSyncedOrder();
 
-		$all = wp_get_ability( 'wc-reports/get-performance-indicators' )->execute( array( 'stats' => self::STATS ) );
+		$all = wp_get_ability( 'og-wc-reports/get-performance-indicators' )->execute( array( 'stats' => self::STATS ) );
 		$this->assertIsArray( $all );
 		$this->assertGreaterThan( 1, $all['total'], 'Expected more than one indicator for a multi-stat list.' );
 
-		$result = wp_get_ability( 'wc-reports/get-performance-indicators' )->execute(
+		$result = wp_get_ability( 'og-wc-reports/get-performance-indicators' )->execute(
 			array( 'stats' => array( 'revenue/total_sales' ) )
 		);
 
@@ -178,7 +178,7 @@ final class GetPerformanceIndicatorsTest extends TestCase {
 	public function test_wrong_cap_denied(): void {
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-reports/get-performance-indicators' );
+		$ability = wp_get_ability( 'og-wc-reports/get-performance-indicators' );
 
 		$this->assertFalse( $ability->check_permissions( array() ) );
 

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Destructive write ability: `wc-products/delete-product-review`.
+ * Destructive write ability: `og-wc-products/delete-product-review`.
  *
  * Wraps `DELETE wc/v3/products/reviews/<id>` via `rest_do_request()`. A WooCommerce
  * product review IS a WordPress comment on a product (`comment_type = 'review'`), so
@@ -48,7 +48,7 @@ final class DeleteProductReview implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/delete-product-review';
+		return 'og-wc-products/delete-product-review';
 	}
 
 	/**
@@ -64,8 +64,8 @@ final class DeleteProductReview implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Delete Product Review', 'abilities-catalog-woo' ),
-			'description'         => __( 'Deletes a WooCommerce product review by ID (a product review is a WordPress comment with comment_type "review") and returns a confirmation: deleted, id, reviewer name, product name, force_used, and permanent. By default (force=false) the review is moved to the Trash and can be restored — but if the store has Trash disabled (EMPTY_TRASH_DAYS == 0) the route fails with woocommerce_rest_trash_not_supported 501, and an already-trashed review fails with woocommerce_rest_already_trashed 410. Set force=true to permanently delete the comment; this bypasses the Trash and cannot be undone. This deletes only the review, not the product. Discover review IDs with wc-products/list-product-reviews. No edit_link is returned because the review is gone.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Deletes a WooCommerce product review by ID (a product review is a WordPress comment with comment_type "review") and returns a confirmation: deleted, id, reviewer name, product name, force_used, and permanent. By default (force=false) the review is moved to the Trash and can be restored — but if the store has Trash disabled (EMPTY_TRASH_DAYS == 0) the route fails with woocommerce_rest_trash_not_supported 501, and an already-trashed review fails with woocommerce_rest_already_trashed 410. Set force=true to permanently delete the comment; this bypasses the Trash and cannot be undone. This deletes only the review, not the product. Discover review IDs with og-wc-products/list-product-reviews. No edit_link is returned because the review is gone.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
@@ -73,7 +73,7 @@ final class DeleteProductReview implements ConditionalAbility {
 					'id'    => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The product-review ID to delete. Discover IDs with wc-products/list-product-reviews. A non-existent review id is rejected with a woocommerce_rest_review_invalid_id 404.', 'abilities-catalog-woo' ),
+						'description' => __( 'The product-review ID to delete. Discover IDs with og-wc-products/list-product-reviews. A non-existent review id is rejected with a woocommerce_rest_review_invalid_id 404.', 'abilities-catalog-woo' ),
 					),
 					'force' => array(
 						'type'        => 'boolean',
@@ -131,7 +131,7 @@ final class DeleteProductReview implements ConditionalAbility {
 	/**
 	 * Permission check: WooCommerce's delete capability for product reviews.
 	 *
-	 * Encodes the catalog capability for `wc-products/delete-product-review`: the
+	 * Encodes the catalog capability for `og-wc-products/delete-product-review`: the
 	 * `edit_products` capability, which is what
 	 * `wc_rest_check_product_reviews_permissions( 'delete', $id )` resolves to on the
 	 * wrapped `DELETE wc/v3/products/reviews/<id>` route. Note the asymmetry with the

@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-products/update-product-review ability.
+ * Integration tests for the og-wc-products/update-product-review ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -14,7 +14,7 @@ use WC_Product_Simple;
 use WP_Error;
 
 /**
- * Exercises wc-products/update-product-review: a review-text + rating edit on a
+ * Exercises og-wc-products/update-product-review: a review-text + rating edit on a
  * seeded review, the status moderation lever (hold un-approves the underlying
  * comment), the missing-review 404 that must not collapse to a permission error,
  * the wrong-capability denial (with the review unchanged), and the exact closed
@@ -41,10 +41,10 @@ final class UpdateProductReviewTest extends TestCase {
 	);
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-products/update-product-review' );
+		$ability = wp_get_ability( 'og-wc-products/update-product-review' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-products/update-product-review', $ability->get_name() );
+		$this->assertSame( 'og-wc-products/update-product-review', $ability->get_name() );
 	}
 
 	public function test_admin_updates_review_text_and_rating(): void {
@@ -53,7 +53,7 @@ final class UpdateProductReviewTest extends TestCase {
 		$product_id = $this->seedProduct( 'Seeded Product' );
 		$review_id  = $this->seedReview( $product_id, 'Ada Reviewer', 'ada@example.com', 'It was fine.', 3 );
 
-		$result = wp_get_ability( 'wc-products/update-product-review' )->execute(
+		$result = wp_get_ability( 'og-wc-products/update-product-review' )->execute(
 			array(
 				'id'     => $review_id,
 				'review' => 'Actually it is excellent.',
@@ -77,7 +77,7 @@ final class UpdateProductReviewTest extends TestCase {
 		$product_id = $this->seedProduct( 'Seeded Product' );
 		$review_id  = $this->seedReview( $product_id, 'Bob Buyer', 'bob@example.com', 'Solid.', 4 );
 
-		$result = wp_get_ability( 'wc-products/update-product-review' )->execute(
+		$result = wp_get_ability( 'og-wc-products/update-product-review' )->execute(
 			array(
 				'id'     => $review_id,
 				'status' => 'hold',
@@ -97,7 +97,7 @@ final class UpdateProductReviewTest extends TestCase {
 		$product_id = $this->seedProduct( 'Seeded Product' );
 		$review_id  = $this->seedReview( $product_id, 'Cara Customer', 'cara@example.com', 'Nice.', 4 );
 
-		$result = wp_get_ability( 'wc-products/update-product-review' )->execute(
+		$result = wp_get_ability( 'og-wc-products/update-product-review' )->execute(
 			array(
 				'id'     => $review_id,
 				'review' => 'Updated.',
@@ -126,7 +126,7 @@ final class UpdateProductReviewTest extends TestCase {
 	public function test_missing_review_returns_404_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-products/update-product-review' )->execute(
+		$result = wp_get_ability( 'og-wc-products/update-product-review' )->execute(
 			array(
 				'id'     => 99999999,
 				'review' => 'Ghost edit.',
@@ -145,7 +145,7 @@ final class UpdateProductReviewTest extends TestCase {
 
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-products/update-product-review' );
+		$ability = wp_get_ability( 'og-wc-products/update-product-review' );
 
 		$this->assertFalse(
 			$ability->check_permissions(

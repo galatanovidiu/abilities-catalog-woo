@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-products/list-product-categories` ability.
+ * Integration tests for the `og-wc-products/list-product-categories` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -17,7 +17,7 @@ use WP_Error;
  */
 final class ListProductCategoriesTest extends TestCase {
 
-	private const ABILITY = 'wc-products/list-product-categories';
+	private const ABILITY = 'og-wc-products/list-product-categories';
 
 	/**
 	 * The exact keys a shaped category summary row exposes.

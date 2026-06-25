@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-taxes/delete-tax-class` ability.
+ * Integration tests for the `og-wc-taxes/delete-tax-class` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -18,7 +18,7 @@ use WP_Error;
  */
 final class DeleteTaxClassTest extends TestCase {
 
-	private const ABILITY = 'wc-taxes/delete-tax-class';
+	private const ABILITY = 'og-wc-taxes/delete-tax-class';
 
 	/**
 	 * The exact keys the delete confirmation envelope exposes.

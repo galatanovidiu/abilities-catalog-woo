@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Destructive write ability: `wc-orders/delete-order`.
+ * Destructive write ability: `og-wc-orders/delete-order`.
  *
  * Wraps `DELETE wc/v3/orders/<id>` via `rest_do_request()`. An order is a
  * financial and legal record, so the delete behaviour depends on `force`:
@@ -50,7 +50,7 @@ final class DeleteOrder implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-orders/delete-order';
+		return 'og-wc-orders/delete-order';
 	}
 
 	/**
@@ -66,8 +66,8 @@ final class DeleteOrder implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Delete Order', 'abilities-catalog-woo' ),
-			'description'         => __( 'Deletes a WooCommerce order by ID and returns the deleted order\'s number for confirmation. An order is a financial and legal record, so deletion is reversibility-controlled by force: force=false (the default) moves the order to the Trash, where it stays recoverable from the wp-admin orders list; force=true permanently deletes it and CANNOT be undone — there is no restore. Discover order IDs with wc-orders/list-orders. The Trash path needs Trash enabled on the site (EMPTY_TRASH_DAYS > 0, the WordPress default); if Trash is disabled, a force=false delete returns woocommerce_rest_trash_not_supported (501) and you must pass force=true. A missing order returns woocommerce_rest_shop_order_invalid_id (404). No edit_link is returned because the order is trashed or gone.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-orders',
+			'description'         => __( 'Deletes a WooCommerce order by ID and returns the deleted order\'s number for confirmation. An order is a financial and legal record, so deletion is reversibility-controlled by force: force=false (the default) moves the order to the Trash, where it stays recoverable from the wp-admin orders list; force=true permanently deletes it and CANNOT be undone — there is no restore. Discover order IDs with og-wc-orders/list-orders. The Trash path needs Trash enabled on the site (EMPTY_TRASH_DAYS > 0, the WordPress default); if Trash is disabled, a force=false delete returns woocommerce_rest_trash_not_supported (501) and you must pass force=true. A missing order returns woocommerce_rest_shop_order_invalid_id (404). No edit_link is returned because the order is trashed or gone.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-orders',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
@@ -75,7 +75,7 @@ final class DeleteOrder implements ConditionalAbility {
 					'id'    => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The order ID to delete. Discover IDs with wc-orders/list-orders.', 'abilities-catalog-woo' ),
+						'description' => __( 'The order ID to delete. Discover IDs with og-wc-orders/list-orders.', 'abilities-catalog-woo' ),
 					),
 					'force' => array(
 						'type'        => 'boolean',
@@ -129,7 +129,7 @@ final class DeleteOrder implements ConditionalAbility {
 	/**
 	 * Permission check: WooCommerce's order delete capability.
 	 *
-	 * Encodes the catalog capability for `wc-orders/delete-order`: the primitive
+	 * Encodes the catalog capability for `og-wc-orders/delete-order`: the primitive
 	 * `delete_shop_orders` cap. The wrapped route resolves `wc_rest_check_post_permissions(
 	 * 'shop_order', 'delete', $id )` to the `delete_post` meta-cap, which WP maps via the
 	 * `shop_order` post type to this primitive. Coarse and object-INDEPENDENT: the

@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-shipping/get-shipping-zone-method ability.
+ * Integration tests for the og-wc-shipping/get-shipping-zone-method ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -14,7 +14,7 @@ use WC_Shipping_Zone;
 use WP_Error;
 
 /**
- * Exercises wc-shipping/get-shipping-zone-method: the shaped single method-instance
+ * Exercises og-wc-shipping/get-shipping-zone-method: the shaped single method-instance
  * detail row on a seeded zone, the missing-instance and missing-zone 404s that must
  * not collapse to a permission error, the wrong-capability denial, and the exact
  * closed output shape (no raw per-setting object leaks through settings_summary).
@@ -58,10 +58,10 @@ final class GetShippingZoneMethodTest extends TestCase {
 	}
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-shipping/get-shipping-zone-method' );
+		$ability = wp_get_ability( 'og-wc-shipping/get-shipping-zone-method' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-shipping/get-shipping-zone-method', $ability->get_name() );
+		$this->assertSame( 'og-wc-shipping/get-shipping-zone-method', $ability->get_name() );
 	}
 
 	public function test_admin_reads_zone_method_detail(): void {
@@ -69,7 +69,7 @@ final class GetShippingZoneMethodTest extends TestCase {
 
 		$seed = $this->seedZoneWithMethod();
 
-		$result = wp_get_ability( 'wc-shipping/get-shipping-zone-method' )->execute(
+		$result = wp_get_ability( 'og-wc-shipping/get-shipping-zone-method' )->execute(
 			array(
 				'zone_id'     => $seed['zone_id'],
 				'instance_id' => $seed['instance_id'],
@@ -92,7 +92,7 @@ final class GetShippingZoneMethodTest extends TestCase {
 
 		$seed = $this->seedZoneWithMethod();
 
-		$result = wp_get_ability( 'wc-shipping/get-shipping-zone-method' )->execute(
+		$result = wp_get_ability( 'og-wc-shipping/get-shipping-zone-method' )->execute(
 			array(
 				'zone_id'     => $seed['zone_id'],
 				'instance_id' => $seed['instance_id'],
@@ -119,7 +119,7 @@ final class GetShippingZoneMethodTest extends TestCase {
 
 		$seed = $this->seedZoneWithMethod();
 
-		$result = wp_get_ability( 'wc-shipping/get-shipping-zone-method' )->execute(
+		$result = wp_get_ability( 'og-wc-shipping/get-shipping-zone-method' )->execute(
 			array(
 				'zone_id'     => $seed['zone_id'],
 				'instance_id' => 99999999,
@@ -135,7 +135,7 @@ final class GetShippingZoneMethodTest extends TestCase {
 	public function test_missing_zone_returns_404_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-shipping/get-shipping-zone-method' )->execute(
+		$result = wp_get_ability( 'og-wc-shipping/get-shipping-zone-method' )->execute(
 			array(
 				'zone_id'     => 99999999,
 				'instance_id' => 1,
@@ -153,7 +153,7 @@ final class GetShippingZoneMethodTest extends TestCase {
 
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-shipping/get-shipping-zone-method' );
+		$ability = wp_get_ability( 'og-wc-shipping/get-shipping-zone-method' );
 
 		$this->assertFalse(
 			$ability->check_permissions(

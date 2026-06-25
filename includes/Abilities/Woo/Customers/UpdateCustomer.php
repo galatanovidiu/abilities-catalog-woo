@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Write ability: `wc-customers/update-customer`.
+ * Write ability: `og-wc-customers/update-customer`.
  *
  * Wraps `PUT wc/v3/customers/<id>` via `rest_do_request()`, updating an existing
  * WooCommerce customer (a WordPress user with the `customer` role). The id is
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * `context=save` flag is needed.
  *
  * The result is the shaped, updated customer via {@see CustomerListShaper::detail()}
- * plus an `edit_link`, the same projection `wc-customers/get-customer` returns.
+ * plus an `edit_link`, the same projection `og-wc-customers/get-customer` returns.
  *
  * Credential-sensitive: `password` is a writable INPUT (forwarded to the route,
  * which calls `WC_Customer::set_password()`), but it is NEVER returned. The WC
@@ -63,7 +63,7 @@ final class UpdateCustomer implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-customers/update-customer';
+		return 'og-wc-customers/update-customer';
 	}
 
 	/**
@@ -86,8 +86,8 @@ final class UpdateCustomer implements ConditionalAbility {
 
 		return array(
 			'label'               => __( 'Update Customer', 'abilities-catalog-woo' ),
-			'description'         => __( 'Updates an existing WooCommerce customer by ID and returns the shaped customer (id, email, names, role, billing and shipping blocks) plus edit_link; send only the fields you want to change. Use wc-customers/create-customer to add a new customer; discover IDs with wc-customers/list-customers. The result contains personal data (email, names, billing/shipping addresses). password is write-only: set it on input to change the login password, but it is never returned. The username cannot be changed — sending a different username is rejected. With the shop_manager role you may edit only customer-role users; editing an administrator or other non-customer user is refused by the route.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-customers',
+			'description'         => __( 'Updates an existing WooCommerce customer by ID and returns the shaped customer (id, email, names, role, billing and shipping blocks) plus edit_link; send only the fields you want to change. Use og-wc-customers/create-customer to add a new customer; discover IDs with og-wc-customers/list-customers. The result contains personal data (email, names, billing/shipping addresses). password is write-only: set it on input to change the login password, but it is never returned. The username cannot be changed — sending a different username is rejected. With the shop_manager role you may edit only customer-role users; editing an administrator or other non-customer user is refused by the route.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-customers',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
@@ -95,7 +95,7 @@ final class UpdateCustomer implements ConditionalAbility {
 					'id'         => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The customer ID to update. Discover IDs with wc-customers/list-customers.', 'abilities-catalog-woo' ),
+						'description' => __( 'The customer ID to update. Discover IDs with og-wc-customers/list-customers.', 'abilities-catalog-woo' ),
 					),
 					'email'      => array(
 						'type'        => 'string',

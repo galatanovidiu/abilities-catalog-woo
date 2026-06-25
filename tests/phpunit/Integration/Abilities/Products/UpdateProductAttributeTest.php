@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-products/update-product-attribute ability.
+ * Integration tests for the og-wc-products/update-product-attribute ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -14,7 +14,7 @@ use WP_Error;
 use WP_REST_Request;
 
 /**
- * Exercises wc-products/update-product-attribute: a name change on a seeded
+ * Exercises og-wc-products/update-product-attribute: a name change on a seeded
  * attribute, the missing-attribute 404 that must not collapse to a permission
  * error, the wrong-capability denial (with the attribute unchanged), and the
  * exact closed output shape.
@@ -36,10 +36,10 @@ final class UpdateProductAttributeTest extends TestCase {
 	);
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-products/update-product-attribute' );
+		$ability = wp_get_ability( 'og-wc-products/update-product-attribute' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-products/update-product-attribute', $ability->get_name() );
+		$this->assertSame( 'og-wc-products/update-product-attribute', $ability->get_name() );
 	}
 
 	public function test_admin_updates_attribute_name(): void {
@@ -47,7 +47,7 @@ final class UpdateProductAttributeTest extends TestCase {
 
 		$attribute_id = $this->createGlobalAttribute( 'Color', 'select' )['id'];
 
-		$result = wp_get_ability( 'wc-products/update-product-attribute' )->execute(
+		$result = wp_get_ability( 'og-wc-products/update-product-attribute' )->execute(
 			array(
 				'id'   => $attribute_id,
 				'name' => 'Colour',
@@ -66,7 +66,7 @@ final class UpdateProductAttributeTest extends TestCase {
 	public function test_missing_attribute_returns_404_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-products/update-product-attribute' )->execute(
+		$result = wp_get_ability( 'og-wc-products/update-product-attribute' )->execute(
 			array(
 				'id'   => 99999999,
 				'name' => 'Nope',
@@ -84,7 +84,7 @@ final class UpdateProductAttributeTest extends TestCase {
 
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-products/update-product-attribute' );
+		$ability = wp_get_ability( 'og-wc-products/update-product-attribute' );
 
 		$this->assertFalse( $ability->check_permissions( array( 'id' => $attribute_id ) ) );
 
@@ -112,7 +112,7 @@ final class UpdateProductAttributeTest extends TestCase {
 
 		$attribute_id = $this->createGlobalAttribute( 'Size', 'select' )['id'];
 
-		$result = wp_get_ability( 'wc-products/update-product-attribute' )->execute(
+		$result = wp_get_ability( 'og-wc-products/update-product-attribute' )->execute(
 			array(
 				'id'       => $attribute_id,
 				'order_by' => 'name',

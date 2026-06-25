@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-products/create-attribute-term ability.
+ * Integration tests for the og-wc-products/create-attribute-term ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -13,7 +13,7 @@ use GalatanOvidiu\AbilitiesCatalogWoo\Tests\TestCase;
 use WP_Error;
 
 /**
- * Exercises wc-products/create-attribute-term: the happy-path create returning a
+ * Exercises og-wc-products/create-attribute-term: the happy-path create returning a
  * shaped term row with a real id, the duplicate-slug term_exists 400, the
  * bad-attribute_id taxonomy-invalid 404 that must not collapse to a permission
  * error, the wrong-capability denial, and the exact closed output shape (no
@@ -36,10 +36,10 @@ final class CreateAttributeTermTest extends TestCase {
 	);
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-products/create-attribute-term' );
+		$ability = wp_get_ability( 'og-wc-products/create-attribute-term' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-products/create-attribute-term', $ability->get_name() );
+		$this->assertSame( 'og-wc-products/create-attribute-term', $ability->get_name() );
 	}
 
 	public function test_admin_creates_attribute_term(): void {
@@ -47,7 +47,7 @@ final class CreateAttributeTermTest extends TestCase {
 
 		$attribute = $this->createGlobalAttribute( 'Color' );
 
-		$result = wp_get_ability( 'wc-products/create-attribute-term' )->execute(
+		$result = wp_get_ability( 'og-wc-products/create-attribute-term' )->execute(
 			array(
 				'attribute_id' => $attribute['id'],
 				'name'         => 'Red',
@@ -74,7 +74,7 @@ final class CreateAttributeTermTest extends TestCase {
 
 		$attribute = $this->createGlobalAttribute( 'Size' );
 
-		$result = wp_get_ability( 'wc-products/create-attribute-term' )->execute(
+		$result = wp_get_ability( 'og-wc-products/create-attribute-term' )->execute(
 			array(
 				'attribute_id' => $attribute['id'],
 				'name'         => 'Large',
@@ -101,7 +101,7 @@ final class CreateAttributeTermTest extends TestCase {
 
 		$attribute = $this->createGlobalAttribute( 'Material' );
 
-		$first = wp_get_ability( 'wc-products/create-attribute-term' )->execute(
+		$first = wp_get_ability( 'og-wc-products/create-attribute-term' )->execute(
 			array(
 				'attribute_id' => $attribute['id'],
 				'name'         => 'Cotton',
@@ -116,7 +116,7 @@ final class CreateAttributeTermTest extends TestCase {
 		// wrapped wc/v3 create route forwards verbatim with status 400. (A second
 		// term with only a duplicate *slug* but a different name would instead
 		// succeed with an auto-suffixed slug, so it is not a rejection path.)
-		$result = wp_get_ability( 'wc-products/create-attribute-term' )->execute(
+		$result = wp_get_ability( 'og-wc-products/create-attribute-term' )->execute(
 			array(
 				'attribute_id' => $attribute['id'],
 				'name'         => 'Cotton',
@@ -132,7 +132,7 @@ final class CreateAttributeTermTest extends TestCase {
 	public function test_bad_attribute_id_returns_taxonomy_invalid_404(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-products/create-attribute-term' )->execute(
+		$result = wp_get_ability( 'og-wc-products/create-attribute-term' )->execute(
 			array(
 				'attribute_id' => 99999999,
 				'name'         => 'Orphan',
@@ -149,7 +149,7 @@ final class CreateAttributeTermTest extends TestCase {
 		$attribute = $this->createGlobalAttribute( 'Finish' );
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-products/create-attribute-term' );
+		$ability = wp_get_ability( 'og-wc-products/create-attribute-term' );
 
 		$this->assertFalse(
 			$ability->check_permissions(

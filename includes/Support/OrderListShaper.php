@@ -98,7 +98,7 @@ final class OrderListShaper {
 			'properties'           => array(
 				'id'                   => array(
 					'type'        => 'integer',
-					'description' => __( 'The order ID. Read the full order with wc-orders/get-order.', 'abilities-catalog-woo' ),
+					'description' => __( 'The order ID. Read the full order with og-wc-orders/get-order.', 'abilities-catalog-woo' ),
 				),
 				'number'               => array(
 					'type'        => 'string',
@@ -238,7 +238,7 @@ final class OrderListShaper {
 					),
 					'product_id' => array(
 						'type'        => 'integer',
-						'description' => __( 'The product ID for this line. Read the full product with wc-products/get-product.', 'abilities-catalog-woo' ),
+						'description' => __( 'The product ID for this line. Read the full product with og-wc-products/get-product.', 'abilities-catalog-woo' ),
 					),
 					'quantity'   => array(
 						'type'        => 'integer',

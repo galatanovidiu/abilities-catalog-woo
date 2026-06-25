@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-shipping/list-shipping-zones`.
+ * Read ability: `og-wc-shipping/list-shipping-zones`.
  *
  * Wraps `GET wc/v3/shipping/zones` via `rest_do_request()` and returns each
  * shipping zone as a flat summary row carrying its `id`, `name`, and `order`,
@@ -37,7 +37,7 @@ final class ListShippingZones implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-shipping/list-shipping-zones';
+		return 'og-wc-shipping/list-shipping-zones';
 	}
 
 	/**
@@ -53,8 +53,8 @@ final class ListShippingZones implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'List Shipping Zones', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns the store\'s WooCommerce shipping zones as flat summary rows, each with its id, name, and order. Zones are matched top-down by their order, and the list always includes zone 0, "Rest of the World" — the always-present, read-only catch-all zone for regions no other zone covers. Use a zone id with wc-shipping/get-shipping-zone-locations to see the regions it matches, or with wc-shipping/list-shipping-zone-methods to see the shipping methods configured on it.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-shipping',
+			'description'         => __( 'Returns the store\'s WooCommerce shipping zones as flat summary rows, each with its id, name, and order. Zones are matched top-down by their order, and the list always includes zone 0, "Rest of the World" — the always-present, read-only catch-all zone for regions no other zone covers. Use a zone id with og-wc-shipping/get-shipping-zone-locations to see the regions it matches, or with og-wc-shipping/list-shipping-zone-methods to see the shipping methods configured on it.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-shipping',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => (object) array(),
@@ -66,7 +66,7 @@ final class ListShippingZones implements ConditionalAbility {
 				'properties'           => array(
 					'items' => array(
 						'type'        => 'array',
-						'description' => __( 'The shipping zones as flat summary rows, including zone 0 "Rest of the World". Use a zone id with wc-shipping/get-shipping-zone-locations or wc-shipping/list-shipping-zone-methods.', 'abilities-catalog-woo' ),
+						'description' => __( 'The shipping zones as flat summary rows, including zone 0 "Rest of the World". Use a zone id with og-wc-shipping/get-shipping-zone-locations or og-wc-shipping/list-shipping-zone-methods.', 'abilities-catalog-woo' ),
 						'items'       => ShippingZoneListShaper::itemSchema(),
 					),
 					'total' => array(
@@ -92,7 +92,7 @@ final class ListShippingZones implements ConditionalAbility {
 	/**
 	 * Permission check: WooCommerce's shipping-settings management capability.
 	 *
-	 * Encodes the catalog baseline for `wc-shipping/list-shipping-zones`: the
+	 * Encodes the catalog baseline for `og-wc-shipping/list-shipping-zones`: the
 	 * `manage_woocommerce` capability, which is what
 	 * `wc_rest_check_manager_permissions( 'settings', 'read' )` resolves to on the
 	 * wrapped `GET wc/v3/shipping/zones` route (wc-rest-functions.php:341 ignores

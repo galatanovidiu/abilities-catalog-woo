@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-shipping/create-shipping-zone ability.
+ * Integration tests for the og-wc-shipping/create-shipping-zone ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -13,7 +13,7 @@ use GalatanOvidiu\AbilitiesCatalogWoo\Tests\TestCase;
 use WP_Error;
 
 /**
- * Exercises wc-shipping/create-shipping-zone: the happy-path shaped zone with a
+ * Exercises og-wc-shipping/create-shipping-zone: the happy-path shaped zone with a
  * real id, the honored order field, the wrong-capability denial, and the exact
  * closed output shape (flat: id/name/order only, no raw zone fields).
  */
@@ -31,16 +31,16 @@ final class CreateShippingZoneTest extends TestCase {
 	);
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-shipping/create-shipping-zone' );
+		$ability = wp_get_ability( 'og-wc-shipping/create-shipping-zone' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-shipping/create-shipping-zone', $ability->get_name() );
+		$this->assertSame( 'og-wc-shipping/create-shipping-zone', $ability->get_name() );
 	}
 
 	public function test_admin_creates_zone(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-shipping/create-shipping-zone' )->execute( array( 'name' => 'Europe' ) );
+		$result = wp_get_ability( 'og-wc-shipping/create-shipping-zone' )->execute( array( 'name' => 'Europe' ) );
 
 		$this->assertIsArray( $result );
 		$this->assertGreaterThan( 0, $result['id'] );
@@ -50,7 +50,7 @@ final class CreateShippingZoneTest extends TestCase {
 	public function test_order_is_honored(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-shipping/create-shipping-zone' )->execute(
+		$result = wp_get_ability( 'og-wc-shipping/create-shipping-zone' )->execute(
 			array(
 				'name'  => 'Priority Zone',
 				'order' => 5,
@@ -64,7 +64,7 @@ final class CreateShippingZoneTest extends TestCase {
 	public function test_output_shape_is_exact_and_closed(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-shipping/create-shipping-zone' )->execute( array( 'name' => 'Shaped Zone' ) );
+		$result = wp_get_ability( 'og-wc-shipping/create-shipping-zone' )->execute( array( 'name' => 'Shaped Zone' ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( self::EXPECTED_KEYS, array_keys( $result ) );
@@ -82,7 +82,7 @@ final class CreateShippingZoneTest extends TestCase {
 	public function test_subscriber_is_denied(): void {
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-shipping/create-shipping-zone' );
+		$ability = wp_get_ability( 'og-wc-shipping/create-shipping-zone' );
 
 		$this->assertFalse( $ability->check_permissions( array( 'name' => 'Denied' ) ) );
 

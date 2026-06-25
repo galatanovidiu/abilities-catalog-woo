@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-orders/delete-order ability.
+ * Integration tests for the og-wc-orders/delete-order ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -15,7 +15,7 @@ use WC_Order;
 use WC_Product_Simple;
 
 /**
- * Exercises wc-orders/delete-order: the default force=false Trash path (recoverable,
+ * Exercises og-wc-orders/delete-order: the default force=false Trash path (recoverable,
  * permanent:false), the force=true permanent path (gone, permanent:true), the
  * missing-order 404 that must not collapse to a permission error, the wrong-capability
  * denial, and the exact closed output shape with no edit_link or raw order fields.
@@ -36,10 +36,10 @@ final class DeleteOrderTest extends TestCase {
 	);
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-orders/delete-order' );
+		$ability = wp_get_ability( 'og-wc-orders/delete-order' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-orders/delete-order', $ability->get_name() );
+		$this->assertSame( 'og-wc-orders/delete-order', $ability->get_name() );
 	}
 
 	public function test_default_force_trashes_order_recoverably(): void {
@@ -51,7 +51,7 @@ final class DeleteOrderTest extends TestCase {
 
 		$order_id = $this->seedOrder();
 
-		$result = wp_get_ability( 'wc-orders/delete-order' )->execute( array( 'id' => $order_id ) );
+		$result = wp_get_ability( 'og-wc-orders/delete-order' )->execute( array( 'id' => $order_id ) );
 
 		$this->assertIsArray( $result );
 		$this->assertTrue( $result['deleted'] );
@@ -73,7 +73,7 @@ final class DeleteOrderTest extends TestCase {
 
 		$order_id = $this->seedOrder();
 
-		$result = wp_get_ability( 'wc-orders/delete-order' )->execute(
+		$result = wp_get_ability( 'og-wc-orders/delete-order' )->execute(
 			array(
 				'id'    => $order_id,
 				'force' => true,
@@ -96,7 +96,7 @@ final class DeleteOrderTest extends TestCase {
 
 		$order_id = $this->seedOrder();
 
-		$result = wp_get_ability( 'wc-orders/delete-order' )->execute(
+		$result = wp_get_ability( 'og-wc-orders/delete-order' )->execute(
 			array(
 				'id'    => $order_id,
 				'force' => true,
@@ -116,7 +116,7 @@ final class DeleteOrderTest extends TestCase {
 	public function test_missing_order_returns_404_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-orders/delete-order' )->execute( array( 'id' => 99999999 ) );
+		$result = wp_get_ability( 'og-wc-orders/delete-order' )->execute( array( 'id' => 99999999 ) );
 
 		$this->assertInstanceOf( WP_Error::class, $result );
 		$this->assertSame( 'woocommerce_rest_shop_order_invalid_id', $result->get_error_code() );
@@ -128,7 +128,7 @@ final class DeleteOrderTest extends TestCase {
 		$order_id = $this->seedOrder();
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-orders/delete-order' );
+		$ability = wp_get_ability( 'og-wc-orders/delete-order' );
 
 		$this->assertFalse( $ability->check_permissions( array( 'id' => $order_id ) ) );
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-orders/get-order-note ability.
+ * Integration tests for the og-wc-orders/get-order-note ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -15,7 +15,7 @@ use WC_Product_Simple;
 use WP_Error;
 
 /**
- * Exercises wc-orders/get-order-note: the shaped single-note row, the missing-note
+ * Exercises og-wc-orders/get-order-note: the shaped single-note row, the missing-note
  * 404 that must not collapse to a permission error, the wrong-capability denial,
  * and the exact closed output shape (no raw comment fields leak).
  */
@@ -35,10 +35,10 @@ final class GetOrderNoteTest extends TestCase {
 	);
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-orders/get-order-note' );
+		$ability = wp_get_ability( 'og-wc-orders/get-order-note' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-orders/get-order-note', $ability->get_name() );
+		$this->assertSame( 'og-wc-orders/get-order-note', $ability->get_name() );
 	}
 
 	public function test_admin_reads_note_detail(): void {
@@ -47,7 +47,7 @@ final class GetOrderNoteTest extends TestCase {
 		$order_id = $this->seedOrder();
 		$note_id  = $this->seedNote( $order_id, 'Test note' );
 
-		$result = wp_get_ability( 'wc-orders/get-order-note' )->execute(
+		$result = wp_get_ability( 'og-wc-orders/get-order-note' )->execute(
 			array(
 				'order_id' => $order_id,
 				'id'       => $note_id,
@@ -68,7 +68,7 @@ final class GetOrderNoteTest extends TestCase {
 		$order_id = $this->seedOrder();
 		$note_id  = $this->seedNote( $order_id, 'Another note' );
 
-		$result = wp_get_ability( 'wc-orders/get-order-note' )->execute(
+		$result = wp_get_ability( 'og-wc-orders/get-order-note' )->execute(
 			array(
 				'order_id' => $order_id,
 				'id'       => $note_id,
@@ -95,7 +95,7 @@ final class GetOrderNoteTest extends TestCase {
 
 		$order_id = $this->seedOrder();
 
-		$result = wp_get_ability( 'wc-orders/get-order-note' )->execute(
+		$result = wp_get_ability( 'og-wc-orders/get-order-note' )->execute(
 			array(
 				'order_id' => $order_id,
 				'id'       => 99999999,
@@ -111,7 +111,7 @@ final class GetOrderNoteTest extends TestCase {
 	public function test_missing_order_returns_404_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-orders/get-order-note' )->execute(
+		$result = wp_get_ability( 'og-wc-orders/get-order-note' )->execute(
 			array(
 				'order_id' => 99999999,
 				'id'       => 1,
@@ -130,7 +130,7 @@ final class GetOrderNoteTest extends TestCase {
 
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-orders/get-order-note' );
+		$ability = wp_get_ability( 'og-wc-orders/get-order-note' );
 
 		$this->assertFalse(
 			$ability->check_permissions(

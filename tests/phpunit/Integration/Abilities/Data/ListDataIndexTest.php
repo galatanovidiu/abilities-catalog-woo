@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-data/list-data-index` ability.
+ * Integration tests for the `og-wc-data/list-data-index` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -17,7 +17,7 @@ use WP_Error;
  */
 final class ListDataIndexTest extends TestCase {
 
-	private const ABILITY = 'wc-data/list-data-index';
+	private const ABILITY = 'og-wc-data/list-data-index';
 
 	/**
 	 * The exact keys a shaped data-index row exposes.

@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-products/update-product ability.
+ * Integration tests for the og-wc-products/update-product ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -14,7 +14,7 @@ use WP_Error;
 use WC_Product_Simple;
 
 /**
- * Exercises wc-products/update-product: a field change with the captured
+ * Exercises og-wc-products/update-product: a field change with the captured
  * previous_status, the missing-product 404 that must not collapse to a
  * permission error, the route's 400 on an invalid enum value, the
  * wrong-capability denial (with the product unchanged), and the exact closed
@@ -47,10 +47,10 @@ final class UpdateProductTest extends TestCase {
 	);
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-products/update-product' );
+		$ability = wp_get_ability( 'og-wc-products/update-product' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-products/update-product', $ability->get_name() );
+		$this->assertSame( 'og-wc-products/update-product', $ability->get_name() );
 	}
 
 	public function test_admin_updates_status_and_captures_previous(): void {
@@ -58,7 +58,7 @@ final class UpdateProductTest extends TestCase {
 
 		$id = $this->seedSimpleProduct( 'Widget Pro' );
 
-		$result = wp_get_ability( 'wc-products/update-product' )->execute(
+		$result = wp_get_ability( 'og-wc-products/update-product' )->execute(
 			array(
 				'id'     => $id,
 				'status' => 'draft',
@@ -80,7 +80,7 @@ final class UpdateProductTest extends TestCase {
 
 		$id = $this->seedSimpleProduct( 'Widget Pro' );
 
-		$result = wp_get_ability( 'wc-products/update-product' )->execute(
+		$result = wp_get_ability( 'og-wc-products/update-product' )->execute(
 			array(
 				'id'            => $id,
 				'regular_price' => '24.99',
@@ -97,7 +97,7 @@ final class UpdateProductTest extends TestCase {
 
 		$id = $this->seedSimpleProduct( 'Widget Pro' );
 
-		$result = wp_get_ability( 'wc-products/update-product' )->execute(
+		$result = wp_get_ability( 'og-wc-products/update-product' )->execute(
 			array(
 				'id'     => $id,
 				'status' => 'draft',
@@ -116,7 +116,7 @@ final class UpdateProductTest extends TestCase {
 	public function test_missing_product_returns_404_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-products/update-product' )->execute(
+		$result = wp_get_ability( 'og-wc-products/update-product' )->execute(
 			array(
 				'id'     => 99999999,
 				'status' => 'draft',
@@ -137,7 +137,7 @@ final class UpdateProductTest extends TestCase {
 		// `type` is enum-constrained by the ability schema; send a value off that
 		// enum so input validation in the Abilities wrapper rejects it before the
 		// body runs (ability_invalid_input, no get_error_data status).
-		$result = wp_get_ability( 'wc-products/update-product' )->execute(
+		$result = wp_get_ability( 'og-wc-products/update-product' )->execute(
 			array(
 				'id'   => $id,
 				'type' => 'not-a-real-type',
@@ -157,7 +157,7 @@ final class UpdateProductTest extends TestCase {
 
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-products/update-product' );
+		$ability = wp_get_ability( 'og-wc-products/update-product' );
 
 		$this->assertFalse(
 			$ability->check_permissions(

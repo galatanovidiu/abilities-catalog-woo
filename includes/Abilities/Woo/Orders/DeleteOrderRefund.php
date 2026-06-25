@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Destructive delete ability: `wc-orders/delete-order-refund`.
+ * Destructive delete ability: `og-wc-orders/delete-order-refund`.
  *
  * Wraps `DELETE wc/v3/orders/<order_id>/refunds/<id>` via `rest_do_request()`.
  * Refunds do NOT support the Trash (the controller disables it via
@@ -49,7 +49,7 @@ final class DeleteOrderRefund implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-orders/delete-order-refund';
+		return 'og-wc-orders/delete-order-refund';
 	}
 
 	/**
@@ -65,8 +65,8 @@ final class DeleteOrderRefund implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Delete Order Refund', 'abilities-catalog-woo' ),
-			'description'         => __( 'Permanently deletes a WooCommerce order refund RECORD by its parent order_id and refund id, then returns the deleted refund amount for confirmation. Refunds do not support the Trash, so this is always permanent and cannot be undone. CRITICAL FOOTGUN: deleting a refund record does NOT reverse the payment-gateway refund — money already returned to the customer stays returned, but the order\'s recorded refund total drops, so the store\'s books and the payment processor go out of sync (desync). Use this ONLY to remove an erroneous refund record, such as a duplicate entry; NEVER use it to "undo" a refund or to give money back. Discover both IDs with wc-orders/list-order-refunds. No edit_link is returned because the refund no longer exists.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-orders',
+			'description'         => __( 'Permanently deletes a WooCommerce order refund RECORD by its parent order_id and refund id, then returns the deleted refund amount for confirmation. Refunds do not support the Trash, so this is always permanent and cannot be undone. CRITICAL FOOTGUN: deleting a refund record does NOT reverse the payment-gateway refund — money already returned to the customer stays returned, but the order\'s recorded refund total drops, so the store\'s books and the payment processor go out of sync (desync). Use this ONLY to remove an erroneous refund record, such as a duplicate entry; NEVER use it to "undo" a refund or to give money back. Discover both IDs with og-wc-orders/list-order-refunds. No edit_link is returned because the refund no longer exists.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-orders',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'order_id', 'id' ),
@@ -74,12 +74,12 @@ final class DeleteOrderRefund implements ConditionalAbility {
 					'order_id' => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The parent order ID the refund belongs to. Discover it with wc-orders/list-orders or wc-orders/list-order-refunds.', 'abilities-catalog-woo' ),
+						'description' => __( 'The parent order ID the refund belongs to. Discover it with og-wc-orders/list-orders or og-wc-orders/list-order-refunds.', 'abilities-catalog-woo' ),
 					),
 					'id'       => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The refund ID to permanently delete, which must belong to order_id. Discover it with wc-orders/list-order-refunds.', 'abilities-catalog-woo' ),
+						'description' => __( 'The refund ID to permanently delete, which must belong to order_id. Discover it with og-wc-orders/list-order-refunds.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,
@@ -132,7 +132,7 @@ final class DeleteOrderRefund implements ConditionalAbility {
 	/**
 	 * Permission check: WooCommerce's order delete capability.
 	 *
-	 * Encodes the catalog capability for `wc-orders/delete-order-refund`. The
+	 * Encodes the catalog capability for `og-wc-orders/delete-order-refund`. The
 	 * wrapped route gates on `wc_rest_check_post_permissions( 'shop_order_refund',
 	 * 'delete', $id )`, whose `delete` meta cap maps through the
 	 * `shop_order`-typed `capability_type` (the `shop_order_refund` post type is

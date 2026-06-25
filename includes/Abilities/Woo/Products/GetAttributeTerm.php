@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-products/get-attribute-term`.
+ * Read ability: `og-wc-products/get-attribute-term`.
  *
  * Wraps `GET wc/v3/products/attributes/<attribute_id>/terms/<id>` via
  * `rest_do_request()` and returns one attribute term as a flat, closed record:
@@ -34,7 +34,7 @@ final class GetAttributeTerm implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/get-attribute-term';
+		return 'og-wc-products/get-attribute-term';
 	}
 
 	/**
@@ -50,8 +50,8 @@ final class GetAttributeTerm implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Get Attribute Term', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns one WooCommerce product attribute term by ID: its name, slug, the count of published products assigned to it, and its description. An attribute term is one value of a global attribute (e.g. "Red" under the "Color" attribute). Provide attribute_id (the parent attribute) and id (the term). Discover attribute_id with wc-products/list-product-attributes; discover id with wc-products/list-attribute-terms. Use wc-products/list-attribute-terms to scan an attribute\'s terms; use this for one term\'s detail.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Returns one WooCommerce product attribute term by ID: its name, slug, the count of published products assigned to it, and its description. An attribute term is one value of a global attribute (e.g. "Red" under the "Color" attribute). Provide attribute_id (the parent attribute) and id (the term). Discover attribute_id with og-wc-products/list-product-attributes; discover id with og-wc-products/list-attribute-terms. Use og-wc-products/list-attribute-terms to scan an attribute\'s terms; use this for one term\'s detail.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'attribute_id', 'id' ),
@@ -59,12 +59,12 @@ final class GetAttributeTerm implements ConditionalAbility {
 					'attribute_id' => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The parent attribute ID (the global attribute the term belongs to). Discover IDs with wc-products/list-product-attributes.', 'abilities-catalog-woo' ),
+						'description' => __( 'The parent attribute ID (the global attribute the term belongs to). Discover IDs with og-wc-products/list-product-attributes.', 'abilities-catalog-woo' ),
 					),
 					'id'           => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The attribute term ID. Discover IDs with wc-products/list-attribute-terms.', 'abilities-catalog-woo' ),
+						'description' => __( 'The attribute term ID. Discover IDs with og-wc-products/list-attribute-terms.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,

@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-orders/create-order ability.
+ * Integration tests for the og-wc-orders/create-order ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -14,7 +14,7 @@ use WP_Error;
 use WC_Product_Simple;
 
 /**
- * Exercises wc-orders/create-order: the happy-path create with a line item
+ * Exercises og-wc-orders/create-order: the happy-path create with a line item
  * returning a shaped order with id > 0 and non-empty line_items, the documented
  * set_paid side effect (a paid create comes back processing/completed), the
  * wrong-cap denial, and the exact closed get-order detail output shape.
@@ -65,10 +65,10 @@ final class CreateOrderTest extends TestCase {
 	}
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-orders/create-order' );
+		$ability = wp_get_ability( 'og-wc-orders/create-order' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-orders/create-order', $ability->get_name() );
+		$this->assertSame( 'og-wc-orders/create-order', $ability->get_name() );
 	}
 
 	public function test_admin_creates_order_with_line_item(): void {
@@ -76,7 +76,7 @@ final class CreateOrderTest extends TestCase {
 
 		$product_id = $this->seedProduct();
 
-		$result = wp_get_ability( 'wc-orders/create-order' )->execute(
+		$result = wp_get_ability( 'og-wc-orders/create-order' )->execute(
 			array(
 				'line_items' => array(
 					array(
@@ -103,7 +103,7 @@ final class CreateOrderTest extends TestCase {
 
 		$product_id = $this->seedProduct();
 
-		$result = wp_get_ability( 'wc-orders/create-order' )->execute(
+		$result = wp_get_ability( 'og-wc-orders/create-order' )->execute(
 			array(
 				'line_items' => array(
 					array(
@@ -126,7 +126,7 @@ final class CreateOrderTest extends TestCase {
 	public function test_billing_block_is_forwarded(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-orders/create-order' )->execute(
+		$result = wp_get_ability( 'og-wc-orders/create-order' )->execute(
 			array(
 				'billing' => array(
 					'first_name' => 'Ada',
@@ -143,7 +143,7 @@ final class CreateOrderTest extends TestCase {
 	public function test_output_shape_is_exact_and_closed(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-orders/create-order' )->execute( array() );
+		$result = wp_get_ability( 'og-wc-orders/create-order' )->execute( array() );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( self::EXPECTED_KEYS, array_keys( $result ) );
@@ -158,7 +158,7 @@ final class CreateOrderTest extends TestCase {
 	public function test_subscriber_is_denied(): void {
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-orders/create-order' );
+		$ability = wp_get_ability( 'og-wc-orders/create-order' );
 
 		$this->assertFalse( $ability->check_permissions( array() ) );
 

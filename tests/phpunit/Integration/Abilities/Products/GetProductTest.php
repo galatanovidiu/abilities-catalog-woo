@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-products/get-product ability.
+ * Integration tests for the og-wc-products/get-product ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -14,7 +14,7 @@ use WP_Error;
 use WC_Product_Simple;
 
 /**
- * Exercises wc-products/get-product: the shaped single-product record, the
+ * Exercises og-wc-products/get-product: the shaped single-product record, the
  * detail fields (descriptions, categories, tags, images, attributes), the
  * missing-product 404 that must not collapse to a permission error, the
  * wrong-capability denial, and the exact closed output shape.
@@ -51,10 +51,10 @@ final class GetProductTest extends TestCase {
 	);
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-products/get-product' );
+		$ability = wp_get_ability( 'og-wc-products/get-product' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-products/get-product', $ability->get_name() );
+		$this->assertSame( 'og-wc-products/get-product', $ability->get_name() );
 	}
 
 	public function test_admin_reads_product_detail(): void {
@@ -76,7 +76,7 @@ final class GetProductTest extends TestCase {
 			)
 		);
 
-		$result = wp_get_ability( 'wc-products/get-product' )->execute( array( 'id' => $id ) );
+		$result = wp_get_ability( 'og-wc-products/get-product' )->execute( array( 'id' => $id ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( $id, $result['id'] );
@@ -106,7 +106,7 @@ final class GetProductTest extends TestCase {
 
 		$id = $this->seedSimpleProduct();
 
-		$result = wp_get_ability( 'wc-products/get-product' )->execute( array( 'id' => $id ) );
+		$result = wp_get_ability( 'og-wc-products/get-product' )->execute( array( 'id' => $id ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( self::EXPECTED_KEYS, array_keys( $result ) );
@@ -121,7 +121,7 @@ final class GetProductTest extends TestCase {
 	public function test_missing_product_returns_404_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-products/get-product' )->execute( array( 'id' => 99999999 ) );
+		$result = wp_get_ability( 'og-wc-products/get-product' )->execute( array( 'id' => 99999999 ) );
 
 		$this->assertInstanceOf( WP_Error::class, $result );
 		$this->assertSame( 'woocommerce_rest_product_invalid_id', $result->get_error_code() );
@@ -133,7 +133,7 @@ final class GetProductTest extends TestCase {
 		$id = $this->seedSimpleProduct();
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-products/get-product' );
+		$ability = wp_get_ability( 'og-wc-products/get-product' );
 
 		$this->assertFalse( $ability->check_permissions( array( 'id' => $id ) ) );
 

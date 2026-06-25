@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-reports/get-coupons-totals` ability.
+ * Integration tests for the `og-wc-reports/get-coupons-totals` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -17,7 +17,7 @@ use WP_Error;
  */
 final class GetCouponsTotalsTest extends TestCase {
 
-	private const ABILITY = 'wc-reports/get-coupons-totals';
+	private const ABILITY = 'og-wc-reports/get-coupons-totals';
 
 	/**
 	 * The exact keys a shaped totals row exposes.

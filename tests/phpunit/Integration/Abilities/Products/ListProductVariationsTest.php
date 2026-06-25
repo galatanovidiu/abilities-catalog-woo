@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-products/list-product-variations ability.
+ * Integration tests for the og-wc-products/list-product-variations ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -15,16 +15,16 @@ use WC_Product_Variable;
 use WP_Error;
 
 /**
- * Exercises wc-products/list-product-variations: shaped variation rows, the parent
+ * Exercises og-wc-products/list-product-variations: shaped variation rows, the parent
  * filter, the empty-list semantics for a non-variable parent, and the cap guard.
  */
 final class ListProductVariationsTest extends TestCase {
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-products/list-product-variations' );
+		$ability = wp_get_ability( 'og-wc-products/list-product-variations' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-products/list-product-variations', $ability->get_name() );
+		$this->assertSame( 'og-wc-products/list-product-variations', $ability->get_name() );
 	}
 
 	public function test_admin_lists_variations_as_shaped_rows(): void {
@@ -32,7 +32,7 @@ final class ListProductVariationsTest extends TestCase {
 		$product       = $this->seedVariationProduct();
 		$variation_ids = $product->get_children();
 
-		$result = wp_get_ability( 'wc-products/list-product-variations' )->execute(
+		$result = wp_get_ability( 'og-wc-products/list-product-variations' )->execute(
 			array( 'product_id' => $product->get_id() )
 		);
 
@@ -72,7 +72,7 @@ final class ListProductVariationsTest extends TestCase {
 		$this->actingAs( 'administrator' );
 		$product = $this->seedVariationProduct();
 
-		$result = wp_get_ability( 'wc-products/list-product-variations' )->execute(
+		$result = wp_get_ability( 'og-wc-products/list-product-variations' )->execute(
 			array( 'product_id' => $product->get_id() )
 		);
 
@@ -89,7 +89,7 @@ final class ListProductVariationsTest extends TestCase {
 		$this->actingAs( 'administrator' );
 		$product = $this->seedVariationProduct();
 
-		$result = wp_get_ability( 'wc-products/list-product-variations' )->execute(
+		$result = wp_get_ability( 'og-wc-products/list-product-variations' )->execute(
 			array(
 				'product_id' => $product->get_id(),
 				'per_page'   => 1,
@@ -106,7 +106,7 @@ final class ListProductVariationsTest extends TestCase {
 		$this->actingAs( 'administrator' );
 		$simple = $this->seedSimpleProduct();
 
-		$result = wp_get_ability( 'wc-products/list-product-variations' )->execute(
+		$result = wp_get_ability( 'og-wc-products/list-product-variations' )->execute(
 			array( 'product_id' => $simple->get_id() )
 		);
 
@@ -118,7 +118,7 @@ final class ListProductVariationsTest extends TestCase {
 	public function test_missing_product_id_is_rejected_at_validation(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-products/list-product-variations' )->execute( array() );
+		$result = wp_get_ability( 'og-wc-products/list-product-variations' )->execute( array() );
 
 		$this->assertInstanceOf( WP_Error::class, $result );
 		$this->assertSame( 'ability_invalid_input', $result->get_error_code() );
@@ -128,7 +128,7 @@ final class ListProductVariationsTest extends TestCase {
 		$product = $this->seedVariationProduct();
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-products/list-product-variations' );
+		$ability = wp_get_ability( 'og-wc-products/list-product-variations' );
 		$this->assertNotTrue( $ability->check_permissions( array( 'product_id' => $product->get_id() ) ) );
 
 		$result = $ability->execute( array( 'product_id' => $product->get_id() ) );

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-products/list-product-variations`.
+ * Read ability: `og-wc-products/list-product-variations`.
  *
  * Wraps `GET wc/v3/products/<product_id>/variations` via `rest_do_request()` and
  * returns each variation of one variable product as a flat summary row
@@ -40,7 +40,7 @@ final class ListProductVariations implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/list-product-variations';
+		return 'og-wc-products/list-product-variations';
 	}
 
 	/**
@@ -56,8 +56,8 @@ final class ListProductVariations implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'List Product Variations', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns the variations of one variable WooCommerce product as flat summary rows, each with its id, sku, prices, stock status and quantity, status, attribute selections (e.g. {name: Color, option: Red}), permalink, and edit_link. The parent must be a variable product; provide product_id from wc-products/list-products or wc-products/get-product. Use wc-products/get-product-variation for one variation\'s full detail. A parent with no variations (a simple, grouped, or missing product) returns an empty list, not an error.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Returns the variations of one variable WooCommerce product as flat summary rows, each with its id, sku, prices, stock status and quantity, status, attribute selections (e.g. {name: Color, option: Red}), permalink, and edit_link. The parent must be a variable product; provide product_id from og-wc-products/list-products or og-wc-products/get-product. Use og-wc-products/get-product-variation for one variation\'s full detail. A parent with no variations (a simple, grouped, or missing product) returns an empty list, not an error.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'product_id' ),
@@ -65,7 +65,7 @@ final class ListProductVariations implements ConditionalAbility {
 					'product_id' => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The parent variable product ID whose variations to list. Discover it with wc-products/list-products (the parent must be a variable product).', 'abilities-catalog-woo' ),
+						'description' => __( 'The parent variable product ID whose variations to list. Discover it with og-wc-products/list-products (the parent must be a variable product).', 'abilities-catalog-woo' ),
 					),
 					'search'     => array(
 						'type'        => 'string',
@@ -103,7 +103,7 @@ final class ListProductVariations implements ConditionalAbility {
 					),
 					'items'      => array(
 						'type'        => 'array',
-						'description' => __( 'The variations as flat summary rows. Use wc-products/get-product-variation for a single variation\'s full detail.', 'abilities-catalog-woo' ),
+						'description' => __( 'The variations as flat summary rows. Use og-wc-products/get-product-variation for a single variation\'s full detail.', 'abilities-catalog-woo' ),
 						'items'       => ProductListShaper::variationItemSchema(),
 					),
 					'total'      => array(

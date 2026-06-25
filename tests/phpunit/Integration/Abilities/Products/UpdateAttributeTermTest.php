@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-products/update-attribute-term ability.
+ * Integration tests for the og-wc-products/update-attribute-term ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -13,7 +13,7 @@ use GalatanOvidiu\AbilitiesCatalogWoo\Tests\TestCase;
 use WP_Error;
 
 /**
- * Exercises wc-products/update-attribute-term: the happy-path rename returning a
+ * Exercises og-wc-products/update-attribute-term: the happy-path rename returning a
  * shaped term row, the missing-term 404 and the bad-attribute_id 404 that must
  * not collapse to a permission error, the wrong-capability denial, and the exact
  * closed output shape (no menu_order leak).
@@ -35,10 +35,10 @@ final class UpdateAttributeTermTest extends TestCase {
 	);
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-products/update-attribute-term' );
+		$ability = wp_get_ability( 'og-wc-products/update-attribute-term' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-products/update-attribute-term', $ability->get_name() );
+		$this->assertSame( 'og-wc-products/update-attribute-term', $ability->get_name() );
 	}
 
 	public function test_admin_updates_attribute_term(): void {
@@ -46,7 +46,7 @@ final class UpdateAttributeTermTest extends TestCase {
 
 		$seed = $this->seedAttributeTerm( 'Color', 'Red', 'A bold red.' );
 
-		$result = wp_get_ability( 'wc-products/update-attribute-term' )->execute(
+		$result = wp_get_ability( 'og-wc-products/update-attribute-term' )->execute(
 			array(
 				'attribute_id' => $seed['attribute_id'],
 				'id'           => $seed['term_id'],
@@ -70,7 +70,7 @@ final class UpdateAttributeTermTest extends TestCase {
 
 		$seed = $this->seedAttributeTerm( 'Size', 'Large', '' );
 
-		$result = wp_get_ability( 'wc-products/update-attribute-term' )->execute(
+		$result = wp_get_ability( 'og-wc-products/update-attribute-term' )->execute(
 			array(
 				'attribute_id' => $seed['attribute_id'],
 				'id'           => $seed['term_id'],
@@ -98,7 +98,7 @@ final class UpdateAttributeTermTest extends TestCase {
 
 		$seed = $this->seedAttributeTerm( 'Material', 'Cotton', '' );
 
-		$result = wp_get_ability( 'wc-products/update-attribute-term' )->execute(
+		$result = wp_get_ability( 'og-wc-products/update-attribute-term' )->execute(
 			array(
 				'attribute_id' => $seed['attribute_id'],
 				'id'           => 99999999,
@@ -115,7 +115,7 @@ final class UpdateAttributeTermTest extends TestCase {
 	public function test_bad_attribute_id_returns_taxonomy_invalid_404(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-products/update-attribute-term' )->execute(
+		$result = wp_get_ability( 'og-wc-products/update-attribute-term' )->execute(
 			array(
 				'attribute_id' => 99999999,
 				'id'           => 1,
@@ -133,7 +133,7 @@ final class UpdateAttributeTermTest extends TestCase {
 		$seed = $this->seedAttributeTerm( 'Finish', 'Matte', '' );
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-products/update-attribute-term' );
+		$ability = wp_get_ability( 'og-wc-products/update-attribute-term' );
 
 		$this->assertFalse(
 			$ability->check_permissions(

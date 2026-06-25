@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Write ability: `wc-taxes/update-tax-rate`.
+ * Write ability: `og-wc-taxes/update-tax-rate`.
  *
  * Wraps `PUT wc/v3/taxes/<id>` via `rest_do_request()`, changing an existing tax
  * rate's writable fields and returning the shaped updated rate
@@ -47,7 +47,7 @@ final class UpdateTaxRate implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-taxes/update-tax-rate';
+		return 'og-wc-taxes/update-tax-rate';
 	}
 
 	/**
@@ -81,8 +81,8 @@ final class UpdateTaxRate implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Update Tax Rate', 'abilities-catalog-woo' ),
-			'description'         => __( 'Updates an existing WooCommerce tax rate by ID and returns the shaped rate (id, country, state, rate, name, priority, compound, shipping, class). Send only the fields you want to change; omitted fields are left untouched. FINANCIAL IMPACT: a tax rate decides what customers are charged at checkout, so editing the rate, region (country/state/postcode/city), or class immediately changes the tax applied to future orders that match it. Discover IDs with wc-taxes/list-tax-rates; use wc-taxes/create-tax-rate to add a new rate instead.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-taxes',
+			'description'         => __( 'Updates an existing WooCommerce tax rate by ID and returns the shaped rate (id, country, state, rate, name, priority, compound, shipping, class). Send only the fields you want to change; omitted fields are left untouched. FINANCIAL IMPACT: a tax rate decides what customers are charged at checkout, so editing the rate, region (country/state/postcode/city), or class immediately changes the tax applied to future orders that match it. Discover IDs with og-wc-taxes/list-tax-rates; use og-wc-taxes/create-tax-rate to add a new rate instead.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-taxes',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
@@ -90,7 +90,7 @@ final class UpdateTaxRate implements ConditionalAbility {
 					'id'       => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The ID of the tax rate to update. Discover IDs with wc-taxes/list-tax-rates.', 'abilities-catalog-woo' ),
+						'description' => __( 'The ID of the tax rate to update. Discover IDs with og-wc-taxes/list-tax-rates.', 'abilities-catalog-woo' ),
 					),
 					'country'  => array(
 						'type'        => 'string',
@@ -130,7 +130,7 @@ final class UpdateTaxRate implements ConditionalAbility {
 					),
 					'class'    => array(
 						'type'        => 'string',
-						'description' => __( 'The tax-class slug this rate belongs to, e.g. standard, reduced-rate, or zero-rate. Discover slugs with wc-taxes/list-tax-classes.', 'abilities-catalog-woo' ),
+						'description' => __( 'The tax-class slug this rate belongs to, e.g. standard, reduced-rate, or zero-rate. Discover slugs with og-wc-taxes/list-tax-classes.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,

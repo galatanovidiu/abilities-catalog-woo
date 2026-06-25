@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Write ability: `wc-products/update-product`.
+ * Write ability: `og-wc-products/update-product`.
  *
  * Wraps `PUT wc/v3/products/<id>` via `rest_do_request()`, changing an existing
  * product's writable fields and returning the shaped updated product
@@ -45,7 +45,7 @@ final class UpdateProduct implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/update-product';
+		return 'og-wc-products/update-product';
 	}
 
 	/**
@@ -61,8 +61,8 @@ final class UpdateProduct implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Update Product', 'abilities-catalog-woo' ),
-			'description'         => __( 'Updates an existing WooCommerce product by ID and returns the shaped product (name, type, status, sku, prices, stock, permalink, edit_link) plus previous_status, the status before the change. Send only the fields you want to change; omitted fields are left untouched. Discover IDs with wc-products/list-products. Use wc-products/create-product to make a new product instead, or wc-products/duplicate-product to clone one. Note: changing status to draft or private takes a live product offline; the categories, tags, and images arrays REPLACE the current sets rather than appending. Surface edit_link so a human can review the change.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Updates an existing WooCommerce product by ID and returns the shaped product (name, type, status, sku, prices, stock, permalink, edit_link) plus previous_status, the status before the change. Send only the fields you want to change; omitted fields are left untouched. Discover IDs with og-wc-products/list-products. Use og-wc-products/create-product to make a new product instead, or og-wc-products/duplicate-product to clone one. Note: changing status to draft or private takes a live product offline; the categories, tags, and images arrays REPLACE the current sets rather than appending. Surface edit_link so a human can review the change.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
@@ -71,7 +71,7 @@ final class UpdateProduct implements ConditionalAbility {
 						'id' => array(
 							'type'        => 'integer',
 							'minimum'     => 1,
-							'description' => __( 'The ID of the product to update. Discover IDs with wc-products/list-products.', 'abilities-catalog-woo' ),
+							'description' => __( 'The ID of the product to update. Discover IDs with og-wc-products/list-products.', 'abilities-catalog-woo' ),
 						),
 					),
 					ProductWriteSchema::writableProperties()
@@ -96,7 +96,7 @@ final class UpdateProduct implements ConditionalAbility {
 	/**
 	 * Permission check: WooCommerce's edit capability for products.
 	 *
-	 * Encodes the catalog capability for `wc-products/update-product`: the
+	 * Encodes the catalog capability for `og-wc-products/update-product`: the
 	 * coarse, type-level `edit_products` primitive. The wrapped `wc/v3` PUT route
 	 * runs `wc_rest_check_post_permissions( 'product', 'edit', $id )`, which
 	 * resolves the object-level `edit_product` meta-cap against the target id, so

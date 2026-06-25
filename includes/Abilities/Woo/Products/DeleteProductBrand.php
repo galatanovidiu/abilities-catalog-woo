@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Destructive write ability: `wc-products/delete-product-brand`.
+ * Destructive write ability: `og-wc-products/delete-product-brand`.
  *
  * Wraps `DELETE wc/v3/products/brands/<id>` via `rest_do_request()`. Product
  * brands are the hierarchical `product_brand` taxonomy; like every WooCommerce
@@ -43,7 +43,7 @@ final class DeleteProductBrand implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/delete-product-brand';
+		return 'og-wc-products/delete-product-brand';
 	}
 
 	/**
@@ -59,8 +59,8 @@ final class DeleteProductBrand implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Delete Product Brand', 'abilities-catalog-woo' ),
-			'description'         => __( 'Permanently deletes one WooCommerce product brand (a product_brand term) by ID. This cannot be undone: product brands have no Trash, so the brand is removed at once and there is no restore. Products that were in the brand are not deleted — they are simply unbranded. Returns the deleted brand\'s name for confirmation; no edit_link is returned because the brand no longer exists. This ability exists only when the store\'s WooCommerce Brands feature is active. Discover IDs with wc-products/list-product-brands.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Permanently deletes one WooCommerce product brand (a product_brand term) by ID. This cannot be undone: product brands have no Trash, so the brand is removed at once and there is no restore. Products that were in the brand are not deleted — they are simply unbranded. Returns the deleted brand\'s name for confirmation; no edit_link is returned because the brand no longer exists. This ability exists only when the store\'s WooCommerce Brands feature is active. Discover IDs with og-wc-products/list-product-brands.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
@@ -68,7 +68,7 @@ final class DeleteProductBrand implements ConditionalAbility {
 					'id' => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The product brand term ID to permanently delete. Discover IDs with wc-products/list-product-brands.', 'abilities-catalog-woo' ),
+						'description' => __( 'The product brand term ID to permanently delete. Discover IDs with og-wc-products/list-product-brands.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,

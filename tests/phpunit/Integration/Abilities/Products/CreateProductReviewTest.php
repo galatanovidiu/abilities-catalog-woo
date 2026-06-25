@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-products/create-product-review ability.
+ * Integration tests for the og-wc-products/create-product-review ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -14,7 +14,7 @@ use WC_Product_Simple;
 use WP_Error;
 
 /**
- * Exercises wc-products/create-product-review: the happy path that creates an
+ * Exercises og-wc-products/create-product-review: the happy path that creates an
  * approved review on a seeded product, the invalid product_id that surfaces
  * WooCommerce's woocommerce_rest_product_invalid_id 404 (not a permission collapse),
  * the wrong-capability denial that creates nothing, and the exact closed output
@@ -55,10 +55,10 @@ final class CreateProductReviewTest extends TestCase {
 	}
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-products/create-product-review' );
+		$ability = wp_get_ability( 'og-wc-products/create-product-review' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-products/create-product-review', $ability->get_name() );
+		$this->assertSame( 'og-wc-products/create-product-review', $ability->get_name() );
 	}
 
 	public function test_admin_creates_an_approved_review(): void {
@@ -66,7 +66,7 @@ final class CreateProductReviewTest extends TestCase {
 
 		$product_id = $this->seedProduct();
 
-		$result = wp_get_ability( 'wc-products/create-product-review' )->execute(
+		$result = wp_get_ability( 'og-wc-products/create-product-review' )->execute(
 			array(
 				'product_id'     => $product_id,
 				'reviewer'       => 'Sam',
@@ -94,7 +94,7 @@ final class CreateProductReviewTest extends TestCase {
 	public function test_invalid_product_id_returns_404_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-products/create-product-review' )->execute(
+		$result = wp_get_ability( 'og-wc-products/create-product-review' )->execute(
 			array(
 				'product_id'     => 99999999,
 				'reviewer'       => 'Sam',
@@ -114,7 +114,7 @@ final class CreateProductReviewTest extends TestCase {
 
 		$product_id = $this->seedProduct();
 
-		$ability = wp_get_ability( 'wc-products/create-product-review' );
+		$ability = wp_get_ability( 'og-wc-products/create-product-review' );
 
 		$this->assertFalse(
 			$ability->check_permissions(
@@ -148,7 +148,7 @@ final class CreateProductReviewTest extends TestCase {
 
 		$product_id = $this->seedProduct();
 
-		$result = wp_get_ability( 'wc-products/create-product-review' )->execute(
+		$result = wp_get_ability( 'og-wc-products/create-product-review' )->execute(
 			array(
 				'product_id'     => $product_id,
 				'reviewer'       => 'Sam',

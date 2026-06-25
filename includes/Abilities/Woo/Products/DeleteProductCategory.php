@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Destructive write ability: `wc-products/delete-product-category`.
+ * Destructive write ability: `og-wc-products/delete-product-category`.
  *
  * Wraps `DELETE wc/v3/products/categories/<id>` via `rest_do_request()`, permanently
  * deleting a term from the hierarchical `product_cat` taxonomy. The shared
@@ -51,7 +51,7 @@ final class DeleteProductCategory implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/delete-product-category';
+		return 'og-wc-products/delete-product-category';
 	}
 
 	/**
@@ -67,8 +67,8 @@ final class DeleteProductCategory implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Delete Product Category', 'abilities-catalog-woo' ),
-			'description'         => __( 'Permanently deletes a WooCommerce product category (a term in the hierarchical product_cat taxonomy) by id, and returns a confirmation with the deleted category name. This cannot be undone: product categories have no Trash, so the delete is permanent and irreversible (the tool always force-deletes; there is no recoverable state). Deleting a category does NOT delete its products — WooCommerce reassigns those products to the store default product category. The store DEFAULT product category cannot be deleted: attempting it returns a woocommerce_rest_cannot_delete 500 error. A missing id returns a woocommerce_rest_term_invalid 404 error. Discover ids with wc-products/list-product-categories. The result returns the deleted category id and name (no edit_link, because the category no longer exists).', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Permanently deletes a WooCommerce product category (a term in the hierarchical product_cat taxonomy) by id, and returns a confirmation with the deleted category name. This cannot be undone: product categories have no Trash, so the delete is permanent and irreversible (the tool always force-deletes; there is no recoverable state). Deleting a category does NOT delete its products — WooCommerce reassigns those products to the store default product category. The store DEFAULT product category cannot be deleted: attempting it returns a woocommerce_rest_cannot_delete 500 error. A missing id returns a woocommerce_rest_term_invalid 404 error. Discover ids with og-wc-products/list-product-categories. The result returns the deleted category id and name (no edit_link, because the category no longer exists).', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
@@ -76,7 +76,7 @@ final class DeleteProductCategory implements ConditionalAbility {
 					'id' => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The product category term id to permanently delete. Discover ids with wc-products/list-product-categories. The store default product category cannot be deleted (the route returns woocommerce_rest_cannot_delete 500).', 'abilities-catalog-woo' ),
+						'description' => __( 'The product category term id to permanently delete. Discover ids with og-wc-products/list-product-categories. The store default product category cannot be deleted (the route returns woocommerce_rest_cannot_delete 500).', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,
@@ -125,7 +125,7 @@ final class DeleteProductCategory implements ConditionalAbility {
 	/**
 	 * Permission check: WooCommerce's delete capability for product terms.
 	 *
-	 * Encodes the catalog capability for `wc-products/delete-product-category`: the
+	 * Encodes the catalog capability for `og-wc-products/delete-product-category`: the
 	 * `delete_product_terms` capability, which is what
 	 * `wc_rest_check_product_term_permissions( 'product_cat', 'delete' )` resolves to
 	 * on the wrapped `DELETE wc/v3/products/categories/<id>` route (it maps the

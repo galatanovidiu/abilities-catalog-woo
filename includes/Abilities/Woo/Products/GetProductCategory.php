@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-products/get-product-category`.
+ * Read ability: `og-wc-products/get-product-category`.
  *
  * Wraps `GET wc/v3/products/categories/<id>` via `rest_do_request()` and returns
  * one product category as a flat, closed term row — id, name, slug, parent,
@@ -34,7 +34,7 @@ final class GetProductCategory implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/get-product-category';
+		return 'og-wc-products/get-product-category';
 	}
 
 	/**
@@ -54,8 +54,8 @@ final class GetProductCategory implements ConditionalAbility {
 
 		return array(
 			'label'               => __( 'Get Product Category', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns one WooCommerce product category by ID: its name, slug, parent category, product count, and description. Product categories are the hierarchical taxonomy (product_cat); a parent of 0 means a top-level category. Use wc-products/list-product-categories to scan categories and discover IDs; use this for one category\'s detail. Use wc-products/get-product-tag for tags instead.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Returns one WooCommerce product category by ID: its name, slug, parent category, product count, and description. Product categories are the hierarchical taxonomy (product_cat); a parent of 0 means a top-level category. Use og-wc-products/list-product-categories to scan categories and discover IDs; use this for one category\'s detail. Use og-wc-products/get-product-tag for tags instead.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
@@ -63,7 +63,7 @@ final class GetProductCategory implements ConditionalAbility {
 					'id' => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The product category term ID. Discover IDs with wc-products/list-product-categories.', 'abilities-catalog-woo' ),
+						'description' => __( 'The product category term ID. Discover IDs with og-wc-products/list-product-categories.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,

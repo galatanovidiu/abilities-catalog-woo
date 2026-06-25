@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-reports/get-downloads-stats`.
+ * Read ability: `og-wc-reports/get-downloads-stats`.
  *
  * Wraps `GET /wc-analytics/reports/downloads/stats` via `rest_do_request()` and
  * returns the aggregated downloadable-product download KPI `totals` over a date
@@ -54,7 +54,7 @@ final class GetDownloadsStats implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-reports/get-downloads-stats';
+		return 'og-wc-reports/get-downloads-stats';
 	}
 
 	/**
@@ -70,8 +70,8 @@ final class GetDownloadsStats implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Get Downloads Stats', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns the aggregated WooCommerce Analytics download KPI over a date range: download_count, the number of downloadable-product file downloads recorded. Use this for the store-wide download total; use wc-reports/list-downloads-analytics for the individual per-download rows. The date range is set with after/before (ISO8601 date-time); omit them to use the store default range. interval buckets the breakdown that drives intervals_count. The full per-interval breakdown is intentionally omitted — only intervals_count (the number of buckets) is reported. Only available when the store\'s WooCommerce Analytics feature is enabled.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-reports',
+			'description'         => __( 'Returns the aggregated WooCommerce Analytics download KPI over a date range: download_count, the number of downloadable-product file downloads recorded. Use this for the store-wide download total; use og-wc-reports/list-downloads-analytics for the individual per-download rows. The date range is set with after/before (ISO8601 date-time); omit them to use the store default range. interval buckets the breakdown that drives intervals_count. The full per-interval breakdown is intentionally omitted — only intervals_count (the number of buckets) is reported. Only available when the store\'s WooCommerce Analytics feature is enabled.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-reports',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array(
@@ -97,7 +97,7 @@ final class GetDownloadsStats implements ConditionalAbility {
 							'type'    => 'integer',
 							'minimum' => 1,
 						),
-						'description' => __( 'Limit the download total to these downloadable-product IDs. Discover IDs with wc-reports/list-stock-analytics or store/list-products. Omit to count downloads across all products.', 'abilities-catalog-woo' ),
+						'description' => __( 'Limit the download total to these downloadable-product IDs. Discover IDs with og-wc-reports/list-stock-analytics or store/list-products. Omit to count downloads across all products.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,

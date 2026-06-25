@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Write ability: `wc-taxes/create-tax-rate`.
+ * Write ability: `og-wc-taxes/create-tax-rate`.
  *
  * Wraps `POST wc/v3/taxes` via `rest_do_request()`, creating a new WooCommerce tax
  * rate, and returns the flat, closed {@see TaxRateListShaper::summary()} record of
@@ -29,8 +29,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Only `country` is required (the region the rate applies to). The body fields the
  * route accepts are forwarded only when present in the input. The `rate` is a decimal
  * STRING (e.g. `8.25`) — WooCommerce stores the percentage as a decimal string, so it
- * is kept a string here. To change an existing rate use `wc-taxes/update-tax-rate`;
- * discover ids with `wc-taxes/list-tax-rates`.
+ * is kept a string here. To change an existing rate use `og-wc-taxes/update-tax-rate`;
+ * discover ids with `og-wc-taxes/list-tax-rates`.
  *
  * The catalog exposes the singular `postcode`/`city` strings (the stable wc/v3 V1
  * fields), not the V3 `postcodes`/`cities` arrays, to keep the input simple and
@@ -66,7 +66,7 @@ final class CreateTaxRate implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-taxes/create-tax-rate';
+		return 'og-wc-taxes/create-tax-rate';
 	}
 
 	/**
@@ -82,8 +82,8 @@ final class CreateTaxRate implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Create Tax Rate', 'abilities-catalog-woo' ),
-			'description'         => __( 'Creates a new WooCommerce tax rate and returns its id, country, state, rate, name, priority, compound and shipping flags, and tax class. FINANCIAL: this changes what customers are charged at checkout — once created, the rate applies to every future order whose country/state/postcode/city matches it, and takes effect immediately for new carts. Only country is required (use the ISO code, e.g. US, or * for all). rate is a decimal-string percentage (e.g. "8.25"); keep it a string. To change an existing rate use wc-taxes/update-tax-rate; discover ids with wc-taxes/list-tax-rates, and class slugs with wc-taxes/list-tax-classes.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-taxes',
+			'description'         => __( 'Creates a new WooCommerce tax rate and returns its id, country, state, rate, name, priority, compound and shipping flags, and tax class. FINANCIAL: this changes what customers are charged at checkout — once created, the rate applies to every future order whose country/state/postcode/city matches it, and takes effect immediately for new carts. Only country is required (use the ISO code, e.g. US, or * for all). rate is a decimal-string percentage (e.g. "8.25"); keep it a string. To change an existing rate use og-wc-taxes/update-tax-rate; discover ids with og-wc-taxes/list-tax-rates, and class slugs with og-wc-taxes/list-tax-classes.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-taxes',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'country' ),
@@ -126,7 +126,7 @@ final class CreateTaxRate implements ConditionalAbility {
 					),
 					'class'    => array(
 						'type'        => 'string',
-						'description' => __( 'The tax-class slug this rate belongs to, e.g. standard, reduced-rate, or zero-rate. Discover available slugs with wc-taxes/list-tax-classes.', 'abilities-catalog-woo' ),
+						'description' => __( 'The tax-class slug this rate belongs to, e.g. standard, reduced-rate, or zero-rate. Discover available slugs with og-wc-taxes/list-tax-classes.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,

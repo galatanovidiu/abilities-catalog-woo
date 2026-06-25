@@ -15,12 +15,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-products/get-product-review`.
+ * Read ability: `og-wc-products/get-product-review`.
  *
  * Wraps `GET wc/v3/products/reviews/<id>` via `rest_do_request()` and returns one
  * product review as a flat, closed row through
  * {@see ProductReviewListShaper::reviewSummary()} — the same shaped fields a
- * `wc-products/list-product-reviews` row carries, including the reviewer name and
+ * `og-wc-products/list-product-reviews` row carries, including the reviewer name and
  * email. A WooCommerce product review is a WordPress comment on a product
  * (`comment_type = 'review'`).
  *
@@ -40,7 +40,7 @@ final class GetProductReview implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/get-product-review';
+		return 'og-wc-products/get-product-review';
 	}
 
 	/**
@@ -60,8 +60,8 @@ final class GetProductReview implements ConditionalAbility {
 
 		return array(
 			'label'               => __( 'Get Product Review', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns one WooCommerce product review by ID: its rating, review text, moderation status, the reviewed product, whether the reviewer is a verified buyer, and the reviewer name and email. A product review is a WordPress comment on a product. The reviewer email is included because this is an admin moderation tool gated on the moderate_comments capability. Use wc-products/list-product-reviews to scan reviews and discover IDs; use this for one review\'s detail.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Returns one WooCommerce product review by ID: its rating, review text, moderation status, the reviewed product, whether the reviewer is a verified buyer, and the reviewer name and email. A product review is a WordPress comment on a product. The reviewer email is included because this is an admin moderation tool gated on the moderate_comments capability. Use og-wc-products/list-product-reviews to scan reviews and discover IDs; use this for one review\'s detail.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
@@ -69,7 +69,7 @@ final class GetProductReview implements ConditionalAbility {
 					'id' => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The product review ID. Discover IDs with wc-products/list-product-reviews.', 'abilities-catalog-woo' ),
+						'description' => __( 'The product review ID. Discover IDs with og-wc-products/list-product-reviews.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,

@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-products/list-attribute-terms`.
+ * Read ability: `og-wc-products/list-attribute-terms`.
  *
  * Wraps `GET wc/v3/products/attributes/<attribute_id>/terms` via
  * `rest_do_request()` and returns each term of one global product attribute as a
@@ -40,7 +40,7 @@ final class ListAttributeTerms implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/list-attribute-terms';
+		return 'og-wc-products/list-attribute-terms';
 	}
 
 	/**
@@ -56,8 +56,8 @@ final class ListAttributeTerms implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'List Attribute Terms', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns the terms of one global product attribute (e.g. the Red/Blue/Green values of a "Color" attribute) as flat summary rows, each with its id, name, slug, product count, and description. Pass the parent attribute_id; discover it with wc-products/list-product-attributes. Filter by search term, narrow with hide_empty, and sort with orderby/order. Use wc-products/get-attribute-term for a single term. Read-only: lists terms of a global attribute, not the categories or tags (use wc-products/list-product-categories or wc-products/list-product-tags for those).', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Returns the terms of one global product attribute (e.g. the Red/Blue/Green values of a "Color" attribute) as flat summary rows, each with its id, name, slug, product count, and description. Pass the parent attribute_id; discover it with og-wc-products/list-product-attributes. Filter by search term, narrow with hide_empty, and sort with orderby/order. Use og-wc-products/get-attribute-term for a single term. Read-only: lists terms of a global attribute, not the categories or tags (use og-wc-products/list-product-categories or og-wc-products/list-product-tags for those).', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'attribute_id' ),
@@ -65,7 +65,7 @@ final class ListAttributeTerms implements ConditionalAbility {
 					'attribute_id' => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The parent attribute ID whose terms to list. Discover it with wc-products/list-product-attributes.', 'abilities-catalog-woo' ),
+						'description' => __( 'The parent attribute ID whose terms to list. Discover it with og-wc-products/list-product-attributes.', 'abilities-catalog-woo' ),
 					),
 					'search'       => array(
 						'type'        => 'string',
@@ -111,7 +111,7 @@ final class ListAttributeTerms implements ConditionalAbility {
 					),
 					'items'        => array(
 						'type'        => 'array',
-						'description' => __( 'The attribute terms as flat summary rows. Use wc-products/get-attribute-term for a single term.', 'abilities-catalog-woo' ),
+						'description' => __( 'The attribute terms as flat summary rows. Use og-wc-products/get-attribute-term for a single term.', 'abilities-catalog-woo' ),
 						'items'       => ProductTermListShaper::termItemSchema(),
 					),
 					'total'        => array(
@@ -137,7 +137,7 @@ final class ListAttributeTerms implements ConditionalAbility {
 	/**
 	 * Permission check: WooCommerce's manage capability for product terms.
 	 *
-	 * Encodes the catalog baseline for `wc-products/list-attribute-terms`: the
+	 * Encodes the catalog baseline for `og-wc-products/list-attribute-terms`: the
 	 * `manage_product_terms` capability, which is what the wrapped
 	 * `GET wc/v3/products/attributes/<attribute_id>/terms` route resolves to —
 	 * `wc_rest_check_product_term_permissions( $taxonomy, 'read' )` maps the read

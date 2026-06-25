@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-shipping/get-shipping-zone-method`.
+ * Read ability: `og-wc-shipping/get-shipping-zone-method`.
  *
  * Wraps `GET wc/v3/shipping/zones/<zone_id>/methods/<instance_id>` via
  * `rest_do_request()` and returns one shipping method instance configured on a
@@ -23,8 +23,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * customer-facing title, enabled flag, sort order, a compact settings_summary of
  * its configured values, and the method type's method_title and
  * method_description. This is one CONFIGURED instance on a zone; for the catalog
- * of available method TYPES use `wc-shipping/list-shipping-methods` /
- * `wc-shipping/get-shipping-method`. Both route segments are required; the route
+ * of available method TYPES use `og-wc-shipping/list-shipping-methods` /
+ * `og-wc-shipping/get-shipping-method`. Both route segments are required; the route
  * surfaces the specific 404 for a missing zone or a missing instance.
  *
  * Only available when WooCommerce is active (it is a {@see ConditionalAbility}).
@@ -37,7 +37,7 @@ final class GetShippingZoneMethod implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-shipping/get-shipping-zone-method';
+		return 'og-wc-shipping/get-shipping-zone-method';
 	}
 
 	/**
@@ -53,8 +53,8 @@ final class GetShippingZoneMethod implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Get Shipping Zone Method', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns one shipping method instance configured on a zone by zone_id and instance_id: its method type slug (method_id), customer-facing title, enabled flag, sort order, a compact settings_summary of its configured values (e.g. cost, title), and the method type\'s method_title and method_description. This is a single configured instance on a zone; use wc-shipping/get-shipping-method for the available method type itself. Discover zone_id with wc-shipping/list-shipping-zones and instance_id with wc-shipping/list-shipping-zone-methods.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-shipping',
+			'description'         => __( 'Returns one shipping method instance configured on a zone by zone_id and instance_id: its method type slug (method_id), customer-facing title, enabled flag, sort order, a compact settings_summary of its configured values (e.g. cost, title), and the method type\'s method_title and method_description. This is a single configured instance on a zone; use og-wc-shipping/get-shipping-method for the available method type itself. Discover zone_id with og-wc-shipping/list-shipping-zones and instance_id with og-wc-shipping/list-shipping-zone-methods.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-shipping',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'zone_id', 'instance_id' ),
@@ -62,12 +62,12 @@ final class GetShippingZoneMethod implements ConditionalAbility {
 					'zone_id'     => array(
 						'type'        => 'integer',
 						'minimum'     => 0,
-						'description' => __( 'The shipping zone ID that holds the method instance. Discover IDs with wc-shipping/list-shipping-zones; id 0 is the always-present "Rest of the World" catch-all zone.', 'abilities-catalog-woo' ),
+						'description' => __( 'The shipping zone ID that holds the method instance. Discover IDs with og-wc-shipping/list-shipping-zones; id 0 is the always-present "Rest of the World" catch-all zone.', 'abilities-catalog-woo' ),
 					),
 					'instance_id' => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The configured method instance ID within the zone. Discover IDs with wc-shipping/list-shipping-zone-methods.', 'abilities-catalog-woo' ),
+						'description' => __( 'The configured method instance ID within the zone. Discover IDs with og-wc-shipping/list-shipping-zone-methods.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,

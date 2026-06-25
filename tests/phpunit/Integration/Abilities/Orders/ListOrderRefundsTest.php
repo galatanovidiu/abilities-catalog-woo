@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-orders/list-order-refunds` ability.
+ * Integration tests for the `og-wc-orders/list-order-refunds` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -19,7 +19,7 @@ use WP_Error;
  */
 final class ListOrderRefundsTest extends TestCase {
 
-	private const ABILITY = 'wc-orders/list-order-refunds';
+	private const ABILITY = 'og-wc-orders/list-order-refunds';
 
 	/**
 	 * The exact keys a shaped refund summary row exposes.

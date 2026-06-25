@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-customers/list-customers`.
+ * Read ability: `og-wc-customers/list-customers`.
  *
  * Wraps `GET wc/v3/customers` via `rest_do_request()` and returns each customer as
  * a flat summary row through {@see CustomerListShaper::summary()}, so a consumer
@@ -41,7 +41,7 @@ final class ListCustomers implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-customers/list-customers';
+		return 'og-wc-customers/list-customers';
 	}
 
 	/**
@@ -57,8 +57,8 @@ final class ListCustomers implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'List Customers', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns the store\'s WooCommerce customers as flat summary rows, each with its id, email, first and last name, username, role, registration date, orders_count, and total_spent. Filter by search term, exact email, or role, and sort with orderby/order. By default only the "customer" role is returned; pass role "all" to widen to every role. Use wc-customers/get-customer for one customer\'s full detail including billing and shipping addresses. Read-only. Note: the result contains personally identifiable information (customer email and name).', 'abilities-catalog-woo' ),
-			'category'            => 'wc-customers',
+			'description'         => __( 'Returns the store\'s WooCommerce customers as flat summary rows, each with its id, email, first and last name, username, role, registration date, orders_count, and total_spent. Filter by search term, exact email, or role, and sort with orderby/order. By default only the "customer" role is returned; pass role "all" to widen to every role. Use og-wc-customers/get-customer for one customer\'s full detail including billing and shipping addresses. Read-only. Note: the result contains personally identifiable information (customer email and name).', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-customers',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array(
@@ -110,7 +110,7 @@ final class ListCustomers implements ConditionalAbility {
 				'properties'           => array(
 					'items' => array(
 						'type'        => 'array',
-						'description' => __( 'The customers as flat summary rows. Use wc-customers/get-customer for a single customer\'s full detail. Rows contain personally identifiable information (email and name).', 'abilities-catalog-woo' ),
+						'description' => __( 'The customers as flat summary rows. Use og-wc-customers/get-customer for a single customer\'s full detail. Rows contain personally identifiable information (email and name).', 'abilities-catalog-woo' ),
 						'items'       => CustomerListShaper::itemSchema(),
 					),
 					'total' => array(
@@ -136,7 +136,7 @@ final class ListCustomers implements ConditionalAbility {
 	/**
 	 * Permission check: WooCommerce's read capability for customers.
 	 *
-	 * Encodes the catalog baseline for `wc-customers/list-customers`: the
+	 * Encodes the catalog baseline for `og-wc-customers/list-customers`: the
 	 * `list_users` capability, which is what `wc_rest_check_user_permissions(
 	 * 'read' )` resolves to on the wrapped `GET wc/v3/customers` route. This is a
 	 * coarse, object-independent guard; the wrapped route applies any per-customer

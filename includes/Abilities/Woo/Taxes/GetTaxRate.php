@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-taxes/get-tax-rate`.
+ * Read ability: `og-wc-taxes/get-tax-rate`.
  *
  * Wraps `GET wc/v3/taxes/<id>` via `rest_do_request()` and returns one tax rate as
  * a flat, closed row shaped by {@see TaxRateListShaper::summary()}. The id is a
@@ -34,7 +34,7 @@ final class GetTaxRate implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-taxes/get-tax-rate';
+		return 'og-wc-taxes/get-tax-rate';
 	}
 
 	/**
@@ -50,8 +50,8 @@ final class GetTaxRate implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Get Tax Rate', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns one WooCommerce tax rate by ID: its country, state, rate (a decimal-string percentage), name, priority, compound and shipping flags, and tax class. Use wc-taxes/list-tax-rates to discover IDs, and wc-taxes/list-tax-classes for the available class slugs.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-taxes',
+			'description'         => __( 'Returns one WooCommerce tax rate by ID: its country, state, rate (a decimal-string percentage), name, priority, compound and shipping flags, and tax class. Use og-wc-taxes/list-tax-rates to discover IDs, and og-wc-taxes/list-tax-classes for the available class slugs.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-taxes',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
@@ -59,7 +59,7 @@ final class GetTaxRate implements ConditionalAbility {
 					'id' => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The tax rate ID. Discover IDs with wc-taxes/list-tax-rates.', 'abilities-catalog-woo' ),
+						'description' => __( 'The tax rate ID. Discover IDs with og-wc-taxes/list-tax-rates.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,

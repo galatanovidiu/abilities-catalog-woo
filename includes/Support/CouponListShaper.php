@@ -87,7 +87,7 @@ final class CouponListShaper {
 			'properties'           => array(
 				'id'             => array(
 					'type'        => 'integer',
-					'description' => __( 'The coupon ID. Read the full coupon with wc-coupons/get-coupon.', 'abilities-catalog-woo' ),
+					'description' => __( 'The coupon ID. Read the full coupon with og-wc-coupons/get-coupon.', 'abilities-catalog-woo' ),
 				),
 				'code'           => array(
 					'type'        => 'string',

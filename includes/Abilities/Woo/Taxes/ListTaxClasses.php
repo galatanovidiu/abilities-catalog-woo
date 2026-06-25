@@ -15,13 +15,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-taxes/list-tax-classes`.
+ * Read ability: `og-wc-taxes/list-tax-classes`.
  *
  * Wraps `GET wc/v3/taxes/classes` via `rest_do_request()` and returns each tax
  * class as a flat `{slug, name}` row. The built-in `standard` class is always
  * present; further classes (e.g. `reduced-rate`, `zero-rate`) are the ones the
  * store has defined. Use a row's `slug` to filter rates by class with
- * `wc-taxes/list-tax-rates`.
+ * `og-wc-taxes/list-tax-rates`.
  *
  * Only available when WooCommerce is active (it is a {@see ConditionalAbility}).
  * The tax-classes route takes no paging or search, so it returns every class in
@@ -35,7 +35,7 @@ final class ListTaxClasses implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-taxes/list-tax-classes';
+		return 'og-wc-taxes/list-tax-classes';
 	}
 
 	/**
@@ -51,8 +51,8 @@ final class ListTaxClasses implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'List Tax Classes', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns the store\'s WooCommerce tax classes as flat summary rows, each with its slug and name. The built-in "standard" class is always present; other classes (e.g. reduced-rate, zero-rate) are store-defined. Use a class slug to filter rates with wc-taxes/list-tax-rates. Read-only: returns the class list only, not the rates within each class.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-taxes',
+			'description'         => __( 'Returns the store\'s WooCommerce tax classes as flat summary rows, each with its slug and name. The built-in "standard" class is always present; other classes (e.g. reduced-rate, zero-rate) are store-defined. Use a class slug to filter rates with og-wc-taxes/list-tax-rates. Read-only: returns the class list only, not the rates within each class.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-taxes',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => (object) array(),
@@ -64,7 +64,7 @@ final class ListTaxClasses implements ConditionalAbility {
 				'properties'           => array(
 					'items' => array(
 						'type'        => 'array',
-						'description' => __( 'The tax classes as flat summary rows. Use a row\'s slug with wc-taxes/list-tax-rates to list that class\'s rates.', 'abilities-catalog-woo' ),
+						'description' => __( 'The tax classes as flat summary rows. Use a row\'s slug with og-wc-taxes/list-tax-rates to list that class\'s rates.', 'abilities-catalog-woo' ),
 						'items'       => TaxRateListShaper::classItemSchema(),
 					),
 					'total' => array(

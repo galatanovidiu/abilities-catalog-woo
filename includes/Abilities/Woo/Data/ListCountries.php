@@ -15,14 +15,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-data/list-countries`.
+ * Read ability: `og-wc-data/list-countries`.
  *
  * Wraps `GET /wc/v3/data/countries` via `rest_do_request()` and returns every
  * country WooCommerce knows about as a flat summary row, each with its ISO-3166
  * alpha-2 `code`, full `name`, and `states` (its provinces/regions as `{code,name}`
  * pairs). The list route maps each country through the same `get_country()`
  * projection the single-resource route uses, so a listed row carries the same
- * shape `wc-data/get-country` returns — there is no thinner-row/fatter-row split
+ * shape `og-wc-data/get-country` returns — there is no thinner-row/fatter-row split
  * here, and a consumer rarely needs the by-code call.
  *
  * Only available when WooCommerce is active (it is a {@see ConditionalAbility}).
@@ -38,7 +38,7 @@ final class ListCountries implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-data/list-countries';
+		return 'og-wc-data/list-countries';
 	}
 
 	/**
@@ -54,8 +54,8 @@ final class ListCountries implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'List Countries', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns every country WooCommerce supports as flat rows, each with its ISO-3166 alpha-2 code, full name, and states (the country\'s provinces or regions as code/name pairs). Use this to discover the country code an order, customer, or shipping zone needs, and the state codes valid within a country. This is WooCommerce\'s static country table, not the store\'s selling/shipping locations. Use wc-data/get-country to look up one country by code.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-data',
+			'description'         => __( 'Returns every country WooCommerce supports as flat rows, each with its ISO-3166 alpha-2 code, full name, and states (the country\'s provinces or regions as code/name pairs). Use this to discover the country code an order, customer, or shipping zone needs, and the state codes valid within a country. This is WooCommerce\'s static country table, not the store\'s selling/shipping locations. Use og-wc-data/get-country to look up one country by code.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-data',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => (object) array(),
@@ -67,7 +67,7 @@ final class ListCountries implements ConditionalAbility {
 				'properties'           => array(
 					'items' => array(
 						'type'        => 'array',
-						'description' => __( 'The countries as flat summary rows. Use wc-data/get-country for a single country by code.', 'abilities-catalog-woo' ),
+						'description' => __( 'The countries as flat summary rows. Use og-wc-data/get-country for a single country by code.', 'abilities-catalog-woo' ),
 						'items'       => DataReferenceShaper::countryItemSchema(),
 					),
 					'total' => array(

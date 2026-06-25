@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-data/get-continent ability.
+ * Integration tests for the og-wc-data/get-continent ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -13,7 +13,7 @@ use GalatanOvidiu\AbilitiesCatalogWoo\Tests\TestCase;
 use WP_Error;
 
 /**
- * Exercises wc-data/get-continent: the shaped single continent (a known code
+ * Exercises og-wc-data/get-continent: the shaped single continent (a known code
  * resolves to its name and countries), the unknown-code 404 that must not collapse
  * to a permission error, the wrong-capability denial, and the exact closed output
  * shape (flat, no locale-detail country fields or _links leak).
@@ -35,16 +35,16 @@ final class GetContinentTest extends TestCase {
 	);
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-data/get-continent' );
+		$ability = wp_get_ability( 'og-wc-data/get-continent' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-data/get-continent', $ability->get_name() );
+		$this->assertSame( 'og-wc-data/get-continent', $ability->get_name() );
 	}
 
 	public function test_admin_reads_known_continent(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-data/get-continent' )->execute( array( 'code' => 'NA' ) );
+		$result = wp_get_ability( 'og-wc-data/get-continent' )->execute( array( 'code' => 'NA' ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( 'NA', $result['code'] );
@@ -61,7 +61,7 @@ final class GetContinentTest extends TestCase {
 	public function test_lowercase_code_resolves(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-data/get-continent' )->execute( array( 'code' => 'na' ) );
+		$result = wp_get_ability( 'og-wc-data/get-continent' )->execute( array( 'code' => 'na' ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( 'NA', $result['code'] );
@@ -70,7 +70,7 @@ final class GetContinentTest extends TestCase {
 	public function test_output_shape_is_exact_and_closed(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-data/get-continent' )->execute( array( 'code' => 'NA' ) );
+		$result = wp_get_ability( 'og-wc-data/get-continent' )->execute( array( 'code' => 'NA' ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( self::EXPECTED_KEYS, array_keys( $result ) );
@@ -94,7 +94,7 @@ final class GetContinentTest extends TestCase {
 	public function test_unknown_code_returns_404_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-data/get-continent' )->execute( array( 'code' => 'ZZ' ) );
+		$result = wp_get_ability( 'og-wc-data/get-continent' )->execute( array( 'code' => 'ZZ' ) );
 
 		$this->assertInstanceOf( WP_Error::class, $result );
 		$this->assertSame( 'woocommerce_rest_data_invalid_location', $result->get_error_code() );
@@ -105,7 +105,7 @@ final class GetContinentTest extends TestCase {
 	public function test_subscriber_is_denied(): void {
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-data/get-continent' );
+		$ability = wp_get_ability( 'og-wc-data/get-continent' );
 
 		$this->assertFalse( $ability->check_permissions( array( 'code' => 'NA' ) ) );
 

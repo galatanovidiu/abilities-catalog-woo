@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Shared writable JSON-Schema property fragments for the WooCommerce order write
  * abilities (batch 17, namespace `wc-orders`).
  *
- * `wc-orders/create-order` and `wc-orders/update-order` expose the SAME small
+ * `og-wc-orders/create-order` and `og-wc-orders/update-order` expose the SAME small
  * writable subset of the ~100-field `wc/v3` order schema. Centralizing those
  * fragments here keeps the two abilities in sync and pins the subset to fields
  * confirmed present and non-readonly in WC's own order REST controller
@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *    factored into {@see self::createStatusProperty()} and merged in by
  *    create-order ONLY. This is the structural lever that keeps `status` off
  *    update-order: changing an existing order's status is the separate elevated
- *    ability `wc-orders/update-order-status` (batch 23), because paid statuses
+ *    ability `og-wc-orders/update-order-status` (batch 23), because paid statuses
  *    fire stock changes and customer emails. Omitting `status` from the shared
  *    subset — not relying on copy alone — is what prevents update-order from
  *    accepting it.
@@ -62,7 +62,7 @@ final class OrderWriteSchema {
 		return array(
 			'customer_id'          => array(
 				'type'        => 'integer',
-				'description' => __( 'The WordPress user/customer ID who owns the order; 0 for a guest. Discover customer IDs with wc-customers/list-customers.', 'abilities-catalog-woo' ),
+				'description' => __( 'The WordPress user/customer ID who owns the order; 0 for a guest. Discover customer IDs with og-wc-customers/list-customers.', 'abilities-catalog-woo' ),
 			),
 			'customer_note'        => array(
 				'type'        => 'string',
@@ -72,7 +72,7 @@ final class OrderWriteSchema {
 			'shipping'             => self::shippingSchema(),
 			'line_items'           => array(
 				'type'        => 'array',
-				'description' => __( 'The products on the order. Each item identifies a product (and optional variation) and a quantity. Discover product_id with wc-products/list-products and variation_id with wc-products/list-product-variations.', 'abilities-catalog-woo' ),
+				'description' => __( 'The products on the order. Each item identifies a product (and optional variation) and a quantity. Discover product_id with og-wc-products/list-products and variation_id with og-wc-products/list-product-variations.', 'abilities-catalog-woo' ),
 				'items'       => self::lineItemSchema(),
 			),
 			'shipping_lines'       => array(
@@ -116,7 +116,7 @@ final class OrderWriteSchema {
 	 *
 	 * Kept OUT of {@see self::writableProperties()} on purpose so update-order
 	 * cannot accept it: changing an existing order's status is the separate
-	 * elevated ability `wc-orders/update-order-status` (batch 23). The enum is the
+	 * elevated ability `og-wc-orders/update-order-status` (batch 23). The enum is the
 	 * standard WooCommerce order-status set; the route's own enum
 	 * (`get_order_statuses()`, controller :1135-1143, :1195) is `auto-draft` plus
 	 * the `wc-`-stripped keys of `wc_get_order_statuses()`, so a site that
@@ -130,7 +130,7 @@ final class OrderWriteSchema {
 			'type'        => 'string',
 			'enum'        => array( 'pending', 'processing', 'on-hold', 'completed', 'cancelled', 'refunded', 'failed' ),
 			'default'     => 'pending',
-			'description' => __( 'The order\'s initial status; defaults to pending. WARNING: the paid statuses (processing and completed) fire stock reduction and the paid-order customer emails, the same way set_paid does. Use pending or on-hold for an unpaid order. This sets the INITIAL status only; to change an existing order\'s status use wc-orders/update-order-status.', 'abilities-catalog-woo' ),
+			'description' => __( 'The order\'s initial status; defaults to pending. WARNING: the paid statuses (processing and completed) fire stock reduction and the paid-order customer emails, the same way set_paid does. Use pending or on-hold for an unpaid order. This sets the INITIAL status only; to change an existing order\'s status use og-wc-orders/update-order-status.', 'abilities-catalog-woo' ),
 		);
 	}
 
@@ -267,7 +267,7 @@ final class OrderWriteSchema {
 			'properties'           => array(
 				'product_id'   => array(
 					'type'        => 'integer',
-					'description' => __( 'The product ID to add to the order. Discover with wc-products/list-products.', 'abilities-catalog-woo' ),
+					'description' => __( 'The product ID to add to the order. Discover with og-wc-products/list-products.', 'abilities-catalog-woo' ),
 				),
 				'quantity'     => array(
 					'type'        => 'integer',
@@ -275,7 +275,7 @@ final class OrderWriteSchema {
 				),
 				'variation_id' => array(
 					'type'        => 'integer',
-					'description' => __( 'The variation ID, for a variable product. Discover with wc-products/list-product-variations.', 'abilities-catalog-woo' ),
+					'description' => __( 'The variation ID, for a variable product. Discover with og-wc-products/list-product-variations.', 'abilities-catalog-woo' ),
 				),
 			),
 			'additionalProperties' => false,

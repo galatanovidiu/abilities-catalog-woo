@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-shipping/update-shipping-zone-locations ability.
+ * Integration tests for the og-wc-shipping/update-shipping-zone-locations ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -14,7 +14,7 @@ use WC_Shipping_Zone;
 use WP_Error;
 
 /**
- * Exercises wc-shipping/update-shipping-zone-locations: the FULL-REPLACE behavior
+ * Exercises og-wc-shipping/update-shipping-zone-locations: the FULL-REPLACE behavior
  * (an omitted location is dropped), clearing a zone with an empty array, the
  * missing-zone 404 that must not collapse to a permission error, the missing-required
  * input rejection, the wrong-capability denial, and the exact closed output shape
@@ -61,10 +61,10 @@ final class UpdateShippingZoneLocationsTest extends TestCase {
 	}
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-shipping/update-shipping-zone-locations' );
+		$ability = wp_get_ability( 'og-wc-shipping/update-shipping-zone-locations' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-shipping/update-shipping-zone-locations', $ability->get_name() );
+		$this->assertSame( 'og-wc-shipping/update-shipping-zone-locations', $ability->get_name() );
 	}
 
 	public function test_full_replace_drops_omitted_location(): void {
@@ -77,7 +77,7 @@ final class UpdateShippingZoneLocationsTest extends TestCase {
 			)
 		);
 
-		$result = wp_get_ability( 'wc-shipping/update-shipping-zone-locations' )->execute(
+		$result = wp_get_ability( 'og-wc-shipping/update-shipping-zone-locations' )->execute(
 			array(
 				'id'        => $zone_id,
 				'locations' => array(
@@ -107,7 +107,7 @@ final class UpdateShippingZoneLocationsTest extends TestCase {
 
 		$zone_id = $this->seedZone( array( array( 'code' => 'US', 'type' => 'country' ) ) );
 
-		$result = wp_get_ability( 'wc-shipping/update-shipping-zone-locations' )->execute(
+		$result = wp_get_ability( 'og-wc-shipping/update-shipping-zone-locations' )->execute(
 			array(
 				'id'        => $zone_id,
 				'locations' => array(
@@ -126,7 +126,7 @@ final class UpdateShippingZoneLocationsTest extends TestCase {
 
 		$zone_id = $this->seedZone( array( array( 'code' => 'US', 'type' => 'country' ) ) );
 
-		$result = wp_get_ability( 'wc-shipping/update-shipping-zone-locations' )->execute(
+		$result = wp_get_ability( 'og-wc-shipping/update-shipping-zone-locations' )->execute(
 			array(
 				'id'        => $zone_id,
 				'locations' => array(),
@@ -146,7 +146,7 @@ final class UpdateShippingZoneLocationsTest extends TestCase {
 
 		$zone_id = $this->seedZone( array( array( 'code' => 'GB', 'type' => 'country' ) ) );
 
-		$result = wp_get_ability( 'wc-shipping/update-shipping-zone-locations' )->execute(
+		$result = wp_get_ability( 'og-wc-shipping/update-shipping-zone-locations' )->execute(
 			array(
 				'id'        => $zone_id,
 				'locations' => array(
@@ -174,7 +174,7 @@ final class UpdateShippingZoneLocationsTest extends TestCase {
 	public function test_missing_zone_returns_404_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-shipping/update-shipping-zone-locations' )->execute(
+		$result = wp_get_ability( 'og-wc-shipping/update-shipping-zone-locations' )->execute(
 			array(
 				'id'        => 99999999,
 				'locations' => array(
@@ -194,7 +194,7 @@ final class UpdateShippingZoneLocationsTest extends TestCase {
 
 		$zone_id = $this->seedZone( array( array( 'code' => 'US', 'type' => 'country' ) ) );
 
-		$result = wp_get_ability( 'wc-shipping/update-shipping-zone-locations' )->execute(
+		$result = wp_get_ability( 'og-wc-shipping/update-shipping-zone-locations' )->execute(
 			array( 'id' => $zone_id )
 		);
 
@@ -209,7 +209,7 @@ final class UpdateShippingZoneLocationsTest extends TestCase {
 	public function test_missing_required_id_is_rejected(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-shipping/update-shipping-zone-locations' )->execute(
+		$result = wp_get_ability( 'og-wc-shipping/update-shipping-zone-locations' )->execute(
 			array(
 				'locations' => array(
 					array( 'code' => 'US', 'type' => 'country' ),
@@ -226,7 +226,7 @@ final class UpdateShippingZoneLocationsTest extends TestCase {
 
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-shipping/update-shipping-zone-locations' );
+		$ability = wp_get_ability( 'og-wc-shipping/update-shipping-zone-locations' );
 
 		$this->assertFalse( $ability->check_permissions(
 			array(

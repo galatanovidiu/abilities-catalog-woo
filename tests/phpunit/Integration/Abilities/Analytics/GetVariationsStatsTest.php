@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-reports/get-variations-stats ability.
+ * Integration tests for the og-wc-reports/get-variations-stats ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -19,7 +19,7 @@ use WC_Product_Variation;
 use WP_Error;
 
 /**
- * Exercises wc-reports/get-variations-stats: the shaped variation-sales totals over
+ * Exercises og-wc-reports/get-variations-stats: the shaped variation-sales totals over
  * a date range, the intentional omission of the raw `intervals` array (only
  * `intervals_count` is reported), an interval filter echoed in `period`, the
  * wrong-capability denial, and the exact closed output shape.
@@ -34,7 +34,7 @@ use WP_Error;
  */
 final class GetVariationsStatsTest extends TestCase {
 
-	private const ABILITY = 'wc-reports/get-variations-stats';
+	private const ABILITY = 'og-wc-reports/get-variations-stats';
 
 	/**
 	 * The closed key set the ability's `totals` object returns, in emit order.

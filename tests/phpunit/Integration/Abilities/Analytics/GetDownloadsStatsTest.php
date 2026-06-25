@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-reports/get-downloads-stats` ability.
+ * Integration tests for the `og-wc-reports/get-downloads-stats` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -18,7 +18,7 @@ use WP_Error;
  */
 final class GetDownloadsStatsTest extends TestCase {
 
-	private const ABILITY = 'wc-reports/get-downloads-stats';
+	private const ABILITY = 'og-wc-reports/get-downloads-stats';
 
 	/**
 	 * The exact keys the shaped downloads `totals` object exposes.

@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-coupons/update-coupon ability.
+ * Integration tests for the og-wc-coupons/update-coupon ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -14,7 +14,7 @@ use WC_Coupon;
 use WP_Error;
 
 /**
- * Exercises wc-coupons/update-coupon: the happy-path field change on a seeded
+ * Exercises og-wc-coupons/update-coupon: the happy-path field change on a seeded
  * coupon, the missing-coupon 400 that must not collapse to a permission error,
  * the wrong-capability denial, and the exact closed output shape (flat detail
  * row plus edit_link).
@@ -62,10 +62,10 @@ final class UpdateCouponTest extends TestCase {
 	}
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-coupons/update-coupon' );
+		$ability = wp_get_ability( 'og-wc-coupons/update-coupon' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-coupons/update-coupon', $ability->get_name() );
+		$this->assertSame( 'og-wc-coupons/update-coupon', $ability->get_name() );
 	}
 
 	public function test_admin_updates_coupon_amount(): void {
@@ -74,7 +74,7 @@ final class UpdateCouponTest extends TestCase {
 
 		$coupon_id = $this->seedCoupon();
 
-		$result = wp_get_ability( 'wc-coupons/update-coupon' )->execute(
+		$result = wp_get_ability( 'og-wc-coupons/update-coupon' )->execute(
 			array(
 				'id'     => $coupon_id,
 				'amount' => '25',
@@ -99,7 +99,7 @@ final class UpdateCouponTest extends TestCase {
 
 		$coupon_id = $this->seedCoupon( 'flat15' );
 
-		$result = wp_get_ability( 'wc-coupons/update-coupon' )->execute(
+		$result = wp_get_ability( 'og-wc-coupons/update-coupon' )->execute(
 			array(
 				'id'            => $coupon_id,
 				'discount_type' => 'fixed_cart',
@@ -116,7 +116,7 @@ final class UpdateCouponTest extends TestCase {
 
 		$coupon_id = $this->seedCoupon( 'shape20' );
 
-		$result = wp_get_ability( 'wc-coupons/update-coupon' )->execute(
+		$result = wp_get_ability( 'og-wc-coupons/update-coupon' )->execute(
 			array(
 				'id'          => $coupon_id,
 				'description' => 'Updated description.',
@@ -149,7 +149,7 @@ final class UpdateCouponTest extends TestCase {
 		$this->enableCoupons();
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-coupons/update-coupon' )->execute(
+		$result = wp_get_ability( 'og-wc-coupons/update-coupon' )->execute(
 			array(
 				'id'     => 99999999,
 				'amount' => '5',
@@ -171,7 +171,7 @@ final class UpdateCouponTest extends TestCase {
 		// `discount_type` is an enum in the input schema, so a bad value is
 		// rejected by the Abilities API input validation (ability_invalid_input,
 		// which carries no status) before execute() ever dispatches the request.
-		$result = wp_get_ability( 'wc-coupons/update-coupon' )->execute(
+		$result = wp_get_ability( 'og-wc-coupons/update-coupon' )->execute(
 			array(
 				'id'            => $coupon_id,
 				'discount_type' => 'not_a_real_type',
@@ -193,7 +193,7 @@ final class UpdateCouponTest extends TestCase {
 
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-coupons/update-coupon' );
+		$ability = wp_get_ability( 'og-wc-coupons/update-coupon' );
 
 		$this->assertFalse( $ability->check_permissions( array( 'id' => $coupon_id ) ) );
 

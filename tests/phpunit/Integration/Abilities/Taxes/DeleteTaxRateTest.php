@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-taxes/delete-tax-rate ability.
+ * Integration tests for the og-wc-taxes/delete-tax-rate ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -14,7 +14,7 @@ use WC_Tax;
 use WP_Error;
 
 /**
- * Exercises wc-taxes/delete-tax-rate: the permanent (force) delete returning the
+ * Exercises og-wc-taxes/delete-tax-rate: the permanent (force) delete returning the
  * pre-read name, the proof the rate is actually GONE afterward, the missing-rate
  * 404 that must not collapse to a permission error, the schema-rejected missing id,
  * the wrong-capability denial, and the exact closed output shape (no edit_link).
@@ -53,10 +53,10 @@ final class DeleteTaxRateTest extends TestCase {
 	}
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-taxes/delete-tax-rate' );
+		$ability = wp_get_ability( 'og-wc-taxes/delete-tax-rate' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-taxes/delete-tax-rate', $ability->get_name() );
+		$this->assertSame( 'og-wc-taxes/delete-tax-rate', $ability->get_name() );
 	}
 
 	public function test_admin_deletes_tax_rate_permanently(): void {
@@ -64,7 +64,7 @@ final class DeleteTaxRateTest extends TestCase {
 
 		$id = $this->seedRate();
 
-		$result = wp_get_ability( 'wc-taxes/delete-tax-rate' )->execute( array( 'id' => $id ) );
+		$result = wp_get_ability( 'og-wc-taxes/delete-tax-rate' )->execute( array( 'id' => $id ) );
 
 		$this->assertIsArray( $result );
 		$this->assertTrue( $result['deleted'] );
@@ -81,7 +81,7 @@ final class DeleteTaxRateTest extends TestCase {
 
 		$id = $this->seedRate();
 
-		$result = wp_get_ability( 'wc-taxes/delete-tax-rate' )->execute( array( 'id' => $id ) );
+		$result = wp_get_ability( 'og-wc-taxes/delete-tax-rate' )->execute( array( 'id' => $id ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( self::EXPECTED_KEYS, array_keys( $result ) );
@@ -102,7 +102,7 @@ final class DeleteTaxRateTest extends TestCase {
 	public function test_missing_tax_rate_returns_404_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-taxes/delete-tax-rate' )->execute( array( 'id' => 99999999 ) );
+		$result = wp_get_ability( 'og-wc-taxes/delete-tax-rate' )->execute( array( 'id' => 99999999 ) );
 
 		$this->assertInstanceOf( WP_Error::class, $result );
 		$this->assertSame( 'woocommerce_rest_invalid_id', $result->get_error_code() );
@@ -113,7 +113,7 @@ final class DeleteTaxRateTest extends TestCase {
 	public function test_missing_required_id_is_rejected(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-taxes/delete-tax-rate' )->execute( array() );
+		$result = wp_get_ability( 'og-wc-taxes/delete-tax-rate' )->execute( array() );
 
 		$this->assertInstanceOf( WP_Error::class, $result );
 		$this->assertSame( 'ability_invalid_input', $result->get_error_code() );
@@ -124,7 +124,7 @@ final class DeleteTaxRateTest extends TestCase {
 
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-taxes/delete-tax-rate' );
+		$ability = wp_get_ability( 'og-wc-taxes/delete-tax-rate' );
 
 		$this->assertFalse( $ability->check_permissions( array( 'id' => $id ) ) );
 

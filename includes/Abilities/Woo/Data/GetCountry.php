@@ -15,13 +15,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-data/get-country`.
+ * Read ability: `og-wc-data/get-country`.
  *
  * Wraps `GET wc/v3/data/countries/<code>` via `rest_do_request()` and returns one
  * country from WooCommerce's static reference tables as a flat, closed row — its
  * code, full name, and the list of states/provinces/regions (each `{code,name}`) —
  * through {@see DataReferenceShaper::countrySummary()}. This is the same shape a
- * `wc-data/list-countries` row carries, so a consumer can look up one country
+ * `og-wc-data/list-countries` row carries, so a consumer can look up one country
  * without scanning the whole list.
  *
  * The route's code param is named `location`; this ability accepts a `code` input
@@ -38,7 +38,7 @@ final class GetCountry implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-data/get-country';
+		return 'og-wc-data/get-country';
 	}
 
 	/**
@@ -54,15 +54,15 @@ final class GetCountry implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Get Country', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns one WooCommerce country from the static reference tables by its code: the country code, full name, and its states, provinces, or regions (each as a code and name). Use this to resolve a country code to its name or to list its states (e.g. for an order address). The code is an ISO-3166 alpha-2 string such as US; discover valid codes with wc-data/list-countries. Returns a woocommerce_rest_data_invalid_location 404 for an unknown code.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-data',
+			'description'         => __( 'Returns one WooCommerce country from the static reference tables by its code: the country code, full name, and its states, provinces, or regions (each as a code and name). Use this to resolve a country code to its name or to list its states (e.g. for an order address). The code is an ISO-3166 alpha-2 string such as US; discover valid codes with og-wc-data/list-countries. Returns a woocommerce_rest_data_invalid_location 404 for an unknown code.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-data',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'code' ),
 				'properties'           => array(
 					'code' => array(
 						'type'        => 'string',
-						'description' => __( 'The ISO-3166 alpha-2 country code, e.g. US (case-insensitive; the canonical form is uppercase). Discover valid codes with wc-data/list-countries.', 'abilities-catalog-woo' ),
+						'description' => __( 'The ISO-3166 alpha-2 country code, e.g. US (case-insensitive; the canonical form is uppercase). Discover valid codes with og-wc-data/list-countries.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,

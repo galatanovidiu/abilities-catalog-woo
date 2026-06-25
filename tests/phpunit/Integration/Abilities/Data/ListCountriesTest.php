@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-data/list-countries` ability.
+ * Integration tests for the `og-wc-data/list-countries` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -17,7 +17,7 @@ use WP_Error;
  */
 final class ListCountriesTest extends TestCase {
 
-	private const ABILITY = 'wc-data/list-countries';
+	private const ABILITY = 'og-wc-data/list-countries';
 
 	/**
 	 * The keys a shaped country row exposes — and nothing more.

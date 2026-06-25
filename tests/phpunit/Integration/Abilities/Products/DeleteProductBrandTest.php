@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-products/delete-product-brand ability.
+ * Integration tests for the og-wc-products/delete-product-brand ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -14,7 +14,7 @@ use GalatanOvidiu\AbilitiesCatalogWoo\Tests\TestCase;
 use WP_Error;
 
 /**
- * Exercises wc-products/delete-product-brand: the permanent force delete of a
+ * Exercises og-wc-products/delete-product-brand: the permanent force delete of a
  * product_brand term, the captured name, the missing-brand 404 that must not
  * collapse to a permission error, the wrong-capability denial (the brand
  * survives), and the exact closed output shape with no edit_link.
@@ -44,10 +44,10 @@ final class DeleteProductBrandTest extends TestCase {
 			$this->markTestSkipped( 'The WooCommerce Brands feature is not active in this environment.' );
 		}
 
-		$ability = wp_get_ability( 'wc-products/delete-product-brand' );
+		$ability = wp_get_ability( 'og-wc-products/delete-product-brand' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-products/delete-product-brand', $ability->get_name() );
+		$this->assertSame( 'og-wc-products/delete-product-brand', $ability->get_name() );
 	}
 
 	public function test_admin_deletes_brand_permanently(): void {
@@ -59,7 +59,7 @@ final class DeleteProductBrandTest extends TestCase {
 
 		$id = $this->seedBrand( 'Acme' );
 
-		$result = wp_get_ability( 'wc-products/delete-product-brand' )->execute( array( 'id' => $id ) );
+		$result = wp_get_ability( 'og-wc-products/delete-product-brand' )->execute( array( 'id' => $id ) );
 
 		$this->assertIsArray( $result );
 		$this->assertTrue( $result['deleted'] );
@@ -82,7 +82,7 @@ final class DeleteProductBrandTest extends TestCase {
 
 		$id = $this->seedBrand( 'Initech' );
 
-		$result = wp_get_ability( 'wc-products/delete-product-brand' )->execute( array( 'id' => $id ) );
+		$result = wp_get_ability( 'og-wc-products/delete-product-brand' )->execute( array( 'id' => $id ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( self::EXPECTED_KEYS, array_keys( $result ) );
@@ -98,7 +98,7 @@ final class DeleteProductBrandTest extends TestCase {
 
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-products/delete-product-brand' )->execute( array( 'id' => 99999999 ) );
+		$result = wp_get_ability( 'og-wc-products/delete-product-brand' )->execute( array( 'id' => 99999999 ) );
 
 		$this->assertInstanceOf( WP_Error::class, $result );
 		$this->assertSame( 'woocommerce_rest_term_invalid', $result->get_error_code() );
@@ -114,7 +114,7 @@ final class DeleteProductBrandTest extends TestCase {
 		$id = $this->seedBrand( 'Umbrella' );
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-products/delete-product-brand' );
+		$ability = wp_get_ability( 'og-wc-products/delete-product-brand' );
 
 		$this->assertFalse( $ability->check_permissions( array( 'id' => $id ) ) );
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-products/create-product-category ability.
+ * Integration tests for the og-wc-products/create-product-category ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -13,7 +13,7 @@ use GalatanOvidiu\AbilitiesCatalogWoo\Tests\TestCase;
 use WP_Error;
 
 /**
- * Exercises wc-products/create-product-category: the top-level happy path, a
+ * Exercises og-wc-products/create-product-category: the top-level happy path, a
  * nested category whose returned parent matches a seeded category, the duplicate
  * slug that surfaces WordPress core's term_exists 400 (not a permission collapse),
  * the wrong-capability denial, and the exact closed output shape (no display,
@@ -36,16 +36,16 @@ final class CreateProductCategoryTest extends TestCase {
 	);
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-products/create-product-category' );
+		$ability = wp_get_ability( 'og-wc-products/create-product-category' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-products/create-product-category', $ability->get_name() );
+		$this->assertSame( 'og-wc-products/create-product-category', $ability->get_name() );
 	}
 
 	public function test_admin_creates_a_top_level_category(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-products/create-product-category' )->execute(
+		$result = wp_get_ability( 'og-wc-products/create-product-category' )->execute(
 			array( 'name' => 'Hats' )
 		);
 
@@ -67,7 +67,7 @@ final class CreateProductCategoryTest extends TestCase {
 		$this->assertIsArray( $parent );
 		$parent_id = (int) $parent['term_id'];
 
-		$result = wp_get_ability( 'wc-products/create-product-category' )->execute(
+		$result = wp_get_ability( 'og-wc-products/create-product-category' )->execute(
 			array(
 				'name'   => 'Hats',
 				'parent' => $parent_id,
@@ -81,7 +81,7 @@ final class CreateProductCategoryTest extends TestCase {
 	public function test_output_shape_is_exact_and_closed(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-products/create-product-category' )->execute(
+		$result = wp_get_ability( 'og-wc-products/create-product-category' )->execute(
 			array(
 				'name'    => 'Hats',
 				'display' => 'products',
@@ -109,7 +109,7 @@ final class CreateProductCategoryTest extends TestCase {
 		// returns term_exists, which the wrapped wc/v3 route forwards with status
 		// 400. A duplicate *slug* with a different name would instead succeed with
 		// an auto-suffixed slug, so it is not a rejection path.
-		$result = wp_get_ability( 'wc-products/create-product-category' )->execute(
+		$result = wp_get_ability( 'og-wc-products/create-product-category' )->execute(
 			array(
 				'name' => 'Hats',
 			)
@@ -124,7 +124,7 @@ final class CreateProductCategoryTest extends TestCase {
 	public function test_subscriber_is_denied_and_no_category_created(): void {
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-products/create-product-category' );
+		$ability = wp_get_ability( 'og-wc-products/create-product-category' );
 
 		$this->assertFalse( $ability->check_permissions( array( 'name' => 'Hats' ) ) );
 

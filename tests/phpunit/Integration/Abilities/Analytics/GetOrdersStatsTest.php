@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-reports/get-orders-stats` ability.
+ * Integration tests for the `og-wc-reports/get-orders-stats` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -20,7 +20,7 @@ use WP_Error;
  */
 final class GetOrdersStatsTest extends TestCase {
 
-	private const ABILITY = 'wc-reports/get-orders-stats';
+	private const ABILITY = 'og-wc-reports/get-orders-stats';
 
 	/**
 	 * The exact closed top-level key set the ability returns.

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-reports/get-taxes-stats`.
+ * Read ability: `og-wc-reports/get-taxes-stats`.
  *
  * Wraps `GET /wc-analytics/reports/taxes/stats` via `rest_do_request()` and
  * returns the aggregated tax `totals` over a date range, plus `intervals_count`
@@ -58,7 +58,7 @@ final class GetTaxesStats implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-reports/get-taxes-stats';
+		return 'og-wc-reports/get-taxes-stats';
 	}
 
 	/**
@@ -74,8 +74,8 @@ final class GetTaxesStats implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Get Taxes Stats', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns aggregated WooCommerce Analytics tax KPIs over a date range: total_tax, order_tax, shipping_tax, orders_count, and tax_codes (the number of distinct tax codes that applied). Use this for store-wide tax totals; use wc-reports/list-taxes-analytics for per-tax-rate rows (which rate collected how much). The date range is set with after/before (ISO8601 date-time); interval buckets the breakdown that drives intervals_count. The full per-interval breakdown is intentionally omitted — only intervals_count (the number of buckets) is reported. Only available when the store\'s WooCommerce Analytics feature is enabled.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-reports',
+			'description'         => __( 'Returns aggregated WooCommerce Analytics tax KPIs over a date range: total_tax, order_tax, shipping_tax, orders_count, and tax_codes (the number of distinct tax codes that applied). Use this for store-wide tax totals; use og-wc-reports/list-taxes-analytics for per-tax-rate rows (which rate collected how much). The date range is set with after/before (ISO8601 date-time); interval buckets the breakdown that drives intervals_count. The full per-interval breakdown is intentionally omitted — only intervals_count (the number of buckets) is reported. Only available when the store\'s WooCommerce Analytics feature is enabled.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-reports',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array(

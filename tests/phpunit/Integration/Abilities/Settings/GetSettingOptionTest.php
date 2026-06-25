@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-settings/get-setting-option ability.
+ * Integration tests for the og-wc-settings/get-setting-option ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -14,7 +14,7 @@ use GalatanOvidiu\AbilitiesCatalogWoo\Tests\TestCase;
 use WP_Error;
 
 /**
- * Exercises wc-settings/get-setting-option: the shaped single-option record on a
+ * Exercises og-wc-settings/get-setting-option: the shaped single-option record on a
  * non-secret option, the redaction of a password-type option's value, the
  * missing-option 404 that must not collapse to a permission error, the
  * wrong-capability denial, and the exact closed output shape.
@@ -122,16 +122,16 @@ final class GetSettingOptionTest extends TestCase {
 	}
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-settings/get-setting-option' );
+		$ability = wp_get_ability( 'og-wc-settings/get-setting-option' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-settings/get-setting-option', $ability->get_name() );
+		$this->assertSame( 'og-wc-settings/get-setting-option', $ability->get_name() );
 	}
 
 	public function test_admin_reads_non_secret_option_with_real_value(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-settings/get-setting-option' )->execute(
+		$result = wp_get_ability( 'og-wc-settings/get-setting-option' )->execute(
 			array(
 				'group' => 'general',
 				'id'    => 'ac_test_text',
@@ -150,7 +150,7 @@ final class GetSettingOptionTest extends TestCase {
 	public function test_password_option_value_is_redacted(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-settings/get-setting-option' )->execute(
+		$result = wp_get_ability( 'og-wc-settings/get-setting-option' )->execute(
 			array(
 				'group' => 'general',
 				'id'    => 'ac_test_secret',
@@ -172,7 +172,7 @@ final class GetSettingOptionTest extends TestCase {
 	public function test_output_shape_is_exact_and_closed(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-settings/get-setting-option' )->execute(
+		$result = wp_get_ability( 'og-wc-settings/get-setting-option' )->execute(
 			array(
 				'group' => 'general',
 				'id'    => 'ac_test_text',
@@ -201,7 +201,7 @@ final class GetSettingOptionTest extends TestCase {
 	public function test_missing_option_returns_404_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-settings/get-setting-option' )->execute(
+		$result = wp_get_ability( 'og-wc-settings/get-setting-option' )->execute(
 			array(
 				'group' => 'general',
 				'id'    => 'no-such-option-id',
@@ -217,7 +217,7 @@ final class GetSettingOptionTest extends TestCase {
 	public function test_missing_group_returns_404_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-settings/get-setting-option' )->execute(
+		$result = wp_get_ability( 'og-wc-settings/get-setting-option' )->execute(
 			array(
 				'group' => 'no-such-group',
 				'id'    => 'ac_test_text',
@@ -233,7 +233,7 @@ final class GetSettingOptionTest extends TestCase {
 	public function test_subscriber_is_denied(): void {
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-settings/get-setting-option' );
+		$ability = wp_get_ability( 'og-wc-settings/get-setting-option' );
 
 		$this->assertFalse(
 			$ability->check_permissions(

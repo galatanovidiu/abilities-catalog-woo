@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Destructive delete ability: `wc-customers/delete-customer`.
+ * Destructive delete ability: `og-wc-customers/delete-customer`.
  *
  * Wraps `DELETE wc/v3/customers/<id>` via `rest_do_request()`. Before deleting it
  * reads the customer's `email` and `username` so the result can confirm which
@@ -41,7 +41,7 @@ final class DeleteCustomer implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-customers/delete-customer';
+		return 'og-wc-customers/delete-customer';
 	}
 
 	/**
@@ -57,8 +57,8 @@ final class DeleteCustomer implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Delete Customer', 'abilities-catalog-woo' ),
-			'description'         => __( 'Permanently deletes a WooCommerce customer by ID and returns the deleted account\'s email and username for confirmation. This REMOVES the underlying WordPress user account (login, profile, and user meta) and, unless reassign is given, the user\'s authored content. It is irreversible: customers do not support the Trash, so there is no restore. Pass reassign (a different user ID) to reassign the deleted customer\'s posts and content to that user instead of deleting them; reassigned_to in the result echoes that ID, or is null when the content was deleted with the account. A reassign equal to the deleted ID, or pointing at a non-existent user, returns a "woocommerce_rest_customer_invalid_reassign" 400 error. The result contains the customer\'s email (PII) so a human can confirm the right account was removed. Discover IDs with wc-customers/list-customers.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-customers',
+			'description'         => __( 'Permanently deletes a WooCommerce customer by ID and returns the deleted account\'s email and username for confirmation. This REMOVES the underlying WordPress user account (login, profile, and user meta) and, unless reassign is given, the user\'s authored content. It is irreversible: customers do not support the Trash, so there is no restore. Pass reassign (a different user ID) to reassign the deleted customer\'s posts and content to that user instead of deleting them; reassigned_to in the result echoes that ID, or is null when the content was deleted with the account. A reassign equal to the deleted ID, or pointing at a non-existent user, returns a "woocommerce_rest_customer_invalid_reassign" 400 error. The result contains the customer\'s email (PII) so a human can confirm the right account was removed. Discover IDs with og-wc-customers/list-customers.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-customers',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
@@ -66,12 +66,12 @@ final class DeleteCustomer implements ConditionalAbility {
 					'id'       => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The customer (WordPress user) ID to permanently delete. Discover IDs with wc-customers/list-customers.', 'abilities-catalog-woo' ),
+						'description' => __( 'The customer (WordPress user) ID to permanently delete. Discover IDs with og-wc-customers/list-customers.', 'abilities-catalog-woo' ),
 					),
 					'reassign' => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'Optional. A different user ID to reassign the deleted customer\'s posts and content to, instead of deleting that content. Omit it to delete the content along with the account. Must not equal id and must be an existing user, or the route returns a "woocommerce_rest_customer_invalid_reassign" 400 error. Discover IDs with wc-customers/list-customers.', 'abilities-catalog-woo' ),
+						'description' => __( 'Optional. A different user ID to reassign the deleted customer\'s posts and content to, instead of deleting that content. Omit it to delete the content along with the account. Must not equal id and must be an existing user, or the route returns a "woocommerce_rest_customer_invalid_reassign" 400 error. Discover IDs with og-wc-customers/list-customers.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,
@@ -128,7 +128,7 @@ final class DeleteCustomer implements ConditionalAbility {
 	/**
 	 * Permission check: WordPress's primitive capability for deleting users.
 	 *
-	 * Encodes the catalog capability for `wc-customers/delete-customer`:
+	 * Encodes the catalog capability for `og-wc-customers/delete-customer`:
 	 * `delete_users`, which is what `wc_rest_check_user_permissions( 'delete' )`
 	 * resolves to on the wrapped `DELETE wc/v3/customers/<id>` route. This is a
 	 * coarse, object-INDEPENDENT guard; the wrapped route applies the finer,

@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-products/list-product-tags`.
+ * Read ability: `og-wc-products/list-product-tags`.
  *
  * Wraps `GET wc/v3/products/tags` via `rest_do_request()` and returns each product
  * tag as a flat summary row through {@see ProductTermListShaper::termSummary()}, so
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * `product_tag` is a flat (non-hierarchical) taxonomy, so a tag never has a parent;
  * the shared term row carries `parent`, which is always `0` here. Use
- * `wc-products/list-product-categories` for the hierarchical category taxonomy.
+ * `og-wc-products/list-product-categories` for the hierarchical category taxonomy.
  *
  * Only available when WooCommerce is active (it is a {@see ConditionalAbility}).
  * The WC tags list route sends pagination headers, so `total` is the full matching
@@ -40,7 +40,7 @@ final class ListProductTags implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/list-product-tags';
+		return 'og-wc-products/list-product-tags';
 	}
 
 	/**
@@ -56,8 +56,8 @@ final class ListProductTags implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'List Product Tags', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns the store\'s WooCommerce product tags as flat summary rows, each with its id, name, slug, product count, and description. Filter by search term, page through results, sort with orderby/order, and set hide_empty to drop tags with no published products. Product tags are flat (no hierarchy), so each row\'s parent is always 0. Use wc-products/get-product-tag for one tag by ID, or wc-products/list-product-categories for the hierarchical category taxonomy.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Returns the store\'s WooCommerce product tags as flat summary rows, each with its id, name, slug, product count, and description. Filter by search term, page through results, sort with orderby/order, and set hide_empty to drop tags with no published products. Product tags are flat (no hierarchy), so each row\'s parent is always 0. Use og-wc-products/get-product-tag for one tag by ID, or og-wc-products/list-product-categories for the hierarchical category taxonomy.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array(
@@ -101,7 +101,7 @@ final class ListProductTags implements ConditionalAbility {
 				'properties'           => array(
 					'items' => array(
 						'type'        => 'array',
-						'description' => __( 'The product tags as flat summary rows. Use wc-products/get-product-tag for a single tag by ID. Each row\'s parent is always 0 because tags are a flat taxonomy.', 'abilities-catalog-woo' ),
+						'description' => __( 'The product tags as flat summary rows. Use og-wc-products/get-product-tag for a single tag by ID. Each row\'s parent is always 0 because tags are a flat taxonomy.', 'abilities-catalog-woo' ),
 						'items'       => ProductTermListShaper::termItemSchema(),
 					),
 					'total' => array(
@@ -127,7 +127,7 @@ final class ListProductTags implements ConditionalAbility {
 	/**
 	 * Permission check: WooCommerce's read capability for product terms.
 	 *
-	 * Encodes the catalog baseline for `wc-products/list-product-tags`: the
+	 * Encodes the catalog baseline for `og-wc-products/list-product-tags`: the
 	 * `manage_product_terms` capability, which is what
 	 * `wc_rest_check_product_term_permissions( 'product_tag', 'read' )` resolves to
 	 * on the wrapped `GET wc/v3/products/tags` route — the helper reads the `read`

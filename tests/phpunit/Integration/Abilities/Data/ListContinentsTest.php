@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-data/list-continents` ability.
+ * Integration tests for the `og-wc-data/list-continents` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -17,7 +17,7 @@ use WP_Error;
  */
 final class ListContinentsTest extends TestCase {
 
-	private const ABILITY = 'wc-data/list-continents';
+	private const ABILITY = 'og-wc-data/list-continents';
 
 	/**
 	 * The keys a shaped continent row exposes — and nothing more.

@@ -14,11 +14,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-orders/list-order-statuses`.
+ * Read ability: `og-wc-orders/list-order-statuses`.
  *
  * Wraps `GET wc/v3/orders/statuses` via `rest_do_request()` and returns every
  * order status WooCommerce recognises as a flat `{ slug, name }` row. The slug is
- * the value `wc-orders/list-orders` accepts in its `status` filter (the `wc-`
+ * the value `og-wc-orders/list-orders` accepts in its `status` filter (the `wc-`
  * prefix is already stripped, e.g. `processing`); the name is the human-readable
  * label. This is the discovery step that tells a consumer which statuses exist
  * before filtering or interpreting orders.
@@ -40,7 +40,7 @@ final class ListOrderStatuses implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-orders/list-order-statuses';
+		return 'og-wc-orders/list-order-statuses';
 	}
 
 	/**
@@ -56,8 +56,8 @@ final class ListOrderStatuses implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'List Order Statuses', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns every order status WooCommerce recognises as flat { slug, name } rows, plus the total count. The slug is the value to pass to wc-orders/list-orders\'s status filter (the wc- prefix is already stripped, e.g. "processing", "completed"); the name is the human-readable label. Read-only discovery step: use it to learn the valid status slugs before filtering or interpreting orders. Includes any statuses a plugin has registered, not just the core seven.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-orders',
+			'description'         => __( 'Returns every order status WooCommerce recognises as flat { slug, name } rows, plus the total count. The slug is the value to pass to og-wc-orders/list-orders\'s status filter (the wc- prefix is already stripped, e.g. "processing", "completed"); the name is the human-readable label. Read-only discovery step: use it to learn the valid status slugs before filtering or interpreting orders. Includes any statuses a plugin has registered, not just the core seven.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-orders',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => (object) array(),
@@ -69,14 +69,14 @@ final class ListOrderStatuses implements ConditionalAbility {
 				'properties'           => array(
 					'statuses' => array(
 						'type'        => 'array',
-						'description' => __( 'The order statuses as flat rows. Pass a row\'s slug to wc-orders/list-orders to filter orders by that status.', 'abilities-catalog-woo' ),
+						'description' => __( 'The order statuses as flat rows. Pass a row\'s slug to og-wc-orders/list-orders to filter orders by that status.', 'abilities-catalog-woo' ),
 						'items'       => array(
 							'type'                 => 'object',
 							'required'             => array( 'slug', 'name' ),
 							'properties'           => array(
 								'slug' => array(
 									'type'        => 'string',
-									'description' => __( 'The status slug with the wc- prefix stripped, e.g. "processing". This is the value the wc-orders/list-orders status filter accepts.', 'abilities-catalog-woo' ),
+									'description' => __( 'The status slug with the wc- prefix stripped, e.g. "processing". This is the value the og-wc-orders/list-orders status filter accepts.', 'abilities-catalog-woo' ),
 								),
 								'name' => array(
 									'type'        => 'string',

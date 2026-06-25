@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-products/delete-shipping-class ability.
+ * Integration tests for the og-wc-products/delete-shipping-class ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -13,7 +13,7 @@ use GalatanOvidiu\AbilitiesCatalogWoo\Tests\TestCase;
 use WP_Error;
 
 /**
- * Exercises wc-products/delete-shipping-class: the permanent (force) delete that
+ * Exercises og-wc-products/delete-shipping-class: the permanent (force) delete that
  * removes the term, the missing-class 404 that must not collapse to a permission
  * error, the wrong-capability denial that leaves the class intact, and the exact
  * closed output shape (no edit_link, no raw term fields).
@@ -34,10 +34,10 @@ final class DeleteShippingClassTest extends TestCase {
 	);
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-products/delete-shipping-class' );
+		$ability = wp_get_ability( 'og-wc-products/delete-shipping-class' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-products/delete-shipping-class', $ability->get_name() );
+		$this->assertSame( 'og-wc-products/delete-shipping-class', $ability->get_name() );
 	}
 
 	public function test_admin_deletes_shipping_class_permanently(): void {
@@ -46,7 +46,7 @@ final class DeleteShippingClassTest extends TestCase {
 		$term    = wp_insert_term( 'Heavy', 'product_shipping_class' );
 		$term_id = (int) $term['term_id'];
 
-		$result = wp_get_ability( 'wc-products/delete-shipping-class' )->execute( array( 'id' => $term_id ) );
+		$result = wp_get_ability( 'og-wc-products/delete-shipping-class' )->execute( array( 'id' => $term_id ) );
 
 		$this->assertIsArray( $result );
 		$this->assertTrue( $result['deleted'] );
@@ -66,7 +66,7 @@ final class DeleteShippingClassTest extends TestCase {
 		$term    = wp_insert_term( 'Fragile', 'product_shipping_class' );
 		$term_id = (int) $term['term_id'];
 
-		$result = wp_get_ability( 'wc-products/delete-shipping-class' )->execute( array( 'id' => $term_id ) );
+		$result = wp_get_ability( 'og-wc-products/delete-shipping-class' )->execute( array( 'id' => $term_id ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( self::EXPECTED_KEYS, array_keys( $result ) );
@@ -88,7 +88,7 @@ final class DeleteShippingClassTest extends TestCase {
 	public function test_missing_shipping_class_returns_404_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-products/delete-shipping-class' )->execute( array( 'id' => 99999999 ) );
+		$result = wp_get_ability( 'og-wc-products/delete-shipping-class' )->execute( array( 'id' => 99999999 ) );
 
 		$this->assertInstanceOf( WP_Error::class, $result );
 		$this->assertSame( 'woocommerce_rest_term_invalid', $result->get_error_code() );
@@ -102,7 +102,7 @@ final class DeleteShippingClassTest extends TestCase {
 
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-products/delete-shipping-class' );
+		$ability = wp_get_ability( 'og-wc-products/delete-shipping-class' );
 
 		$this->assertFalse( $ability->check_permissions( array( 'id' => $term_id ) ) );
 

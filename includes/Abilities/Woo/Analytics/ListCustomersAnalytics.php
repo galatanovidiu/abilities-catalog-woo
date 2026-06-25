@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-reports/list-customers-analytics`.
+ * Read ability: `og-wc-reports/list-customers-analytics`.
  *
  * Wraps `GET /wc-analytics/reports/customers` via `rest_do_request()` and returns
  * each analytics customer record as a flat summary row: `id`, `user_id`, `name`,
@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * The `after`/`before` range filters by ORDER date (the controller remaps them to
  * `order_after`/`order_before` internally), so a range narrows to customers who
  * ordered within it. There is no `/stats` companion that mirrors this list one-to-one;
- * use `wc-reports/get-customers-stats` for the store-wide customer aggregate.
+ * use `og-wc-reports/get-customers-stats` for the store-wide customer aggregate.
  *
  * PII: each row carries the customer `name`, `username`, and `email`. That is gated by
  * the `view_woocommerce_reports` capability — the same gate WooCommerce's own Analytics
@@ -75,7 +75,7 @@ final class ListCustomersAnalytics implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-reports/list-customers-analytics';
+		return 'og-wc-reports/list-customers-analytics';
 	}
 
 	/**
@@ -91,8 +91,8 @@ final class ListCustomersAnalytics implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'List Customers Analytics', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns WooCommerce Analytics customer records as flat rows, each with id, user_id, name, username, email, country, city, state, postcode, date_registered, date_last_active, orders_count, total_spend, and avg_order_value. This is the customer segment list (identity and lifetime-spend per customer), not a time series. Use it to rank or find customers by orders or spend; use wc-reports/get-customers-stats for the store-wide customer aggregate. The after/before range filters by ORDER date (so a range returns customers who ordered within it), as ISO8601 date-times; omit them for all customers. Rows carry customer PII (name and email), gated by the same view_woocommerce_reports capability WooCommerce uses. The _gmt duplicate dates and first_name/last_name are intentionally dropped. Only available when the store\'s WooCommerce Analytics feature is enabled.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-reports',
+			'description'         => __( 'Returns WooCommerce Analytics customer records as flat rows, each with id, user_id, name, username, email, country, city, state, postcode, date_registered, date_last_active, orders_count, total_spend, and avg_order_value. This is the customer segment list (identity and lifetime-spend per customer), not a time series. Use it to rank or find customers by orders or spend; use og-wc-reports/get-customers-stats for the store-wide customer aggregate. The after/before range filters by ORDER date (so a range returns customers who ordered within it), as ISO8601 date-times; omit them for all customers. Rows carry customer PII (name and email), gated by the same view_woocommerce_reports capability WooCommerce uses. The _gmt duplicate dates and first_name/last_name are intentionally dropped. Only available when the store\'s WooCommerce Analytics feature is enabled.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-reports',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array(
@@ -140,7 +140,7 @@ final class ListCustomersAnalytics implements ConditionalAbility {
 				'properties'           => array(
 					'items' => array(
 						'type'        => 'array',
-						'description' => __( 'The customer analytics rows. Use wc-reports/get-customers-stats for the store-wide customer aggregate.', 'abilities-catalog-woo' ),
+						'description' => __( 'The customer analytics rows. Use og-wc-reports/get-customers-stats for the store-wide customer aggregate.', 'abilities-catalog-woo' ),
 						'items'       => AnalyticsReportShaper::analyticsItemSchema(
 							array(
 								'id'               => array(

@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-products/list-attribute-terms` ability.
+ * Integration tests for the `og-wc-products/list-attribute-terms` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -13,7 +13,7 @@ use GalatanOvidiu\AbilitiesCatalogWoo\Tests\TestCase;
 use WP_Error;
 
 /**
- * Exercises wc-products/list-attribute-terms: the shaped term rows for a global
+ * Exercises og-wc-products/list-attribute-terms: the shaped term rows for a global
  * attribute's `pa_*` taxonomy, the `search` filter narrowing the set, the
  * bad-attribute_id 404 (which must surface as the route's
  * `woocommerce_rest_taxonomy_invalid`, not collapse to a permission error), the
@@ -24,7 +24,7 @@ use WP_Error;
  */
 final class ListAttributeTermsTest extends TestCase {
 
-	private const ABILITY = 'wc-products/list-attribute-terms';
+	private const ABILITY = 'og-wc-products/list-attribute-terms';
 
 	/**
 	 * The exact keys a shaped term summary row exposes.

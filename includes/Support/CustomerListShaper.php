@@ -85,7 +85,7 @@ final class CustomerListShaper {
 			'properties'           => array(
 				'id'           => array(
 					'type'        => 'integer',
-					'description' => __( 'The customer ID. Read the full customer with wc-customers/get-customer.', 'abilities-catalog-woo' ),
+					'description' => __( 'The customer ID. Read the full customer with og-wc-customers/get-customer.', 'abilities-catalog-woo' ),
 				),
 				'email'        => array(
 					'type'        => 'string',

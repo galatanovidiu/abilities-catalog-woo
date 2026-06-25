@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-products/get-shipping-class`.
+ * Read ability: `og-wc-products/get-shipping-class`.
  *
  * Wraps `GET wc/v3/products/shipping_classes/<id>` via `rest_do_request()` and
  * returns one product shipping class as a flat, closed record: its id, name,
@@ -34,7 +34,7 @@ final class GetShippingClass implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/get-shipping-class';
+		return 'og-wc-products/get-shipping-class';
 	}
 
 	/**
@@ -50,8 +50,8 @@ final class GetShippingClass implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Get Shipping Class', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns one WooCommerce product shipping class by ID: its name, slug, the number of products assigned to it (count), and its description. Shipping classes are a flat taxonomy, so no parent is returned. Discover IDs with wc-products/list-shipping-classes.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Returns one WooCommerce product shipping class by ID: its name, slug, the number of products assigned to it (count), and its description. Shipping classes are a flat taxonomy, so no parent is returned. Discover IDs with og-wc-products/list-shipping-classes.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
@@ -59,7 +59,7 @@ final class GetShippingClass implements ConditionalAbility {
 					'id' => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The shipping class term ID. Discover IDs with wc-products/list-shipping-classes.', 'abilities-catalog-woo' ),
+						'description' => __( 'The shipping class term ID. Discover IDs with og-wc-products/list-shipping-classes.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,

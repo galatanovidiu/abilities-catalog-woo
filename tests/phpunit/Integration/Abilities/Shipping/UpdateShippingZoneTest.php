@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-shipping/update-shipping-zone ability.
+ * Integration tests for the og-wc-shipping/update-shipping-zone ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -14,7 +14,7 @@ use WC_Shipping_Zone;
 use WP_Error;
 
 /**
- * Exercises wc-shipping/update-shipping-zone: renaming a seeded zone, the order
+ * Exercises og-wc-shipping/update-shipping-zone: renaming a seeded zone, the order
  * field being honored, the read-only zone 0 surfacing the route's 403 (not a
  * permission collapse, not a success), the missing-zone 404 that must not collapse
  * to a permission error, the wrong-capability denial (with the zone unchanged), and
@@ -34,10 +34,10 @@ final class UpdateShippingZoneTest extends TestCase {
 	);
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-shipping/update-shipping-zone' );
+		$ability = wp_get_ability( 'og-wc-shipping/update-shipping-zone' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-shipping/update-shipping-zone', $ability->get_name() );
+		$this->assertSame( 'og-wc-shipping/update-shipping-zone', $ability->get_name() );
 	}
 
 	public function test_admin_renames_seeded_zone(): void {
@@ -48,7 +48,7 @@ final class UpdateShippingZoneTest extends TestCase {
 		$zone->save();
 		$zone_id = $zone->get_id();
 
-		$result = wp_get_ability( 'wc-shipping/update-shipping-zone' )->execute(
+		$result = wp_get_ability( 'og-wc-shipping/update-shipping-zone' )->execute(
 			array(
 				'id'   => $zone_id,
 				'name' => 'New',
@@ -72,7 +72,7 @@ final class UpdateShippingZoneTest extends TestCase {
 		$zone->save();
 		$zone_id = $zone->get_id();
 
-		$result = wp_get_ability( 'wc-shipping/update-shipping-zone' )->execute(
+		$result = wp_get_ability( 'og-wc-shipping/update-shipping-zone' )->execute(
 			array(
 				'id'    => $zone_id,
 				'order' => 7,
@@ -92,7 +92,7 @@ final class UpdateShippingZoneTest extends TestCase {
 		$zone->save();
 		$zone_id = $zone->get_id();
 
-		$result = wp_get_ability( 'wc-shipping/update-shipping-zone' )->execute(
+		$result = wp_get_ability( 'og-wc-shipping/update-shipping-zone' )->execute(
 			array(
 				'id'   => $zone_id,
 				'name' => 'Europe (EU)',
@@ -115,7 +115,7 @@ final class UpdateShippingZoneTest extends TestCase {
 	public function test_zone_zero_is_read_only_and_surfaces_route_403(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-shipping/update-shipping-zone' )->execute(
+		$result = wp_get_ability( 'og-wc-shipping/update-shipping-zone' )->execute(
 			array(
 				'id'   => 0,
 				'name' => 'Should Not Apply',
@@ -136,7 +136,7 @@ final class UpdateShippingZoneTest extends TestCase {
 	public function test_missing_zone_returns_404_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-shipping/update-shipping-zone' )->execute(
+		$result = wp_get_ability( 'og-wc-shipping/update-shipping-zone' )->execute(
 			array(
 				'id'   => 99999999,
 				'name' => 'Nowhere',
@@ -157,7 +157,7 @@ final class UpdateShippingZoneTest extends TestCase {
 
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-shipping/update-shipping-zone' );
+		$ability = wp_get_ability( 'og-wc-shipping/update-shipping-zone' );
 
 		$this->assertFalse(
 			$ability->check_permissions(

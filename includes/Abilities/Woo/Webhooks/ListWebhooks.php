@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-webhooks/list-webhooks`.
+ * Read ability: `og-wc-webhooks/list-webhooks`.
  *
  * Wraps `GET /wc/v3/webhooks` via `rest_do_request()` and returns each webhook as
  * a flat summary row through {@see WebhookListShaper::summary()}. A webhook's
@@ -37,7 +37,7 @@ final class ListWebhooks implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-webhooks/list-webhooks';
+		return 'og-wc-webhooks/list-webhooks';
 	}
 
 	/**
@@ -53,8 +53,8 @@ final class ListWebhooks implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'List Webhooks', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns the store\'s WooCommerce webhooks as flat summary rows, each with its id, name, status, topic, delivery_url, and date_created. Use wc-webhooks/get-webhook for one webhook\'s full configuration. The signing secret is never returned (a webhook\'s secret HMAC-signs its deliveries and is a stored credential); get-webhook reports a has_secret boolean instead of the key.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-webhooks',
+			'description'         => __( 'Returns the store\'s WooCommerce webhooks as flat summary rows, each with its id, name, status, topic, delivery_url, and date_created. Use og-wc-webhooks/get-webhook for one webhook\'s full configuration. The signing secret is never returned (a webhook\'s secret HMAC-signs its deliveries and is a stored credential); get-webhook reports a has_secret boolean instead of the key.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-webhooks',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array(
@@ -104,7 +104,7 @@ final class ListWebhooks implements ConditionalAbility {
 				'properties'           => array(
 					'items' => array(
 						'type'        => 'array',
-						'description' => __( 'The webhooks as flat summary rows. No row carries the signing secret. Use wc-webhooks/get-webhook for a single webhook\'s full configuration.', 'abilities-catalog-woo' ),
+						'description' => __( 'The webhooks as flat summary rows. No row carries the signing secret. Use og-wc-webhooks/get-webhook for a single webhook\'s full configuration.', 'abilities-catalog-woo' ),
 						'items'       => WebhookListShaper::itemSchema(),
 					),
 					'total' => array(
@@ -130,7 +130,7 @@ final class ListWebhooks implements ConditionalAbility {
 	/**
 	 * Permission check: WooCommerce's read capability for webhooks.
 	 *
-	 * Encodes the catalog baseline for `wc-webhooks/list-webhooks`: the
+	 * Encodes the catalog baseline for `og-wc-webhooks/list-webhooks`: the
 	 * `manage_woocommerce` capability, which is what
 	 * `wc_rest_check_manager_permissions( 'webhooks', 'read' )` resolves to on the
 	 * wrapped `GET wc/v3/webhooks` route (webhooks-v1:143-149 →

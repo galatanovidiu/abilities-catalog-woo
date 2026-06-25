@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-products/get-product-attribute`.
+ * Read ability: `og-wc-products/get-product-attribute`.
  *
  * Wraps `GET wc/v3/products/attributes/<id>` via `rest_do_request()` and returns
  * one global product attribute definition as a flat, closed record: its `id`,
@@ -36,7 +36,7 @@ final class GetProductAttribute implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/get-product-attribute';
+		return 'og-wc-products/get-product-attribute';
 	}
 
 	/**
@@ -52,8 +52,8 @@ final class GetProductAttribute implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Get Product Attribute', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns one WooCommerce global product attribute by ID: its name, slug (e.g. pa_color), type, default term sort order (order_by), and whether it has public archive pages (has_archives). This reads the global attribute definition, not a product\'s per-product attribute selection. Discover IDs with wc-products/list-product-attributes; read the terms (values) under this attribute with wc-products/list-attribute-terms.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Returns one WooCommerce global product attribute by ID: its name, slug (e.g. pa_color), type, default term sort order (order_by), and whether it has public archive pages (has_archives). This reads the global attribute definition, not a product\'s per-product attribute selection. Discover IDs with og-wc-products/list-product-attributes; read the terms (values) under this attribute with og-wc-products/list-attribute-terms.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
@@ -61,7 +61,7 @@ final class GetProductAttribute implements ConditionalAbility {
 					'id' => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The global attribute ID. Discover IDs with wc-products/list-product-attributes.', 'abilities-catalog-woo' ),
+						'description' => __( 'The global attribute ID. Discover IDs with og-wc-products/list-product-attributes.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,

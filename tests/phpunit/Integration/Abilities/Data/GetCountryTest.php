@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-data/get-country ability.
+ * Integration tests for the og-wc-data/get-country ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -13,7 +13,7 @@ use GalatanOvidiu\AbilitiesCatalogWoo\Tests\TestCase;
 use WP_Error;
 
 /**
- * Exercises wc-data/get-country: the shaped single-country row for a known code,
+ * Exercises og-wc-data/get-country: the shaped single-country row for a known code,
  * the unknown-code 404 that must not collapse to a permission error, the
  * wrong-capability denial, and the exact closed output shape with no locale-detail
  * or HAL link leak. WooCommerce ships the country/state reference tables, so the
@@ -34,16 +34,16 @@ final class GetCountryTest extends TestCase {
 	);
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-data/get-country' );
+		$ability = wp_get_ability( 'og-wc-data/get-country' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-data/get-country', $ability->get_name() );
+		$this->assertSame( 'og-wc-data/get-country', $ability->get_name() );
 	}
 
 	public function test_admin_reads_known_country(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-data/get-country' )->execute( array( 'code' => 'US' ) );
+		$result = wp_get_ability( 'og-wc-data/get-country' )->execute( array( 'code' => 'US' ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( 'US', $result['code'] );
@@ -62,7 +62,7 @@ final class GetCountryTest extends TestCase {
 	public function test_lowercase_code_is_accepted(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-data/get-country' )->execute( array( 'code' => 'us' ) );
+		$result = wp_get_ability( 'og-wc-data/get-country' )->execute( array( 'code' => 'us' ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( 'US', $result['code'] );
@@ -71,7 +71,7 @@ final class GetCountryTest extends TestCase {
 	public function test_output_shape_is_exact_and_closed(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-data/get-country' )->execute( array( 'code' => 'US' ) );
+		$result = wp_get_ability( 'og-wc-data/get-country' )->execute( array( 'code' => 'US' ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( self::EXPECTED_KEYS, array_keys( $result ) );
@@ -84,7 +84,7 @@ final class GetCountryTest extends TestCase {
 	public function test_unknown_code_returns_404_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-data/get-country' )->execute( array( 'code' => 'ZZ' ) );
+		$result = wp_get_ability( 'og-wc-data/get-country' )->execute( array( 'code' => 'ZZ' ) );
 
 		$this->assertInstanceOf( WP_Error::class, $result );
 		$this->assertSame( 'woocommerce_rest_data_invalid_location', $result->get_error_code() );
@@ -95,7 +95,7 @@ final class GetCountryTest extends TestCase {
 	public function test_subscriber_is_denied(): void {
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-data/get-country' );
+		$ability = wp_get_ability( 'og-wc-data/get-country' );
 
 		$this->assertFalse( $ability->check_permissions( array( 'code' => 'US' ) ) );
 

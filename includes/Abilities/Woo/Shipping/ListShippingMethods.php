@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-shipping/list-shipping-methods`.
+ * Read ability: `og-wc-shipping/list-shipping-methods`.
  *
  * Wraps `GET wc/v3/shipping_methods` via `rest_do_request()` and returns each
  * registered shipping-method TYPE as a flat summary row through
@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * of method types — the templates a zone can offer (flat_rate, free_shipping,
  * local_pickup, plus any added by extensions) — NOT the method instances actually
  * configured on a zone. For those configured instances, use
- * `wc-shipping/list-shipping-zone-methods`.
+ * `og-wc-shipping/list-shipping-zone-methods`.
  *
  * Only available when WooCommerce is active (it is a {@see ConditionalAbility}).
  * The WC shipping_methods route sets the `X-WP-Total` header, so `total` is the
@@ -37,7 +37,7 @@ final class ListShippingMethods implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-shipping/list-shipping-methods';
+		return 'og-wc-shipping/list-shipping-methods';
 	}
 
 	/**
@@ -53,8 +53,8 @@ final class ListShippingMethods implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'List Shipping Methods', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns the registry of available WooCommerce shipping-method types as flat summary rows, each with its id (the type slug, e.g. flat_rate, free_shipping, local_pickup), title, and description, plus the total count. These are the method TYPES (the templates a zone can offer), not the method instances configured on a particular zone — for a zone\'s configured methods use wc-shipping/list-shipping-zone-methods instead. Read-only: takes no input and returns the same registry regardless of zones.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-shipping',
+			'description'         => __( 'Returns the registry of available WooCommerce shipping-method types as flat summary rows, each with its id (the type slug, e.g. flat_rate, free_shipping, local_pickup), title, and description, plus the total count. These are the method TYPES (the templates a zone can offer), not the method instances configured on a particular zone — for a zone\'s configured methods use og-wc-shipping/list-shipping-zone-methods instead. Read-only: takes no input and returns the same registry regardless of zones.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-shipping',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => (object) array(),

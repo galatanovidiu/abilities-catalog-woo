@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Read ability: `wc-orders/get-order`.
+ * Read ability: `og-wc-orders/get-order`.
  *
  * Wraps `GET wc/v3/orders/<id>` via `rest_do_request()` and returns one order as
  * a flat, closed record: the {@see OrderListShaper::summary()} fields (number,
@@ -39,7 +39,7 @@ final class GetOrder implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-orders/get-order';
+		return 'og-wc-orders/get-order';
 	}
 
 	/**
@@ -55,8 +55,8 @@ final class GetOrder implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Get Order', 'abilities-catalog-woo' ),
-			'description'         => __( 'Returns one WooCommerce order by ID: its number, status, currency, totals, creation date, customer ID, payment method, the line items (what was bought, quantity, and line total), the billing block (name, email, and address), the shipping block (name and address; the shipping address has no email), and an edit_link. Use wc-orders/list-orders to scan orders and discover IDs; use this for one order\'s full detail. Returns personal data (buyer name, email, address): visible only with the order capability. Read-only: does not return order notes or refunds — use wc-orders/list-order-notes and wc-orders/list-order-refunds for those.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-orders',
+			'description'         => __( 'Returns one WooCommerce order by ID: its number, status, currency, totals, creation date, customer ID, payment method, the line items (what was bought, quantity, and line total), the billing block (name, email, and address), the shipping block (name and address; the shipping address has no email), and an edit_link. Use og-wc-orders/list-orders to scan orders and discover IDs; use this for one order\'s full detail. Returns personal data (buyer name, email, address): visible only with the order capability. Read-only: does not return order notes or refunds — use og-wc-orders/list-order-notes and og-wc-orders/list-order-refunds for those.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-orders',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'id' ),
@@ -64,7 +64,7 @@ final class GetOrder implements ConditionalAbility {
 					'id' => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The order ID. Discover IDs with wc-orders/list-orders.', 'abilities-catalog-woo' ),
+						'description' => __( 'The order ID. Discover IDs with og-wc-orders/list-orders.', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,

@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-system/get-system-status` ability.
+ * Integration tests for the `og-wc-system/get-system-status` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -17,7 +17,7 @@ use WP_Error;
  */
 final class GetSystemStatusTest extends TestCase {
 
-	private const ABILITY = 'wc-system/get-system-status';
+	private const ABILITY = 'og-wc-system/get-system-status';
 
 	/**
 	 * The exact top-level keys the curated subset exposes.

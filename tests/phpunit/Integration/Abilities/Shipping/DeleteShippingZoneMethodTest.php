@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-shipping/delete-shipping-zone-method ability.
+ * Integration tests for the og-wc-shipping/delete-shipping-zone-method ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -14,7 +14,7 @@ use WC_Shipping_Zone;
 use WP_Error;
 
 /**
- * Exercises wc-shipping/delete-shipping-zone-method: permanently deleting a seeded
+ * Exercises og-wc-shipping/delete-shipping-zone-method: permanently deleting a seeded
  * flat_rate instance and confirming it is actually gone from the zone, the
  * missing-instance and missing-zone 404s that must not collapse to a permission
  * error, missing required ids, the wrong-capability denial, and the exact closed
@@ -55,10 +55,10 @@ final class DeleteShippingZoneMethodTest extends TestCase {
 	}
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-shipping/delete-shipping-zone-method' );
+		$ability = wp_get_ability( 'og-wc-shipping/delete-shipping-zone-method' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-shipping/delete-shipping-zone-method', $ability->get_name() );
+		$this->assertSame( 'og-wc-shipping/delete-shipping-zone-method', $ability->get_name() );
 	}
 
 	public function test_admin_deletes_method_instance(): void {
@@ -66,7 +66,7 @@ final class DeleteShippingZoneMethodTest extends TestCase {
 
 		$seed = $this->seedZoneWithMethod();
 
-		$result = wp_get_ability( 'wc-shipping/delete-shipping-zone-method' )->execute(
+		$result = wp_get_ability( 'og-wc-shipping/delete-shipping-zone-method' )->execute(
 			array(
 				'zone_id'     => $seed['zone_id'],
 				'instance_id' => $seed['instance_id'],
@@ -90,7 +90,7 @@ final class DeleteShippingZoneMethodTest extends TestCase {
 
 		$seed = $this->seedZoneWithMethod();
 
-		$result = wp_get_ability( 'wc-shipping/delete-shipping-zone-method' )->execute(
+		$result = wp_get_ability( 'og-wc-shipping/delete-shipping-zone-method' )->execute(
 			array(
 				'zone_id'     => $seed['zone_id'],
 				'instance_id' => $seed['instance_id'],
@@ -113,7 +113,7 @@ final class DeleteShippingZoneMethodTest extends TestCase {
 
 		$seed = $this->seedZoneWithMethod();
 
-		$result = wp_get_ability( 'wc-shipping/delete-shipping-zone-method' )->execute(
+		$result = wp_get_ability( 'og-wc-shipping/delete-shipping-zone-method' )->execute(
 			array(
 				'zone_id'     => $seed['zone_id'],
 				'instance_id' => 99999999,
@@ -129,7 +129,7 @@ final class DeleteShippingZoneMethodTest extends TestCase {
 	public function test_missing_zone_returns_404_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-shipping/delete-shipping-zone-method' )->execute(
+		$result = wp_get_ability( 'og-wc-shipping/delete-shipping-zone-method' )->execute(
 			array(
 				'zone_id'     => 99999999,
 				'instance_id' => 1,
@@ -145,7 +145,7 @@ final class DeleteShippingZoneMethodTest extends TestCase {
 	public function test_missing_required_ids_are_rejected(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-shipping/delete-shipping-zone-method' )->execute(
+		$result = wp_get_ability( 'og-wc-shipping/delete-shipping-zone-method' )->execute(
 			array( 'zone_id' => 1 )
 		);
 
@@ -158,7 +158,7 @@ final class DeleteShippingZoneMethodTest extends TestCase {
 
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-shipping/delete-shipping-zone-method' );
+		$ability = wp_get_ability( 'og-wc-shipping/delete-shipping-zone-method' );
 
 		$this->assertFalse(
 			$ability->check_permissions(

@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the `wc-reports/list-stock-analytics` ability.
+ * Integration tests for the `og-wc-reports/list-stock-analytics` ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -19,7 +19,7 @@ use WP_Error;
  */
 final class ListStockAnalyticsTest extends TestCase {
 
-	private const ABILITY = 'wc-reports/list-stock-analytics';
+	private const ABILITY = 'og-wc-reports/list-stock-analytics';
 
 	/**
 	 * The closed set of row keys the ability returns.

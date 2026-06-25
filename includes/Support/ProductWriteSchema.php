@@ -59,7 +59,7 @@ final class ProductWriteSchema {
 			'type'               => array(
 				'type'        => 'string',
 				'enum'        => array( 'simple', 'grouped', 'external', 'variable' ),
-				'description' => __( 'The product type. Defaults to simple. Use variable to add variations afterward with wc-products/create-product-variation.', 'abilities-catalog-woo' ),
+				'description' => __( 'The product type. Defaults to simple. Use variable to add variations afterward with og-wc-products/create-product-variation.', 'abilities-catalog-woo' ),
 			),
 			'status'             => array(
 				'type'        => 'string',

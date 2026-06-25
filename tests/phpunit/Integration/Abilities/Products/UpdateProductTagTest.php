@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-products/update-product-tag ability.
+ * Integration tests for the og-wc-products/update-product-tag ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -13,7 +13,7 @@ use GalatanOvidiu\AbilitiesCatalogWoo\Tests\TestCase;
 use WP_Error;
 
 /**
- * Exercises wc-products/update-product-tag: a name change on a seeded tag, the
+ * Exercises og-wc-products/update-product-tag: a name change on a seeded tag, the
  * missing-tag 404 that must not collapse to a permission error, the
  * wrong-capability denial (with the tag unchanged), and the exact closed output
  * shape.
@@ -36,10 +36,10 @@ final class UpdateProductTagTest extends TestCase {
 	);
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-products/update-product-tag' );
+		$ability = wp_get_ability( 'og-wc-products/update-product-tag' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-products/update-product-tag', $ability->get_name() );
+		$this->assertSame( 'og-wc-products/update-product-tag', $ability->get_name() );
 	}
 
 	public function test_admin_updates_tag_name(): void {
@@ -47,7 +47,7 @@ final class UpdateProductTagTest extends TestCase {
 
 		$id = $this->seedTag( 'Sale' );
 
-		$result = wp_get_ability( 'wc-products/update-product-tag' )->execute(
+		$result = wp_get_ability( 'og-wc-products/update-product-tag' )->execute(
 			array(
 				'id'   => $id,
 				'name' => 'Clearance',
@@ -67,7 +67,7 @@ final class UpdateProductTagTest extends TestCase {
 
 		$id = $this->seedTag( 'Featured' );
 
-		$result = wp_get_ability( 'wc-products/update-product-tag' )->execute(
+		$result = wp_get_ability( 'og-wc-products/update-product-tag' )->execute(
 			array(
 				'id'   => $id,
 				'name' => 'Featured Items',
@@ -93,7 +93,7 @@ final class UpdateProductTagTest extends TestCase {
 	public function test_missing_tag_returns_404_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-products/update-product-tag' )->execute(
+		$result = wp_get_ability( 'og-wc-products/update-product-tag' )->execute(
 			array(
 				'id'   => 99999999,
 				'name' => 'Nope',
@@ -111,7 +111,7 @@ final class UpdateProductTagTest extends TestCase {
 
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-products/update-product-tag' );
+		$ability = wp_get_ability( 'og-wc-products/update-product-tag' );
 
 		$this->assertFalse(
 			$ability->check_permissions(

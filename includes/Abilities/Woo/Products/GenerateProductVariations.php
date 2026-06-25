@@ -15,14 +15,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Write ability: `wc-products/generate-product-variations`.
+ * Write ability: `og-wc-products/generate-product-variations`.
  *
  * Wraps `POST wc/v3/products/<product_id>/variations/generate` (callback
  * `generate`) via `rest_do_request()`. WooCommerce computes the cartesian product
  * of the parent variable product's variation attributes and bulk-creates one new
  * variation for every combination that does not yet have a variation, up to
  * `WC_MAX_LINKED_VARIATIONS` (99). It is the bulk equivalent of calling
- * `wc-products/create-product-variation` once per missing combination.
+ * `og-wc-products/create-product-variation` once per missing combination.
  *
  * `product_id` is a required route segment, so the request is built by string
  * concatenation rather than `set_param()`.
@@ -44,7 +44,7 @@ final class GenerateProductVariations implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/generate-product-variations';
+		return 'og-wc-products/generate-product-variations';
 	}
 
 	/**
@@ -60,8 +60,8 @@ final class GenerateProductVariations implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Generate Product Variations', 'abilities-catalog-woo' ),
-			'description'         => __( 'Bulk-creates variations for one variable WooCommerce product, filling in every missing combination of the parent\'s variation attributes (the cartesian product). For a parent with attributes Size {S, M} and Color {Red, Blue}, it creates the missing S/Red, S/Blue, M/Red, M/Blue variations. Blast radius: it creates up to 99 new variations (WC_MAX_LINKED_VARIATIONS) in a single call, one per missing combination; existing variations are left untouched and none are deleted. Returns the parent product_id, the resulting variations as flat summary rows (items), and created_count (how many new variations this call made). The parent must be a variable product with its variation attributes already set; discover product_id with wc-products/list-products. Use wc-products/create-product-variation to add a single specific variation instead. Edit the generated variations afterward with wc-products/update-product-variation.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Bulk-creates variations for one variable WooCommerce product, filling in every missing combination of the parent\'s variation attributes (the cartesian product). For a parent with attributes Size {S, M} and Color {Red, Blue}, it creates the missing S/Red, S/Blue, M/Red, M/Blue variations. Blast radius: it creates up to 99 new variations (WC_MAX_LINKED_VARIATIONS) in a single call, one per missing combination; existing variations are left untouched and none are deleted. Returns the parent product_id, the resulting variations as flat summary rows (items), and created_count (how many new variations this call made). The parent must be a variable product with its variation attributes already set; discover product_id with og-wc-products/list-products. Use og-wc-products/create-product-variation to add a single specific variation instead. Edit the generated variations afterward with og-wc-products/update-product-variation.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'product_id' ),
@@ -69,7 +69,7 @@ final class GenerateProductVariations implements ConditionalAbility {
 					'product_id' => array(
 						'type'        => 'integer',
 						'minimum'     => 1,
-						'description' => __( 'The parent variable product ID whose missing attribute combinations to fill in. Discover it with wc-products/list-products (the parent must be a variable product with its variation attributes set).', 'abilities-catalog-woo' ),
+						'description' => __( 'The parent variable product ID whose missing attribute combinations to fill in. Discover it with og-wc-products/list-products (the parent must be a variable product with its variation attributes set).', 'abilities-catalog-woo' ),
 					),
 				),
 				'additionalProperties' => false,
@@ -84,7 +84,7 @@ final class GenerateProductVariations implements ConditionalAbility {
 					),
 					'items'         => array(
 						'type'        => 'array',
-						'description' => __( 'The parent\'s variations after generation, as flat summary rows (both pre-existing and newly created). Use wc-products/get-product-variation for a single variation\'s full detail.', 'abilities-catalog-woo' ),
+						'description' => __( 'The parent\'s variations after generation, as flat summary rows (both pre-existing and newly created). Use og-wc-products/get-product-variation for a single variation\'s full detail.', 'abilities-catalog-woo' ),
 						'items'       => ProductListShaper::variationItemSchema(),
 					),
 					'created_count' => array(

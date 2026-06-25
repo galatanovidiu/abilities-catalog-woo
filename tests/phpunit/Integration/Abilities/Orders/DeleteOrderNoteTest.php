@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-orders/delete-order-note ability.
+ * Integration tests for the og-wc-orders/delete-order-note ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -15,7 +15,7 @@ use WC_Product_Simple;
 use WP_Error;
 
 /**
- * Exercises wc-orders/delete-order-note: the happy-path seed-then-delete that returns
+ * Exercises og-wc-orders/delete-order-note: the happy-path seed-then-delete that returns
  * deleted=true with the note text captured and the permanent flag set, the
  * permanent-delete proof that the comment row is gone, the missing-note and
  * missing-order 404s that must not collapse to a permission error, the missing-id
@@ -39,10 +39,10 @@ final class DeleteOrderNoteTest extends TestCase {
 	);
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-orders/delete-order-note' );
+		$ability = wp_get_ability( 'og-wc-orders/delete-order-note' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-orders/delete-order-note', $ability->get_name() );
+		$this->assertSame( 'og-wc-orders/delete-order-note', $ability->get_name() );
 	}
 
 	public function test_admin_deletes_note_permanently(): void {
@@ -51,7 +51,7 @@ final class DeleteOrderNoteTest extends TestCase {
 		$order_id = $this->seedOrder();
 		$note_id  = $this->seedNote( $order_id, 'Test note' );
 
-		$result = wp_get_ability( 'wc-orders/delete-order-note' )->execute(
+		$result = wp_get_ability( 'og-wc-orders/delete-order-note' )->execute(
 			array(
 				'order_id' => $order_id,
 				'id'       => $note_id,
@@ -78,7 +78,7 @@ final class DeleteOrderNoteTest extends TestCase {
 		$order_id = $this->seedOrder();
 		$note_id  = $this->seedNote( $order_id, 'Another note' );
 
-		$result = wp_get_ability( 'wc-orders/delete-order-note' )->execute(
+		$result = wp_get_ability( 'og-wc-orders/delete-order-note' )->execute(
 			array(
 				'order_id' => $order_id,
 				'id'       => $note_id,
@@ -105,7 +105,7 @@ final class DeleteOrderNoteTest extends TestCase {
 
 		$order_id = $this->seedOrder();
 
-		$result = wp_get_ability( 'wc-orders/delete-order-note' )->execute(
+		$result = wp_get_ability( 'og-wc-orders/delete-order-note' )->execute(
 			array(
 				'order_id' => $order_id,
 				'id'       => 99999999,
@@ -121,7 +121,7 @@ final class DeleteOrderNoteTest extends TestCase {
 	public function test_missing_order_returns_404_not_permission_error(): void {
 		$this->actingAs( 'administrator' );
 
-		$result = wp_get_ability( 'wc-orders/delete-order-note' )->execute(
+		$result = wp_get_ability( 'og-wc-orders/delete-order-note' )->execute(
 			array(
 				'order_id' => 99999999,
 				'id'       => 1,
@@ -139,7 +139,7 @@ final class DeleteOrderNoteTest extends TestCase {
 
 		$order_id = $this->seedOrder();
 
-		$result = wp_get_ability( 'wc-orders/delete-order-note' )->execute(
+		$result = wp_get_ability( 'og-wc-orders/delete-order-note' )->execute(
 			array( 'order_id' => $order_id )
 		);
 
@@ -154,7 +154,7 @@ final class DeleteOrderNoteTest extends TestCase {
 
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-orders/delete-order-note' );
+		$ability = wp_get_ability( 'og-wc-orders/delete-order-note' );
 
 		$this->assertFalse(
 			$ability->check_permissions(

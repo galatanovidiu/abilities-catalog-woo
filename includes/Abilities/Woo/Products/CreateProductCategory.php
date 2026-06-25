@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Write ability: `wc-products/create-product-category`.
+ * Write ability: `og-wc-products/create-product-category`.
  *
  * Wraps `POST wc/v3/products/categories` via `rest_do_request()`, creating a new
  * product category term in the hierarchical `product_cat` taxonomy. The result is
@@ -41,7 +41,7 @@ final class CreateProductCategory implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function name(): string {
-		return 'wc-products/create-product-category';
+		return 'og-wc-products/create-product-category';
 	}
 
 	/**
@@ -57,8 +57,8 @@ final class CreateProductCategory implements ConditionalAbility {
 	public function args(): array {
 		return array(
 			'label'               => __( 'Create Product Category', 'abilities-catalog-woo' ),
-			'description'         => __( 'Creates a new WooCommerce product category (the hierarchical product_cat taxonomy) and returns the new category as a flat row: id, name, slug, parent, product count, and description. Only name is required; WordPress derives the slug from the name unless you set one. Set parent to nest the category under another (parent 0, the default, makes a top-level category); discover a parent id with wc-products/list-product-categories. A slug already used in this taxonomy is rejected with a WordPress core term_exists 400 error (note: not woocommerce_rest_*), so retry with a different slug or omit it. This affects only the store catalog taxonomy, not products, orders, or money, and is reversible by deleting the category. The result omits the display type and image you may have set; surface the returned id to review the category in wp-admin.', 'abilities-catalog-woo' ),
-			'category'            => 'wc-products',
+			'description'         => __( 'Creates a new WooCommerce product category (the hierarchical product_cat taxonomy) and returns the new category as a flat row: id, name, slug, parent, product count, and description. Only name is required; WordPress derives the slug from the name unless you set one. Set parent to nest the category under another (parent 0, the default, makes a top-level category); discover a parent id with og-wc-products/list-product-categories. A slug already used in this taxonomy is rejected with a WordPress core term_exists 400 error (note: not woocommerce_rest_*), so retry with a different slug or omit it. This affects only the store catalog taxonomy, not products, orders, or money, and is reversible by deleting the category. The result omits the display type and image you may have set; surface the returned id to review the category in wp-admin.', 'abilities-catalog-woo' ),
+			'category'            => 'og-wc-products',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'required'             => array( 'name' ),
@@ -74,7 +74,7 @@ final class CreateProductCategory implements ConditionalAbility {
 					'parent'      => array(
 						'type'        => 'integer',
 						'minimum'     => 0,
-						'description' => __( 'The parent category term id to nest this category under. Use 0 (the default) for a top-level category. Discover a parent id with wc-products/list-product-categories.', 'abilities-catalog-woo' ),
+						'description' => __( 'The parent category term id to nest this category under. Use 0 (the default) for a top-level category. Discover a parent id with og-wc-products/list-product-categories.', 'abilities-catalog-woo' ),
 					),
 					'description' => array(
 						'type'        => 'string',
@@ -132,7 +132,7 @@ final class CreateProductCategory implements ConditionalAbility {
 	/**
 	 * Permission check: WooCommerce's edit capability for product terms.
 	 *
-	 * Encodes the catalog capability for `wc-products/create-product-category`: the
+	 * Encodes the catalog capability for `og-wc-products/create-product-category`: the
 	 * `edit_product_terms` capability, which is what
 	 * `wc_rest_check_product_term_permissions( 'product_cat', 'create' )` resolves to
 	 * on the wrapped `POST wc/v3/products/categories` route (it maps `create` to the

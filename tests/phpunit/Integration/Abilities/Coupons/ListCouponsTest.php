@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration tests for the wc-coupons/list-coupons ability.
+ * Integration tests for the og-wc-coupons/list-coupons ability.
  *
  * @package AbilitiesCatalogWoo\Tests
  */
@@ -14,7 +14,7 @@ use GalatanOvidiu\AbilitiesCatalogWoo\Tests\TestCase;
 use WC_Coupon;
 
 /**
- * Exercises wc-coupons/list-coupons: the shaped summary rows and total, a code
+ * Exercises og-wc-coupons/list-coupons: the shaped summary rows and total, a code
  * filter narrowing the result, the wrong-capability denial, and the exact closed
  * row shape (no raw coupon body fields leak; individual_use is a bool).
  */
@@ -54,10 +54,10 @@ final class ListCouponsTest extends TestCase {
 	}
 
 	public function test_ability_is_registered(): void {
-		$ability = wp_get_ability( 'wc-coupons/list-coupons' );
+		$ability = wp_get_ability( 'og-wc-coupons/list-coupons' );
 
 		$this->assertNotNull( $ability );
-		$this->assertSame( 'wc-coupons/list-coupons', $ability->get_name() );
+		$this->assertSame( 'og-wc-coupons/list-coupons', $ability->get_name() );
 	}
 
 	/**
@@ -87,7 +87,7 @@ final class ListCouponsTest extends TestCase {
 		$this->seedCoupon( 'save10' );
 		$this->seedCoupon( 'save20' );
 
-		$result = wp_get_ability( 'wc-coupons/list-coupons' )->execute( array() );
+		$result = wp_get_ability( 'og-wc-coupons/list-coupons' )->execute( array() );
 
 		$this->assertIsArray( $result );
 		$this->assertArrayHasKey( 'items', $result );
@@ -109,7 +109,7 @@ final class ListCouponsTest extends TestCase {
 		$this->seedCoupon( 'keepme' );
 		$this->seedCoupon( 'dropme' );
 
-		$result = wp_get_ability( 'wc-coupons/list-coupons' )->execute( array( 'code' => 'keepme' ) );
+		$result = wp_get_ability( 'og-wc-coupons/list-coupons' )->execute( array( 'code' => 'keepme' ) );
 
 		$this->assertIsArray( $result );
 		$this->assertCount( 1, $result['items'] );
@@ -122,7 +122,7 @@ final class ListCouponsTest extends TestCase {
 
 		$this->seedCoupon( 'shape15' );
 
-		$result = wp_get_ability( 'wc-coupons/list-coupons' )->execute( array( 'code' => 'shape15' ) );
+		$result = wp_get_ability( 'og-wc-coupons/list-coupons' )->execute( array( 'code' => 'shape15' ) );
 
 		$this->assertIsArray( $result );
 		$this->assertNotEmpty( $result['items'] );
@@ -154,7 +154,7 @@ final class ListCouponsTest extends TestCase {
 
 		$this->actingAs( 'subscriber' );
 
-		$ability = wp_get_ability( 'wc-coupons/list-coupons' );
+		$ability = wp_get_ability( 'og-wc-coupons/list-coupons' );
 
 		$this->assertFalse( $ability->check_permissions( array() ) );
 	}
