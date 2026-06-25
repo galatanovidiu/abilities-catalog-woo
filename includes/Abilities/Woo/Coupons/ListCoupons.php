@@ -24,7 +24,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * and category lists that a consumer never needs to scan a coupon list, so the
  * shaper exposes only the small fixed field set and pins the schema closed.
  *
- * Only available when WooCommerce is active (it is a {@see ConditionalAbility}).
+ * Only available when WooCommerce is active AND the store has coupons enabled (the
+ * `woocommerce_enable_coupons` option is `yes`); it is a {@see ConditionalAbility}
+ * gated on {@see WooPlugin::hasCouponsEnabled()}. When coupons are disabled this
+ * ability does not register, so it degrades cleanly (absent) rather than denying.
  * The wrapped route is paginated, so `total` is read from the `X-WP-Total`
  * response header — it reflects the full matching set, not just the returned page.
  *
@@ -43,7 +46,7 @@ final class ListCoupons implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function isAvailable(): bool {
-		return WooPlugin::isActive();
+		return WooPlugin::isActive() && WooPlugin::hasCouponsEnabled();
 	}
 
 	/**

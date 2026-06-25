@@ -26,7 +26,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * `woocommerce_rest_invalid_shop_coupon_id`), so it is not masked as a permission
  * failure.
  *
- * Only available when WooCommerce is active (it is a {@see ConditionalAbility}).
+ * Only available when WooCommerce is active AND the store has coupons enabled (the
+ * `woocommerce_enable_coupons` option is `yes`); it is a {@see ConditionalAbility}
+ * gated on {@see WooPlugin::hasCouponsEnabled()}. When coupons are disabled this
+ * ability does not register, so it degrades cleanly (absent) rather than denying.
  *
  * @since 0.1.0
  */
@@ -68,7 +71,7 @@ final class UpdateCoupon implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function isAvailable(): bool {
-		return WooPlugin::isActive();
+		return WooPlugin::isActive() && WooPlugin::hasCouponsEnabled();
 	}
 
 	/**

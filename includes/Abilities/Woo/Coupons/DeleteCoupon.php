@@ -32,7 +32,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * response. No `edit_link` is returned: the coupon is gone or in the Trash, so a
  * delete must not return a dead-end edit link.
  *
- * Only available when WooCommerce is active (it is a {@see ConditionalAbility}).
+ * Only available when WooCommerce is active AND the store has coupons enabled (the
+ * `woocommerce_enable_coupons` option is `yes`); it is a {@see ConditionalAbility}
+ * gated on {@see WooPlugin::hasCouponsEnabled()}. When coupons are disabled this
+ * ability does not register, so it degrades cleanly (absent) rather than denying.
  *
  * @since 0.1.0
  */
@@ -49,7 +52,7 @@ final class DeleteCoupon implements ConditionalAbility {
 	 * {@inheritDoc}
 	 */
 	public function isAvailable(): bool {
-		return WooPlugin::isActive();
+		return WooPlugin::isActive() && WooPlugin::hasCouponsEnabled();
 	}
 
 	/**

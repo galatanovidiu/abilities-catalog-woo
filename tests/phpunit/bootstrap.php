@@ -53,6 +53,17 @@ tests_add_filter(
 			require_once $woocommerce;
 		}
 
+		// A real WooCommerce store enables coupons by default, but the minimal test
+		// bootstrap leaves `woocommerce_enable_coupons` unset. The coupon abilities are
+		// ConditionalAbilitys gated on WooPlugin::hasCouponsEnabled(), evaluated once at
+		// `wp_abilities_api_init` (fired during this boot). Set the option here — before
+		// the add-on registers — so the coupon abilities register, matching a normal
+		// store. A coupon test still calls enableCoupons() to also register the
+		// `shop_coupon` post type the wrapped routes need at execute time.
+		if (function_exists('update_option')) {
+			update_option('woocommerce_enable_coupons', 'yes');
+		}
+
 		// Use require (not require_once) so the plugin file always loads here.
 		require TESTS_REPO_ROOT_DIR . '/abilities-catalog-woo.php';
 

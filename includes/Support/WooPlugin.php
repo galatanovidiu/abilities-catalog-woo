@@ -36,6 +36,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  *   Added with batch 03.
  * - `hasAnalytics(): bool` — whether WooCommerce Analytics is present (detected via
  *   the `wc-analytics` namespace / the Analytics feature). Added with batches 11–13.
+ * - `hasCouponsEnabled(): bool` — whether the store has WooCommerce coupons enabled
+ *   (the `woocommerce_enable_coupons` option is `yes`, the same gate that registers
+ *   the `shop_coupon` post type). Added post-W1 (backlog B1).
  *
  * @since 0.1.0
  */
@@ -114,6 +117,32 @@ final class WooPlugin {
 		$features = '\\Automattic\\WooCommerce\\Admin\\Features\\Features';
 
 		return class_exists( $features ) && $features::is_enabled( 'analytics' );
+	}
+
+	/**
+	 * Whether the store has WooCommerce coupons enabled.
+	 *
+	 * WooCommerce registers the `shop_coupon` post type ONLY when the
+	 * `woocommerce_enable_coupons` option is `'yes'` (WC `class-wc-post-types.php`
+	 * `register_post_types()`). When coupons are disabled the post type is absent, so
+	 * the wrapped `/wc/v3/coupons` routes' `wc_rest_check_post_permissions()` check
+	 * fails for everyone and surfaces a raw `woocommerce_rest_cannot_view` 403. The
+	 * `/wc/v3/coupons` route itself is always registered (it is part of the core
+	 * `wc/v3` server, `Server.php`), so route presence is NOT a usable signal —
+	 * the option is the truthful guard, matching WC's own registration condition.
+	 *
+	 * When this returns false the coupon abilities do not register, so they degrade
+	 * cleanly (absent) rather than denying — consistent with how the brand abilities
+	 * gate on {@see hasBrandsSupport()}.
+	 *
+	 * @return bool True when WooCommerce is active and coupons are enabled.
+	 */
+	public static function hasCouponsEnabled(): bool {
+		if ( ! self::isActive() ) {
+			return false;
+		}
+
+		return 'yes' === get_option( 'woocommerce_enable_coupons' );
 	}
 
 	/**
