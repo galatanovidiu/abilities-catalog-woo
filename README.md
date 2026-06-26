@@ -26,8 +26,10 @@ registered-and-denying.
 ## Installation
 
 1. Install and activate WooCommerce.
-2. Install and activate this plugin. The WooCommerce abilities register
-   automatically — no build step.
+2. Install and activate this plugin. [Download the latest plugin
+   ZIP](https://github.com/galatanovidiu/abilities-catalog-woo/releases/latest/download/abilities-catalog-woo.zip)
+   and install it via **Plugins → Add New → Upload Plugin**. The WooCommerce
+   abilities register automatically — no build step.
 3. Optional: install Abilities Catalog and enable its MCP server. The
    WooCommerce abilities then appear through the catalog's search server, and as
    curated domain tools.
