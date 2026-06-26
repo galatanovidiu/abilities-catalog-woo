@@ -13,13 +13,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Plugs the WooCommerce abilities into the Abilities Catalog MCP server.
  *
- * The catalog exposes one curated MCP tool per domain, not one per ability, and is
- * extensible through public filters. This class is the add-on's whole MCP surface:
- * it registers four domain tools — `woocommerce-catalog`, `woocommerce-orders`,
- * `woocommerce-config`, and `woocommerce-reports` — grouping the `wc-*` abilities a
- * store operator reasons
- * about together. Each tool's description and the abilities it owns live in one
- * place.
+ * The catalog's search server already indexes these abilities from the live registry,
+ * so this class is not what makes them reachable — it adds the *curated domain server*
+ * surface on top. The curated server exposes one MCP tool per domain, not one per
+ * ability, and is extensible through public filters. This class registers four domain
+ * tools — `woocommerce-catalog`, `woocommerce-orders`, `woocommerce-config`, and
+ * `woocommerce-reports` — grouping the `wc-*` abilities a store operator reasons about
+ * together. Each tool's description and the abilities it owns live in one place.
  *
  * The abilities arrays start empty; the driver appends ability names to each tool
  * as the matching batch lands. A tool with an empty abilities array contributes no

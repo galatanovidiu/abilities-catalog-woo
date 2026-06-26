@@ -2,9 +2,9 @@
 /**
  * Plugin Name:       Abilities Catalog — WooCommerce
  * Plugin URI:        https://github.com/galatanovidiu/abilities-catalog-woo
- * Description:       Registers WooCommerce store operations as Abilities API abilities (products, orders, customers, coupons, settings, reports, and more). An add-on for Abilities Catalog: it works standalone on the core Abilities API, and when the Abilities Catalog MCP server is active it contributes curated WooCommerce domain tools.
+ * Description:       Registers WooCommerce store operations as Abilities API abilities (products, orders, customers, coupons, settings, reports, and more). An add-on for Abilities Catalog: it works standalone on the core Abilities API, and when the Abilities Catalog MCP server is active its abilities surface through the catalog's search server and as curated WooCommerce domain tools.
  * Version:           0.1.0
- * Requires at least: 7.0
+ * Requires at least: 6.9
  * Requires PHP:      8.1
  * Requires Plugins:  woocommerce
  * Author:            Ovidiu Galatan
@@ -62,7 +62,7 @@ add_action(
 		// stays absent while WooCommerce is inactive.
 		( new Registry() )->register();
 
-		// The Abilities API ships with WordPress 7.0; without it there is nothing to
+		// The Abilities API ships with WordPress 6.9; without it there is nothing to
 		// expose, so the optional MCP integration below has no hooks to attach to.
 		if ( ! function_exists( 'wp_register_ability' ) ) {
 			return;
