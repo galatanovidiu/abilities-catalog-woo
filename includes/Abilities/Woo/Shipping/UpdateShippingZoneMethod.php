@@ -83,7 +83,7 @@ final class UpdateShippingZoneMethod implements ConditionalAbility {
 					),
 					'settings'    => array(
 						'type'                 => 'object',
-						'description'          => __( 'A partial map of setting id to new value, e.g. {"cost": "10", "title": "Standard"} for flat_rate. Only the keys you send change; omitted keys keep their current value. The valid keys depend on the method type (method_id) and are intentionally open; discover a method\'s setting ids with og-wc-shipping/get-shipping-zone-method.', 'abilities-catalog-woo' ),
+						'description'          => __( 'A partial map of setting id to new value, e.g. {"cost": "10", "title": "Standard"} for flat_rate. Only the keys you send change; omitted keys keep their current value. The valid keys depend on the method type (method_id) and are intentionally open; discover a method\'s setting ids with og-wc-shipping/get-shipping-zone-method. For free_shipping, min_amount has no effect unless requires is also set to "min_amount" (or "either"/"both"); an empty requires means free shipping is always offered.', 'abilities-catalog-woo' ),
 						'additionalProperties' => true,
 					),
 				),
