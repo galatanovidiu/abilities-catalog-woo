@@ -1,0 +1,61 @@
+name: Release
+
+# Disable permissions for all available scopes by default.
+permissions: {}
+
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  # Builds the distributable plugin zip and attaches it to the GitHub Release.
+  #
+  # The zip is built with `wp-scripts plugin-zip`. Because package.json has a
+  # `files` field, plugin-zip selects what ships via npm-packlist from that field
+  # (a `.distignore` is NOT consulted while the field exists). Unlike the parent
+  # plugin, this add-on uses a no-build PSR-4 autoloader and ships no `vendor/`
+  # directory, so there is no `composer install` step. The result is a single
+  # top-level `abilities-catalog-woo/` directory so the file installs cleanly via
+  # Plugins -> Add New -> Upload Plugin.
+  build-zip:
+    name: Build and attach plugin zip
+    runs-on: ubuntu-latest
+    permissions:
+      # Required to upload the asset to the release.
+      contents: write
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Verify plugin version matches release tag
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          header="$(sed -n 's/^[[:space:]]*\*[[:space:]]*Version:[[:space:]]*//p' abilities-catalog-woo.php | head -n1 | tr -d '[:space:]')"
+          constant="$(sed -n "s/.*ABILITIES_CATALOG_WOO_VERSION'[, ]*'\([^']*\)'.*/\1/p" abilities-catalog-woo.php | head -n1)"
+          echo "tag=$tag header=$header constant=$constant"
+          if [ "$tag" != "$header" ] || [ "$tag" != "$constant" ]; then
+            echo "::error::Release tag ($tag) does not match plugin header ($header) and/or ABILITIES_CATALOG_WOO_VERSION ($constant). Bump the version before releasing."
+            exit 1
+          fi
+
+      - name: Build plugin zip
+        run: npm run plugin-zip
+
+      - name: Upload zip to release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload "$GITHUB_REF_NAME" abilities-catalog-woo.zip --clobber
