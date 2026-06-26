@@ -69,6 +69,13 @@ WooCommerce abilities lets the client change real store data — products, order
 customers. Back up the store before enabling high-risk abilities, and enable only what
 the agent needs.
 
+**Where this is going**
+
+These abilities are not meant to replace WooCommerce's own. They are a working bridge
+until WooCommerce ships official abilities on the Abilities API. As WooCommerce adds
+its own abilities, the duplicated ones in this add-on will be removed to make room for
+the WooCommerce-owned definitions.
+
 == Installation ==
 
 1. Install and activate WooCommerce.

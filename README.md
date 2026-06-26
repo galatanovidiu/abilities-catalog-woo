@@ -125,6 +125,13 @@ See
 [Building an Abilities Catalog add-on](https://github.com/galatanovidiu/abilities-catalog/blob/main/docs/building-add-ons.md)
 for the extension pattern.
 
+## Where this is going
+
+These abilities are not meant to replace WooCommerce's own. They are a working
+bridge until WooCommerce ships official abilities on the Abilities API. As
+WooCommerce adds its own abilities, the duplicated ones in this add-on will be
+removed to make room for the WooCommerce-owned definitions.
+
 ## Development
 
 Static checks run on the host (need `composer install`):
