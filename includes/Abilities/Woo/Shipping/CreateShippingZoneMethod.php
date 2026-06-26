@@ -76,7 +76,7 @@ final class CreateShippingZoneMethod implements ConditionalAbility {
 					),
 					'settings'  => array(
 						'type'                 => 'object',
-						'description'          => __( 'Optional configuration for the method, keyed by the method type\'s own setting ids (e.g. {"cost": "10", "title": "Standard"} for flat_rate). The valid keys depend on the method type; the route applies only the keys it recognizes for the chosen type and ignores unknown ones. Discover a configured method\'s setting ids with og-wc-shipping/get-shipping-zone-method.', 'abilities-catalog-woo' ),
+						'description'          => __( 'Optional configuration for the method, keyed by the method type\'s own setting ids (e.g. {"cost": "10", "title": "Standard"} for flat_rate). The valid keys depend on the method type; the route applies only the keys it recognizes for the chosen type and ignores unknown ones. For free_shipping, min_amount has no effect unless requires is also set to "min_amount" (or "either"/"both"); the default empty requires means free shipping is always offered. Discover a configured method\'s setting ids with og-wc-shipping/get-shipping-zone-method.', 'abilities-catalog-woo' ),
 						'additionalProperties' => true,
 					),
 					'enabled'   => array(
